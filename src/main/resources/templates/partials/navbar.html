@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${'Ent Blog | ' + title}"></title>
+
+    <link rel="stylesheet" href="../static/css/partials.css">
 </head>
 <body>
-
+<nav th:fragment="nav" class="navbar">
+    <div class="container">
+        <div class="row">
+        <a class="navbar-brand" href="/">Meme Royale</a>
+        <div class="" id="navbar">
+            <ul class="">
+                <div sec:authorize="isAuthenticated()">
+                    <li>
+                        <a href="/profile">Profile</a>
+                    </li>
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Tournaments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/feed">Feed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <div sec:authorize="isAuthenticated()">
+                    <li>
+                        <form th:action="@{/logout}" th:method="post">
+                            <button class="">Logout</button>
+                        </form>
+                    </li>
+                </div>
+            </ul>
+        </div>
+        </div>
+    </div>
+</nav>
 </body>
 </html>
