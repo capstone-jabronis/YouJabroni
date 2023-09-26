@@ -1,4 +1,4 @@
-drop database jabroni_db;
+
 create DATABASE if not exists jabroni_db;
 use jabroni_db;
 drop table if exists users;
