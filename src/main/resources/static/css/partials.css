@@ -1,0 +1,32 @@
+:root{
+--first: #EEECFE;
+    --second: #9F8BFF;
+    --third:#0D0149 ;
+    --fourth: #343CFF;
+}
+.nav-link {
+    text-decoration: none;
+    list-style-type: none;
+    color:var(--first);
+}
+.nav-item{
+    text-decoration: none;
+    list-style-type: none;
+}
+li{
+    margin-right: 10rem;
+}
+.navbar, .footer{
+    background-color: var(--third);
+    height: 8rem;
+}
+.team-name{
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--first);
+}
+.footer-link{
+    text-decoration: none;
+    list-style-type: none;
+    color: var(--second);
+}
