@@ -5,7 +5,8 @@
     <title>Login</title>
 </head>
 <body>
-<div class="wrapper">
+<div class="page-wrapper">
+    <nav th:replace="partials/partials :: nav"></nav>
     <div class="container">
         <form th:action="@{/login}" th:method="POST">
             <label for="username">Username</label>
@@ -16,6 +17,7 @@
         </form>
     </div>
 </div>
+<footer th:replace="partials/partials :: footer"></footer>
 
 </body>
 </html>
