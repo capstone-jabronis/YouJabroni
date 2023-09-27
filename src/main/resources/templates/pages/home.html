@@ -11,9 +11,9 @@
                 <div>
                     <h1>Heres a list of users which will eventually be the top users</h1>
                     <ul>
-                        <a th:href="@{'/' + ${user.id} + '/profile'}">
-                            <li th:text="${user.username}"></li>
-                        </a>
+                        <li>
+                            <a th:href="@{'/' + ${user.id} + '/profile'}" th:text="${user.username}"></a>
+                        </li>
                     </ul>
                 </div>
             </div>
