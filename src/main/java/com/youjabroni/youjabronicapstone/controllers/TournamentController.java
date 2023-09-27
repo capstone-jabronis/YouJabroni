@@ -16,6 +16,7 @@ public class TournamentController {
     private TournamentRepository tournamentDao;
 
     private UserRepository userDao;
+
     @Autowired
     public TournamentController(TournamentRepository tournamentDao, UserRepository userDao) {
         this.tournamentDao = tournamentDao;
@@ -31,10 +32,10 @@ public class TournamentController {
         }
         return "pages/home";
     }
-  
+
     public TournamentController(TournamentRepository tournamentDao) {
-            this.tournamentDao = tournamentDao;
-        }
+        this.tournamentDao = tournamentDao;
+    }
 
     @GetMapping("/join")
     public String showWaitingRoom() {
@@ -54,11 +55,12 @@ public class TournamentController {
     @GetMapping("/complete")
     public String showCompletePage() {
         return "tournament/complete";
-        }
-        @GetMapping("waitingroom")
-        public String waitingRoom (Model model){
-            model.addAttribute("users", userDao.findAll());
-            return "tournament/waitingRoom";
-        }
+    }
+
+    @GetMapping("waitingroom")
+    public String waitingRoom(Model model) {
+        model.addAttribute("users", userDao.findAll());
+        return "tournament/waitingRoom";
+    }
 
 }
