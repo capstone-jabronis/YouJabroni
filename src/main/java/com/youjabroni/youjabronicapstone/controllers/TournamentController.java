@@ -4,6 +4,7 @@ import com.youjabroni.youjabronicapstone.models.MemeSubmission;
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
+import com.youjabroni.youjabronicapstone.repositories.RoundRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +18,19 @@ public class TournamentController {
     private TournamentRepository tournamentDao;
     private MemeSubmissionRepository memeSubmissionDao;
     private UserRepository userDao;
+    private RoundRepository roundDao;
 
     @Autowired
-    public TournamentController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeSubmissionDao) {
+    public TournamentController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeSubmissionDao, RoundRepository roundDao) {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
         this.memeSubmissionDao = memeSubmissionDao;
+        this.roundDao = roundDao;
     }
 
     @GetMapping("/create")
-    public String showCreateMemePage() {
+    public String showCreateMemePage(Model model) {
+
         return "tournament/create-meme";
     }
 
