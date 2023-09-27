@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
-    <title th:text="${'You Jabroni |' + title}"></title>
+    <title th:text="${'Meme Space | ' + title}"></title>
     <link rel="stylesheet" href="/css/partials.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/resets.css">
@@ -12,45 +12,47 @@
 <body>
 <!--START OF NAVBAR PARTIAL-->
 <nav th:fragment="nav" class="navbar">
-    <div class="container">
-        <div class="row" id="navbar">
-            <ul class="d-flex justify-space-between">
-                <!--                If user is logged in, Profile option will show up in navbar-->
-                <li class="nav-link" sec:authorize="isAuthenticated()">
-                    <!--                        View of user profile pic-->
-                    <!--                        <img src="...">-->
-                    <a class="nav-link" href="/profile">Profile</a>
-                </li>
-                <!--                 Logo for website will redirect to homepage with tournament rooms and leaderboard-->
-                <li class="nav-item">
-                    <a th:href="@{/}">
-                        <img th:src="@{/img/memespace.gif}" height="110" width="110"/>
-                    </a>
-                </li>
+    <div class="container" id="navbar">
+        <ul class="d-flex justify-space-between">
+            <!--                If user is logged in, Profile option will show up in navbar-->
+            <li class="nav-link" sec:authorize="isAuthenticated()">
+                <!--                        View of user profile pic-->
+                <!--                        <img src="...">-->
+                <a class="nav-link" th:href="@{|/${#authentication.principal.id}/profile|}">Profile</a>
+            </li>
 
-                <!--              User and visitor will be able to view these options  -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/feed">Feed</a>
-                </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/home}">Home</a>
+            </li>
+            <!--                 Logo for website will redirect to homepage with tournament rooms and leaderboard-->
+            <li class="nav-item">
+                <a th:href="@{/}">
+                    <img th:src="@{/img/memespace.gif}" height="110" width="110"/>
+                </a>
+            </li>
 
-                <!--                Visitor options -->
-                <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" th:href="@{/register}">Register</a>
-                </li>
-                <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <!--                 End of visitor options -->
+            <!--              User and visitor will be able to view these options  -->
+            <li class="nav-item">
+                <a class="nav-link" href="/feed">Feed</a>
+            </li>
 
-                <!--                If user is logged in, logout will show-->
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <form th:action="@{/logout}" th:method="post">
-                        <button class="">Logout</button>
-                    </form>
-                </li>
-                <!--                End of logout div-->
-            </ul>
-        </div>
+            <!--                Visitor options -->
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="nav-link" th:href="@{/register}">Register</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <!--                 End of visitor options -->
+
+            <!--                If user is logged in, logout will show-->
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="">Logout</button>
+                </form>
+            </li>
+            <!--                End of logout div-->
+        </ul>
         <!--        END OF NAVBAR/ROW-->
     </div>
     <!--    END OF NAVBAR/CONTAINER-->
@@ -64,7 +66,8 @@
             <a class="team-name" target="_blank" href="https://github.com/capstone-jabronis/YouJabroni">Capstone Team:
                 Jabroni</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/josedelaluziii/">Jose De La Luz</a>
-            <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/luis-esquivel-9652a0280/">Luis Esquivel</a>
+            <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/luis-esquivel-9652a0280/">Luis
+                Esquivel</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/nic-rowley/">Nicholas Rowley</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/avaesmith/">Ava Smith</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/audrey-tan1127/">Audrey Tan</a>

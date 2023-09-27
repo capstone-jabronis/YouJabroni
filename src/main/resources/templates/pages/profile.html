@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials/partials :: head('Profile')"></head>
-<body class="page-wrapper">
+<body>
 <nav th:replace="partials/partials :: nav"></nav>
-<h1>This is a user's profile page</h1>
-<div>
-    <div>
+<div class="page-wrapper">
+  <h1>This is a user's profile page</h1>
+  <div>
+     <div>
         <div>
 <!--        here would go the user profile pic    -->
             <img src="" alt="">
@@ -19,12 +20,12 @@
                 <button>EDIT PROFILE</button>
             </form>
         </div>
+      <div sec:authorize="isAuthenticated()" th:object="${user}">
+        <button th:if="${#authentication.principal.id == user.id}">Edit profile</button>
+      </div>
     </div>
+  </div>
 </div>
-
-
-
 <footer th:replace="partials/partials :: footer"></footer>
-
 </body>
 </html>

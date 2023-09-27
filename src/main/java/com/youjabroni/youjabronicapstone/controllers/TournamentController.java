@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/tournaments")
+@RequestMapping("/tournament")
 public class TournamentController {
     private TournamentRepository tournamentDao;
     private MemeSubmissionRepository memeSubmissionDao;
@@ -23,25 +23,6 @@ public class TournamentController {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
         this.memeSubmissionDao = memeSubmissionDao;
-    }
-
-    @GetMapping("/home")
-    public String showTournaments(Model model) {
-        model.addAttribute("tournaments", tournamentDao.findAll());
-        model.addAttribute("users", userDao.findAll());
-        for (User user : userDao.findAll()) {
-            System.out.println(user.getUsername());
-        }
-        return "pages/home";
-    }
-
-    public TournamentController(TournamentRepository tournamentDao) {
-        this.tournamentDao = tournamentDao;
-    }
-
-    @GetMapping("/join")
-    public String showWaitingRoom() {
-        return "tournament/join";
     }
 
     @GetMapping("/create")
@@ -59,10 +40,10 @@ public class TournamentController {
         return "tournament/complete";
     }
 
-    @GetMapping("waitingroom")
+    @GetMapping("/waiting-room")
     public String waitingRoom(Model model) {
         model.addAttribute("users", userDao.findAll());
-        return "tournament/waitingRoom";
+        return "tournament/waiting-room";
     }
     @GetMapping("/profile/{id}")
     public String profileView (Model model,@PathVariable long id){
