@@ -1,4 +1,8 @@
 package com.youjabroni.youjabronicapstone.repositories;
 
-public interface UserRepository {
+import com.youjabroni.youjabronicapstone.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUsername(String username);
 }
