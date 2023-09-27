@@ -9,7 +9,7 @@
      <div>
         <div>
 <!--        here would go the user profile pic    -->
-            <img src="" alt="">
+            <img th:src="${user.ProfileURL}" alt="profile pic">
             <h4 th:text="${user.username}"></h4>
 <!--            uncomment when found solution to this-->
 <!--            <span>number of wins:<span th:text="counter for tournament.winner where id mathes user.id"></span></span>-->
