@@ -16,13 +16,11 @@
         <div class="row" id="navbar">
             <ul class="d-flex justify-space-between">
                 <!--                If user is logged in, Profile option will show up in navbar-->
-                <div sec:authorize="isAuthenticated()">
-                    <li class="nav-link">
-                        <!--                        View of user profile pic-->
-                        <!--                        <img src="...">-->
-                        <a class="nav-link" href="/profile">Profile</a>
-                    </li>
-                </div>
+                <li class="nav-link" sec:authorize="isAuthenticated()">
+                    <!--                        View of user profile pic-->
+                    <!--                        <img src="...">-->
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
                 <!--                 Logo for website will redirect to homepage with tournament rooms and leaderboard-->
                 <li class="nav-item">
                     <a class="nav-link" href="/">Meme Royale</a>
@@ -34,26 +32,20 @@
                 </li>
 
                 <!--                Visitor options -->
-                <div sec:authorize="isAnonymous()">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Register</a>
-                    </li>
-                </div>
-                <div sec:authorize="isAnonymous()">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                </div>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
                 <!--                 End of visitor options -->
 
                 <!--                If user is logged in, logout will show-->
-                <div sec:authorize="isAuthenticated()">
-                    <li class="nav-item">
-                        <form th:action="@{/logout}" th:method="post">
-                            <button class="">Logout</button>
-                        </form>
-                    </li>
-                </div>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" th:method="post">
+                        <button class="">Logout</button>
+                    </form>
+                </li>
                 <!--                End of logout div-->
             </ul>
         </div>
@@ -67,7 +59,8 @@
 <footer class="footer" th:fragment="footer">
     <div class="container">
         <div class="row d-flex align-items-center justify-content-center justify-space-evenly">
-            <a class="team-name" target="_blank" href="https://github.com/capstone-jabronis/YouJabroni">Capstone Team: Jabroni</a>
+            <a class="team-name" target="_blank" href="https://github.com/capstone-jabronis/YouJabroni">Capstone Team:
+                Jabroni</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/josedelaluziii/">Jose De La Luz</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/nic-rowley/">Nicholas Rowley</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/avaesmith/">Ava Smith</a>
