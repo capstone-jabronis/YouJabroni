@@ -14,19 +14,18 @@ public class UserController {
     private UserRepository userDao;
     private PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository userDao
-            ,PasswordEncoder passwordEncoder
+    public UserController(UserRepository userDao,PasswordEncoder passwordEncoder
     ) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
     }
-    @GetMapping("/sign-up")
+    @GetMapping("/register")
     public String showSignupForm(Model model){
         model.addAttribute("user", new User());
-        return "memespace/sign-up";
+        return "users/register";
     }
 
-    @PostMapping("/sign-up")
+    @PostMapping("/register")
     public String saveUser(@ModelAttribute User user){
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);

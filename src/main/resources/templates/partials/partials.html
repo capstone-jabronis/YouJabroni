@@ -22,7 +22,9 @@
                 </li>
                 <!--                 Logo for website will redirect to homepage with tournament rooms and leaderboard-->
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Meme Royale</a>
+                    <a th:href="@{/}">
+                        <img th:src="@{/img/memespace.gif}" height="110" width="110"/>
+                    </a>
                 </li>
 
                 <!--              User and visitor will be able to view these options  -->
@@ -31,10 +33,10 @@
                 </li>
 
                 <!--                Visitor options -->
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/register">Register</a>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/register}">Register</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
+                <li class="nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link" href="/login">Login</a>
                 </li>
                 <!--                 End of visitor options -->
