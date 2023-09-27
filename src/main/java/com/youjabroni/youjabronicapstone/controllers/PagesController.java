@@ -18,7 +18,7 @@ public class PagesController {
 
     @GetMapping("/home")
     public String showTournaments(Model model){
-        model.addAttribute("tournaments", tournamentDao.findAll());
+//        model.addAttribute("tournaments", tournamentDao.findAll());
         return "pages/home";
     }
 
