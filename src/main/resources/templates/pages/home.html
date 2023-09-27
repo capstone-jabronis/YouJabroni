@@ -7,6 +7,32 @@
 <body class="page-wrapper">
 <nav th:replace="partials/partials :: nav"></nav>
 <h1>This is the home page!</h1>
-<footer th:replace="partials/partials :: footer"></footer>
+<aside>
+    <div>
+        <div>
+            <div>
+                <h1>Heres a list of users which will eventually be the top users</h1>
+                <ul>
+                    <li th:each="user : ${users}" th:value="${user.username}">
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</aside>
+<div>
+    <div>
+        <div>
+            <h1>
+                Here is the list of tournaments
+            </h1>
+            <ul>
+                <li th:each="tournament : ${tournaments}" th:value="'tournament #'${tournament.getId()}"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <footer th:replace="partials/partials :: footer"></footer>
 </body>
 </html>

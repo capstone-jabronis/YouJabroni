@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @Controller
+@RequestMapping("/")
 public class TournamentController {
     private TournamentRepository tournamnetDao;
+    private UserRepository userDao;
 
     @GetMapping
     public String showTournaments(Model model){
         model.addAttribute("tournaments", tournamnetDao.findAll());
+        model.addAttribute("users", userDao.findAll());
         return "pages/home";
     }
 }
