@@ -67,7 +67,7 @@ public class SecurityConfiguration {
                         ).permitAll()
                 )
                 /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
+                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/feed"))
                 /* Logout configuration */
                 .logout((logout) -> logout.logoutSuccessUrl("/"));
         return http.build();

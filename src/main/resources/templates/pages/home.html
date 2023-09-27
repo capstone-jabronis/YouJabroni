@@ -10,11 +10,10 @@
             <div>
                 <div>
                     <h1>Heres a list of users which will eventually be the top users</h1>
-                    <ul th:each="user : ${users}">
-                        <a th:href="@{|/tournament/profile/${user.id}}">
-                            <li th:text="${user.username}">
+                    <ul>
+                        <a th:href="@{'/' + ${user.id} + '/profile'}">
+                            <li th:text="${user.username}"></li>
                         </a>
-                        </li>
                     </ul>
                 </div>
             </div>
