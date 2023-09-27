@@ -4,6 +4,7 @@ import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ public class TournamentController {
     private TournamentRepository tournamentDao;
 
     private UserRepository userDao;
-
+    @Autowired
     public TournamentController(TournamentRepository tournamentDao, UserRepository userDao) {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
@@ -30,6 +31,10 @@ public class TournamentController {
         }
         return "pages/home";
     }
+  
+    public TournamentController(TournamentRepository tournamentDao) {
+            this.tournamentDao = tournamentDao;
+        }
 
     @GetMapping("/join")
     public String showWaitingRoom() {
@@ -49,12 +54,11 @@ public class TournamentController {
     @GetMapping("/complete")
     public String showCompletePage() {
         return "tournament/complete";
-
-    }
-    @GetMapping("waitingroom")
-    public String waitingRoom (Model model){
-        model.addAttribute("users", userDao.findAll());
-        return "tournament/waitingRoom";
-    }
+        }
+        @GetMapping("waitingroom")
+        public String waitingRoom (Model model){
+            model.addAttribute("users", userDao.findAll());
+            return "tournament/waitingRoom";
+        }
 
 }
