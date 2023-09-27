@@ -89,4 +89,15 @@ public class User {
     public void setMemeSubmissions(List<MemeSubmission> memeSubmissions) {
         this.memeSubmissions = memeSubmissions;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", memeSubmissions=" + memeSubmissions +
+                '}';
+    }
 }
