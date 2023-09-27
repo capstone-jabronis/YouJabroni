@@ -14,8 +14,7 @@ public class UserController {
     private UserRepository userDao;
     private PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository userDao
-            ,PasswordEncoder passwordEncoder
+    public UserController(UserRepository userDao,PasswordEncoder passwordEncoder
     ) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
@@ -26,7 +25,7 @@ public class UserController {
         return "users/register";
     }
 
-    @PostMapping("/sign-up")
+    @PostMapping("/register")
     public String saveUser(@ModelAttribute User user){
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);

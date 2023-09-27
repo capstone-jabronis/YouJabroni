@@ -4,6 +4,20 @@
 <body class="page-wrapper">
 <nav th:replace="partials/partials :: nav"></nav>
 <h1>This is the sign-up page</h1>
+<form th:action="@{/register}" method="POST" th:object="${user}">
+    <label for="username">Username</label>
+    <input id="username" th:field="*{username}" />
+
+    <label for="email">Email</label>
+    <input id="email" th:field="*{email}" />
+
+    <label for="password">Password</label>
+    <input id="password" type="password" th:field="*{password}" />
+    <label for="confirmPassword">Confirm Password</label>
+    <input id="confirmPassword" type="password" th:field="*{password}" />
+
+    <input value="Sign me up!" type="submit" />
+</form>
 <footer th:replace="partials/partials :: footer"></footer>
 
 </body>
