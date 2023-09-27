@@ -45,23 +45,4 @@ public class TournamentController {
         model.addAttribute("users", userDao.findAll());
         return "tournament/waiting-room";
     }
-    @GetMapping("/profile/{id}")
-    public String profileView (Model model,@PathVariable long id){
-        model.addAttribute("user", userDao.findById(id).get());
-        return "pages/profile";
-    }
-
-    @GetMapping("/profile/{id}/edit")
-    public String profileEdit(Model model,@PathVariable long id){
-        model.addAttribute("user", userDao.findById(id).get());
-        return "pages/editProfile";
-    }
-    @PostMapping("/profile/{id}/edit")
-    public String insertEdit(@ModelAttribute User user, @PathVariable long id){
-        User userToEdit = userDao.findById(id).get();
-        userToEdit.setUsername(user.getUsername());
-        userToEdit.setEmail(user.getEmail());
-        userDao.save(userToEdit);
-        return "redirect:/profile/"+id;
-    }
 }
