@@ -22,35 +22,31 @@ public class TournamentController {
     }
 
     @GetMapping("/home")
-    public String showTournaments(Model model){
+    public String showTournaments(Model model) {
         model.addAttribute("tournaments", tournamentDao.findAll());
         model.addAttribute("users", userDao.findAll());
-        for (User user : userDao.findAll()){
+        for (User user : userDao.findAll()) {
             System.out.println(user.getUsername());
         }
         return "pages/home";
-
-
-    public TournamentController(TournamentRepository tournamentDao) {
-        this.tournamentDao = tournamentDao;
     }
 
-    @GetMapping("/tournament/join")
+    @GetMapping("/join")
     public String showWaitingRoom() {
         return "tournament/join";
     }
 
-    @GetMapping("/tournament/create")
+    @GetMapping("/create")
     public String showCreateMemePage() {
         return "tournament/create-meme";
     }
 
-    @GetMapping("/tournament/vote")
+    @GetMapping("/vote")
     public String showVotePage() {
         return "tournament/vote";
     }
 
-    @GetMapping("/tournament/complete")
+    @GetMapping("/complete")
     public String showCompletePage() {
         return "tournament/complete";
 

@@ -44,7 +44,6 @@ public class SecurityConfiguration {
 
                                 "/",
                                 "/login",
-                                "/tournaments/home",
                                 "/register"
                         ).permitAll()
                         // allow loading of static resources
@@ -55,7 +54,7 @@ public class SecurityConfiguration {
                         ).permitAll()
                 )
                 /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/tournaments/home"))
+                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
                 /* Logout configuration */
                 .logout((logout) -> logout.logoutSuccessUrl("/"));
         return http.build();
