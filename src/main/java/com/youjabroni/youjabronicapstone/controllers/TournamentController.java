@@ -12,11 +12,29 @@ import java.util.List;
 
 @Controller
 public class TournamentController {
-    private TournamentRepository tournamnetDao;
+    private TournamentRepository tournamentDao;
 
-    @GetMapping
-    public String showTournaments(Model model){
-        model.addAttribute("tournaments", tournamnetDao.findAll());
-        return "pages/home";
+    public TournamentController(TournamentRepository tournamentDao) {
+        this.tournamentDao = tournamentDao;
+    }
+
+    @GetMapping("/tournament/join")
+    public String showWaitingRoom() {
+        return "tournament/join";
+    }
+
+    @GetMapping("/tournament/create")
+    public String showCreateMemePage() {
+        return "tournament/create-meme";
+    }
+
+    @GetMapping("/tournament/vote")
+    public String showVotePage() {
+        return "tournament/vote";
+    }
+
+    @GetMapping("/tournament/complete")
+    public String showCompletePage() {
+        return "tournament/complete";
     }
 }
