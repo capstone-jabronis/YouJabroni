@@ -4,20 +4,27 @@
 <body class="page-wrapper">
 <nav th:replace="partials/partials :: nav"></nav>
 <h1>This is the sign-up page</h1>
-<form th:action="@{/register}" method="POST" th:object="${user}">
-    <label for="username">Username</label>
-    <input id="username" th:field="*{username}"/>
-
-    <label for="email">Email</label>
-    <input id="email" th:field="*{email}" />
-
-    <label for="password">Password</label>
-    <input id="password" type="password" th:field="*{password}" />
-    <label for="confirmPassword">Confirm Password</label>
-    <input id="confirmPassword" type="password" th:field="*{password}" />
-
-    <input value="Sign me up!" type="submit" />
-</form>
+<div class="register container">
+    <form class="registration-form d-flex" th:action="@{/register}" method="POST" th:object="${user}">
+        <div class="username">
+            <label class="field-name" for="username">Username</label>
+            <input required id="username" th:field="*{username}"/>
+        </div>
+        <div class="email">
+            <label class="field-name" for="email">Email</label>
+            <input required id="email" th:field="*{email}"/>
+        </div>
+        <div class="password">
+            <label class="field-name" for="password">Password</label>
+            <input required id="password" type="password" th:field="*{password}"/>
+        </div>
+        <div class="confirm-password">
+            <label class="field-name" for="confirmPassword">Confirm Password</label>
+            <input required id="confirmPassword" type="password"/>
+        </div>
+        <input class="register-button" value="Sign me up!" type="submit"/>
+    </form>
+</div>
 <footer th:replace="partials/partials :: footer"></footer>
 
 </body>

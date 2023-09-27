@@ -57,10 +57,10 @@ public class TournamentController {
     @GetMapping("/complete")
     public String showCompletePage() {
         return "tournament/complete";
-
     }
-    @GetMapping("/waitingRoom")
-    public String waitingRoom (Model model){
+
+    @GetMapping("waitingroom")
+    public String waitingRoom(Model model) {
         model.addAttribute("users", userDao.findAll());
         return "tournament/waitingRoom";
     }
