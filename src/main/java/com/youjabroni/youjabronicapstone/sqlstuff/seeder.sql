@@ -10,7 +10,7 @@ VALUES ('user1', 'user1@example.com', 'password1'),
        ('user7', 'user7@example.com', 'password7'),
        ('user8', 'user8@example.com', 'password8');
 
-INSERT INTO tournament (winner, start_time)
+INSERT INTO tournaments (winner_id, start_time)
 VALUES ('1', '2023-09-26 14:30:00');
 
 INSERT INTO rounds (round_num, tournament_id, meme_pic)
@@ -38,7 +38,7 @@ VALUES ('user 1 round 1 caption','1','1'),
        ('user 1 round 3 caption','1','7'),
        ('user 7 round 3 caption','7','7');
 
-insert into votes (user_id, meme_submission_id)
+INSERT INTO votes (user_id, meme_submission_id)
 VALUES ('3','1'),
        ('4','1'),
        ('5','1'),
@@ -123,4 +123,5 @@ VALUES ('3','1'),
        ('5','14'),
        ('6','14'),
        ('8','14');
+
 
