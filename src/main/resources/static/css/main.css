@@ -13,3 +13,6 @@ flex-direction: column;
 .field-name{
     color: var(--first);
 }
+body {
+    font-family: 'Nunito Sans', sans-serif;
+}
