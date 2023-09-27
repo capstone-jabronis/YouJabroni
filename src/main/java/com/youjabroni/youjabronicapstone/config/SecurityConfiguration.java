@@ -51,7 +51,9 @@ public class SecurityConfiguration {
 
                                 "/",
                                 "/login",
-                                "/register"
+                                "/tournaments/home",
+                                "/register",
+                                "/tournaments/profile/{id}"
                         ).permitAll()
                         // allow loading of static resources
                         .requestMatchers(

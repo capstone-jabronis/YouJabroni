@@ -1,26 +1,28 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
+import com.youjabroni.youjabronicapstone.models.MemeSubmission;
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
+import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/tournaments")
 public class TournamentController {
     private TournamentRepository tournamentDao;
-
+    private MemeSubmissionRepository memeSubmissionDao;
     private UserRepository userDao;
 
     @Autowired
-    public TournamentController(TournamentRepository tournamentDao, UserRepository userDao) {
+    public TournamentController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeSubmissionDao) {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
+        this.memeSubmissionDao = memeSubmissionDao;
     }
 
     @GetMapping("/home")
@@ -62,5 +64,23 @@ public class TournamentController {
         model.addAttribute("users", userDao.findAll());
         return "tournament/waitingRoom";
     }
+    @GetMapping("/profile/{id}")
+    public String profileView (Model model,@PathVariable long id){
+        model.addAttribute("user", userDao.findById(id).get());
+        return "pages/profile";
+    }
 
+    @GetMapping("/profile/{id}/edit")
+    public String profileEdit(Model model,@PathVariable long id){
+        model.addAttribute("user", userDao.findById(id).get());
+        return "pages/editProfile";
+    }
+    @PostMapping("/profile/{id}/edit")
+    public String insertEdit(@ModelAttribute User user, @PathVariable long id){
+        User userToEdit = userDao.findById(id).get();
+        userToEdit.setUsername(user.getUsername());
+        userToEdit.setEmail(user.getEmail());
+        userDao.save(userToEdit);
+        return "redirect:/profile/"+id;
+    }
 }
