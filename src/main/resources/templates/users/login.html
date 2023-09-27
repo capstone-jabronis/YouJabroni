@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/partials :: head('Login')"></head>
 <body>
+<nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
-    <nav th:replace="partials/partials :: nav"></nav>
     <div th:if="${param.error}">
         Invalid Username and Password.
     </div>
