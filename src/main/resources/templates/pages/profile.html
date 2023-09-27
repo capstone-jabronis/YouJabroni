@@ -9,12 +9,15 @@
         <div>
 <!--        here would go the user profile pic    -->
             <img src="" alt="">
-            <h4 th:text="user.username"></h4>
+            <h4 th:text="${user.username}"></h4>
 <!--            uncomment when found solution to this-->
 <!--            <span>number of wins:<span th:text="counter for tournament.winner where id mathes user.id"></span></span>-->
             <div th:each="meme : ${user.memeSubmissions}">
                 <h4 th:text="${meme.caption}"></h4>
             </div>
+            <form th:method="POST" th:action="@{|/tournament/profile/${user.id}/edit|}" sec:authorize="${isAuthenticated()}">
+                <button>EDIT PROFILE</button>
+            </form>
         </div>
     </div>
 </div>
