@@ -36,12 +36,16 @@ public class SecurityConfiguration {
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
                         .requestMatchers(
-                                "/tournament/join", "/profile", "/tournament/"
+                                 "/tournament/join", "/profile", "/tournament/"
                         ).authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
                         .requestMatchers(
-                                "/", "/login", "/register"
+
+                                "/",
+                                "/login",
+                                "/tournaments/home",
+                                "/register"
                         ).permitAll()
                         // allow loading of static resources
                         .requestMatchers(
@@ -51,7 +55,7 @@ public class SecurityConfiguration {
                         ).permitAll()
                 )
                 /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
+                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/tournaments/home"))
                 /* Logout configuration */
                 .logout((logout) -> logout.logoutSuccessUrl("/"));
         return http.build();
