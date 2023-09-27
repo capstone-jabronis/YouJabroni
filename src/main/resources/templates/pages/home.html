@@ -9,9 +9,8 @@
         <div>
             <div>
                 <h1>Heres a list of users which will eventually be the top users</h1>
-                <ul>
-                    <li th:each="user : ${users}" th:value="${user.username}">
-
+                <ul th:each="user : ${users}">
+                    <a th:href="@{|/tournament/profile/${user.id}}"><li th:text="${user.username}"></a>
                     </li>
                 </ul>
             </div>
@@ -24,8 +23,8 @@
             <h1>
                 Here is the list of tournaments
             </h1>
-            <ul>
-                <li th:each="tournament : ${tournaments}" th:value="'tournament #'${tournament.getId()}"></li>
+            <ul th:each="tournament : ${tournaments}">
+                <a th:href="@{|/tournament/waitingRoom.html|} "><li>tournament #<span th:text="${tournament.id}"></span></li></a>
             </ul>
         </div>
     </div>

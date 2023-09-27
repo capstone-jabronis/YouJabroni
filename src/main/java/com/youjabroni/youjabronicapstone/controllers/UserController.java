@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/sign-up")
     public String showSignupForm(Model model){
         model.addAttribute("user", new User());
-        return "memespace/sign-up";
+        return "users/register";
     }
 
     @PostMapping("/sign-up")

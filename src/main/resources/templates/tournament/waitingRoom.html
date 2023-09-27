@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partials :: head('Home Page')"></head>
+<nav th:replace="partials/partials :: nav"></nav>
+<body class="page-wrapper">
+<div>
+    <div>
+        <div>
+            <h1>here are players in lobby</h1>
+            <ul th:each="user : ${users}">
+                <li th:text="user.username"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div>
+    <div>
+        <div>
+            <h1>HERES A SNAKE GAME YOU JABRONI</h1>
+        </div>
+    </div>
+</div>
+<footer th:replace="partials/partials :: footer"></footer>
+</body>
+</html>
