@@ -9,7 +9,7 @@ create table users (
     password varchar(255) not null unique
 );
 
-drop table if exists tournament;
+drop table if exists tournaments;
 create table tournament (
                        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                        winner int unsigned,
