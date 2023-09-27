@@ -24,9 +24,19 @@ li{
     text-decoration: none;
     font-weight: bold;
     color: var(--first);
+    margin-top: 3rem;
 }
 .footer-link{
     text-decoration: none;
     list-style-type: none;
+    color: var(--second);
+}
+.footer-link {
+    margin-top: 3rem;
+}
+.footer-link:hover{
+    color: var(--first);
+}
+.nav-link:hover{
     color: var(--second);
 }
