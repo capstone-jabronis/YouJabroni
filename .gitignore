@@ -34,5 +34,5 @@ build/
 
 DS_Store
 keys.js
-application.properties
 
+src/main/resources/application.properties
