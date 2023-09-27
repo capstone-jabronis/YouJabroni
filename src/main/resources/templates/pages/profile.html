@@ -4,6 +4,23 @@
 <body class="page-wrapper">
 <nav th:replace="partials/partials :: nav"></nav>
 <h1>This is a user's profile page</h1>
+<div>
+    <div>
+        <div>
+<!--        here would go the user profile pic    -->
+            <img src="" alt="">
+            <h4 th:text="user.username"></h4>
+<!--            uncomment when found solution to this-->
+<!--            <span>number of wins:<span th:text="counter for tournament.winner where id mathes user.id"></span></span>-->
+            <div th:each="meme : ${user.memeSubmissions}">
+                <h4 th:text="${meme.caption}"></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <footer th:replace="partials/partials :: footer"></footer>
 
 </body>
