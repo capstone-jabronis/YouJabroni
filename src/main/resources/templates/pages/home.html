@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials/partials :: head('Home Page')"></head>
-<body class="page-wrapper">
+<body>
 <nav th:replace="partials/partials :: nav"></nav>
-<h1>This is the home page!</h1>
-<aside>
+<div class="page-wrapper">
+    <h1>This is the home page!</h1>
+    <aside>
+        <div>
+            <div>
+                <div>
+                    <h1>Heres a list of users which will eventually be the top users</h1>
+                    <ul>
+                        <li>
+                            <a th:href="@{'/' + ${user.id} + '/profile'}" th:text="${user.username}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </aside>
     <div>
         <div>
             <div>
-                <h1>Heres a list of users which will eventually be the top users</h1>
-                <ul th:each="user : ${users}">
-                    <a th:href="@{|/tournament/profile/${user.id}}"><li th:text="${user.username}"></a>
-                    </li>
+                <h1>
+                    Here is the list of tournaments
+                </h1>
+                <ul th:each="tournament : ${tournaments}">
+                    <a th:href="@{|/templates/tournament/waiting-room.html|} ">
+                        <li>tournament #<span th:text="${tournament.id}"></span></li>
+                    </a>
                 </ul>
             </div>
         </div>
     </div>
-</aside>
-<div>
-    <div>
-        <div>
-            <h1>
-                Here is the list of tournaments
-            </h1>
-            <ul th:each="tournament : ${tournaments}">
-                <a th:href="@{|/tournament/waitingRoom.html|} "><li>tournament #<span th:text="${tournament.id}"></span></li></a>
-            </ul>
-        </div>
-    </div>
 </div>
-    <footer th:replace="partials/partials :: footer"></footer>
+<footer th:replace="partials/partials :: footer"></footer>
 </body>
 </html>

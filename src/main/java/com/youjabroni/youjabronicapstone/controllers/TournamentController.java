@@ -1,45 +1,28 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
+import com.youjabroni.youjabronicapstone.models.MemeSubmission;
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
+import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/tournaments")
+@RequestMapping("/tournament")
 public class TournamentController {
     private TournamentRepository tournamentDao;
-
+    private MemeSubmissionRepository memeSubmissionDao;
     private UserRepository userDao;
 
     @Autowired
-    public TournamentController(TournamentRepository tournamentDao, UserRepository userDao) {
+    public TournamentController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeSubmissionDao) {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
-    }
-
-    @GetMapping("/home")
-    public String showTournaments(Model model) {
-        model.addAttribute("tournaments", tournamentDao.findAll());
-        model.addAttribute("users", userDao.findAll());
-        for (User user : userDao.findAll()) {
-            System.out.println(user.getUsername());
-        }
-        return "pages/home";
-    }
-
-    public TournamentController(TournamentRepository tournamentDao) {
-        this.tournamentDao = tournamentDao;
-    }
-
-    @GetMapping("/join")
-    public String showWaitingRoom() {
-        return "tournament/join";
+        this.memeSubmissionDao = memeSubmissionDao;
     }
 
     @GetMapping("/create")
@@ -57,10 +40,9 @@ public class TournamentController {
         return "tournament/complete";
     }
 
-    @GetMapping("waitingroom")
+    @GetMapping("/waiting-room")
     public String waitingRoom(Model model) {
         model.addAttribute("users", userDao.findAll());
-        return "tournament/waitingRoom";
+        return "tournament/waiting-room";
     }
-
 }
