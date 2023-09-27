@@ -5,9 +5,7 @@ import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PagesController {
@@ -34,6 +32,21 @@ public class PagesController {
     public String showUsersProfile(@PathVariable long id, Model model) {
         model.addAttribute("user", userDao.findById(id).get());
         return"pages/profile";
+    }
+
+    @GetMapping("/{id}/profile/edit")
+    public String profileEdit(Model model,@PathVariable long id){
+        model.addAttribute("user", userDao.findById(id).get());
+        return "pages/edit-profile";
+    }
+
+    @PostMapping("/{id}/profile/edit")
+    public String insertEdit(@ModelAttribute User user, @PathVariable long id){
+        User userToEdit = userDao.findById(id).get();
+        userToEdit.setUsername(user.getUsername());
+        userToEdit.setEmail(user.getEmail());
+        userDao.save(userToEdit);
+        return String.format("redirect:/%s/profile", id);
     }
 
     @GetMapping("/feed")
