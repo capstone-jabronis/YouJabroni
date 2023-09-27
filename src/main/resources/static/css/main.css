@@ -1,0 +1,15 @@
+:root {
+    --first: #EEECFE;
+    --second: #9F8BFF;
+    --third:#0D0149 ;
+    --fourth: #343CFF;
+}
+.register {
+    background-color: var(--third);
+}
+.registration-form {
+flex-direction: column;
+}
+.field-name{
+    color: var(--first);
+}
