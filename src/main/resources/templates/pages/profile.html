@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partials :: head('Profile')"></head>
 <body class="page-wrapper">
 <nav th:replace="partials/partials :: nav"></nav>
 <h1>This is a user's profile page</h1>

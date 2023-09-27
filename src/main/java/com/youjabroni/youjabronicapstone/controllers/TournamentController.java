@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/tournaments")
 public class TournamentController {
     private TournamentRepository tournamentDao;
+
     private UserRepository userDao;
 
     public TournamentController(TournamentRepository tournamentDao, UserRepository userDao) {
@@ -28,6 +29,31 @@ public class TournamentController {
             System.out.println(user.getUsername());
         }
         return "pages/home";
+
+
+    public TournamentController(TournamentRepository tournamentDao) {
+        this.tournamentDao = tournamentDao;
+    }
+
+    @GetMapping("/tournament/join")
+    public String showWaitingRoom() {
+        return "tournament/join";
+    }
+
+    @GetMapping("/tournament/create")
+    public String showCreateMemePage() {
+        return "tournament/create-meme";
+    }
+
+    @GetMapping("/tournament/vote")
+    public String showVotePage() {
+        return "tournament/vote";
+    }
+
+    @GetMapping("/tournament/complete")
+    public String showCompletePage() {
+        return "tournament/complete";
+
     }
     @GetMapping("waitingroom")
     public String waitingRoom (Model model){
