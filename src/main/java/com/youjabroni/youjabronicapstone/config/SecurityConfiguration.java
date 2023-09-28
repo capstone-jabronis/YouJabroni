@@ -1,6 +1,7 @@
 package com.youjabroni.youjabronicapstone.config;
 
 import com.youjabroni.youjabronicapstone.services.UserDetailsLoader;
+import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -25,6 +27,11 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return NoOpPasswordEncoder.getInstance();
+//    }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
@@ -36,12 +43,21 @@ public class SecurityConfiguration {
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
                         .requestMatchers(
-                                "/tournament/join", "/profile", "/tournament/"
+                                "/tournament/*",
+                                "/home",
+                                "/*/profile/edit",
+                                "/profile/history",
+                                "/profile/likes"
                         ).authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
                         .requestMatchers(
-                                "/", "/login", "/register"
+                                "/",
+                                "/login",
+                                "/register",
+                                "/*/profile",
+                                "/feed",
+                                "/profile/posts"
                         ).permitAll()
                         // allow loading of static resources
                         .requestMatchers(
@@ -51,7 +67,7 @@ public class SecurityConfiguration {
                         ).permitAll()
                 )
                 /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
+                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/feed"))
                 /* Logout configuration */
                 .logout((logout) -> logout.logoutSuccessUrl("/"));
         return http.build();

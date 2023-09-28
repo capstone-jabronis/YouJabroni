@@ -1,9 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials/partials :: head('Home Page')"></head>
-<body class="page-wrapper">
+<body>
 <nav th:replace="partials/partials :: nav"></nav>
-<h1>This is the home page!</h1>
+<div class="page-wrapper">
+    <aside th:replace="partials/partials :: leaderboard"></aside>
+                <h1>
+                    Here is the list of tournaments
+                </h1>
+                <ul th:each="tournament : ${tournaments}">
+                    <a th:href="@{|/templates/tournament/waiting-room.html|} ">
+                        <li>tournament #<span th:text="${tournament.id}"></span></li>
+                    </a>
+                </ul>
+        <div class="tournaments column">
+            <h1>Here is the list of tournaments</h1>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
+            </div>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
+            </div>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
+            </div>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
+            </div>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
+            </div>
+<!--            TEST CARD TO CREATE TOURNAMENT GROUP OF USERS-->
+            <form th:action="@{/tournament/waiting-room}" method="POST">
+                <div class="tournament-card d-flex">
+                    <p>TEST TOURNAMENT</p>
+                    <button type="submit">Join Now!</button>
+                </div>
+            </form>
+
+        </div>
+
 <footer th:replace="partials/partials :: footer"></footer>
 </body>
 </html>

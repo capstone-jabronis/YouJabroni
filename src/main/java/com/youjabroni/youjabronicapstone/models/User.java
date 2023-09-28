@@ -3,7 +3,11 @@ package com.youjabroni.youjabronicapstone.models;
 import java.util.List;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -16,6 +20,8 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = true)
+    private String ProfileURL;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<MemeSubmission> memeSubmissions;
 
@@ -23,10 +29,20 @@ public class User {
     }
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
-        email = copy.email;
         username = copy.username;
+        email = copy.email;
         password = copy.password;
+        ProfileURL = copy.ProfileURL;
         memeSubmissions = copy.memeSubmissions;
+    }
+
+    public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        ProfileURL = profileURL;
+        this.memeSubmissions = memeSubmissions;
     }
 
     public User(String username, String email, String password, List<MemeSubmission> memeSubmissions) {
@@ -88,5 +104,17 @@ public class User {
 
     public void setMemeSubmissions(List<MemeSubmission> memeSubmissions) {
         this.memeSubmissions = memeSubmissions;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", profileURL='" + ProfileURL + '\'' +
+                ", memeSubmissions=" + memeSubmissions +
+                '}';
     }
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partials :: head('Profile')">
+</head>
+<body>
+<nav th:replace="partials/partials :: nav"></nav>
+<div class="page-wrapper">
+    <h1>This is the edit profile page</h1>
+    <form th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
+        <p>edit username</p>
+        <input th:name="username" th:type="text" th:value="${user.username}">
+        <p>edit email</p>
+        <input th:name="email" th:type="text" th:value="${user.email}">
+        <input th:name="ProfileURL" type="text" id="fileInput" value="" hidden>
+        <button id="profilePic">upload profile pic</button>
+        <img id="previewImage" src="" alt="Uploaded Image">
+        <button th:type="submit">submit changes</button>
+    </form>
+</div>
+<footer th:replace="partials/partials :: footer"></footer>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script th:src="@{/js/filestack.js}"></script>
+</body>
+</html>
