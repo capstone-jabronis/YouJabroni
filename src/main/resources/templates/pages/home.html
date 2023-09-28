@@ -5,20 +5,7 @@
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
     <h1>This is the home page!</h1>
-    <aside>
-        <div>
-            <div>
-                <div>
-                    <h1>Heres a list of users which will eventually be the top users</h1>
-                    <ul>
-                        <li>
-                            <a th:href="@{'/' + ${user.id} + '/profile'}" th:text="${user.username}"></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </aside>
+    <aside th:replace="partials/partials :: leaderboard"></aside>
     <div>
         <div>
             <div>
