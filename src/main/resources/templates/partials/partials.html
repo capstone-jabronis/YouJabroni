@@ -62,7 +62,97 @@
     <!--    END OF NAVBAR/CONTAINER-->
 </nav>
 <!--END OF NAVBAR PARTIAL-->
-<br>
+
+<!--START OF LEADERBOARD PARTIAL-->
+<aside th:fragment="leaderboard" class="leaderboard container">
+    <div class="leader-cards">
+        <div class="leader-title row">
+            <h1>Best Meme Makers</h1>
+        </div>
+        <div class="row player first">
+            <h1 class="rank">1</h1>
+            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+        <div class="row player">
+            <h1 class="rank">2</h1>
+            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+        <div class="row player">
+            <h1 class="rank">3</h1>
+            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+        <div class="row player">
+            <h1 class="rank">4</h1>
+            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+        <div class="row player">
+            <h1 class="rank">5</h1>
+            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+        <div class="row player">
+            <h1 class="rank">6</h1>
+            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+        <div class="row player">
+            <h1 class="rank">7</h1>
+            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+        <div class="row player">
+            <h1 class="rank">8</h1>
+            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+        <div class="row player">
+            <h1 class="rank">9</h1>
+            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+        <div class="row player">
+            <h1 class="rank">10</h1>
+            <img class="user-pic" th:src="@{/img/memespace.gif}">
+            <div class="leader-info column">
+                <div class="name">Player Name Here</div>
+                <div class="wins"> Wins:1</div>
+            </div>
+        </div>
+    </div>
+</aside>
+<!--END OF LEADERBOARD PARTIAL-->
+
 <!--START OF FOOTER PARTIAL-->
 <footer class="footer" th:fragment="footer">
     <div class="container">
