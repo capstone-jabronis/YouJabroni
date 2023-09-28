@@ -97,3 +97,47 @@
     position: relative;
     left: 40px;
 }
+
+.user-pic {
+    height: 50px;
+    width: 50px;
+    border-radius: 2rem;
+}
+.leaderboard{
+    background-color: var(--first);
+    height: 41rem;
+    width: 20rem;
+    border-radius: 2rem;
+    margin: 2rem;
+}
+.leader-title{
+    background-color: var(--third);
+    color: var(--first);
+    height: 3rem;
+    width: 20rem;
+    border-radius: 2rem 2rem 0 0;
+    justify-content: center;
+    align-items: center;
+}
+.player{
+    margin-bottom: 0.5rem;
+}
+.leader-info {
+    margin-left: 1rem;
+}
+.wins{
+    margin-top: 0.4rem;
+}
+.rank{
+    font-size: 1rem;
+    margin-right: 0.4rem;
+}
+.not-10{
+    margin-left: 0.58rem;
+}
+.first{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: var(--second);
+}
+
