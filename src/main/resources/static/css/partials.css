@@ -13,9 +13,9 @@
     text-decoration: none;
     list-style-type: none;
 }
-li{
-    margin-right: 10rem;
-}
+/*li{*/
+/*    margin-right: 10rem;*/
+/*}*/
 .navbar, .footer{
     background-color: var(--third);
     height: 8rem;
@@ -40,6 +40,64 @@ li{
 .nav-link:hover{
     color: var(--second);
 }
+
+.links-list{
+    /*justify-content: center;*/
+    font-size: 18px;
+    padding: unset;
+    margin-top: 6px;
+}
+
+#feed {
+    position: relative;
+    left: 80px;
+}
+
+#login {
+    position: relative;
+    right: 50px;
+}
+
+#logout {
+    margin-left: auto;
+}
+
+#register {
+    position: relative;
+    left: 300px;
+}
+
+#logo {
+    position: relative;
+    left: 240px;
+}
+
+#profile {
+    position: relative;
+    left: 60px;
+}
+
+#home {
+    position: relative;
+    right: 150px;
+}
+
+#logout {
+    position: relative;
+    right: 50px;
+
+}
+
+#feedAuth {
+    position: relative;
+    left: 160px;
+}
+
+#logoAuth {
+    position: relative;
+    left: 40px;
+}
+
 .user-pic {
     height: 50px;
     width: 50px;
@@ -82,3 +140,4 @@ li{
     padding-bottom: 0.5rem;
     background-color: var(--second);
 }
+
