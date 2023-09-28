@@ -45,6 +45,7 @@ public class PagesController {
         User userToEdit = userDao.findById(id).get();
         userToEdit.setUsername(user.getUsername());
         userToEdit.setEmail(user.getEmail());
+        userToEdit.setProfileURL(user.getProfileURL());
         userDao.save(userToEdit);
         return String.format("redirect:/%s/profile", id);
     }

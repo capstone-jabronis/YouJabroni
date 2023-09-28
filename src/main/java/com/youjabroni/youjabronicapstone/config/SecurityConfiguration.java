@@ -43,7 +43,7 @@ public class SecurityConfiguration {
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
                         .requestMatchers(
-                                "/tournament/*", "/home", "/*/profile/edit"
+                                "/tournament/*", "/home", "/{id}/profile/edit"
                         ).authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
