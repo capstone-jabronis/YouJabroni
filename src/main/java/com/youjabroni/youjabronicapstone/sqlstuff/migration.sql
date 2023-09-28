@@ -1,5 +1,5 @@
 
-create DATABASE if not exists jabroni_db;
+CREATE DATABASE if not exists jabroni_db;
 use jabroni_db;
 drop table if exists users;
 create table users (
