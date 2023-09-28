@@ -78,3 +78,14 @@
 body {
     font-family: 'Nunito Sans', sans-serif;
 }
+.home-container {
+    display: flex;
+}
+
+.tournament-card {
+    background-color: lightgray;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    width: 630px;
+    height: 120px;
+}
