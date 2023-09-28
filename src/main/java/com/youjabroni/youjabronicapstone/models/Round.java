@@ -1,6 +1,9 @@
 package com.youjabroni.youjabronicapstone.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "rounds")
@@ -11,11 +14,15 @@ public class Round {
     private long id;
     @Column(nullable = false)
     private int round_num;
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
     private Tournament tournament;
     @Column(nullable = false)
     private String meme_pic;
+    @JsonIgnore
+    @OneToMany(mappedBy = "round")
+    private List<MemeSubmission> memeSubmissions;
 
     public Round() {
     }
@@ -63,5 +70,13 @@ public class Round {
 
     public void setMeme_pic(String meme_pic) {
         this.meme_pic = meme_pic;
+    }
+
+    public List<MemeSubmission> getMemeSubmissions() {
+        return memeSubmissions;
+    }
+
+    public void setMemeSubmissions(List<MemeSubmission> memeSubmissions) {
+        this.memeSubmissions = memeSubmissions;
     }
 }
