@@ -1,16 +1,20 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
-import com.youjabroni.youjabronicapstone.models.MemeSubmission;
-import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.RoundRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/tournament")
@@ -43,10 +47,17 @@ public class TournamentController {
     public String showCompletePage() {
         return "tournament/complete";
     }
-
-    @GetMapping("/waiting-room")
-    public String waitingRoom(Model model) {
-        model.addAttribute("users", userDao.findAll());
+    @PostMapping("/waiting-room")
+    public String joinTournament(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        User user = userDao.findByUsername(userDetails.getUsername());
+        System.out.println("JOINED TOURNEY " + user);
+        model.addAttribute("user", user);
         return "tournament/waiting-room";
     }
+
+//    @GetMapping("/waiting-room")
+//    public String waitingRoom(Model model) {
+//        model.addAttribute("users", userDao.findAll());
+//        return "tournament/waiting-room";
+//    }
 }

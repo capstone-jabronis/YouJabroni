@@ -1,3 +1,4 @@
+CREATE DATABASE jabroni_db;
 use jabroni_db;
 
 INSERT INTO users (username, email, password)
