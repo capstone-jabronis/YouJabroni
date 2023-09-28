@@ -3,19 +3,14 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
-    <title th:text="${'Meme Space | ' + title}"></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet">
+    <title th:text="${'You Jabroni |' + title}"></title>
     <link rel="stylesheet" href="/css/partials.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/resets.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <script th:src="@{/js/keys.js}"></script>
 </head>
 <body>
 <!--START OF NAVBAR PARTIAL-->
-<nav th:fragment="nav" class="navbar">
+<nav th:fragment="nav" class="navbar">     
     <div class="container" id="navbar">
         <ul class="d-flex justify-space-between align-center full-width links-list">
             <!--                If user is logged in, Profile option will show up in navbar-->
@@ -79,97 +74,7 @@
     <!--    END OF NAVBAR/CONTAINER-->
 </nav>
 <!--END OF NAVBAR PARTIAL-->
-
-<!--START OF LEADERBOARD PARTIAL-->
-<aside th:fragment="leaderboard" class="leaderboard container">
-    <div class="leader-cards">
-        <div class="leader-title row">
-            <h1>Best Meme Makers</h1>
-        </div>
-        <div class="row player first">
-            <h1 class="rank">1</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">2</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">3</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">4</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">5</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">6</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">7</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">8</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">9</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">10</h1>
-            <img class="user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-    </div>
-</aside>
-<!--END OF LEADERBOARD PARTIAL-->
-
+<br>
 <!--START OF FOOTER PARTIAL-->
 <footer class="footer" th:fragment="footer">
     <div class="container">
@@ -177,8 +82,6 @@
             <a class="team-name" target="_blank" href="https://github.com/capstone-jabronis/YouJabroni">Capstone Team:
                 Jabroni</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/josedelaluziii/">Jose De La Luz</a>
-            <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/luis-esquivel-9652a0280/">Luis
-                Esquivel</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/nic-rowley/">Nicholas Rowley</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/avaesmith/">Ava Smith</a>
             <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/audrey-tan1127/">Audrey Tan</a>
