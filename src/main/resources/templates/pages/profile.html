@@ -11,31 +11,41 @@
         <h4 th:text="${user.username}"></h4>
         <!--            uncomment when found solution to this-->
         <!--            <span>number of wins:<span th:text="counter for tournament.winner where id mathes user.id"></span></span>-->
-        <div th:each="meme : ${user.memeSubmissions}">
-            <h4 th:text="${meme.caption}"></h4>
-        </div>
+        <!--        <div th:each="meme : ${user.memeSubmissions}">-->
+        <!--            <h4 th:text="${meme.caption}"></h4>-->
+        <!--        </div>-->
         <form th:method="GET" th:action="@{|/${user.id}/profile/edit|}" sec:authorize="isAuthenticated()">
             <button th:if="${#authentication.principal.id == user.id}">Edit profile</button>
         </form>
     </div>
+
+
     <div class="container profile-tabs" sec:authorize="isAuthenticated()">
         <div class="row" th:if="${#authentication.principal.id == user.id}">
             <ul>
                 <li>
-                    <a th:href="@{/profile/posts}">Posts</a>
+                    <a id="post" th:href="@{/profile/posts}">Posts</a>
                 </li>
                 <li>
-                    <a th:href="@{/profile/likes}">Liked Posts</a>
+                    <a id="LikedPost" th:href="@{/profile/likes}">Liked Posts</a>
                 </li>
                 <li>
-                    <a th:href="@{/profile/history}">History</a>
+                    <a id="History">History</a>
                 </li>
             </ul>
+        </div>
+    </div>
+    <div>
+        <div>
+            <div id="results" th:dataId="${user.id}">
+
+            </div>
         </div>
     </div>
 
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
-<script src="//static.filestackapi.com/filestack-js/3.9.3/filestack.min.js"></script>
+<script th:src="@{/js/profile.js}"></script>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </body>
 </html>
