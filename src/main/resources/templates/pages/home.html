@@ -5,31 +5,38 @@
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
     <h1>This is the home page!</h1>
-    <aside>
-        <div>
-            <div>
-                <div>
-                    <h1>Heres a list of users which will eventually be the top users</h1>
-                    <ul>
-                        <a th:href="@{'/' + ${user.id} + '/profile'}">
-                            <li th:text="${user.username}"></li>
-                        </a>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </aside>
-    <div>
-        <div>
-            <div>
-                <h1>
-                    Here is the list of tournaments
-                </h1>
-                <ul th:each="tournament : ${tournaments}">
-                    <a th:href="@{|/templates/tournament/waiting-room.html|} ">
-                        <li>tournament #<span th:text="${tournament.id}"></span></li>
-                    </a>
+    <div class="home-container">
+        <aside class="column">
+            <div class="leaderboard">
+                <h1>Heres a list of users which will eventually be the top users</h1>
+                <ul>
+                    <li>
+                        <!--                            <a th:href="@{'/' + ${user.id} + '/profile'}" th:text="${user.username}"></a>-->
+                    </li>
                 </ul>
+            </div>
+        </aside>
+        <div class="tournaments column">
+            <h1>Here is the list of tournaments</h1>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
+            </div>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
+            </div>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
+            </div>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
+            </div>
+            <div class="tournament-card d-flex">
+                <p>New tournament</p>
+                <button>Join Now!</button>
             </div>
         </div>
     </div>

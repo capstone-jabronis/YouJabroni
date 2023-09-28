@@ -55,5 +55,18 @@ public class PagesController {
         return "pages/feed";
     }
 
+    @GetMapping("/profile/posts")
+    public String showPosts() {
+        return "pages/posts";
+    }
 
+    @GetMapping("/profile/likes")
+    public String showLikedPosts() {
+        return "pages/likes";
+    }
+
+    @GetMapping("/profile/history")
+    public String showSubmissionHistory() {
+        return "pages/history";
+    }
 }

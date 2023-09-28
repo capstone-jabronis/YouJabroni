@@ -4,24 +4,36 @@
 <body>
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
-  <h1>This is a user's profile page</h1>
-  <div>
-     <div>
-        <div>
-<!--        here would go the user profile pic    -->
-            <img th:src="${user.ProfileURL}" alt="profile pic">
-            <h4 th:text="${user.username}"></h4>
-<!--            uncomment when found solution to this-->
-<!--            <span>number of wins:<span th:text="counter for tournament.winner where id mathes user.id"></span></span>-->
-            <div th:each="meme : ${user.memeSubmissions}">
-                <h4 th:text="${meme.caption}"></h4>
-            </div>
-            <form th:method="GET" th:action="@{|/${user.id}/profile/edit|}" sec:authorize="isAuthenticated()">
-                <button th:if="${#authentication.principal.id == user.id}" type>Edit profile</button>
-            </form>
+    <h1>This is a user's profile page</h1>
+    <div class="container user-profile-info">
+        <!--        here would go the user profile pic    -->
+        <img th:src="${user.ProfileURL}" alt="profile pic">
+        <h4 th:text="${user.username}"></h4>
+        <!--            uncomment when found solution to this-->
+        <!--            <span>number of wins:<span th:text="counter for tournament.winner where id mathes user.id"></span></span>-->
+        <div th:each="meme : ${user.memeSubmissions}">
+            <h4 th:text="${meme.caption}"></h4>
+        </div>
+        <form th:method="GET" th:action="@{|/${user.id}/profile/edit|}" sec:authorize="isAuthenticated()">
+            <button th:if="${#authentication.principal.id == user.id}">Edit profile</button>
+        </form>
+    </div>
+    <div class="container profile-tabs" sec:authorize="isAuthenticated()">
+        <div class="row" th:if="${#authentication.principal.id == user.id}">
+            <ul>
+                <li>
+                    <a th:href="@{/profile/posts}">Posts</a>
+                </li>
+                <li>
+                    <a th:href="@{/profile/likes}">Liked Posts</a>
+                </li>
+                <li>
+                    <a th:href="@{/profile/history}">History</a>
+                </li>
+            </ul>
         </div>
     </div>
-  </div>
+
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
 <script src="//static.filestackapi.com/filestack-js/3.9.3/filestack.min.js"></script>

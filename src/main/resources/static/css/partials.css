@@ -1,8 +1,8 @@
 :root{
---first: #EEECFE;
+--first: #b4acef;
     --second: #9F8BFF;
     --third:#0D0149 ;
-    --fourth: #343CFF;
+    --button: #343CFF;
 }
 .nav-link {
     text-decoration: none;
