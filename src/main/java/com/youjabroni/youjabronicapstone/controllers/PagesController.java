@@ -19,9 +19,6 @@ public class PagesController {
 
     private TournamentRepository tournamentDao;
     private UserRepository userDao;
-
-    private UserRepository userDao;
-
     public PagesController(TournamentRepository tournamentDao, UserRepository userDao) {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
