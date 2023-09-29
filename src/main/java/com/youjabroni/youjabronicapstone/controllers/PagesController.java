@@ -1,6 +1,7 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
+import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,11 @@ public class PagesController {
 
     private TournamentRepository tournamentDao;
 
-    public PagesController(TournamentRepository tournamentDao) {
+    private UserRepository userDao;
+
+    public PagesController(TournamentRepository tournamentDao, UserRepository userDao) {
         this.tournamentDao = tournamentDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/home")
@@ -23,7 +27,8 @@ public class PagesController {
     }
 
     @GetMapping("/{id}/profile")
-    public String showUsersProfile(@PathVariable long id) {
+    public String showUsersProfile(@PathVariable long id, Model model) {
+        model.addAttribute("user", userDao.findById(id).get());
         return"pages/profile";
     }
 
