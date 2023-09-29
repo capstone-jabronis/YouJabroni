@@ -6,14 +6,14 @@
 <div class="page-wrapper">
     <h1>This is a user's profile page</h1>
     <div class="container user-profile-info">
-        <!--        here would go the user profile pic    -->
-        <img th:src="${user.ProfileURL}" alt="profile pic">
+        <img th:src="${user.profileURL}" alt="profile pic">
         <h4 th:text="${user.username}"></h4>
-        <!--            uncomment when found solution to this-->
-        <!--            <span>number of wins:<span th:text="counter for tournament.winner where id mathes user.id"></span></span>-->
-        <!--        <div th:each="meme : ${user.memeSubmissions}">-->
-        <!--            <h4 th:text="${meme.caption}"></h4>-->
-        <!--        </div>-->
+                    <span>number of wins:
+<!--                        <span th:text="counter for tournament.winner where id mathes user.id"></span>-->
+                    </span>
+        <div th:each="meme : ${user.memeSubmissions}">
+            <h4 th:text="${meme.caption}"></h4>
+        </div>
         <form th:method="GET" th:action="@{|/${user.id}/profile/edit|}" sec:authorize="isAuthenticated()">
             <button th:if="${#authentication.principal.id == user.id}">Edit profile</button>
         </form>

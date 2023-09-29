@@ -21,7 +21,7 @@ public class User {
     @Column(nullable = false)
     private String password;
     @Column(nullable = true)
-    private String ProfileURL;
+    private String profileURL;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<MemeSubmission> memeSubmissions;
 
@@ -32,7 +32,7 @@ public class User {
         username = copy.username;
         email = copy.email;
         password = copy.password;
-        ProfileURL = copy.ProfileURL;
+        profileURL = copy.profileURL;
         memeSubmissions = copy.memeSubmissions;
     }
 
@@ -41,7 +41,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        ProfileURL = profileURL;
+        this.profileURL = profileURL;
         this.memeSubmissions = memeSubmissions;
     }
 
@@ -98,6 +98,14 @@ public class User {
         this.password = password;
     }
 
+    public String getProfileURL() {
+        return profileURL;
+    }
+
+    public void setProfileURL(String profileURL) {
+        this.profileURL = profileURL;
+    }
+
     public List<MemeSubmission> getMemeSubmissions() {
         return memeSubmissions;
     }
@@ -113,7 +121,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", profileURL='" + ProfileURL + '\'' +
+                ", profileURL='" + profileURL + '\'' +
                 ", memeSubmissions=" + memeSubmissions +
                 '}';
     }
