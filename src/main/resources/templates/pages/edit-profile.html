@@ -8,13 +8,13 @@
     <h1>This is the edit profile page</h1>
     <form th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
         <p>edit username</p>
-        <input th:name="username" th:type="text" th:value="${user.username}">
+        <input th:name="username" th:type="text" th:value="${user.username}" th:field="${user.username}">
         <p>edit email</p>
-        <input th:name="email" th:type="text" th:value="${user.email}">
+        <input th:name="email" th:type="text" th:value="${user.email}" th:field="${user.email}">
         <input th:name="ProfileURL" type="text" id="fileInput" value="" hidden>
         <button id="profilePic">upload profile pic</button>
         <img id="previewImage" src="" alt="Uploaded Image">
-        <button th:type="submit">submit changes</button>
+        <button type="submit" th:type="submit">submit changes</button>
     </form>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
