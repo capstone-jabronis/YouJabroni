@@ -83,7 +83,6 @@ body {
 
 .carousel-hero {
     flex: 2 0 0;
-    /*justify-content: center;*/
     margin-right: 30px;
 }
 .carousel {
@@ -209,7 +208,6 @@ body {
 .landing-page-leaderboard {
     flex: 1 0 0;
     margin-left: 20px;
-    /*justify-content: flex-end;*/
 }
 
 .jdFeedResultsCSS {

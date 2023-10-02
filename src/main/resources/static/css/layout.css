@@ -119,6 +119,9 @@
 .d-flex.justify-end {
     justify-content: end;
 }
+.d-flex.justify-start {
+    justify-content: start;
+}
 .d-flex.justify-space-between {
     justify-content: space-between;
 }
