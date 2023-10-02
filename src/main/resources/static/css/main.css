@@ -225,4 +225,99 @@ body {
     margin: 0 auto;
 }
 
+.profile-pic {
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.user-profile-info {
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+}
+
+.user-name-email {
+    margin-top: 100px;
+    margin-left: 50px;
+}
+
+.user-username {
+    margin-top: unset;
+    margin-bottom: unset;
+    font-size: 60px;
+    margin-left: 20px;
+}
+
+.rank-username {
+    padding: unset;
+}
+
+.user-rank {
+    font-size: 30px;
+    margin-top: 7px;
+    background-color: #343CFF;
+    border-radius: 10px;
+    color: white;
+    padding: 5px;
+}
+
+.user-email {
+    margin-top: unset;
+    margin-bottom: unset;
+    margin-left: 70px;
+    font-size: 20px;
+}
+
+.edit-btn {
+    background-color: #343CFF;
+    color: white;
+    border-radius: 16px;
+    border: none;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    margin-top: 130px;
+    margin-left: 400px;
+}
+
+.edit-btn:hover {
+    background-color: #0D0149;
+    transition: 500ms;
+    width: 155px;
+    height: 55px;
+}
+.stats {
+    flex-direction: row;
+}
+
+.number {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 20px;
+}
+
+.profile-tab {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.profile-link {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.tabs {
+    border-bottom: 2px solid black;
+    padding: unset;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+
 
