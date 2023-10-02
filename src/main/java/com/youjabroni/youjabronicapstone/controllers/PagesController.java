@@ -58,6 +58,11 @@ public class PagesController {
         model.addAttribute("MemeSubmission", memeDao.findAll());
         return "pages/feed";
     }
+    @GetMapping("/feed")
+    public @ResponseBody List<MemeSubmission> pagesInFeed(){
+        List<MemeSubmission> memes = memeDao.findAll();
+        return memes;
+    }
 
 
 

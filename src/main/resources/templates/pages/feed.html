@@ -9,10 +9,12 @@
             <div>
                 <h1>This is the feed!</h1>
                 <ul>
-                   <li  th:each="meme : ${MemeSubmission}">
-                      <i th:src="${meme.round.meme_pic}">
-                       <p th:text="${meme.caption}"></p>
-                       <p th:text="${meme.user.username}"></p>
+                    <li id="results">
+<!--                   <li  th:each="meme : ${MemeSubmission}">-->
+<!--                      <img th:src="${meme.round.meme_pic}" style="width: 100px; height: 100px;">-->
+<!--                       <p th:text="${meme.caption}"></p>-->
+<!--                       <p th:text="${meme.user.username}"></p>-->
+<!--                       <img th:src="${meme.user.profileURL}" style="width: 30px; height: 30px;">-->
                    </li>
                 </ul>
             </div>
