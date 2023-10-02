@@ -2,7 +2,6 @@ const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('con
 const historyContainer = document.querySelector("#History");
 let userIDElement = document.querySelector("#results");
 let userID = userIDElement.getAttribute("dataId");
-console.log(userID);
 let url = `/${userID}/memeSubmission`
 
 historyContainer.addEventListener('click', async (e) => {
