@@ -1,5 +1,6 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
+import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.RoundRepository;
@@ -47,11 +48,13 @@ public class TournamentController {
     public String showCompletePage() {
         return "tournament/complete";
     }
-    @PostMapping("/waiting-room")
-    public String joinTournament(@AuthenticationPrincipal UserDetails userDetails, Model model){
+    @PostMapping("/waiting-room/{id}")
+    public String joinTournament(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable Long id){
+        Tournament tournament = tournamentDao.findById(id).get();
         User user = userDao.findByUsername(userDetails.getUsername());
-        System.out.println("JOINED TOURNEY " + user);
+        System.out.println("JOINED TOURNEY " + user + " IN TOURNAMENT ID: "+ tournament.getId());
         model.addAttribute("user", user);
+        model.addAttribute("tournament", tournament);
         return "tournament/waiting-room";
     }
 

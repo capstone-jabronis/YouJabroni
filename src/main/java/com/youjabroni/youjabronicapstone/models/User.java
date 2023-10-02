@@ -24,6 +24,28 @@ public class User {
     private String profileURL;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<MemeSubmission> memeSubmissions;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "tournament_id")
+    private Tournament tournament;
+
+    public User(String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profileURL = profileURL;
+        this.memeSubmissions = memeSubmissions;
+        this.tournament = tournament;
+    }
+
+    public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profileURL = profileURL;
+        this.memeSubmissions = memeSubmissions;
+        this.tournament = tournament;
+    }
 
     public User() {
     }
@@ -34,6 +56,7 @@ public class User {
         password = copy.password;
         profileURL = copy.profileURL;
         memeSubmissions = copy.memeSubmissions;
+        tournament = copy.tournament;
     }
 
     public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions) {
@@ -68,6 +91,14 @@ public class User {
 
     public long getId() {
         return id;
+    }
+
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
     }
 
     public void setId(long id) {
