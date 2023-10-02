@@ -5,46 +5,49 @@
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
     <aside th:replace="partials/partials :: leaderboard"></aside>
-                <h1>
-                    Here is the list of tournaments
-                </h1>
-                <ul th:each="tournament : ${tournaments}">
-                    <a th:href="@{|/templates/tournament/waiting-room.html|} ">
-                        <li>tournament #<span th:text="${tournament.id}"></span></li>
-                    </a>
-                </ul>
-        <div class="tournaments column">
-            <h1>Here is the list of tournaments</h1>
-            <div class="tournament-card d-flex">
-                <p>New tournament</p>
-                <button>Join Now!</button>
-            </div>
-            <div class="tournament-card d-flex">
-                <p>New tournament</p>
-                <button>Join Now!</button>
-            </div>
-            <div class="tournament-card d-flex">
-                <p>New tournament</p>
-                <button>Join Now!</button>
-            </div>
-            <div class="tournament-card d-flex">
-                <p>New tournament</p>
-                <button>Join Now!</button>
-            </div>
-            <div class="tournament-card d-flex">
-                <p>New tournament</p>
-                <button>Join Now!</button>
-            </div>
-<!--            TEST CARD TO CREATE TOURNAMENT GROUP OF USERS-->
-            <form th:action="@{/tournament/waiting-room}" method="POST">
-                <div class="tournament-card d-flex">
-                    <p>TEST TOURNAMENT</p>
-                    <button type="submit">Join Now!</button>
-                </div>
-            </form>
-
+    <h1>
+        Here is the list of tournaments
+    </h1>
+    <ul th:each="tournament : ${tournaments}">
+        <a th:href="@{|/templates/tournament/waiting-room.html|} ">
+            <li>tournament #<span th:text="${tournament.id}"></span></li>
+        </a>
+    </ul>
+    <div class="tournaments column">
+        <h1>Here is the list of tournaments</h1>
+        <div class="tournament-card d-flex">
+            <p>New tournament</p>
+            <button>Join Now!</button>
         </div>
+        <div class="tournament-card d-flex">
+            <p>New tournament</p>
+            <button>Join Now!</button>
+        </div>
+        <div class="tournament-card d-flex">
+            <p>New tournament</p>
+            <button>Join Now!</button>
+        </div>
+        <div class="tournament-card d-flex">
+            <p>New tournament</p>
+            <button>Join Now!</button>
+        </div>
+        <div class="tournament-card d-flex">
+            <p>New tournament</p>
+            <button>Join Now!</button>
+        </div>
+        <!--            TEST CARD TO CREATE TOURNAMENT GROUP OF USERS-->
 
-<footer th:replace="partials/partials :: footer"></footer>
+        <div class="tournament-card d-flex" th:each="tournament : ${tournaments}">
+            <form th:action="@{|/tournament/waiting-room/${tournament.id}|}" method="POST">
+                <p>TEST TOURNAMENT</p>
+                <p>Tournament ID:<span th:text="${tournament.id}"></span></p>
+                <button type="submit">Join Now!</button>
+            </form>
+        </div>
+        </form>
+
+    </div>
+
+    <footer th:replace="partials/partials :: footer"></footer>
 </body>
 </html>

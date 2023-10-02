@@ -45,6 +45,7 @@ public class SecurityConfiguration {
                          * only authenticated users can create and edit ads */
                         .requestMatchers(
                                 "/tournament/*",
+                                "/tournament/waiting-room/*",
                                 "/home",
                                 "/*/profile/edit",
                                 "/profile/history",
