@@ -1,6 +1,8 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youjabroni.youjabronicapstone.models.MemeSubmission;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
@@ -17,11 +19,11 @@ import java.util.List;
 
 @Controller
 public class PagesController {
-
     private TournamentRepository tournamentDao;
     private UserRepository userDao;
 
     private MemeSubmissionRepository memeDao;
+
     public PagesController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeDao) {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
@@ -29,7 +31,7 @@ public class PagesController {
     }
 
     @GetMapping("/home")
-    public String showTournaments(Model model){
+    public String showTournaments(Model model) {
         model.addAttribute("tournaments", tournamentDao.findAll());
         return "pages/home";
     }
@@ -37,7 +39,7 @@ public class PagesController {
     @GetMapping("/{id}/profile")
     public String showUsersProfile(@PathVariable long id, Model model) {
         model.addAttribute("user", userDao.findById(id).get());
-        return"pages/profile";
+        return "pages/profile";
     }
 
 
@@ -45,30 +47,46 @@ public class PagesController {
     public String showSubmissionHistory() {
         return "pages/history";
     }
+
     @GetMapping("/{id}/memeSubmission")
     public @ResponseBody List<MemeSubmission> viewAllAdsInJSONFormat(@PathVariable long id) {
 //        System.out.println("inside viewHistory");
-        User user =  new User(userDao.findById(id).get());
+        User user = new User(userDao.findById(id).get());
         List<MemeSubmission> memes = user.getMemeSubmissions();
         return memes;
     }
 
     @GetMapping("/feed")
-    public String showFeed (Model model){
-        model.addAttribute("MemeSubmission", memeDao.findAll());
+    public String showFeed(Model model) {
+//        model.addAttribute("MemeSubmission", memeDao.findAll());
+        List<MemeSubmission> memes = memeDao.findAll();
+//        for (MemeSubmission meme : memes){
+//            System.out.println(meme);
+//        }
         return "pages/feed";
     }
-    @GetMapping("/feed")
-    public @ResponseBody List<MemeSubmission> pagesInFeed(){
-        List<MemeSubmission> memes = memeDao.findAll();
-        return memes;
+
+
+//    public FeedResponseDTO(List<MemeSubmission> memes, List<User> users) {
+//        for (MemeSubmission meme : memeDao.findAll()) {
+//            memes.add(meme);
+//        }
+//        for (MemeSubmission meme : memeDao.findAll()) {
+//            for (User user : users) {
+//                if (meme.getUser().getId() == user.getId()) {
+//                    users.add(user);
+//                }
+//            }
+//        }
+//    }
+
+    @GetMapping("/feed/api")
+    public @ResponseBody List<User> pagesInFeed() throws JsonProcessingException {
+        List<User> users = userDao.findAll();
+//        ObjectMapper mapper = new ObjectMapper();
+//        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(memes));
+        return users;
     }
-
-
-
-
-
-
 
 
 }

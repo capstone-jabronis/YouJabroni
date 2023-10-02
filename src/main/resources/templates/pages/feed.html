@@ -7,20 +7,14 @@
     <div>
         <div>
             <div>
-                <h1>This is the feed!</h1>
-                <ul>
-                    <li id="results">
-<!--                   <li  th:each="meme : ${MemeSubmission}">-->
-<!--                      <img th:src="${meme.round.meme_pic}" style="width: 100px; height: 100px;">-->
-<!--                       <p th:text="${meme.caption}"></p>-->
-<!--                       <p th:text="${meme.user.username}"></p>-->
-<!--                       <img th:src="${meme.user.profileURL}" style="width: 30px; height: 30px;">-->
-                   </li>
-                </ul>
+                <h1 class="jdH1CSS">This is the feed!</h1>
+                    <div class="jdFeedResultsCSS" id="results">
+                   </div>
             </div>
         </div>
     </div>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
+<script th:src="@{/js/feed.js}"></script>
 </body>
 </html>

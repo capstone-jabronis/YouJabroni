@@ -59,6 +59,7 @@ public class SecurityConfiguration {
                                 "/register",
                                 "/*/profile",
                                 "/feed",
+                                "/feed/api",
                                 "/profile/posts"
                         ).permitAll()
                         // allow loading of static resources

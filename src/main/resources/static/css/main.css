@@ -210,3 +210,19 @@ body {
     margin-right: 100px;
 }
 
+.jdFeedResultsCSS {
+    display: flex;
+    flex-direction: column; /* Display as a column */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+.jdH1CSS{
+    display: flex;
+    justify-content: center;
+}
+.jdImgCSS{
+    display: block; /* Change to block-level element */
+    margin: 0 auto;
+}
+
+
