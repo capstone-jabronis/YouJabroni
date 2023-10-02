@@ -3,6 +3,7 @@ package com.youjabroni.youjabronicapstone.controllers;
 
 import com.youjabroni.youjabronicapstone.models.MemeSubmission;
 import com.youjabroni.youjabronicapstone.models.User;
+import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,12 @@ public class PagesController {
 
     private TournamentRepository tournamentDao;
     private UserRepository userDao;
-    public PagesController(TournamentRepository tournamentDao, UserRepository userDao) {
+
+    private MemeSubmissionRepository memeDao;
+    public PagesController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeDao) {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
+        this.memeDao = memeDao;
     }
 
     @GetMapping("/home")
@@ -36,12 +40,6 @@ public class PagesController {
         return"pages/profile";
     }
 
-    @GetMapping("/feed")
-    public String showFeed() {
-        return "pages/feed";
-    }
-
-
 
     @GetMapping("/profile/history")
     public String showSubmissionHistory() {
@@ -49,11 +47,23 @@ public class PagesController {
     }
     @GetMapping("/{id}/memeSubmission")
     public @ResponseBody List<MemeSubmission> viewAllAdsInJSONFormat(@PathVariable long id) {
-        System.out.println("inside viewHistory");
+//        System.out.println("inside viewHistory");
         User user =  new User(userDao.findById(id).get());
         List<MemeSubmission> memes = user.getMemeSubmissions();
         return memes;
     }
+
+    @GetMapping("/feed")
+    public String showFeed (Model model){
+        model.addAttribute("MemeSubmission", memeDao.findAll());
+        return "pages/feed";
+    }
+
+
+
+
+
+
 
 
 }

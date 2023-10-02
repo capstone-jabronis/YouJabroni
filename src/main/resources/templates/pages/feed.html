@@ -4,7 +4,20 @@
 <body>
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
-    <h1>This is the feed!</h1>
+    <div>
+        <div>
+            <div>
+                <h1>This is the feed!</h1>
+                <ul>
+                   <li  th:each="meme : ${MemeSubmission}">
+                      <i th:src="${meme.round.meme_pic}">
+                       <p th:text="${meme.caption}"></p>
+                       <p th:text="${meme.user.username}"></p>
+                   </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
 </body>
