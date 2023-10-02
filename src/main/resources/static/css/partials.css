@@ -13,9 +13,7 @@
     text-decoration: none;
     list-style-type: none;
 }
-/*li{*/
-/*    margin-right: 10rem;*/
-/*}*/
+
 .navbar, .footer{
     background-color: var(--third);
     height: 8rem;
@@ -42,11 +40,9 @@
 }
 
 .links-list{
-    /*justify-content: center;*/
     font-size: 18px;
     padding: unset;
     margin: unset;
-    /*margin-top: 6px;*/
 }
 
 #feed {

@@ -4,33 +4,49 @@
 <body>
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
-    <h1>This is a user's profile page</h1>
     <div class="container user-profile-info">
-        <img th:src="${user.profileURL}" alt="profile pic">
-        <h4 th:text="${user.username}"></h4>
-                    <span>number of wins:
-<!--                        <span th:text="counter for tournament.winner where id mathes user.id"></span>-->
-                    </span>
-        <div th:each="meme : ${user.memeSubmissions}">
-            <h4 th:text="${meme.caption}"></h4>
+        <!--        <img th:src="${user.profileURL}" alt="profile pic">-->
+        <img class="profile-pic" src="/img/cat-profile-pic.jpeg" alt="profile pic">
+        <div class="user-name-email">
+            <div class="row d-flex align-center rank-username">
+                <div class="user-rank">#1</div>
+                <h1 class="user-username" th:text="${user.username}"></h1>
+            </div>
+            <p class="user-email" th:text="${user.email}"></p>
         </div>
         <form th:method="GET" th:action="@{|/${user.id}/profile/edit|}" sec:authorize="isAuthenticated()">
-            <button th:if="${#authentication.principal.id == user.id}">Edit profile</button>
+            <button class="edit-btn" th:if="${#authentication.principal.id == user.id}">Edit profile</button>
         </form>
+    </div>
+    <div class="container d-flex stats justify-center">
+        <div class="row">
+            <div class="column d-flex align-center justify-center">
+                <span class="number">40</span>
+                <p class="description">wins</p>
+            </div>
+            <div class="column d-flex align-center justify-center">
+                <span class="number">50</span>
+                <p class="description">tournaments</p>
+            </div>
+            <div class="column d-flex align-center justify-center">
+                <span class="number">1,897</span>
+                <p class="description">likes</p>
+            </div>
+        </div>
     </div>
 
 
     <div class="container profile-tabs" sec:authorize="isAuthenticated()">
         <div class="row" th:if="${#authentication.principal.id == user.id}">
-            <ul>
-                <li>
-                    <a id="post" th:href="@{/profile/posts}">Posts</a>
+            <ul class="d-flex align-center full-width tabs justify-space-around">
+                <li class="profile-tab">
+                    <a class="profile-link" id="post" th:href="@{/profile/posts}">Posts</a>
                 </li>
-                <li>
-                    <a id="LikedPost" th:href="@{/profile/likes}">Liked Posts</a>
+                <li class="profile-tab">
+                    <a class="profile-link" id="History">History</a>
                 </li>
-                <li>
-                    <a id="History">History</a>
+                <li class="profile-tab">
+                    <a class="profile-link" id="LikedPost" th:href="@{/profile/likes}">Liked Posts</a>
                 </li>
             </ul>
         </div>
