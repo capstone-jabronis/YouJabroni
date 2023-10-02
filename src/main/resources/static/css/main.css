@@ -82,8 +82,9 @@ body {
 /*********************************Landing Page Carousel***********************************/
 
 .carousel-hero {
-    flex: 3;
+    flex: 2 0 0;
     /*justify-content: center;*/
+    margin-right: 30px;
 }
 .carousel {
     position: relative;
@@ -207,6 +208,7 @@ body {
 
 .landing-page-leaderboard {
     flex: 1 0 0;
-    margin-right: 100px;
+    margin-left: 20px;
+    /*justify-content: flex-end;*/
 }
 
