@@ -3,7 +3,6 @@
         const resultsPage = document.querySelector("#results");
         const url = "/feed/api";
         const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-
         let results = await fetch(url, {
             method: 'GET',
             headers: {
@@ -15,7 +14,7 @@
             throw new Error(`HTTP error! Status: ${results.status}`);
         }
         const data = await results.json();
-        console.log(data);
+
 
         const itemsPerPage = 5;
         let currentPage = 1;
