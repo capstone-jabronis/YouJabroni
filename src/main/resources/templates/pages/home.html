@@ -1,53 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partials :: head('Home Page')"></head>
+<head th:replace="partials/partials :: head('Home Page')">
+</head>
 <body>
 <nav th:replace="partials/partials :: nav"></nav>
-<div class="page-wrapper">
-    <aside th:replace="partials/partials :: leaderboard"></aside>
-    <h1>
-        Here is the list of tournaments
-    </h1>
-    <ul th:each="tournament : ${tournaments}">
-        <a th:href="@{|/templates/tournament/waiting-room.html|} ">
-            <li>tournament #<span th:text="${tournament.id}"></span></li>
-        </a>
-    </ul>
-    <div class="tournaments column">
-        <h1>Here is the list of tournaments</h1>
-        <div class="tournament-card d-flex">
-            <p>New tournament</p>
-            <button>Join Now!</button>
-        </div>
-        <div class="tournament-card d-flex">
-            <p>New tournament</p>
-            <button>Join Now!</button>
-        </div>
-        <div class="tournament-card d-flex">
-            <p>New tournament</p>
-            <button>Join Now!</button>
-        </div>
-        <div class="tournament-card d-flex">
-            <p>New tournament</p>
-            <button>Join Now!</button>
-        </div>
-        <div class="tournament-card d-flex">
-            <p>New tournament</p>
-            <button>Join Now!</button>
-        </div>
-        <!--            TEST CARD TO CREATE TOURNAMENT GROUP OF USERS-->
 
-        <div class="tournament-card d-flex" th:each="tournament : ${tournaments}">
-            <form th:action="@{|/tournament/waiting-room/${tournament.id}|}" method="POST">
-                <p>TEST TOURNAMENT ID: <span th:text="${tournament.id}"></span></p>
-                <button type="submit">Join Now!</button>
-            </form>
+<div class="jdHomePageWrapperCSS">
+    <aside class="jdleaderboard" th:replace="partials/partials :: leaderboard"></aside>
+    <aside class="jdtournament-list leaderboard column">
+        <div id="jdtournamentResults">
         </div>
-        </form>
-
-    </div>
-
-    <footer th:replace="partials/partials :: footer"></footer>
+    </aside>
 </div>
+<footer th:replace="partials/partials :: footer"></footer>
+<script th:src="@{/js/tournament.js}"></script>
+
 </body>
 </html>

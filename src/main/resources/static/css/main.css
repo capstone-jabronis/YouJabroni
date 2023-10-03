@@ -83,6 +83,7 @@ body {
 
 .carousel-hero {
     flex: 2 0 0;
+    /*justify-content: center;*/
     margin-right: 30px;
 }
 .carousel {
@@ -210,19 +211,56 @@ body {
     margin-left: 20px;
 }
 
-.jdFeedResultsCSS {
+.history-container {
     display: flex;
-    flex-direction: column; /* Display as a column */
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 30px;
+    justify-content: space-evenly;
 }
-.jdH1CSS{
+
+.history-card {
     display: flex;
+    flex-direction: column;
+    background-color: var(--first);
+    height: 360px;
+    width: 350px;
+    border-radius: 15px;
+    align-items: center;
     justify-content: center;
 }
+
+.history-head {
+    background-color: #9F8BFF;
+    height: 55px;
+    width: 350px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
 .jdImgCSS{
-    display: block; /* Change to block-level element */
-    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+    border-radius: 15px;
+}
+
+.caption-div {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-right: 25px;
+}
+
+.add-post-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 30px;
+    width: 100px;
+    font-size: 18px;
+    margin-bottom: 15px;
 }
 
 .profile-pic {
@@ -291,11 +329,31 @@ body {
 }
 .stats {
     flex-direction: row;
+    margin-right: 25px;
 }
 
 .number {
     font-size: 30px;
     font-weight: bold;
+}
+
+
+/*================         HOME         ================*/
+.jdHomePageWrapperCSS {
+    display: flex; /* Use flexbox to create a horizontal layout */
+}
+.jdleaderboard {
+    flex: 1; /* Takes up a flexible portion of available space */
+    width: 30%; /* Takes up 30% of the screen width */
+}
+
+.jdtournament-list {
+    flex: 2; /* Takes up twice as much flexible space as the leaderboard */
+    width: 70%; /* Takes up 70% of the screen width */
+}
+.jdTournamentCSS{
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .description {
@@ -316,8 +374,58 @@ body {
     border-bottom: 2px solid black;
     padding: unset;
     font-size: 20px;
-    margin-top: 30px;
+    margin-top: 50px;
+}
+
+#history {
+    cursor: pointer;
+}
+
+#history:hover {
+    color: #343CFF;
 }
 
 
 
+/********************************* Modals ***********************************/
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal .modal-bg {
+    position: absolute;
+    top: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+    pointer-events: none;
+
+}
+
+.modal .modal-container {
+    padding: 20px;
+    position: relative;
+    z-index: 999;
+}
+
+.hidden {
+    display: none;
+    pointer-events: none;
+}
+
+.password-error {
+    color: red;
+    align-self: center;
+}

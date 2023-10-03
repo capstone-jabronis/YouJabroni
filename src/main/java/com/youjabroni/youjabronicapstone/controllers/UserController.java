@@ -5,9 +5,7 @@ import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -32,4 +30,35 @@ public class UserController {
         userDao.save(user);
         return "redirect:/login";
     }
+
+    @GetMapping("{id}/profile/edit")
+    public String showEditForm(@PathVariable long id, Model model ) {
+        model.addAttribute("user", userDao.findById(id).get());
+        return "pages/edit-profile";
+    }
+
+    @PostMapping("{id}/profile/edit")
+    public String updateProfile(@PathVariable long id, @RequestParam(name = "username") String username, @RequestParam(name = "email") String email) {
+        User user = userDao.findById(id).get();
+        user.setEmail(email);
+        user.setUsername(username);
+        userDao.save(user);
+        return String.format("redirect:/%s/profile", id);
+    }
+
+    @PostMapping("{id}/profile/edit/password")
+    public String updatePassword(@PathVariable long id, @RequestParam(name = "newPassword") String newPassword) {
+        User user = userDao.findById(id).get();
+        if (newPassword != "") {
+            String hash = passwordEncoder.encode(newPassword);
+            user.setPassword(hash);
+            userDao.save(user);
+        } else {
+            return String.format("redirect:/%s/profile", id);
+        }
+
+        return String.format("redirect:/%s/profile", id);
+    }
+
+
 }

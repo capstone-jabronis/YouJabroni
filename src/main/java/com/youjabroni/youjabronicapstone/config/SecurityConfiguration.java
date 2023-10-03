@@ -48,6 +48,7 @@ public class SecurityConfiguration {
                                 "/tournament/waiting-room/*",
                                 "/home",
                                 "/*/profile/edit",
+                                "/*/profile/edit/password",
                                 "/profile/history",
                                 "/profile/likes",
                                 "/{id}/memeSubmission"
@@ -61,7 +62,8 @@ public class SecurityConfiguration {
                                 "/*/profile",
                                 "/feed",
                                 "/feed/api",
-                                "/profile/posts"
+                                "/profile/posts",
+                                "/tournaments/api"
                         ).permitAll()
                         // allow loading of static resources
                         .requestMatchers(
