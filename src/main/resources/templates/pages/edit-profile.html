@@ -3,6 +3,20 @@
 <head th:replace="partials/partials :: head('Profile')">
 </head>
 <body>
+<div class=" hidden passwordModal modal">
+    <div class="modal-bg"></div>
+    <div class="modal-container">
+        <div class="">
+            <form th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
+                <label th:for="newPassword">New Password</label>
+                <input th:name="newPassword" th:type="text" >
+                <label th:for="confirmNewPassword">Confirm New Password</label>
+                <input th:name="confirmNewPassword" th:type="text">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
     <h1>This is the edit profile page</h1>
@@ -16,9 +30,11 @@
         <img id="previewImage" src="" alt="Uploaded Image">
         <button type="submit" th:type="submit">submit changes</button>
     </form>
+        <button id="changePassword" class="changePassword">Change Password</button>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script th:src="@{/js/filestack.js}"></script>
+<script th:src="@{/js/main.js}" ></script>
 </body>
 </html>
