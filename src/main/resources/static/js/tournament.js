@@ -1,3 +1,4 @@
+
 window.onload = async () => {
     try {
         const resultsPage = document.querySelector("#jdtournamentResults");
@@ -59,3 +60,4 @@ window.onload = async () => {
         console.error("Error retrieving listed tournaments", error);
     }
 };
+

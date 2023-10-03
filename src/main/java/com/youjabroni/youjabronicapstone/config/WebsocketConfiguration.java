@@ -11,9 +11,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        //change this
         registry.addEndpoint("/secured/memespace-sock").withSockJS();
-
     }
 
     @Override

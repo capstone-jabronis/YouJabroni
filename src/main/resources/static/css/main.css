@@ -83,6 +83,7 @@ body {
 
 .carousel-hero {
     flex: 2 0 0;
+    /*justify-content: center;*/
     margin-right: 30px;
 }
 .carousel {
@@ -225,6 +226,79 @@ body {
     margin: 0 auto;
 }
 
+.profile-pic {
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.user-profile-info {
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+}
+
+.user-name-email {
+    margin-top: 100px;
+    margin-left: 50px;
+}
+
+.user-username {
+    margin-top: unset;
+    margin-bottom: unset;
+    font-size: 60px;
+    margin-left: 20px;
+}
+
+.rank-username {
+    padding: unset;
+}
+
+.user-rank {
+    font-size: 30px;
+    margin-top: 7px;
+    background-color: #343CFF;
+    border-radius: 10px;
+    color: white;
+    padding: 5px;
+}
+
+.user-email {
+    margin-top: unset;
+    margin-bottom: unset;
+    margin-left: 70px;
+    font-size: 20px;
+}
+
+.edit-btn {
+    background-color: #343CFF;
+    color: white;
+    border-radius: 16px;
+    border: none;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    margin-top: 130px;
+    margin-left: 400px;
+}
+
+.edit-btn:hover {
+    background-color: #0D0149;
+    transition: 500ms;
+    width: 155px;
+    height: 55px;
+}
+.stats {
+    flex-direction: row;
+}
+
+.number {
+    font-size: 30px;
+    font-weight: bold;
+}
+
 
 /*================         HOME         ================*/
 .jdHomePageWrapperCSS {
@@ -243,3 +317,65 @@ body {
     display: flex;
     justify-content: space-evenly;
 }
+
+.description {
+    font-size: 20px;
+}
+
+.profile-tab {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.profile-link {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.tabs {
+    border-bottom: 2px solid black;
+    padding: unset;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+
+
+/********************************* Modals ***********************************/
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal .modal-bg {
+    position: absolute;
+    top: 0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
+    pointer-events: none;
+
+}
+
+.modal .modal-container {
+    padding: 20px;
+    position: relative;
+    z-index: 999;
+}
+
+.hidden {
+    display: none;
+    pointer-events: none;
+}
+
