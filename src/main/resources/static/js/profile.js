@@ -40,8 +40,35 @@ historyContainer.addEventListener('click', async (e) => {
         userIDElement.appendChild(itemDiv);
     }
 
+    // Function to handle "Next" button click
+    function nextPage() {
+        if (currentPage < Math.ceil(data.length / itemsPerPage)) {
+            currentPage++;
+            renderPage(currentPage);
+        }
+    }
 
+    // Function to handle "Previous" button click
+    function previousPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderPage(currentPage);
+        }
+    }
 
+    // Create "Previous" and "Next" buttons
+    const previousButton = document.createElement('button');
+    previousButton.textContent = 'Previous';
+    previousButton.addEventListener('click', previousPage);
 
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.addEventListener('click', nextPage);
+
+    // Append the buttons to userIDElement
+    userIDElement.appendChild(previousButton);
+    userIDElement.appendChild(nextButton);
+
+    // Render the current page
+    renderPage(currentPage);
 });
-

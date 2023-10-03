@@ -7,7 +7,7 @@
     <div class="modal-bg"></div>
     <div class="modal-container">
         <div class="">
-            <form th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
+            <form th:action="@{|/${user.id}/profile/edit/password|}" th:method="POST">
                 <label th:for="newPassword">New Password</label>
                 <input th:name="newPassword" th:type="text" >
                 <label th:for="confirmNewPassword">Confirm New Password</label>

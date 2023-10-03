@@ -45,8 +45,10 @@ public class SecurityConfiguration {
                          * only authenticated users can create and edit ads */
                         .requestMatchers(
                                 "/tournament/*",
+                                "/tournament/waiting-room/*",
                                 "/home",
                                 "/*/profile/edit",
+                                "/*/profile/edit/password",
                                 "/profile/history",
                                 "/profile/likes",
                                 "/{id}/memeSubmission"
@@ -59,6 +61,7 @@ public class SecurityConfiguration {
                                 "/register",
                                 "/*/profile",
                                 "/feed",
+                                "/feed/api",
                                 "/profile/posts"
                         ).permitAll()
                         // allow loading of static resources
@@ -69,7 +72,7 @@ public class SecurityConfiguration {
                         ).permitAll()
                 )
                 /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/feed"))
+                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
                 /* Logout configuration */
                 .logout((logout) -> logout.logoutSuccessUrl("/"));
         return http.build();

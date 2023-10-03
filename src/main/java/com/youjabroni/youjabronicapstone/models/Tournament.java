@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tournaments")
@@ -18,14 +19,33 @@ public class Tournament {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
     private List<Round> rounds;
 
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
+    private Set<User> userSet;
+
+    public Tournament(User winner, Timestamp startTime, List<Round> rounds, Set<User> userSet) {
+        this.winner = winner;
+        this.startTime = startTime;
+        this.rounds = rounds;
+        this.userSet = userSet;
+    }
+
     public Tournament() {
     }
 
-    public Tournament(long id, User winner, Timestamp startTime, List<Round> rounds) {
+    public Tournament(long id, User winner, Timestamp startTime, List<Round> rounds, Set<User> userSet) {
         this.id = id;
         this.winner = winner;
         this.startTime = startTime;
         this.rounds = rounds;
+        this.userSet = userSet;
+    }
+
+    public Set<User> getUserSet() {
+        return userSet;
+    }
+
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
     }
 
     public Tournament(User winner, Timestamp startTime, List<Round> rounds) {

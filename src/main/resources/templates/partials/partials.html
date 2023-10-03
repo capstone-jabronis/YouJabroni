@@ -17,9 +17,9 @@
 </head>
 <body>
 <!--START OF NAVBAR PARTIAL-->
-<nav th:fragment="nav" class="navbar">     
+<nav th:fragment="nav" class="navbar">
     <div class="container" id="navbar">
-        <ul class="d-flex justify-space-between align-center full-width links-list">
+        <ul class="d-flex align-center justify-center full-width links-list">
             <!--                If user is logged in, Profile option will show up in navbar-->
             <li class="nav-link" sec:authorize="isAuthenticated()">
                 <!--                        View of user profile pic-->

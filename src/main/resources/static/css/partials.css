@@ -13,9 +13,7 @@
     text-decoration: none;
     list-style-type: none;
 }
-/*li{*/
-/*    margin-right: 10rem;*/
-/*}*/
+
 .navbar, .footer{
     background-color: var(--third);
     height: 8rem;
@@ -42,60 +40,63 @@
 }
 
 .links-list{
-    /*justify-content: center;*/
     font-size: 18px;
     padding: unset;
-    margin-top: 6px;
+    margin: unset;
 }
 
 #feed {
-    position: relative;
-    left: 80px;
+    position: absolute;
+    left: 70px;
+    top: 50px;
 }
 
 #login {
-    position: relative;
+    position: absolute;
     right: 50px;
-}
-
-#logout {
-    margin-left: auto;
+    top: 50px;
 }
 
 #register {
-    position: relative;
-    left: 300px;
+    position: absolute;
+    right: 150px;
+    top: 50px;
 }
 
 #logo {
-    position: relative;
-    left: 240px;
+    position: absolute;
+    right: 657px;
+    top: 5px;
 }
 
 #profile {
-    position: relative;
-    left: 60px;
+    position: absolute;
+    left: 70px;
+    top: 50px;
 }
 
 #home {
-    position: relative;
-    right: 150px;
+    position: absolute;
+    left: 175px;
+    top: 50px;
 }
 
 #logout {
-    position: relative;
-    right: 50px;
-
+    position: absolute;
+    right: 30px;
+    top: 20px;
 }
 
 #feedAuth {
-    position: relative;
-    left: 160px;
+    position: absolute;
+    right: 225px;
+    top: 50px;
 }
 
 #logoAuth {
-    position: relative;
-    left: 40px;
+    position: absolute;
+    left: 667px;
+    top: 5px;
 }
 
 .user-pic {
