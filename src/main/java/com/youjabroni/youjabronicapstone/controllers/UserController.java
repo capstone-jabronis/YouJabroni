@@ -49,10 +49,16 @@ public class UserController {
     @PostMapping("{id}/profile/edit/password")
     public String updatePassword(@PathVariable long id, @RequestParam(name = "newPassword") String newPassword) {
         User user = userDao.findById(id).get();
-        String hash = passwordEncoder.encode(newPassword);
-        user.setPassword(hash);
-        userDao.save(user);
+        if (newPassword != "") {
+            String hash = passwordEncoder.encode(newPassword);
+            user.setPassword(hash);
+            userDao.save(user);
+        } else {
+            return String.format("redirect:/%s/profile", id);
+        }
+
         return String.format("redirect:/%s/profile", id);
     }
+
 
 }

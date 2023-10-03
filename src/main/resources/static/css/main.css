@@ -379,3 +379,7 @@ body {
     pointer-events: none;
 }
 
+.password-error {
+    color: red;
+    align-self: center;
+}
