@@ -35,6 +35,15 @@
         </div>
     </div>
 
+    <div class="container profile-tabs">
+        <div class="row d-flex justify-center">
+            <ul class="d-flex justify-center tabs full-width">
+                <li class="profile-tab">
+                    <a class="profile-link">Posts</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
     <div class="container profile-tabs" sec:authorize="isAuthenticated()">
         <div class="row" th:if="${#authentication.principal.id == user.id}">
@@ -43,10 +52,10 @@
                     <a class="profile-link" id="post" th:href="@{/profile/posts}">Posts</a>
                 </li>
                 <li class="profile-tab">
-                    <a class="profile-link" id="History">History</a>
+                    <a class="profile-link" id="history">History</a>
                 </li>
                 <li class="profile-tab">
-                    <a class="profile-link" id="LikedPost" th:href="@{/profile/likes}">Liked Posts</a>
+                    <a class="profile-link" id="likedPost" th:href="@{/profile/likes}">Liked Posts</a>
                 </li>
             </ul>
         </div>
