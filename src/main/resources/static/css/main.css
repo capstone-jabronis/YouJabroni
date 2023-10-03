@@ -329,7 +329,12 @@ body {
 }
 .stats {
     flex-direction: row;
-    margin-right: 25px;
+    margin-right: 37px;
+}
+
+.stats-not-auth {
+    flex-direction: row;
+    margin-right: 2px;
 }
 
 .number {

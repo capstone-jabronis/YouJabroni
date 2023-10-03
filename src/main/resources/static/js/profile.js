@@ -4,32 +4,30 @@ const userIDElement = document.querySelector("#results");
 let userID = userIDElement.getAttribute("dataId");
 console.log(userID);
 let url = `/${userID}/memeSubmission`
+const itemsPerPage = 10; // Change this number according to your requirements
+let currentPage = 1;
 
 historyContainer.addEventListener('click', async (e) => {
     e.preventDefault();
-    console.log(csrfToken);
 
-    // Fetch the data only if it hasn't been fetched before
-    if (data.length === 0) {
-        let results = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
-            }
-        });
-        if (!results.ok) {
-            throw new Error(`HTTP error! Status: ${results.status}`);
+    let results = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
         }
-        data = await results.json();
+    });
+    const data = await results.json();
+    if (!results.ok) {
+        throw new Error(`HTTP error! Status: ${results.status}`);
     }
+
 
     // Function to render items for the current page
     function renderPage(page) {
         // Clear the existing content in userIDElement
         userIDElement.innerHTML = '';
         userIDElement.classList.add('history-container');
-
         // Calculate the start and end indices for the current page
         const startIndex = (page - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
@@ -92,19 +90,19 @@ historyContainer.addEventListener('click', async (e) => {
         }
     }
 
-    // Create "Previous" and "Next" buttons
-    const previousButton = document.createElement('button');
-    previousButton.textContent = 'Previous';
-    previousButton.addEventListener('click', previousPage);
-
-    const nextButton = document.createElement('button');
-    nextButton.textContent = 'Next';
-    nextButton.addEventListener('click', nextPage);
-
-    // Append the buttons to userIDElement
-    userIDElement.appendChild(previousButton);
-    userIDElement.appendChild(nextButton);
 
     // Render the current page
     renderPage(currentPage);
 });
+// Create "Previous" and "Next" buttons
+const previousButton = document.createElement('button');
+previousButton.textContent = 'Previous';
+previousButton.addEventListener('click', previousPage);
+
+const nextButton = document.createElement('button');
+nextButton.textContent = 'Next';
+nextButton.addEventListener('click', nextPage);
+
+// Append the buttons to userIDElement
+userIDElement.appendChild(previousButton);
+userIDElement.appendChild(nextButton);

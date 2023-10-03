@@ -22,7 +22,6 @@ import java.util.List;
 public class PagesController {
     private TournamentRepository tournamentDao;
     private UserRepository userDao;
-
     private MemeSubmissionRepository memeDao;
 
     public PagesController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeDao) {
@@ -47,6 +46,19 @@ public class PagesController {
 
     @GetMapping("/{id}/profile")
     public String showUsersProfile(@PathVariable long id, Model model) {
+        int winningCount = 0;
+        int tournamentCount = 0;
+        List<Tournament> tournamentsUserHasWon = tournamentDao.findByWinnerId(id);
+        for(Tournament tournament : tournamentsUserHasWon) {
+            winningCount++;
+        }
+//        List<Tournament> tournamentsUserHasBeenIn = userDao.findAllTournamentById(id);
+//        for(Tournament tournament : tournamentsUserHasBeenIn) {
+//            tournamentCount++;
+//        }
+
+        model.addAttribute("tournaments", tournamentCount);
+        model.addAttribute("wins", winningCount);
         model.addAttribute("user", userDao.findById(id).get());
         return "pages/profile";
     }

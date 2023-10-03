@@ -18,11 +18,15 @@
             <button class="edit-btn" th:if="${#authentication.principal.id == user.id}">Edit profile</button>
         </form>
     </div>
-    <div class="container d-flex stats justify-center">
-        <div class="row">
+
+    <!-- START OF USER STATS -->
+    <!--if as user is logged in, and they are on their profile they will see this-->
+    <div class="container d-flex stats justify-center" sec:authorize="isAuthenticated()">
+        <div class="row" th:if="${#authentication.principal.id == user.id}">
             <div class="column d-flex align-center justify-center">
-                <span class="number">40</span>
-                <p class="description">wins</p>
+                <span class="number" th:text="${wins}"></span>
+                <p class="description" th:if="${wins == 1}">win</p>
+                <p class="description" th:if="${wins == 0 || wins > 1}">wins</p>
             </div>
             <div class="column d-flex align-center justify-center">
                 <span class="number">50</span>
@@ -34,7 +38,46 @@
             </div>
         </div>
     </div>
+    <!--if a user is logged in, and they ar eon someone else's profile they will see this-->
+    <div class="container d-flex stats-not-auth justify-center" sec:authorize="isAuthenticated()">
+        <div class="row" th:if="${#authentication.principal.id != user.id}">
+            <div class="column d-flex align-center justify-center">
+                <span class="number" th:text="${wins}"></span>
+                <p class="description" th:if="${wins == 1}">win</p>
+                <p class="description" th:if="${wins == 0 || wins > 1}">wins</p>
+            </div>
+            <div class="column d-flex align-center justify-center">
+                <span class="number">50</span>
+                <p class="description">tournaments</p>
+            </div>
+            <div class="column d-flex align-center justify-center">
+                <span class="number">1,897</span>
+                <p class="description">likes</p>
+            </div>
+        </div>
+    </div>
+    <!--a visitor will see this-->
+    <div class="container d-flex stats-not-auth justify-center" th:if="${not #authorization.expression('isAuthenticated()')}">
+        <div class="row">
+            <div class="column d-flex align-center justify-center">
+                <span class="number" th:text="${wins}"></span>
+                <p class="description" th:if="${wins == 1}">win</p>
+                <p class="description" th:if="${wins == 0 || wins > 1}">wins</p>
+            </div>
+            <div class="column d-flex align-center justify-center">
+                <span class="number">50</span>
+                <p class="description">tournaments</p>
+            </div>
+            <div class="column d-flex align-center justify-center">
+                <span class="number">1,897</span>
+                <p class="description">likes</p>
+            </div>
+        </div>
+    </div>
+    <!-- END OF STATS -->
 
+    <!-- START OF TABS -->
+    <!--a visitor will see this-->
     <div class="container profile-tabs" th:if="${not #authorization.expression('isAuthenticated()')}">
         <div class="row d-flex justify-center">
             <ul class="d-flex justify-center tabs full-width">
@@ -44,7 +87,17 @@
             </ul>
         </div>
     </div>
-
+    <!--if a user is logged in, and they are on someone else's profile they will see this-->
+    <div class="container profile-tabs" sec:authorize="isAuthenticated()">
+        <div class="row d-flex justify-center" th:if="${#authentication.principal.id != user.id}">
+            <ul class="d-flex justify-center tabs full-width">
+                <li class="profile-tab">
+                    <a class="profile-link">Posts</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--if a user is logged in, and they are on their profile they will see this-->
     <div class="container profile-tabs" sec:authorize="isAuthenticated()">
         <div class="row" th:if="${#authentication.principal.id == user.id}">
             <ul class="d-flex align-center full-width tabs justify-space-around">
@@ -60,6 +113,8 @@
             </ul>
         </div>
     </div>
+    <!-- END OF TABS -->
+
     <div>
         <div>
             <div id="results" th:dataId="${user.id}">
