@@ -50,8 +50,10 @@ public class TournamentController {
 
         return "tournament/create-meme";
     }
+
+    //Websocket stuff. Sends memeSubmissions as "messages"////////////////////////////
     @MessageMapping("/create/{tournamentId}")
-    public void sendSubmission(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission){
+    public void sendSubmission(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission) {
         messagingTemplate.convertAndSend(format("tournament/create-meme/%s", tournamentId), memeSubmission);
     }
 
@@ -60,17 +62,16 @@ public class TournamentController {
                         SimpMessageHeaderAccessor headerAccessor) {
         String currentTournamentId = (String) headerAccessor.getSessionAttributes().put("tournament_id", tournamentId);
         if (tournamentId != null) {
-            MemeSubmission leaveSubmisison = new MemeSubmission();
+            MemeSubmission leaveSubmission = new MemeSubmission();
 
-            leaveSubmisison.setMessageType(MemeSubmission.MessageType.LEAVE);
-            leaveSubmisison.setUser(memeSubmission.getUser());
-            messagingTemplate.convertAndSend(format("/chat-room/%s", currentTournamentId), leaveSubmisison);
+            leaveSubmission.setMessageType(MemeSubmission.MessageType.LEAVE);
+            leaveSubmission.setUser(memeSubmission.getUser());
+            messagingTemplate.convertAndSend(format("/chat-room/%s", currentTournamentId), leaveSubmission);
         }
         headerAccessor.getSessionAttributes().put("name", memeSubmission.getUser());
         messagingTemplate.convertAndSend(format("/chat-room/%s", tournamentId), memeSubmission);
     }
-
-
+//End websocket stuff/////////////////////////////////
 
 
     @GetMapping("/vote")
@@ -100,7 +101,7 @@ public class TournamentController {
     }
 
     @GetMapping("/waiting-room/leave")
-    public String leaveTournamentWaitingRoom(@AuthenticationPrincipal UserDetails userDetails){
+    public String leaveTournamentWaitingRoom(@AuthenticationPrincipal UserDetails userDetails) {
         User user = userDao.findByUsername(userDetails.getUsername());
         Tournament tournament = tournamentDao.findById(user.getTournament().getId()).get();
         Set<User> updateUserSet = tournament.getUserSet();
