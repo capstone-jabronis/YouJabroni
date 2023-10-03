@@ -27,6 +27,12 @@ public class PagesController {
         this.memeDao = memeDao;
     }
 
+    @PostMapping("/{id}/profile/posts")
+    public String addPost(@PathVariable long id) {
+
+        return "redirect:/profile";
+    }
+
     @GetMapping("/home")
     public String showTournaments(Model model) {
         model.addAttribute("tournaments", tournamentDao.findAll());
@@ -105,11 +111,4 @@ public class PagesController {
 //        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(memes));
         return users;
     }
-    
-    @PostMapping("/profile/history")
-    public String addPost() {
-        
-    }
-
-
 }

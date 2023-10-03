@@ -50,9 +50,11 @@ historyContainer.addEventListener('click', async (e) => {
             captionDiv.classList.add("caption-div");
 
             // Create a button to add to the posts
+            const modalOverlay = document.createElement('div');
+            modalOverlay.classList.add('hidden', 'overlay');
             const addPostButton = document.createElement('button');
             addPostButton.textContent = 'add';
-            addPostButton.classList.add('add-post-btn');
+            addPostButton.classList.add('add-post-btn', 'btn', 'btn-open');
 
             // Create an image element for the meme_pic
             const imageElement = document.createElement('img');
@@ -61,12 +63,16 @@ historyContainer.addEventListener('click', async (e) => {
             imageElement.height = 200;
             imageElement.classList.add("jdImgCSS");
 
+            // addPostButton.addEventListener('click', addModal());
+
 
             // Append the caption and image to the itemDiv
             itemDiv.appendChild(historyHead);
             itemDiv.appendChild(imageElement);
             captionDiv.appendChild(caption);
             captionDiv.appendChild(addPostButton);
+            captionDiv.appendChild(addModal());
+            captionDiv.appendChild(modalOverlay);
             itemDiv.appendChild(captionDiv);
 
             // Append the itemDiv to userIDElement
@@ -74,35 +80,68 @@ historyContainer.addEventListener('click', async (e) => {
         }
     }
 
-    // Function to handle "Next" button click
-    function nextPage() {
-        if (currentPage < Math.ceil(data.length / itemsPerPage)) {
-            currentPage++;
-            renderPage(currentPage);
-        }
-    }
-
-    // Function to handle "Previous" button click
-    function previousPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            renderPage(currentPage);
-        }
-    }
-
-
     // Render the current page
     renderPage(currentPage);
 });
-// Create "Previous" and "Next" buttons
-const previousButton = document.createElement('button');
-previousButton.textContent = 'Previous';
-previousButton.addEventListener('click', previousPage);
 
-const nextButton = document.createElement('button');
-nextButton.textContent = 'Next';
-nextButton.addEventListener('click', nextPage);
+const postModal = document.querySelector(".post-modal");
+const overlay = document.querySelector(".overlay");
+const openModalBtn = document.querySelector(".btn-open");
+const closeModalBtn = document.querySelector(".btn-close");
 
-// Append the buttons to userIDElement
-userIDElement.appendChild(previousButton);
-userIDElement.appendChild(nextButton);
+function addModal() {
+    const modalSection = document.createElement('section');
+    modalSection.classList.add('hidden', 'post-modal');
+    // Create the exit button
+    const closeButtonContainer = document.createElement('div');
+    closeButtonContainer.classList.add('flex');
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('btn-close');
+    closeButton.textContent = 'x';
+
+    // Create the form
+    const formContainer = document.createElement('div');
+    formContainer.classList.add('form-container');
+    const form = document.createElement('form');
+    form.setAttribute("th:method", "post");
+    form.setAttribute("th:action", "@{|/" + userID + "/profile/posts|}");
+
+    // Create the input for description
+    const description = document.createElement('input');
+    description.setAttribute('type', 'text');
+    description.setAttribute('name', 'description');
+
+    // Create a submit button
+    const submit = document.createElement('button');
+    submit.classList.add('post-btn');
+    submit.setAttribute('type', 'submit');
+    submit.setAttribute('value', 'submit');
+
+
+    closeButtonContainer.appendChild(closeButton);
+    form.appendChild(description);
+    form.appendChild(submit);
+    formContainer.appendChild(form);
+    modalSection.appendChild(closeButtonContainer);
+    modalSection.appendChild(formContainer);
+
+    return modalSection;
+}
+
+// function to open the modal
+const openModal = function () {
+    postModal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+};
+
+openModalBtn.addEventListener("click", openModal);
+
+// function to close the modal
+const closeModal = function () {
+    postModal.classList.add("hidden");
+    overlay.classList.add("hidden");
+};
+
+closeModalBtn.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
