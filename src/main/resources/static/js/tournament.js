@@ -71,12 +71,14 @@ window.onload = async () => {
         itemDiv.appendChild(detailsDiv);
 
         for (let tournaments of data) {
-
-            const tournamentDiv = document.createElement('div');
+            let tournamentId = tournaments.id.toString();
+            const tournamentDiv = document.createElement('form');
             tournamentDiv.classList.add("row");
             tournamentDiv.classList.add("player");
             tournamentDiv.classList.add("name");
             tournamentDiv.classList.add("jdTournamentCSS");
+            tournamentDiv.setAttribute("th:action", `@{|/tournament/waiting-room/${tournamentId}|}`);
+            tournamentDiv.setAttribute("th:method", "POST");
             tournamentDiv.style.whiteSpace = "pre";
             tournamentDiv.innerHTML = `
                 TOURNAMENT # ${tournaments.id} 
@@ -86,8 +88,8 @@ window.onload = async () => {
             const joinBTN = document.createElement("button");
             joinBTN.innerHTML = 'JOIN NOW';
             // HERE WE WOULD PUT THE TOURNAMENT! \(^.^)/ /\\/\/\//\/\/\/\/\/\/\/ 🏴‍☠️
-            joinBTN.setAttribute("th:href", `@{|/tournament/waiting-room/${tournaments.id}|}`);
-            joinBTN.setAttribute("data-id", `${tournaments.id}`);
+            joinBTN.setAttribute("type", "submit");
+            // joinBTN.setAttribute("data-id", `${tournaments.id}`);
             tournamentDiv.appendChild(joinBTN)
             const line = document.createElement("hr");
             itemDiv.appendChild(tournamentDiv);
