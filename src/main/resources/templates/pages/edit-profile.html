@@ -3,22 +3,39 @@
 <head th:replace="partials/partials :: head('Profile')">
 </head>
 <body>
+<div class=" hidden passwordModal modal">
+    <div class="modal-bg"></div>
+    <div class="modal-container">
+        <div class="">
+            <form th:action="@{|/${user.id}/profile/edit/password|}" th:method="POST">
+                <label th:for="newPassword">New Password</label>
+                <input class="newPassword" th:name="newPassword" th:type="text" >
+                <label th:for="confirmNewPassword">Confirm New Password</label>
+                <input class="confirmNewPassword" th:name="confirmNewPassword" th:type="text">
+                <button class=" hidden submit-password" type="submit">Submit</button>
+            </form>
+            <div class="hidden password-error">Passwords Do Not match</div>
+        </div>
+    </div>
+</div>
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
     <h1>This is the edit profile page</h1>
     <form th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
         <p>edit username</p>
-        <input th:name="username" th:type="text" th:value="${user.username}">
+        <input th:name="username" th:type="text" th:value="${user.username}" th:field="${user.username}">
         <p>edit email</p>
-        <input th:name="email" th:type="text" th:value="${user.email}">
+        <input th:name="email" th:type="text" th:value="${user.email}" th:field="${user.email}">
         <input th:name="ProfileURL" type="text" id="fileInput" value="" hidden>
         <button id="profilePic">upload profile pic</button>
         <img id="previewImage" src="" alt="Uploaded Image">
-        <button th:type="submit">submit changes</button>
+        <button type="submit" th:type="submit">submit changes</button>
     </form>
+        <button id="changePassword" class="changePassword">Change Password</button>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script th:src="@{/js/filestack.js}"></script>
+<script th:src="@{/js/main.js}" ></script>
 </body>
 </html>
