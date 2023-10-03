@@ -226,3 +226,20 @@ body {
 }
 
 
+/*================         HOME         ================*/
+.jdHomePageWrapperCSS {
+    display: flex; /* Use flexbox to create a horizontal layout */
+}
+.jdleaderboard {
+    flex: 1; /* Takes up a flexible portion of available space */
+    width: 30%; /* Takes up 30% of the screen width */
+}
+
+.jdtournament-list {
+    flex: 2; /* Takes up twice as much flexible space as the leaderboard */
+    width: 70%; /* Takes up 70% of the screen width */
+}
+.jdTournamentCSS{
+    display: flex;
+    justify-content: space-evenly;
+}
