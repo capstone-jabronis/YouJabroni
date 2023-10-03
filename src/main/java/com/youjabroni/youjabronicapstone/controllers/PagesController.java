@@ -4,6 +4,7 @@ package com.youjabroni.youjabronicapstone.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youjabroni.youjabronicapstone.models.MemeSubmission;
+import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
@@ -34,6 +35,14 @@ public class PagesController {
     public String showTournaments(Model model) {
         model.addAttribute("tournaments", tournamentDao.findAll());
         return "pages/home";
+    }
+    @GetMapping("/tournaments/api")
+    public @ResponseBody List<Tournament> getTournaments() throws JsonProcessingException {
+        List<Tournament> tournaments = tournamentDao.findAll();
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println("below is tournys");
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tournaments));
+        return tournaments;
     }
 
     @GetMapping("/{id}/profile")
