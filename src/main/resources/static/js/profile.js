@@ -1,5 +1,5 @@
 const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-const historyContainer = document.querySelector("#History");
+const historyContainer = document.querySelector("#history");
 const userIDElement = document.querySelector("#results");
 let userID = userIDElement.getAttribute("dataId");
 let url = `/${userID}/memeSubmission`;
@@ -30,6 +30,7 @@ historyContainer.addEventListener('click', async (e) => {
     function renderPage(page) {
         // Clear the existing content in userIDElement
         userIDElement.innerHTML = '';
+        userIDElement.classList.add('history-container');
 
         // Calculate the start and end indices for the current page
         const startIndex = (page - 1) * itemsPerPage;
@@ -39,23 +40,38 @@ historyContainer.addEventListener('click', async (e) => {
         for (let i = startIndex; i < endIndex && i < data.length; i++) {
             const item = data[i];
             const itemDiv = document.createElement('div');
+            itemDiv.classList.add('history-card');
+
+            // Create a div for the heading of the card
+            const historyHead = document.createElement('div');
+            historyHead.classList.add('history-head');
 
             // Create a div for the caption
             const captionDiv = document.createElement('div');
-            captionDiv.textContent = `Caption: ${item.caption}`;
-            captionDiv.classList.add("jdH1CSS");
+            const caption = document.createElement('h2');
+            caption.textContent = `${item.caption}`;
+            caption.classList.add('caption');
+            captionDiv.classList.add("caption-div");
+
+            // Create a button to add to the posts
+            const addPostButton = document.createElement('button');
+            addPostButton.textContent = 'add';
+            addPostButton.classList.add('add-post-btn');
 
             // Create an image element for the meme_pic
             const imageElement = document.createElement('img');
             imageElement.src = item.round.meme_pic;
             imageElement.width = 300;
-            imageElement.height = 300;
+            imageElement.height = 200;
             imageElement.classList.add("jdImgCSS");
 
 
             // Append the caption and image to the itemDiv
-            itemDiv.appendChild(captionDiv);
+            itemDiv.appendChild(historyHead);
             itemDiv.appendChild(imageElement);
+            captionDiv.appendChild(caption);
+            captionDiv.appendChild(addPostButton);
+            itemDiv.appendChild(captionDiv);
 
             // Append the itemDiv to userIDElement
             userIDElement.appendChild(itemDiv);

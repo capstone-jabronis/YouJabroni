@@ -210,19 +210,56 @@ body {
     margin-left: 20px;
 }
 
-.jdFeedResultsCSS {
+.history-container {
     display: flex;
-    flex-direction: column; /* Display as a column */
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 30px;
+    justify-content: space-evenly;
 }
-.jdH1CSS{
+
+.history-card {
     display: flex;
+    flex-direction: column;
+    background-color: var(--first);
+    height: 360px;
+    width: 350px;
+    border-radius: 15px;
+    align-items: center;
     justify-content: center;
 }
+
+.history-head {
+    background-color: #9F8BFF;
+    height: 55px;
+    width: 350px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
 .jdImgCSS{
-    display: block; /* Change to block-level element */
-    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+    border-radius: 15px;
+}
+
+.caption-div {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-right: 25px;
+}
+
+.add-post-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 30px;
+    width: 100px;
+    font-size: 18px;
+    margin-bottom: 15px;
 }
 
 .profile-pic {
@@ -291,6 +328,7 @@ body {
 }
 .stats {
     flex-direction: row;
+    margin-right: 25px;
 }
 
 .number {
@@ -316,7 +354,15 @@ body {
     border-bottom: 2px solid black;
     padding: unset;
     font-size: 20px;
-    margin-top: 30px;
+    margin-top: 50px;
+}
+
+#history {
+    cursor: pointer;
+}
+
+#history:hover {
+    color: #343CFF;
 }
 
 
