@@ -11,10 +11,7 @@ import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -107,6 +104,11 @@ public class PagesController {
 //        ObjectMapper mapper = new ObjectMapper();
 //        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(memes));
         return users;
+    }
+    
+    @PostMapping("/profile/history")
+    public String addPost() {
+        
     }
 
 

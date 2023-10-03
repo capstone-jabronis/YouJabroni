@@ -49,7 +49,6 @@ public class SecurityConfiguration {
                                 "/home",
                                 "/*/profile/edit",
                                 "/*/profile/edit/password",
-                                "/profile/history",
                                 "/profile/likes",
                                 "/{id}/memeSubmission"
                         ).authenticated()

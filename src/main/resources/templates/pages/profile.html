@@ -102,7 +102,7 @@
         <div class="row" th:if="${#authentication.principal.id == user.id}">
             <ul class="d-flex align-center full-width tabs justify-space-around">
                 <li class="profile-tab">
-                    <a class="profile-link" id="post" th:href="@{/profile/posts}">Posts</a>
+                    <a class="profile-link" id="post">Posts</a>
                 </li>
                 <li class="profile-tab">
                     <a class="profile-link" id="history">History</a>
@@ -126,6 +126,7 @@
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
 <script th:src="@{/js/profile.js}"></script>
+<script th:src="@{/js/posts.js}"></script>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </body>
 </html>
