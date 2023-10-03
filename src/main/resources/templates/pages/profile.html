@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div class="container profile-tabs">
+    <div class="container profile-tabs" th:if="${not #authorization.expression('isAuthenticated()')}">
         <div class="row d-flex justify-center">
             <ul class="d-flex justify-center tabs full-width">
                 <li class="profile-tab">
