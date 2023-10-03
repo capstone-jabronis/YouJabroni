@@ -48,6 +48,7 @@ public class SecurityConfiguration {
                                 "/tournament/waiting-room/*",
                                 "/home",
                                 "/*/profile/edit",
+                                "/*/profile/edit/password",
                                 "/profile/history",
                                 "/profile/likes",
                                 "/{id}/memeSubmission"
