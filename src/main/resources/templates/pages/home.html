@@ -39,8 +39,7 @@
 
         <div class="tournament-card d-flex" th:each="tournament : ${tournaments}">
             <form th:action="@{|/tournament/waiting-room/${tournament.id}|}" method="POST">
-                <p>TEST TOURNAMENT</p>
-                <p>Tournament ID:<span th:text="${tournament.id}"></span></p>
+                <p>TEST TOURNAMENT ID: <span th:text="${tournament.id}"></span></p>
                 <button type="submit">Join Now!</button>
             </form>
         </div>

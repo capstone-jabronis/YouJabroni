@@ -24,6 +24,7 @@ public class User {
     private String profileURL;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<MemeSubmission> memeSubmissions;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
     private Tournament tournament;
