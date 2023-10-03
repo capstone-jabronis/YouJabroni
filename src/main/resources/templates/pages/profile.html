@@ -35,6 +35,15 @@
         </div>
     </div>
 
+    <div class="container profile-tabs">
+        <div class="row d-flex justify-center">
+            <ul class="d-flex justify-center tabs full-width">
+                <li class="profile-tab">
+                    <a class="profile-link">Posts</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
     <div class="container profile-tabs" sec:authorize="isAuthenticated()">
         <div class="row" th:if="${#authentication.principal.id == user.id}">
