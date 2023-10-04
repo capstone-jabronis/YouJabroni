@@ -50,6 +50,7 @@ public class TournamentController {
         return "tournament/complete";
     }
 
+
     @PostMapping("/waiting-room/{id}")
     public String joinTournament(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable Long id) {
         User user = userDao.findByUsername(userDetails.getUsername());
