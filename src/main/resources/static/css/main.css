@@ -186,19 +186,7 @@ body {
 #carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
     color: #428bca;
 }
-
-#title {
-    width: 100%;
-    position: absolute;
-    padding: 0px;
-    margin: 0px auto;
-    text-align: center;
-    font-size: 27px;
-    color: rgba(255, 255, 255, 1);
-    font-family: 'Open Sans', sans-serif;
-    z-index: 9999;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.33), -1px 0px 2px rgba(255, 255, 255, 0);
-}
+/********** END OF CAROUSEL *************/
 
 .landing-page-container {
     display: flex;
@@ -329,7 +317,12 @@ body {
 }
 .stats {
     flex-direction: row;
-    margin-right: 25px;
+    margin-right: 37px;
+}
+
+.stats-not-auth {
+    flex-direction: row;
+    margin-right: 2px;
 }
 
 .number {
@@ -438,3 +431,101 @@ body {
     align-self: center;
 }
 
+/***************** START OF MODAL FOR ADDING POSTS **********************/
+
+.post-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 450px;
+    height: 550px;
+    min-height: 250px;
+    position: absolute;
+    top: 5%;
+    right: 35%;
+    background-color: #0D0149;
+    border: 1px solid #07013d;
+    border-radius: 15px;
+}
+
+.post-modal .flex {
+    display: flex;
+}
+
+.post-modal input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.btn-close {
+    padding: 0.5rem 0.7rem;
+    background: #eee;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1;
+}
+
+.post-modal {
+    z-index: 2;
+}
+
+.close-btn-container {
+    display: flex;
+    align-items: start;
+    justify-content: end;
+
+}
+
+.add-img {
+    width: 350px;
+    height: 200px;
+    border-radius: 15px;
+}
+
+.add-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-caption {
+    margin-left: 50px;
+    color: white;
+}
+
+.form-title {
+    margin-left: 50px;
+    color: white;
+}
+
+.add-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-btn {
+    margin-top: 20px;
+}
+
+.add-caption-div {
+    display: flex;
+    flex-direction: column;
+}
+
+/***************** END OF MODAL FOR ADDING POSTS **********************/

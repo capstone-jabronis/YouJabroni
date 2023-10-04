@@ -4,5 +4,7 @@ import com.youjabroni.youjabronicapstone.models.MemeSubmission;
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface MemeSubmissionRepository extends JpaRepository<MemeSubmission, Long> {
 }
