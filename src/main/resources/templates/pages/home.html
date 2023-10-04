@@ -21,6 +21,15 @@
     </form>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    const tournamentsJsObject = /*[[${tournaments}]]*/ 'default';
+    console.log("FROM HOME html" + tournamentsJsObject);
+
+    /*]]>*/
+</script>
 <script th:src="@{/js/tournament.js}"></script>
 <script th:src="@{/js/websocket-tournament.js}"></script>
 
