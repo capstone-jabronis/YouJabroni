@@ -60,10 +60,12 @@ historyContainer.addEventListener('click', async (e) => {
             imageElement.height = 200;
             imageElement.classList.add("jdImgCSS");
 
+            // Create the modal
             const modalOverlay = document.createElement('div');
             modalOverlay.classList.add('hidden', 'overlay');
             const modalSection = document.createElement('section');
             modalSection.classList.add('hidden', 'post-modal');
+
             // Create the exit button
             const closeButtonContainer = document.createElement('div');
             closeButtonContainer.classList.add('close-btn-container');
@@ -85,48 +87,30 @@ historyContainer.addEventListener('click', async (e) => {
             addCaption.classList.add('add-caption');
             addCaptionDiv.classList.add("add-caption-div");
 
-            // Create the form
-            const formContainer = document.createElement('div');
-            formContainer.classList.add('form-container');
-            const formTitle = document.createElement('h3');
-            formTitle.textContent = 'Add a short description or click save to continue';
-            formTitle.classList.add('form-title');
-            const addForm = document.createElement('form');
-            addForm.setAttribute("th:method", "post");
-            addForm.setAttribute("th:action", "@{|/" + userID + "/profile/posts|}");
-            addForm.classList.add('add-form');
-
-            // Create the input for description
-            const description = document.createElement('input');
-            description.setAttribute('type', 'text');
-            description.setAttribute('name', 'description');
-
-            // Create a submit button
-            const submit = document.createElement('button');
-            submit.classList.add('add-btn');
-            submit.setAttribute('type', 'submit');
-            submit.setAttribute('value', 'submit');
-            submit.textContent = 'save';
 
             // Functions
             const openModal = function (event) {
                 event.stopPropagation();
                 modalSection.classList.remove("hidden");
                 modalOverlay.classList.remove("hidden");
+                const addForm = document.querySelector("#add-post-form");
+                const memeId = document.querySelector("#meme-id");
+                memeId.setAttribute('value', item.id);
+                console.log(memeId.getAttribute('value'));
+                addCaptionDiv.appendChild(addForm);
+                addForm.classList.remove("hidden");
             };
-
-
             const closeModal = function () {
                 modalSection.classList.add("hidden");
                 modalOverlay.classList.add("hidden");
             };
 
 
-
             addPostButton.addEventListener("click", function(event) {
                 event.stopPropagation();
                 openModal(event);
             });
+            const description = document.querySelector("#description");
             description.addEventListener("click", function(event) {
                 event.stopPropagation();
             });
@@ -135,16 +119,11 @@ historyContainer.addEventListener('click', async (e) => {
 
 
             closeButtonContainer.appendChild(closeButton);
-            addForm.appendChild(description);
-            addForm.appendChild(submit);
-            formContainer.appendChild(formTitle);
-            formContainer.appendChild(addForm);
             modalSection.appendChild(closeButtonContainer);
             addImgContainer.appendChild(addImg);
             modalSection.appendChild(addImgContainer);
             addCaptionDiv.appendChild(addCaption);
             modalSection.appendChild(addCaptionDiv);
-            modalSection.appendChild(formContainer);
             modalOverlay.appendChild(modalSection)
             itemDiv.appendChild(historyHead);
             itemDiv.appendChild(imageElement);

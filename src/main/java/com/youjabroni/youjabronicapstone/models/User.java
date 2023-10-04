@@ -14,20 +14,31 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = false, unique = true)
     private String username;
+
     @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
     private String password;
+
     @Column(nullable = true)
     private String profileURL;
+
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<MemeSubmission> memeSubmissions;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    private List<Post> posts;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
     private Tournament tournament;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    private List<Like> likes;
 
     public User(String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament) {
         this.username = username;
@@ -90,6 +101,16 @@ public class User {
         this.memeSubmissions = memeSubmissions;
     }
 
+    public User(String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, List<Post> posts, Tournament tournament) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profileURL = profileURL;
+        this.memeSubmissions = memeSubmissions;
+        this.posts = posts;
+        this.tournament = tournament;
+    }
+
     public long getId() {
         return id;
     }
@@ -144,6 +165,14 @@ public class User {
 
     public void setMemeSubmissions(List<MemeSubmission> memeSubmissions) {
         this.memeSubmissions = memeSubmissions;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override

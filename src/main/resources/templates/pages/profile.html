@@ -57,7 +57,8 @@
         </div>
     </div>
     <!--a visitor will see this-->
-    <div class="container d-flex stats-not-auth justify-center" th:if="${not #authorization.expression('isAuthenticated()')}">
+    <div class="container d-flex stats-not-auth justify-center"
+         th:if="${not #authorization.expression('isAuthenticated()')}">
         <div class="row">
             <div class="column d-flex align-center justify-center">
                 <span class="number" th:text="${wins}"></span>
@@ -116,11 +117,17 @@
     <!-- END OF TABS -->
 
     <div>
-        <div>
-            <div id="results" th:dataId="${user.id}">
+        <div id="results" th:dataId="${user.id}">
 
-            </div>
         </div>
+        <form class="hidden" id="add-post-form" th:action="@{|/${user.id}/profile/posts|}" th:method="POST">
+            <div class="add-form">
+                <h3 class="form-title">Add a short description or click save to continue</h3>
+                <input id="description" type="text" name="description">
+                <input id="meme-id" type="hidden" name="meme-id">
+                <button type="submit" class="add-btn">Save</button>
+            </div>
+        </form>
     </div>
 
 </div>

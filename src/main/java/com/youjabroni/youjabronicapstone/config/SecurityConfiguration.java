@@ -50,7 +50,8 @@ public class SecurityConfiguration {
                                 "/*/profile/edit",
                                 "/*/profile/edit/password",
                                 "/profile/likes",
-                                "/{id}/memeSubmission"
+                                "/*/memeSubmission",
+                                "/*/profile/posts"
                         ).authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */

@@ -27,12 +27,6 @@ public class PagesController {
         this.memeDao = memeDao;
     }
 
-    @PostMapping("/{id}/profile/posts")
-    public String addPost(@PathVariable long id) {
-
-        return "redirect:/profile";
-    }
-
     @GetMapping("/home")
     public String showTournaments(Model model) {
         model.addAttribute("tournaments", tournamentDao.findAll());
@@ -43,7 +37,7 @@ public class PagesController {
         List<Tournament> tournaments = tournamentDao.findAll();
         ObjectMapper mapper = new ObjectMapper();
         System.out.println("below is tournys");
-        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tournaments));
+//        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tournaments));
         return tournaments;
     }
 
