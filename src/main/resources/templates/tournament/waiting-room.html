@@ -8,28 +8,28 @@
 <nav th:replace="partials/partials :: nav"></nav>
 <body>
 <div class="page-wrapper">
-    <div >
-        <div>
-            <div>
-                <h1>TOURNAMENT ID: <span id="tournamentID" th:text="${tournament.id}"></span></h1>
-                <h2>here are players in lobby:</h2>
-                <ul th:each="user : ${users}">
-                    <li th:text="|Player: ${user.getUsername()}|"></li>
-                </ul>
-                <h3>Players: <span th:text="${users.size()}"></span> / 8 Players</h3>
-                <a href="/tournament/waiting-room/leave">Leave/Cancel</a>
-            </div>
-        </div>
-    </div>
+
+<!--    <div>-->
+<!--        <div>-->
+<!--            <div>-->
+<!--                <h1>TOURNAMENT ID: <span th:text="${tournament.getId()}"></span></h1>-->
+<!--                <h2>here are players in lobby:</h2>-->
+<!--                <ul th:each="user : ${users}">-->
+<!--                    <li th:text="${user.getUsername()}"></li>-->
+<!--                </ul>-->
+<!--                <a href="/tournament/waiting-room/leave">Leave/Cancel</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
     <div>
         <div>
-            <div>
-                <h1>HERES A SNAKE GAME YOU JABRONI</h1>
-            </div>
+            <canvas id="snakeGame" th:width="800" th:height="800">
+
+            </canvas>
         </div>
     </div>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
-<script th:src="@{/js/tournament.js}"></script>
+<script th:src="@{/js/snakeGame.js}"></script>
 </body>
 </html>
