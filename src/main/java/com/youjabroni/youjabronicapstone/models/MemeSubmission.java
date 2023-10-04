@@ -35,6 +35,9 @@ public class MemeSubmission {
     @ManyToOne
     @JoinColumn(name = "round_id")
     private Round round;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     public MemeSubmission() {
     }
@@ -82,5 +85,24 @@ public class MemeSubmission {
 
     public void setRound(Round round) {
         this.round = round;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    @Override
+    public String toString() {
+        return "MemeSubmission{" +
+                "id=" + id +
+                ", caption='" + caption + '\'' +
+                ", user=" + user +
+                ", round=" + round +
+                ", post=" + post +
+                '}';
     }
 }

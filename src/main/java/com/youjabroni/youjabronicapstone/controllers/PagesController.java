@@ -11,10 +11,7 @@ import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +22,6 @@ import java.util.Map;
 public class PagesController {
     private TournamentRepository tournamentDao;
     private UserRepository userDao;
-
     private MemeSubmissionRepository memeDao;
 
     public PagesController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeDao) {
@@ -51,6 +47,19 @@ public class PagesController {
 
     @GetMapping("/{id}/profile")
     public String showUsersProfile(@PathVariable long id, Model model) {
+        int winningCount = 0;
+        int tournamentCount = 0;
+        List<Tournament> tournamentsUserHasWon = tournamentDao.findByWinnerId(id);
+        for(Tournament tournament : tournamentsUserHasWon) {
+            winningCount++;
+        }
+//        List<Tournament> tournamentsUserHasBeenIn = userDao.findAllTournamentById(id);
+//        for(Tournament tournament : tournamentsUserHasBeenIn) {
+//            tournamentCount++;
+//        }
+
+        model.addAttribute("tournaments", tournamentCount);
+        model.addAttribute("wins", winningCount);
         model.addAttribute("user", userDao.findById(id).get());
         return "pages/profile";
     }
@@ -58,6 +67,7 @@ public class PagesController {
 
     @GetMapping("/profile/history")
     public String showSubmissionHistory() {
+
         return "pages/history";
     }
 
@@ -131,7 +141,4 @@ public class PagesController {
 
         return topTen;
     }
-
-
-
 }

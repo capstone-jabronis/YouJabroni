@@ -1,35 +1,32 @@
-const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+const csrfToken2 = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 const historyContainer = document.querySelector("#history");
-const userIDElement = document.querySelector("#results");
-let userID = userIDElement.getAttribute("dataId");
+const userIDElement2 = document.querySelector("#results");
+let userID = userIDElement2.getAttribute("dataId");
 console.log(userID);
 let url = `/${userID}/memeSubmission`
+const itemsPerPage = 10; // Change this number according to your requirements
+let currentPage = 1;
 
 historyContainer.addEventListener('click', async (e) => {
     e.preventDefault();
-    console.log(csrfToken);
 
-    // Fetch the data only if it hasn't been fetched before
-    if (data.length === 0) {
-        let results = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
-            }
-        });
-        if (!results.ok) {
-            throw new Error(`HTTP error! Status: ${results.status}`);
+    let results = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken2
         }
-        data = await results.json();
+    });
+    const data = await results.json();
+    if (!results.ok) {
+        throw new Error(`HTTP error! Status: ${results.status}`);
     }
 
     // Function to render items for the current page
     function renderPage(page) {
         // Clear the existing content in userIDElement
-        userIDElement.innerHTML = '';
-        userIDElement.classList.add('history-container');
-
+        userIDElement2.innerHTML = '';
+        userIDElement2.classList.add('history-container');
         // Calculate the start and end indices for the current page
         const startIndex = (page - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
@@ -54,7 +51,7 @@ historyContainer.addEventListener('click', async (e) => {
             // Create a button to add to the posts
             const addPostButton = document.createElement('button');
             addPostButton.textContent = 'add';
-            addPostButton.classList.add('add-post-btn');
+            addPostButton.classList.add('add-post-btn', 'btn', 'btn-open');
 
             // Create an image element for the meme_pic
             const imageElement = document.createElement('img');
@@ -63,47 +60,83 @@ historyContainer.addEventListener('click', async (e) => {
             imageElement.height = 200;
             imageElement.classList.add("jdImgCSS");
 
+            // Create the modal
+            const modalOverlay = document.createElement('div');
+            modalOverlay.classList.add('hidden', 'overlay');
+            const modalSection = document.createElement('section');
+            modalSection.classList.add('hidden', 'post-modal');
 
-            // Append the caption and image to the itemDiv
+            // Create the exit button
+            const closeButtonContainer = document.createElement('div');
+            closeButtonContainer.classList.add('close-btn-container');
+            const closeButton = document.createElement('button');
+            closeButton.classList.add('btn-close');
+            closeButton.textContent = 'x';
+
+            // Create the img for the post
+            const addImgContainer = document.createElement('div');
+            addImgContainer.classList.add('add-img-container');
+            const addImg = document.createElement('img');
+            addImg.src = item.round.meme_pic;
+            addImg.classList.add('add-img');
+
+            // Create a container for the caption
+            const addCaptionDiv = document.createElement('div');
+            const addCaption = document.createElement('h2');
+            addCaption.textContent = `${item.caption}`;
+            addCaption.classList.add('add-caption');
+            addCaptionDiv.classList.add("add-caption-div");
+
+
+            // Functions
+            const openModal = function (event) {
+                event.stopPropagation();
+                modalSection.classList.remove("hidden");
+                modalOverlay.classList.remove("hidden");
+                const addForm = document.querySelector("#add-post-form");
+                const memeId = document.querySelector("#meme-id");
+                memeId.setAttribute('value', item.id);
+                console.log(memeId.getAttribute('value'));
+                addCaptionDiv.appendChild(addForm);
+                addForm.classList.remove("hidden");
+            };
+            const closeModal = function () {
+                modalSection.classList.add("hidden");
+                modalOverlay.classList.add("hidden");
+            };
+
+
+            addPostButton.addEventListener("click", function(event) {
+                event.stopPropagation();
+                openModal(event);
+            });
+            const description = document.querySelector("#description");
+            description.addEventListener("click", function(event) {
+                event.stopPropagation();
+            });
+            modalOverlay.addEventListener("click", closeModal);
+            closeButton.addEventListener("click", closeModal);
+
+
+            closeButtonContainer.appendChild(closeButton);
+            modalSection.appendChild(closeButtonContainer);
+            addImgContainer.appendChild(addImg);
+            modalSection.appendChild(addImgContainer);
+            addCaptionDiv.appendChild(addCaption);
+            modalSection.appendChild(addCaptionDiv);
+            modalOverlay.appendChild(modalSection)
             itemDiv.appendChild(historyHead);
             itemDiv.appendChild(imageElement);
             captionDiv.appendChild(caption);
             captionDiv.appendChild(addPostButton);
+            captionDiv.appendChild(modalOverlay);
             itemDiv.appendChild(captionDiv);
 
+
             // Append the itemDiv to userIDElement
-            userIDElement.appendChild(itemDiv);
+            userIDElement2.appendChild(itemDiv);
         }
     }
-
-    // Function to handle "Next" button click
-    function nextPage() {
-        if (currentPage < Math.ceil(data.length / itemsPerPage)) {
-            currentPage++;
-            renderPage(currentPage);
-        }
-    }
-
-    // Function to handle "Previous" button click
-    function previousPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            renderPage(currentPage);
-        }
-    }
-
-    // Create "Previous" and "Next" buttons
-    const previousButton = document.createElement('button');
-    previousButton.textContent = 'Previous';
-    previousButton.addEventListener('click', previousPage);
-
-    const nextButton = document.createElement('button');
-    nextButton.textContent = 'Next';
-    nextButton.addEventListener('click', nextPage);
-
-    // Append the buttons to userIDElement
-    userIDElement.appendChild(previousButton);
-    userIDElement.appendChild(nextButton);
 
     // Render the current page
     renderPage(currentPage);
