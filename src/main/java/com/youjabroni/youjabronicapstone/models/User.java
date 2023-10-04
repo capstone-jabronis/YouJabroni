@@ -2,6 +2,7 @@ package com.youjabroni.youjabronicapstone.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +40,21 @@ public class User {
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Like> likes;
+  
+    @JsonIgnore
+    @OneToMany(mappedBy = "winner")
+    private List<Tournament> tournamentsWon;
+
+    public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament, List<Tournament> tournamentsWon) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profileURL = profileURL;
+        this.memeSubmissions = memeSubmissions;
+        this.tournament = tournament;
+        this.tournamentsWon = tournamentsWon;
+    }
 
     public User(String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament) {
         this.username = username;

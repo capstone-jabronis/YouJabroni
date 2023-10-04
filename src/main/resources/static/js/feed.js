@@ -10,11 +10,13 @@
                 'X-CSRF-TOKEN': csrfToken
             }
         });
+
         if (!results.ok) {
             throw new Error(`HTTP error! Status: ${results.status}`);
         }
-        const data = await results.json();
 
+        const data = await results.json();
+        console.log("this is the data for the feed", data);
 
         const itemsPerPage = 5;
         let currentPage = 1;

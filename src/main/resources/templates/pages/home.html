@@ -12,8 +12,27 @@
         </div>
     </aside>
 </div>
+<div class="tournament-card d-flex" th:each="tournament : ${tournaments}">
+    <form th:action="@{|/tournament/waiting-room/${tournament.id}|}">
+        <p>TEST TOURNAMENT</p>
+        <p>Tournament ID:<span th:text="${tournament.id}"></span></p>
+        <p>TEST TOURNAMENT ID: <span th:text="${tournament.id}"></span></p>
+        <button type="submit">Join Now!</button>
+    </form>
+</div>
 <footer th:replace="partials/partials :: footer"></footer>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    const tournamentsJsObject = /*[[${tournaments}]]*/ 'default';
+    console.log("FROM HOME html" + tournamentsJsObject);
+
+    /*]]>*/
+</script>
 <script th:src="@{/js/tournament.js}"></script>
+<script th:src="@{/js/websocket-tournament.js}"></script>
+
 
 </body>
 </html>

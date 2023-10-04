@@ -13,7 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PagesController {
@@ -32,11 +35,12 @@ public class PagesController {
         model.addAttribute("tournaments", tournamentDao.findAll());
         return "pages/home";
     }
+
     @GetMapping("/tournaments/api")
     public @ResponseBody List<Tournament> getTournaments() throws JsonProcessingException {
         List<Tournament> tournaments = tournamentDao.findAll();
-        ObjectMapper mapper = new ObjectMapper();
-        System.out.println("below is tournys");
+//        ObjectMapper mapper = new ObjectMapper();
+//        System.out.println("below is tournys");
 //        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tournaments));
         return tournaments;
     }
@@ -77,11 +81,7 @@ public class PagesController {
 
     @GetMapping("/feed")
     public String showFeed(Model model) {
-//        model.addAttribute("MemeSubmission", memeDao.findAll());
         List<MemeSubmission> memes = memeDao.findAll();
-//        for (MemeSubmission meme : memes){
-//            System.out.println(meme);
-//        }
         return "pages/feed";
     }
 
@@ -105,5 +105,40 @@ public class PagesController {
 //        ObjectMapper mapper = new ObjectMapper();
 //        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(memes));
         return users;
+    }
+
+    @GetMapping("/leaderboard")
+    public @ResponseBody List<Map<String, Object>> showLeaderboard() throws JsonProcessingException {
+        List<Tournament> winners = tournamentDao.findAll();
+        Map<User, Integer> userWins = new HashMap<>();
+
+        for (Tournament winner : winners) {
+            User winnerUser = winner.getWinner();
+            userWins.put(winnerUser, userWins.getOrDefault(winnerUser, 0) + 1);
+        }
+
+        List<Map.Entry<User, Integer>> sortedWins = new ArrayList<>(userWins.entrySet());
+        sortedWins.sort(Map.Entry.<User, Integer>comparingByValue().reversed());
+
+        List<Map<String, Object>> topTen = new ArrayList<>();
+
+        int counter = 0;
+        for (Map.Entry<User, Integer> entry : sortedWins) {
+            User user = entry.getKey();
+            Integer wins = entry.getValue();
+
+            Map<String, Object> userEntry = new HashMap<>();
+            userEntry.put("user", user);
+            userEntry.put("wins", wins);
+
+            topTen.add(userEntry);
+            counter++;
+
+            if (counter == 10) {
+                break;
+            }
+        }
+
+        return topTen;
     }
 }
