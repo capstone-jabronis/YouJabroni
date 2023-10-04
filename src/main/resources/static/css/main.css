@@ -403,7 +403,7 @@ body {
     width: 100%;
     background-color: rgba(0,0,0,0.5);
     z-index: 999;
-    pointer-events: none;
+    /*pointer-events: none;*/
 
 }
 
@@ -430,6 +430,34 @@ body {
     color: red;
     align-self: center;
 }
+
+
+/************************************************ Edit Profile Page ***********************************************/
+
+.edit-form-container {
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--third);
+    height: 35rem;
+    width: 30rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    border-radius: 2rem;
+}
+
+.edit-form-title {
+    font-size: 2rem;
+    flex-direction: column;
+    align-items: center;
+    color: var(--first);
+}
+
+.edit-label {
+    color: var(--first);
+    margin: 0.30rem;
+}
+
+
 
 /***************** START OF MODAL FOR ADDING POSTS **********************/
 

@@ -32,6 +32,7 @@ profilePicButton.addEventListener('click', (e) => {
 })
 
 
+
 // fileInput.addEventListener('change', (e) => {
 // const file =e.target.files[0];
 // client.upload(file)
