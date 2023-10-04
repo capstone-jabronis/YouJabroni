@@ -25,16 +25,25 @@
       // For WebSocket/Sock/StompJS Server Connection with frontend
 // Trying to find path variable with tournament id instead of targeting the span.
 // console.log((location.pathname+location.search).substring(3))
-  const tournamentJoinBtns = document.querySelectorAll('button');
-for(let tournamentJoinBtn of tournamentJoinBtns){
-    tournamentJoinBtn.addEventListener('click', (e)=> {
-        // e.preventDefault();
-        console.log(e);
-    })
-}
+//   const tournamentJoinBtns = document.querySelectorAll('button');
+// for(let tournamentJoinBtn of tournamentJoinBtns){
+//     tournamentJoinBtn.addEventListener('click', (e)=> {
+//         e.preventDefault();
+//         console.log(e);
+//     })
+// }
 
-  console.log(tournamentsJsObject);
 
+  // console.log(tournamentsJsObject);
+  const enterTournament = document.querySelectorAll('button');
+  for(let button of enterTournament){
+      button.addEventListener('click', (e)=>{
+          console.log("inside button event listener");
+          let tournamentId = e.target.dataset.tournamentId;
+          console.log(tournamentId);
+      })
+      console.log(tournamentSpecificId.innerHTML);
+  }
       const Tournament = {
             stompClient: null,
             tournamentId: tournamentId,

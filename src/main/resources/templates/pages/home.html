@@ -13,20 +13,32 @@
     </aside>
 </div>
 <div class="tournament-card d-flex" th:each="tournament : ${tournaments}">
-    <form th:action="@{|/tournament/waiting-room/${tournament.id}|}">
+    <form class="submitTournamentId"th:action="@{|/tournament/waiting-room/${tournament.id}|}">
         <p>TEST TOURNAMENT</p>
-        <p>Tournament ID:<span th:text="${tournament.id}"></span></p>
+        <p>Tournament ID:<span class="tournamentNum" th:text="${tournament.id}"></span></p>
         <p>TEST TOURNAMENT ID: <span th:text="${tournament.id}"></span></p>
-        <button type="submit">Join Now!</button>
+        <button th:data-tournament-id="${tournament.id}" type="submit">Join Now!</button>
     </form>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
 
 <script th:inline="javascript">
     /*<![CDATA[*/
+    (() => {
+        console.log("inside inline js")
+    // const tournamentsJsObject = /*[[${tournaments}]]*/ 'default';
+    // const tournamentInfo = document.querySelectorAll('.tournamentNum');
+    // const enterTournament = document.querySelectorAll('button');
+    // for(let button of enterTournament){
+    //     button.addEventListener('click', (e)=>{
+    //         console.log("inside button event listener");
+    //         let tournamentId = e.target.dataset.tournamentId;
+    //         console.log(tournamentId);
+    //     })
+    //     console.log(tournamentSpecificId.innerHTML);
+    // }
 
-    const tournamentsJsObject = /*[[${tournaments}]]*/ 'default';
-    console.log("FROM HOME html" + tournamentsJsObject);
+    })();
 
     /*]]>*/
 </script>
