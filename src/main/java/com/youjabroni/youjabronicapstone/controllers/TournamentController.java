@@ -1,5 +1,6 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
+import com.youjabroni.youjabronicapstone.models.MemeSubmission;
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
@@ -7,6 +8,11 @@ import com.youjabroni.youjabronicapstone.repositories.RoundRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -18,6 +24,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.lang.String.format;
+
 @Controller
 @RequestMapping("/tournament")
 public class TournamentController {
@@ -25,6 +33,9 @@ public class TournamentController {
     private MemeSubmissionRepository memeSubmissionDao;
     private UserRepository userDao;
     private RoundRepository roundDao;
+
+    @Autowired
+    private SimpMessageSendingOperations messagingTemplate;
 
     @Autowired
     public TournamentController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeSubmissionDao, RoundRepository roundDao) {
@@ -40,6 +51,29 @@ public class TournamentController {
         return "tournament/create-meme";
     }
 
+    //Websocket stuff. Sends memeSubmissions as "messages"////////////////////////////
+    @MessageMapping("/create/{tournamentId}")
+    public void sendSubmission(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission) {
+        messagingTemplate.convertAndSend(format("tournament/create-meme/%s", tournamentId), memeSubmission);
+    }
+
+    @MessageMapping("/create/{tournamentId}/addUser")
+    public void addUser(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission,
+                        SimpMessageHeaderAccessor headerAccessor) {
+        String currentTournamentId = (String) headerAccessor.getSessionAttributes().put("tournament_id", tournamentId);
+        if (tournamentId != null) {
+            MemeSubmission leaveSubmission = new MemeSubmission();
+
+            leaveSubmission.setMessageType(MemeSubmission.MessageType.LEAVE);
+            leaveSubmission.setUser(memeSubmission.getUser());
+            messagingTemplate.convertAndSend(format("/chat-room/%s", currentTournamentId), leaveSubmission);
+        }
+        headerAccessor.getSessionAttributes().put("name", memeSubmission.getUser());
+        messagingTemplate.convertAndSend(format("/chat-room/%s", tournamentId), memeSubmission);
+    }
+//End websocket stuff/////////////////////////////////
+
+
     @GetMapping("/vote")
     public String showVotePage() {
         return "tournament/vote";
@@ -50,7 +84,8 @@ public class TournamentController {
         return "tournament/complete";
     }
 
-    @PostMapping("/waiting-room/{id}")
+
+    @GetMapping("/waiting-room/{id}")
     public String joinTournament(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable Long id) {
         User user = userDao.findByUsername(userDetails.getUsername());
         Tournament tournament = tournamentDao.findById(id).get();
@@ -67,7 +102,7 @@ public class TournamentController {
     }
 
     @GetMapping("/waiting-room/leave")
-    public String leaveTournamentWaitingRoom(@AuthenticationPrincipal UserDetails userDetails){
+    public String leaveTournamentWaitingRoom(@AuthenticationPrincipal UserDetails userDetails) {
         User user = userDao.findByUsername(userDetails.getUsername());
         Tournament tournament = tournamentDao.findById(user.getTournament().getId()).get();
         Set<User> updateUserSet = tournament.getUserSet();

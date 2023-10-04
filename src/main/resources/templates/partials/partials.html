@@ -6,6 +6,7 @@
 
     <meta name="_csrf" data-th-content="${_csrf.token}" />
     <title th:text="${'Meme Space | ' + title}"></title>
+    <link rel="icon" type="image/x-icon" href="/img/rocket.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet">
@@ -89,86 +90,86 @@
         <div class="leader-title row">
             <h1>Best Meme Makers</h1>
         </div>
-        <div class="row player first">
-            <h1 class="rank">1</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">2</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">3</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">4</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">5</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">6</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">7</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">8</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">9</h1>
-            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
-        <div class="row player">
-            <h1 class="rank">10</h1>
-            <img class="user-pic" th:src="@{/img/memespace.gif}">
-            <div class="leader-info column">
-                <div class="name">Player Name Here</div>
-                <div class="wins"> Wins:1</div>
-            </div>
-        </div>
+<!--        <div class="row player first">-->
+<!--            <h1 class="rank">1</h1>-->
+<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row player">-->
+<!--            <h1 class="rank">2</h1>-->
+<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row player">-->
+<!--            <h1 class="rank">3</h1>-->
+<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row player">-->
+<!--            <h1 class="rank">4</h1>-->
+<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row player">-->
+<!--            <h1 class="rank">5</h1>-->
+<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row player">-->
+<!--            <h1 class="rank">6</h1>-->
+<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row player">-->
+<!--            <h1 class="rank">7</h1>-->
+<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row player">-->
+<!--            <h1 class="rank">8</h1>-->
+<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row player">-->
+<!--            <h1 class="rank">9</h1>-->
+<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row player">-->
+<!--            <h1 class="rank">10</h1>-->
+<!--            <img class="user-pic" th:src="@{/img/memespace.gif}">-->
+<!--            <div class="leader-info column">-->
+<!--                <div class="name">Player Name Here</div>-->
+<!--                <div class="wins"> Wins:1</div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </aside>
 <!--END OF LEADERBOARD PARTIAL-->
@@ -185,7 +186,7 @@
         </div>
     </div>
     <script th:src="@{/js/profile.js}"></script>
-    <script th:src="@{/js/keys.js}"></script>
+    <script th:src="@{/js/Leaderboard.js}"></script>
 </footer>
 </body>
 </html>
