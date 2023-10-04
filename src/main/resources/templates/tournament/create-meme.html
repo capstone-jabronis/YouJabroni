@@ -7,7 +7,14 @@
 <div class="page-wrapper" name="_csrf" data-th-content="${_csrf.token}">
     <h1>This is the page where the player will be presented with a meme picture, and they have to enter a caption in the
         input field</h1>
+    <form>
+    <input type="text" id="memeCaption">
+        <button id="submitMemeCaptionBtn"type="submit">Submit Caption</button>
+    </form>
+
 </div>
 <script th:src="@{/js/tournament.js}"></script>
+<script th:src="@{/js/websocket-tournament.js}"></script>
+
 </body>
 </html>

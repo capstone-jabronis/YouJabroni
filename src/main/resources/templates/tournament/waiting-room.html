@@ -12,7 +12,12 @@
     <div>
         <div>
             <div>
+<!--  Just in case: try to grab value for tournament ID -->
+<!--                 <h1>TOURNAMENT ID: <span id="tournamentID" th:text="${tournament.id}"></span></h1>
+                <input type="hidden" name="tournamentId" value="${sessionScope.tournamentId} /> -->
+
                 <h1>TOURNAMENT ID: <span th:text="${tournament.getId()}"></span></h1>
+
                 <h2>here are players in lobby:</h2>
                 <ul th:each="user : ${users}">
                     <li th:text="${user.getUsername()}"></li>
@@ -30,6 +35,11 @@
     </div>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
+
+
+<script th:src="@{/js/tournament.js}"></script>
+<script th:src="@{/js/websocket-tournament.js}"></script>
 <script th:src="@{/js/snakeGame.js}"></script>
+
 </body>
 </html>
