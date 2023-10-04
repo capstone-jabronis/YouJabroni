@@ -63,5 +63,3 @@ window.onload = async () => {
         console.error("Error retrieving listed tournaments", error);
     }
 };
-
-
