@@ -430,8 +430,11 @@ body {
 #snakeGame{
     background: #9F8BFF;
 }
+
+
 /*===============     PROFILE     ===============*/
 .password-error {
     color: red;
     align-self: center;
+}
 

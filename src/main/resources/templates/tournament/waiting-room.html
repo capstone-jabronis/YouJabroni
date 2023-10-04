@@ -9,18 +9,18 @@
 <body>
 <div class="page-wrapper">
 
-<!--    <div>-->
-<!--        <div>-->
-<!--            <div>-->
-<!--                <h1>TOURNAMENT ID: <span th:text="${tournament.getId()}"></span></h1>-->
-<!--                <h2>here are players in lobby:</h2>-->
-<!--                <ul th:each="user : ${users}">-->
-<!--                    <li th:text="${user.getUsername()}"></li>-->
-<!--                </ul>-->
-<!--                <a href="/tournament/waiting-room/leave">Leave/Cancel</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div>
+        <div>
+            <div>
+                <h1>TOURNAMENT ID: <span th:text="${tournament.getId()}"></span></h1>
+                <h2>here are players in lobby:</h2>
+                <ul th:each="user : ${users}">
+                    <li th:text="${user.getUsername()}"></li>
+                </ul>
+                <a href="/tournament/waiting-room/leave">Leave/Cancel</a>
+            </div>
+        </div>
+    </div>
     <div>
         <div>
             <canvas id="snakeGame" th:width="800" th:height="800">
