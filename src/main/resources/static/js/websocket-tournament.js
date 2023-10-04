@@ -28,12 +28,12 @@
   const tournamentJoinBtns = document.querySelectorAll('button');
 for(let tournamentJoinBtn of tournamentJoinBtns){
     tournamentJoinBtn.addEventListener('click', (e)=> {
-        e.preventDefault();
+        // e.preventDefault();
         console.log(e);
     })
 }
 
-  console.log(tournamentGetId);
+  console.log(tournamentsJsObject);
 
       const Tournament = {
             stompClient: null,
