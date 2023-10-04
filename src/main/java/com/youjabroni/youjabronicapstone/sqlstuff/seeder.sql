@@ -11,8 +11,9 @@ VALUES ('user1', 'user1@example.com', 'password1'),
        ('user7', 'user7@example.com', 'password7'),
        ('user8', 'user8@example.com', 'password8');
 
-INSERT INTO tournaments (winner_id, start_time)
-VALUES ('1', '2023-09-26 14:30:00');
+
+INSERT INTO tournaments (start_time)
+VALUES ( '2023-09-30 10:00:00');
 
 INSERT INTO rounds (round_num, tournament_id, meme_pic)
 VALUES ('1', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
