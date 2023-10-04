@@ -1,7 +1,7 @@
-const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+const csrfToken2 = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 const historyContainer = document.querySelector("#history");
-const userIDElement = document.querySelector("#results");
-let userID = userIDElement.getAttribute("dataId");
+const userIDElement2 = document.querySelector("#results");
+let userID = userIDElement2.getAttribute("dataId");
 console.log(userID);
 let url = `/${userID}/memeSubmission`
 const itemsPerPage = 10; // Change this number according to your requirements
@@ -14,7 +14,7 @@ historyContainer.addEventListener('click', async (e) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken
+            'X-CSRF-TOKEN': csrfToken2
         }
     });
     const data = await results.json();
@@ -22,12 +22,11 @@ historyContainer.addEventListener('click', async (e) => {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }
 
-
     // Function to render items for the current page
     function renderPage(page) {
         // Clear the existing content in userIDElement
-        userIDElement.innerHTML = '';
-        userIDElement.classList.add('history-container');
+        userIDElement2.innerHTML = '';
+        userIDElement2.classList.add('history-container');
         // Calculate the start and end indices for the current page
         const startIndex = (page - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
@@ -50,8 +49,6 @@ historyContainer.addEventListener('click', async (e) => {
             captionDiv.classList.add("caption-div");
 
             // Create a button to add to the posts
-            const modalOverlay = document.createElement('div');
-            modalOverlay.classList.add('hidden', 'overlay');
             const addPostButton = document.createElement('button');
             addPostButton.textContent = 'add';
             addPostButton.classList.add('add-post-btn', 'btn', 'btn-open');
@@ -63,85 +60,105 @@ historyContainer.addEventListener('click', async (e) => {
             imageElement.height = 200;
             imageElement.classList.add("jdImgCSS");
 
-            // addPostButton.addEventListener('click', addModal());
+            const modalOverlay = document.createElement('div');
+            modalOverlay.classList.add('hidden', 'overlay');
+            const modalSection = document.createElement('section');
+            modalSection.classList.add('hidden', 'post-modal');
+            // Create the exit button
+            const closeButtonContainer = document.createElement('div');
+            closeButtonContainer.classList.add('close-btn-container');
+            const closeButton = document.createElement('button');
+            closeButton.classList.add('btn-close');
+            closeButton.textContent = 'x';
+
+            // Create the img for the post
+            const addImgContainer = document.createElement('div');
+            addImgContainer.classList.add('add-img-container');
+            const addImg = document.createElement('img');
+            addImg.src = item.round.meme_pic;
+            addImg.classList.add('add-img');
+
+            // Create a container for the caption
+            const addCaptionDiv = document.createElement('div');
+            const addCaption = document.createElement('h2');
+            addCaption.textContent = `${item.caption}`;
+            addCaption.classList.add('add-caption');
+            addCaptionDiv.classList.add("add-caption-div");
+
+            // Create the form
+            const formContainer = document.createElement('div');
+            formContainer.classList.add('form-container');
+            const formTitle = document.createElement('h3');
+            formTitle.textContent = 'Add a short description or click save to continue';
+            formTitle.classList.add('form-title');
+            const addForm = document.createElement('form');
+            addForm.setAttribute("th:method", "post");
+            addForm.setAttribute("th:action", "@{|/" + userID + "/profile/posts|}");
+            addForm.classList.add('add-form');
+
+            // Create the input for description
+            const description = document.createElement('input');
+            description.setAttribute('type', 'text');
+            description.setAttribute('name', 'description');
+
+            // Create a submit button
+            const submit = document.createElement('button');
+            submit.classList.add('add-btn');
+            submit.setAttribute('type', 'submit');
+            submit.setAttribute('value', 'submit');
+            submit.textContent = 'save';
+
+            // Functions
+            const openModal = function (event) {
+                event.stopPropagation();
+                modalSection.classList.remove("hidden");
+                modalOverlay.classList.remove("hidden");
+            };
 
 
-            // Append the caption and image to the itemDiv
+            const closeModal = function () {
+                modalSection.classList.add("hidden");
+                modalOverlay.classList.add("hidden");
+            };
+
+
+
+            addPostButton.addEventListener("click", function(event) {
+                event.stopPropagation();
+                openModal(event);
+            });
+            description.addEventListener("click", function(event) {
+                event.stopPropagation();
+            });
+            modalOverlay.addEventListener("click", closeModal);
+            closeButton.addEventListener("click", closeModal);
+
+
+            closeButtonContainer.appendChild(closeButton);
+            addForm.appendChild(description);
+            addForm.appendChild(submit);
+            formContainer.appendChild(formTitle);
+            formContainer.appendChild(addForm);
+            modalSection.appendChild(closeButtonContainer);
+            addImgContainer.appendChild(addImg);
+            modalSection.appendChild(addImgContainer);
+            addCaptionDiv.appendChild(addCaption);
+            modalSection.appendChild(addCaptionDiv);
+            modalSection.appendChild(formContainer);
+            modalOverlay.appendChild(modalSection)
             itemDiv.appendChild(historyHead);
             itemDiv.appendChild(imageElement);
             captionDiv.appendChild(caption);
             captionDiv.appendChild(addPostButton);
-            captionDiv.appendChild(addModal());
             captionDiv.appendChild(modalOverlay);
             itemDiv.appendChild(captionDiv);
 
+
             // Append the itemDiv to userIDElement
-            userIDElement.appendChild(itemDiv);
+            userIDElement2.appendChild(itemDiv);
         }
     }
 
     // Render the current page
     renderPage(currentPage);
 });
-
-const postModal = document.querySelector(".post-modal");
-const overlay = document.querySelector(".overlay");
-const openModalBtn = document.querySelector(".btn-open");
-const closeModalBtn = document.querySelector(".btn-close");
-
-function addModal() {
-    const modalSection = document.createElement('section');
-    modalSection.classList.add('hidden', 'post-modal');
-    // Create the exit button
-    const closeButtonContainer = document.createElement('div');
-    closeButtonContainer.classList.add('flex');
-    const closeButton = document.createElement('button');
-    closeButton.classList.add('btn-close');
-    closeButton.textContent = 'x';
-
-    // Create the form
-    const formContainer = document.createElement('div');
-    formContainer.classList.add('form-container');
-    const form = document.createElement('form');
-    form.setAttribute("th:method", "post");
-    form.setAttribute("th:action", "@{|/" + userID + "/profile/posts|}");
-
-    // Create the input for description
-    const description = document.createElement('input');
-    description.setAttribute('type', 'text');
-    description.setAttribute('name', 'description');
-
-    // Create a submit button
-    const submit = document.createElement('button');
-    submit.classList.add('post-btn');
-    submit.setAttribute('type', 'submit');
-    submit.setAttribute('value', 'submit');
-
-
-    closeButtonContainer.appendChild(closeButton);
-    form.appendChild(description);
-    form.appendChild(submit);
-    formContainer.appendChild(form);
-    modalSection.appendChild(closeButtonContainer);
-    modalSection.appendChild(formContainer);
-
-    return modalSection;
-}
-
-// function to open the modal
-const openModal = function () {
-    postModal.classList.remove("hidden");
-    overlay.classList.remove("hidden");
-};
-
-openModalBtn.addEventListener("click", openModal);
-
-// function to close the modal
-const closeModal = function () {
-    postModal.classList.add("hidden");
-    overlay.classList.add("hidden");
-};
-
-closeModalBtn.addEventListener("click", closeModal);
-overlay.addEventListener("click", closeModal);
-

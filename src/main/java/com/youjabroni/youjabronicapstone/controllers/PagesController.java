@@ -69,6 +69,7 @@ public class PagesController {
 
     @GetMapping("/profile/history")
     public String showSubmissionHistory() {
+
         return "pages/history";
     }
 
