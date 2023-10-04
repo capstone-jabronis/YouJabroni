@@ -39,9 +39,9 @@ public class PagesController {
     @GetMapping("/tournaments/api")
     public @ResponseBody List<Tournament> getTournaments() throws JsonProcessingException {
         List<Tournament> tournaments = tournamentDao.findAll();
-        ObjectMapper mapper = new ObjectMapper();
-        System.out.println("below is tournys");
-        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tournaments));
+//        ObjectMapper mapper = new ObjectMapper();
+//        System.out.println("below is tournys");
+//        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tournaments));
         return tournaments;
     }
 
