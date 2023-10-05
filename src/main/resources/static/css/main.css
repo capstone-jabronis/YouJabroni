@@ -617,3 +617,32 @@ body {
 }
 
 /*===============     END OF LANDING PAGE     ===============*/
+
+/*===============     FEED     ===============*/
+.jdMemesContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.jdMemeContainer{
+    border: solid black;
+    background-color: #9F8BFF;
+    margin: 5px;
+}
+.jdMemeImage{
+    border-bottom: solid black;
+}
+.jdMemeCaption{
+    text-align: center;
+}
+.jdFeedJustifyCenter{
+    display: flex;
+    justify-content: center;
+}
+.jdFeedCenterButtons{
+    display: flex;
+    justify-content: center;
+}
+
+/*===============     END OF FEED     ===============*/
+

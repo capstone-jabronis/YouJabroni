@@ -100,11 +100,9 @@ public class PagesController {
 //    }
 
     @GetMapping("/feed/api")
-    public @ResponseBody List<User> pagesInFeed() throws JsonProcessingException {
-        List<User> users = userDao.findAll();
-//        ObjectMapper mapper = new ObjectMapper();
-//        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(memes));
-        return users;
+    public @ResponseBody List<MemeSubmission> pagesInFeed() throws JsonProcessingException {
+        List<MemeSubmission> memes = memeDao.findAll();
+        return memes;
     }
 
     @GetMapping("/leaderboard")
