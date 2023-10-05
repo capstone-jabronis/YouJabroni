@@ -40,7 +40,7 @@
     </div>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
-<script>/*<![CDATA[*/
+<script th:inline="javascript">/*<![CDATA[*/
 
 const tournamentId = /*[[${tournament.id}]]*/ 'default';
 console.log("FROM HOME html" + tournamentId);
