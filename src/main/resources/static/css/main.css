@@ -1,9 +1,10 @@
 :root {
     --first: #EEECFE;
     --second: #9F8BFF;
-    --third:#0D0149 ;
+    --third: #0D0149;
     --button: #343CFF;
 }
+
 .form {
     flex-direction: column;
     align-items: center;
@@ -14,24 +15,28 @@
     margin-bottom: 5rem;
     border-radius: 2rem;
 }
-.field-name{
+
+.field-name {
     color: var(--first);
     margin: 0.30rem;
 }
-.input{
+
+.input {
     margin: 0.75rem;
     flex-direction: column;
 }
-.input-field{
+
+.input-field {
     height: 2.5rem;
     width: 20rem;
     border-radius: 1rem;
     background-color: var(--first);
 }
 
-.reg-button{
+.reg-button {
     margin: 1rem;
 }
+
 .reg-button {
     display: flex;
     align-items: center;
@@ -48,6 +53,7 @@
     transition: 500ms;
     -webkit-transition: 500ms;
 }
+
 .reg-button svg {
     margin-right: 3px;
     transform: rotate(0deg);
@@ -65,16 +71,19 @@
 .reg-button:hover span {
     transform: translateX(7px);
 }
+
 .reg-button:hover {
     background-color: var(--first);
     color: var(--button);
 }
-.register-header{
+
+.register-header {
     font-size: 2rem;
     flex-direction: column;
     align-items: center;
     color: var(--first);
 }
+
 body {
     font-family: 'Nunito Sans', sans-serif;
 }
@@ -86,6 +95,7 @@ body {
     /*justify-content: center;*/
     margin-right: 30px;
 }
+
 .carousel {
     position: relative;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.64);
@@ -186,6 +196,7 @@ body {
 #carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
     color: #428bca;
 }
+
 /********** END OF CAROUSEL *************/
 
 .landing-page-container {
@@ -227,7 +238,7 @@ body {
     border-top-right-radius: 15px;
 }
 
-.jdImgCSS{
+.jdImgCSS {
     display: block;
     margin-top: 10px;
     border-radius: 15px;
@@ -315,6 +326,7 @@ body {
     width: 155px;
     height: 55px;
 }
+
 .stats {
     flex-direction: row;
     margin-right: 37px;
@@ -335,6 +347,7 @@ body {
 .jdHomePageWrapperCSS {
     display: flex; /* Use flexbox to create a horizontal layout */
 }
+
 .jdleaderboard {
     flex: 1; /* Takes up a flexible portion of available space */
     width: 30%; /* Takes up 30% of the screen width */
@@ -344,7 +357,8 @@ body {
     flex: 2; /* Takes up twice as much flexible space as the leaderboard */
     width: 70%; /* Takes up 70% of the screen width */
 }
-.jdTournamentCSS{
+
+.jdTournamentCSS {
     display: flex;
     justify-content: space-evenly;
 }
@@ -379,7 +393,6 @@ body {
 }
 
 
-
 /********************************* Modals ***********************************/
 
 .modal {
@@ -387,7 +400,7 @@ body {
     flex-direction: column;
     position: fixed;
     top: 0;
-    left:0;
+    left: 0;
     height: 100%;
     width: 100%;
     align-items: center;
@@ -398,10 +411,10 @@ body {
 .modal .modal-bg {
     position: absolute;
     top: 0;
-    left:0;
+    left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
     /*pointer-events: none;*/
 
@@ -420,10 +433,11 @@ body {
 
 
 /*===============     SNAKE GAME     ===============*/
-#snakeGame{
+#snakeGame {
     background: #9F8BFF;
 }
 
+/*===============     END OF SNAKE GAME     ===============*/
 
 /*===============     PROFILE     ===============*/
 .password-error {
@@ -431,6 +445,7 @@ body {
     align-self: center;
 }
 
+/*===============     END OF PROFILE     ===============*/
 
 /************************************************ Edit Profile Page ***********************************************/
 
@@ -438,7 +453,7 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: var(--third);
-    height: 40rem;
+    height: 45rem;
     width: 60rem;
     margin-top: 5rem;
     margin-bottom: 5rem;
@@ -469,6 +484,7 @@ body {
     font-size: 17px;
     height: 2.5rem;
     padding: 0.8em 1.3em 0.8em 0.9em;
+    margin: 10px;
     color: var(--first);
     background: #ad5389;
     border: none;
@@ -479,9 +495,22 @@ body {
     cursor: pointer;
 }
 
+.previewImage {
+    margin: 10px;
+}
+
 .password-change-card {
-    background: #ad5389;
-    padding: 10px;
+    background: #343CFF;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.submit-password {
+    height: 2rem;
+    margin-top: 10px;
+    background-color: #ad5389;
+    border: unset;
+    border-radius: 10px;
 }
 
 .changeProfileImg {
@@ -497,6 +526,7 @@ body {
     border: none;
     letter-spacing: 0.05em;
     border-radius: 16px;
+    margin: 10px;
 }
 .changeProfileImg:hover {
     cursor: pointer;
@@ -508,6 +538,10 @@ body {
 .submit-mods-btn:hover {
     background-color: black;
     text-decoration-color: white;
+}
+
+.cancel-edit {
+    background-color: red;
 }
 
 /***************** START OF MODAL FOR ADDING POSTS **********************/
@@ -608,3 +642,49 @@ body {
 }
 
 /***************** END OF MODAL FOR ADDING POSTS **********************/
+
+
+/*===============     LANDING PAGE     ===============*/
+
+.jdH1Caption {
+    display: flex;
+    align-content: end;
+    color: #b4acef;
+}
+
+.animate-character {
+    text-transform: uppercase;
+    background-image: linear-gradient(
+            -225deg,
+            #231557 0%,
+            #44107a 29%,
+            #ff1361 67%,
+            #fff800 100%
+    );
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 4s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite alternate; /* Use cubic-bezier for easing */
+    display: inline-block;
+}
+
+@keyframes textclip {
+    0% {
+        background-position: 0% center; /* Start from the left */
+    }
+    100% {
+        background-position: 100% center; /* End at the right */
+    }
+}
+
+.jdH3Instructions {
+    display: flex;
+    color: #9F8BFF;
+}
+
+/*===============     END OF LANDING PAGE     ===============*/

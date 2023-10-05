@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partials :: head('Profile')">
+<head>
+    <div  th:replace="partials/partials :: head(title='edit-profile')">
+
+    </div>
 </head>
 <body>
 <div class=" hidden passwordModal modal">
@@ -8,17 +11,17 @@
     </div>
     <div class="modal-container">
         <div>
-            <form class="container password-change-card" th:action="@{|/${user.id}/profile/edit/password|}" th:method="POST">
+            <form class="password-change-card" th:action="@{|/${user.id}/profile/edit/password|}" th:method="POST">
                 <div class="column">
                     <label th:for="newPassword">New Password</label>
-                    <input class="newPassword" th:name="newPassword" th:type="password" >
+                    <input class="newPassword input-field" th:name="newPassword" th:type="password" >
                 </div>
                 <div class="column">
                     <label th:for="confirmNewPassword">Confirm New Password</label>
-                    <input class="confirmNewPassword" th:name="confirmNewPassword" th:type="password">
+                    <input class="confirmNewPassword input-field" th:name="confirmNewPassword" th:type="password">
                 </div>
                 <div class="column">
-                    <button class=" hidden submit-password" type="submit">Submit</button>
+                    <button class=" hidden submit-password " type="submit">Submit</button>
                 </div>
             </form>
             <div class="hidden password-error">Passwords Do Not match</div>
@@ -30,11 +33,11 @@
     <form class="edit-form-container d-flex justify-center" th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
     <h1 class="edit-form-title " >Edit Your Profile</h1>
         <div class="column">
-            <p class="edit-label" >edit username</p>
+            <p class="edit-label" >Edit Username</p>
             <input class="input-field edit-field" th:name="username" th:type="text" th:value="${user.username}" th:field="${user.username}">
         </div>
         <div class="column">
-            <p class="edit-label">edit email</p>
+            <p class="edit-label">Edit Email</p>
             <input class="input-field edit-field" th:name="email" th:type="text" th:value="${user.email}" th:field="${user.email}">
         </div>
         <div class="column">
@@ -42,11 +45,12 @@
         </div>
         <div class="column">
             <input th:name="ProfileURL" type="text" id="fileInput" th:value="${user.profileURL}" hidden>
-            <span id="profilePic" class="changeProfileImg" >upload profile pic</span>
-            <img id="previewImage"  src="" alt="Uploaded Image">
+            <span id="profilePic" class="changeProfileImg" >Change Profile Pic</span>
+            <img class="previewImage" id="previewImage"  th:src="${user.getProfileURL()}" alt="Uploaded Image">
         </div>
-        <button class="submit-mods-btn edit-btn" type="submit" th:type="submit">submit changes</button>
+        <button class="submit-mods-btn edit-btn" type="submit" th:type="submit">Submit Changes</button>
     </form>
+    <button class="cancel-edit">Cancel</button>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>

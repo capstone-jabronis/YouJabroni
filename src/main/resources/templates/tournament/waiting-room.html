@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partials :: head('Home Page')">
+<head>
+    <div  th:replace="partials/partials :: head(title='waiting-room')">
+
+    </div>
+<!--    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <meta name="_csrf" data-th-content="${_csrf.token}"/>
+<!--    <script th:src="@{/js/sockjs.min.js}"></script>-->
+<!--    <script th:src="@{/js/stomp.min.js}"></script>-->
 </head>
 <nav th:replace="partials/partials :: nav"></nav>
 <body>
@@ -16,7 +21,7 @@
 <!--                 <h1>TOURNAMENT ID: <span id="tournamentID" th:text="${tournament.id}"></span></h1>
                 <input type="hidden" name="tournamentId" value="${sessionScope.tournamentId} /> -->
 
-                <h1>TOURNAMENT ID: <span th:text="${tournament.getId()}"></span></h1>
+                <h1>TOURNAMENT ID: <span  data-th-tournament="${tournament.id}" th:text="${tournament.getId()}"></span></h1>
 
                 <h2>here are players in lobby:</h2>
                 <ul th:each="user : ${users}">
@@ -35,8 +40,12 @@
     </div>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
+<script th:inline="javascript">/*<![CDATA[*/
 
-
+const tournamentId = /*[[${tournament.id}]]*/ 'default';
+console.log("FROM HOME html" + tournamentId);
+/*]]>*/
+</script>
 <script th:src="@{/js/tournament.js}"></script>
 <script th:src="@{/js/websocket-tournament.js}"></script>
 <script th:src="@{/js/snakeGame.js}"></script>

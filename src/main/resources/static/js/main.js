@@ -8,6 +8,7 @@ const confirmNewPassword = document.querySelector('.confirmNewPassword')
 const passwordError = document.querySelector('.password-error')
 const submitPasswordBtn = document.querySelector('.submit-password')
 const cancelPasswordChangeBtn = document.querySelector('.cancelPasswordChange')
+const cancelEditBtn = document.query
 changePasswordBtn.addEventListener('click', () => {
     passwordModal.classList.toggle('hidden')
 });
