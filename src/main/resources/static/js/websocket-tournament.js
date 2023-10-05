@@ -1,7 +1,7 @@
   // window.onload = async () => {
   //   try{
   //       const url = "/tournaments/api";
-  //       const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+  //
   //
   //       let results = await fetch(url, {
   //           method: 'GET',
@@ -25,26 +25,27 @@
       // For WebSocket/Sock/StompJS Server Connection with frontend
 // Trying to find path variable with tournament id instead of targeting the span.
 // console.log((location.pathname+location.search).substring(3))
+  const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
   const tournamentJoinBtns = document.querySelectorAll('button');
+let tournamentIdClick;
 for(let tournamentJoinBtn of tournamentJoinBtns){
     tournamentJoinBtn.addEventListener('click', (e)=> {
-        // e.preventDefault();
-        console.log(e);
+        let tournamentIdClick = e.target.getAttribute('tournament')
+        console.log( tournamentIdClick);
     })
 }
 
-  console.log(tournamentsJsObject);
 
       const Tournament = {
             stompClient: null,
-            tournamentId: tournamentId,
+            tournamentId: tournamentIdClick,
             topic: null,
             currentSubscription: null,
             memeSubmission: document.querySelector('#memeCaption')
         }
         const Socket = {
             connect() {
-                console.log('Connected to Socket!' + tournamentId);
+                console.log('Connected to Socket!' + Tournament.tournamentId);
                 let socket = new SockJS("/secured/sock");
                 Tournament.stompClient = Stomp.over(socket);
                 Tournament.stompClient.connect({'X-CSRF-TOKEN': csrfToken}, this.onConnected, this.onError);
