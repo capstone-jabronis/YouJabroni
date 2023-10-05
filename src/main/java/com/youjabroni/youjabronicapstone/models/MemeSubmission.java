@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "meme_submission")
@@ -12,6 +13,22 @@ public class MemeSubmission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    //For websocket messaging. Creating a meme submission as a message and sending it to/from the server client/////////////
+    public enum MessageType {
+        CHAT, JOIN, LEAVE
+    }
+
+    private MessageType messageType;
+
+    public MessageType getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
+    }
+    //websocket stuff end////////////////////////////////////////
+  
     @Column(nullable = false, columnDefinition = "TEXT")
     private String caption;
 

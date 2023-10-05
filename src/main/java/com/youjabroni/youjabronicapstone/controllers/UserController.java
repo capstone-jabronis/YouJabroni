@@ -38,11 +38,17 @@ public class UserController {
     }
 
     @PostMapping("{id}/profile/edit")
-    public String updateProfile(@PathVariable long id, @RequestParam(name = "username") String username, @RequestParam(name = "email") String email) {
+    public String updateProfile(@PathVariable long id, @RequestParam(name = "username") String username, @RequestParam(name = "email") String email, @RequestParam(name = "ProfileURL") String profileUrl) {
         User user = userDao.findById(id).get();
         user.setEmail(email);
         user.setUsername(username);
         userDao.save(user);
+        if (profileUrl != null) {
+            user.setProfileURL(profileUrl);
+            userDao.save(user);
+        } else {
+            return String.format("redirect:/%s/profile", id);
+        }
         return String.format("redirect:/%s/profile", id);
     }
 

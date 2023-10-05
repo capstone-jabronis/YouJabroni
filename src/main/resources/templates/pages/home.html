@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partials :: head('Home Page')">
+<head>
+    <div  th:replace="partials/partials :: head(title='Home Page')">
+
+    </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
 <nav th:replace="partials/partials :: nav"></nav>
@@ -12,8 +18,21 @@
         </div>
     </aside>
 </div>
+<div class="tournament-card d-flex" th:each="tournament : ${tournaments}">
+    <form th:action="@{|/tournament/waiting-room/${tournament.id}|}">
+        <p>TEST TOURNAMENT</p>
+        <p>TEST TOURNAMENT ID: <span th:text="${tournament.id}"></span></p>
+        <button data-th-tournament="${tournament.id}" type="submit">Join Now!</button>
+    </form>
+</div>
 <footer th:replace="partials/partials :: footer"></footer>
+
+<script th:inline="javascript">
+
+</script>
 <script th:src="@{/js/tournament.js}"></script>
+<script th:src="@{/js/websocket-tournament.js}"></script>
+
 
 </body>
 </html>

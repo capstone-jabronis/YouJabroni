@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partials :: head('Feed')"></head>
+<head>
+    <div  th:replace="partials/partials :: head(title='Feed')">
+
+    </div>
+</head>
 <body>
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
@@ -12,6 +16,12 @@
                    </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="jdFeedJustifyCenter">
+    <div class="jdFeedCenterButtons">
+        <button id="back">back</button>
+        <button id="forward">forward</button>
     </div>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>

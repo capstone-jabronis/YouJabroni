@@ -4,24 +4,31 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tournaments")
 public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private long id;
+  
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "winner_id")
     @JsonBackReference
     private User winner;
+  
     @Column(nullable = false, columnDefinition = "DATETIME")
     private Timestamp startTime;
+  
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
     @JsonManagedReference
     private List<Round> rounds;

@@ -7,11 +7,14 @@ const newPassword = document.querySelector('.newPassword')
 const confirmNewPassword = document.querySelector('.confirmNewPassword')
 const passwordError = document.querySelector('.password-error')
 const submitPasswordBtn = document.querySelector('.submit-password')
+const cancelPasswordChangeBtn = document.querySelector('.cancelPasswordChange')
 changePasswordBtn.addEventListener('click', () => {
     passwordModal.classList.toggle('hidden')
 });
 modalBackground.addEventListener('click', () => {
     passwordModal.classList.toggle('hidden')
+    newPassword.value = ""
+    confirmNewPassword.value = ""
 })
 
 confirmNewPassword.addEventListener('keyup', () => {
@@ -30,4 +33,5 @@ function passwordValidation() {
         submitPasswordBtn.classList.add('hidden')
     }
 }
+
 //=======================================================================//

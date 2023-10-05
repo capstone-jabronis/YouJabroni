@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partials :: head('Posts')"></head>
+<head>
+    <div  th:replace="partials/partials :: head(title='Posts')">
+
+    </div>
+</head>
 <body>
 <h1>This is all the user's posts</h1>
 
