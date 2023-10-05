@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/partials :: head('Sign-Up')"></head>
+<head>
+    <div  th:replace="partials/partials :: head(title='register')">
+
+    </div>
+</head>
 <body class="page-wrapper">
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="register container">

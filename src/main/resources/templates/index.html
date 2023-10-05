@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/partials :: head('Landing Page')"></head>
+<head>
+    <div  th:replace="partials/partials :: head(title='Landing-Page')">
+
+    </div>
+</head>
 <body>
 <div class="page-wrapper">
     <nav th:replace="partials/partials :: nav"></nav>

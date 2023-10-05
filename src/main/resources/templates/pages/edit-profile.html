@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partials :: head('Profile')">
+<head>
+    <div  th:replace="partials/partials :: head(title='edit-profile')">
+
+    </div>
 </head>
 <body>
 <div class=" hidden passwordModal modal">
