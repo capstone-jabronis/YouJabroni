@@ -5,7 +5,7 @@
     <div th:fragment="head(title)" th:remove="tag">
         <meta charset="UTF-8">
 
-        <meta name="_csrf" data-th-content="${_csrf.token}" />
+        <meta name="_csrf" data-th-content="${_csrf.token}" data-th-header="${_csrf.headerName}"/>
         <title th:text="${'Meme Space | ' + title}"></title>
         <link rel="icon" type="image/x-icon" href="/img/rocket.png">
         <link rel="preconnect" href="https://fonts.googleapis.com">

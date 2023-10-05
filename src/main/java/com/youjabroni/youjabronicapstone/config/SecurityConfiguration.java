@@ -40,7 +40,18 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests
+        http
+                .csrf(csrf -> csrf
+                        // ignore our stomp endpoints since they are protected using Stomp headers
+                        .ignoringRequestMatchers("/secured/**")
+                )
+                .headers(headers -> headers
+                        // allow same origin to frame our site to support iframe SockJS
+                        .frameOptions(frameOptions -> frameOptions
+                                .sameOrigin()
+                        )
+                )
+                .authorizeHttpRequests((requests) -> requests
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
                         .requestMatchers(

@@ -11,10 +11,13 @@ import org.springframework.security.messaging.access.intercept.MessageMatcherDel
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 //@Configuration
-//public class WebsocketSecurityConfiguration implements WebSocketMessageBrokerConfigurer {
-//
-//
-//    // Dictates which message endpaths are secured and require authentication
+//public class WebsocketSecurityConfiguration extends AbstractSecurityWebSocketMessageBrokerConfigurer{
+//@Override
+//    protected boolean sameOriginDisabled() {
+//    return true;
+//}
+
+    // Dictates which message endpaths are secured and require authentication
 //    @Override
 //    protected void configureInbound(MessageMatcherDelegatingAuthorizationManager messages) {
 //        messages
