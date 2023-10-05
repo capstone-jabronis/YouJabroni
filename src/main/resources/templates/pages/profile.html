@@ -127,7 +127,7 @@
         <form class="hidden" id="add-post-form" th:action="@{|/${user.id}/profile/posts|}" th:method="POST">
             <div class="add-form">
                 <h3 class="form-title">Add a short description or click save to continue</h3>
-                <input id="description" type="text" name="description">
+                <input id="description" type="text" name="description" value="">
                 <input id="meme-id" type="hidden" name="meme-id">
                 <button type="submit" class="add-btn">Save</button>
             </div>
@@ -136,7 +136,7 @@
 
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
-<!--<script th:src="@{/js/profile.js}"></script>-->
+<script th:src="@{/js/profile.js}"></script>
 <script th:src="@{/js/posts.js}"></script>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 </body>

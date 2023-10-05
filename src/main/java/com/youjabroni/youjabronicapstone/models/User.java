@@ -2,6 +2,10 @@ package com.youjabroni.youjabronicapstone.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.Getter;
@@ -31,16 +35,20 @@ public class User {
     private String profileURL;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonManagedReference
     private List<MemeSubmission> memeSubmissions;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonManagedReference
     private List<Post> posts;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
+    @JsonBackReference
     private Tournament tournament;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonManagedReference
     private List<Like> likes;
   
     @JsonIgnore
@@ -57,6 +65,10 @@ public class User {
         this.tournament = tournament;
         this.tournamentsWon = tournamentsWon;
     }
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "winner")
+    @JsonManagedReference
+    private List<Tournament> tournamentsWon;
 
     public User(String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament) {
         this.username = username;
@@ -193,15 +205,28 @@ public class User {
         this.posts = posts;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", profileURL='" + profileURL + '\'' +
-                ", memeSubmissions=" + memeSubmissions +
-                '}';
+    public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, List<Post> posts, Tournament tournament, List<Like> likes, List<Tournament> tournamentsWon) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profileURL = profileURL;
+        this.memeSubmissions = memeSubmissions;
+        this.posts = posts;
+        this.tournament = tournament;
+        this.likes = likes;
+        this.tournamentsWon = tournamentsWon;
     }
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", username='" + username + '\'' +
+//                ", email='" + email + '\'' +
+//                ", password='" + password + '\'' +
+//                ", profileURL='" + profileURL + '\'' +
+//                ", memeSubmissions=" + memeSubmissions +
+//                '}';
+//    }
 }
