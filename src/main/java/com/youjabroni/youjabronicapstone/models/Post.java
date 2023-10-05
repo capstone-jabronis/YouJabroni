@@ -22,8 +22,9 @@ public class Post {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "post")
     @JsonManagedReference
     private List<Like> likes;
-    @OneToOne(mappedBy = "post")
-    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "meme_id")
+    @JsonBackReference
     private MemeSubmission memeSubmission;
 
     public Post() {

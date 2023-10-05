@@ -23,10 +23,9 @@ public class MemeSubmission {
 //    @JsonBackReference
     @JsonIgnore
     private Round round;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "post_id")
-    @JsonBackReference
-    private Post post = new Post();
+    @OneToOne(mappedBy = "memeSubmission")
+    @JsonManagedReference
+    private Post post;
 
     public MemeSubmission() {
     }
