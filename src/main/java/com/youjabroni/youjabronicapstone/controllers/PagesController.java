@@ -8,12 +8,14 @@ import com.youjabroni.youjabronicapstone.models.Post;
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
+import com.youjabroni.youjabronicapstone.repositories.PostRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,10 +24,13 @@ public class PagesController {
     private UserRepository userDao;
     private MemeSubmissionRepository memeDao;
 
-    public PagesController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeDao) {
+    private PostRepository postDao;
+
+    public PagesController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeDao, PostRepository postDao) {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
         this.memeDao = memeDao;
+        this.postDao = postDao;
     }
 
     @GetMapping("/home")
@@ -78,10 +83,19 @@ public class PagesController {
     }
 
     @GetMapping("/{id}/posts")
-    public @ResponseBody List<Post> viewAllPostsInJSONFormat(@PathVariable long id) {
+    public @ResponseBody List<Post> viewAllPostsInJSONFormat(@PathVariable long id) throws JsonProcessingException {
         User user = new User(userDao.findById(id).get());
-        List<Post> posts = user.getPosts();
-        return posts;
+        List<Post> posts = postDao.findAll();
+        List<Post> userPost = new ArrayList<>();
+        for (Post post : posts){
+            if (post.getUser().getId() == user.getId()){
+                userPost.add(post);
+            }
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(posts));
+        return userPost;
     }
 
     @GetMapping("/feed")

@@ -186,6 +186,19 @@ public class User {
         this.posts = posts;
     }
 
+    public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, List<Post> posts, Tournament tournament, List<Like> likes, List<Tournament> tournamentsWon) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profileURL = profileURL;
+        this.memeSubmissions = memeSubmissions;
+        this.posts = posts;
+        this.tournament = tournament;
+        this.likes = likes;
+        this.tournamentsWon = tournamentsWon;
+    }
+
 //    @Override
 //    public String toString() {
 //        return "User{" +

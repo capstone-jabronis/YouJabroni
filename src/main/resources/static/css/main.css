@@ -527,3 +527,51 @@ body {
 }
 
 /***************** END OF MODAL FOR ADDING POSTS **********************/
+.posts-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 30px;
+    justify-content: space-evenly;
+}
+
+.post-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #EEECFE;
+    height: 360px;
+    width: 350px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-head {
+    background-color: #9F8BFF;
+    height: 50px!important;
+    width: 350px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.post-img {
+    display: block;
+    margin-top: 10px;
+    border-radius: 15px;
+
+}
+
+.post-caption-div {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-right: 25px;
+}
+
+.post-description {
+    margin-top: unset;
+}
+
+
+

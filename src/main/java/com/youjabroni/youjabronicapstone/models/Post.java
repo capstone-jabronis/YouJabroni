@@ -24,7 +24,7 @@ public class Post {
     private List<Like> likes;
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "meme_id")
-    @JsonBackReference
+    @JsonManagedReference
     private MemeSubmission memeSubmission;
 
     public Post() {

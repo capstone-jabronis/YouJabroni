@@ -27,7 +27,7 @@ public class MemeSubmission {
     private Round round;
 
     @OneToOne(mappedBy = "memeSubmission")
-    @JsonManagedReference
+    @JsonBackReference
     private Post post;
 
     public MemeSubmission() {

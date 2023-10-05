@@ -63,7 +63,8 @@ public class SecurityConfiguration {
                                 "/feed",
                                 "/feed/api",
                                 "/profile/posts",
-                                "/tournaments/api"
+                                "/tournaments/api",
+                                "/{id}/posts"
                         ).permitAll()
                         // allow loading of static resources
                         .requestMatchers(
