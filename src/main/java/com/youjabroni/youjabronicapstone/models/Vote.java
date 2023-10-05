@@ -1,6 +1,6 @@
 package com.youjabroni.youjabronicapstone.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "votes")

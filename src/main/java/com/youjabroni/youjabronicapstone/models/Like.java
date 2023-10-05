@@ -1,7 +1,7 @@
 package com.youjabroni.youjabronicapstone.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "likes")

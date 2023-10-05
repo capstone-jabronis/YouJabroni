@@ -12,10 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfiguration {
     private UserDetailsLoader usersLoader;
 
@@ -41,21 +39,16 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf
-                        // ignore our stomp endpoints since they are protected using Stomp headers
-                        .ignoringRequestMatchers("/secured/**")
-                )
-                .headers(headers -> headers
-                        // allow same origin to frame our site to support iframe SockJS
-                        .frameOptions(frameOptions -> frameOptions
-                                .sameOrigin()
-                        )
-                )
-                .authorizeHttpRequests((requests) -> requests
-                        /* Pages that require authentication
-                         * only authenticated users can create and edit ads */
-                        .requestMatchers(
-                                "/tournament/*",
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/home")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .and()
+                .authorizeRequests()
+                .antMatchers( "/tournament/*",
                                 "/tournament/waiting-room/*",
                                 "/home",
                                 "/*/profile/edit",
@@ -63,11 +56,12 @@ public class SecurityConfiguration {
                                 "/profile/likes",
                                 "/*/memeSubmission",
                                 "/*/profile/posts"
-                        ).authenticated()
-                        /* Pages that do not require authentication
-                         * anyone can visit the home page, register, login, and view ads */
-                        .requestMatchers(
-                                "/",
+
+                ).authenticated()
+                .and()
+                .authorizeRequests()
+                .antMatchers(
+                        "/",
                                 "/login",
                                 "/register",
                                 "/*/profile",
@@ -76,20 +70,48 @@ public class SecurityConfiguration {
                                 "/profile/posts",
                                 "/tournaments/api",
                                 "/leaderboard"
-
-                        ).permitAll()
-                        // allow loading of static resources
-                        .requestMatchers(
-                                "/css/**",
-                                "/js/**",
-                                "/img/**"
-                        ).permitAll()
-                )
-                /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
-                /* Logout configuration */
-                .logout((logout) -> logout.logoutSuccessUrl("/"));
+                ).permitAll();
         return http.build();
+
+//                .authorizeHttpRequests((requests) -> requests
+//                        /* Pages that require authentication
+//                         * only authenticated users can create and edit ads */
+//                        .requestMatchers(
+//                                "/tournament/*",
+//                                "/tournament/waiting-room/*",
+//                                "/home",
+//                                "/*/profile/edit",
+//                                "/*/profile/edit/password",
+//                                "/profile/likes",
+//                                "/*/memeSubmission",
+//                                "/*/profile/posts"
+//                        ).authenticated()
+//                        /* Pages that do not require authentication
+//                         * anyone can visit the home page, register, login, and view ads */
+//                        .requestMatchers(
+//                                "/",
+//                                "/login",
+//                                "/register",
+//                                "/*/profile",
+//                                "/feed",
+//                                "/feed/api",
+//                                "/profile/posts",
+//                                "/tournaments/api",
+//                                "/leaderboard"
+//
+//                        ).permitAll()
+//                        // allow loading of static resources
+//                        .requestMatchers(
+//                                "/css/**",
+//                                "/js/**",
+//                                "/img/**"
+//                        ).permitAll()
+//                )
+//                /* Login configuration */
+//                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/home"))
+//                /* Logout configuration */
+//                .logout((logout) -> logout.logoutSuccessUrl("/"));
+//        return http.build();
     }
 
 }

@@ -1,6 +1,6 @@
 package com.youjabroni.youjabronicapstone.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
