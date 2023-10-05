@@ -25,20 +25,22 @@
 // For WebSocket/Sock/StompJS Server Connection with frontend
 // Trying to find path variable with tournament id instead of targeting the span.
 // console.log((location.pathname+location.search).substring(3))
-const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-const tournamentJoinBtns = document.querySelectorAll('button');
-let tournamentIdClick;
-for (let tournamentJoinBtn of tournamentJoinBtns) {
-    tournamentJoinBtn.addEventListener('click', (e) => {
-        tournamentIdClick = e.target.getAttribute('tournament')
-        console.log(tournamentIdClick);
-    })
-}
 
+(() => {
+
+const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+// const tournamentJoinBtns = document.querySelectorAll('button');
+// let tournamentIdClick;
+// for (let tournamentJoinBtn of tournamentJoinBtns) {
+//     tournamentJoinBtn.addEventListener('click', (e) => {
+//         tournamentIdClick = e.target.getAttribute('tournament')
+//         console.log(tournamentIdClick);
+//     })
+// }
 
 const Tournament = {
     stompClient: null,
-    tournamentId: tournamentIdClick,
+    tournamentId: tournamentId,
     topic: null,
     currentSubscription: null,
     memeSubmission: document.querySelector('#memeCaption')
@@ -46,8 +48,11 @@ const Tournament = {
 const Socket = {
     connect() {
         console.log('Connected to Socket!' + Tournament.tournamentId);
-        let socket = new SockJS("/secured/sock");
+        console.log(csrfToken);
+        let socket = new SockJS("/secured/memespace-sock");
+        console.log("right before Stomp.over");
         Tournament.stompClient = Stomp.over(socket);
+        console.log("right before connect with the csrf token");
         Tournament.stompClient.connect({'X-CSRF-TOKEN': csrfToken}, this.onConnected, this.onError);
     },
     onConnected() {
@@ -115,8 +120,12 @@ const Events = {
         });
     }
 }
-document.addEventListener('DOMContentLoaded', () => {
-        Events.initialize()
-    }
-)
+// document.addEventListener('DOMContentLoaded', async () => {
+//        await Events.initialize()
+//     }
+// )
 
+    Events.initialize();
+
+
+})();

@@ -30,8 +30,8 @@ public class WebsocketSecurityConfiguration {
     @Bean
     AuthorizationManager<Message<?>> messageAuthorizationManager(MessageMatcherDelegatingAuthorizationManager.Builder messages) {
         messages
-                .simpDestMatchers("/secured/**", "/secured/**/**", "/secured/**/**/**").authenticated()
-                .anyMessage().authenticated();
+                .simpDestMatchers("/secured/**", "/secured/**/**", "/secured/**/**/**").permitAll()
+                .anyMessage().permitAll();
         return messages.build();
     }
 }

@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:fragment="head(title)">
-    <meta charset="UTF-8">
+<head>
+    <div th:fragment="head(title)" th:remove="tag">
+        <meta charset="UTF-8">
 
-    <meta name="_csrf" data-th-content="${_csrf.token}" />
-    <title th:text="${'Meme Space | ' + title}"></title>
-    <link rel="icon" type="image/x-icon" href="/img/rocket.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet">
-    <title th:text="${'You Jabroni |' + title}"></title>
-    <link rel="stylesheet" href="/css/partials.css">
-    <link rel="stylesheet" href="/css/layout.css">
-    <link rel="stylesheet" href="/css/resets.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <script src="../../static/js/keys.js"></script>
+        <meta name="_csrf" data-th-content="${_csrf.token}" />
+        <title th:text="${'Meme Space | ' + title}"></title>
+        <link rel="icon" type="image/x-icon" href="/img/rocket.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet">
+        <title th:text="${'You Jabroni |' + title}"></title>
+        <link rel="stylesheet" href="/css/partials.css">
+        <link rel="stylesheet" href="/css/layout.css">
+        <link rel="stylesheet" href="/css/resets.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <script th:src="@{/js/keys.js}"></script>
+    </div>
+
 </head>
 <body>
 <!--START OF NAVBAR PARTIAL-->
