@@ -1,6 +1,9 @@
 package com.youjabroni.youjabronicapstone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import javax.persistence.*;
 
 @Entity
@@ -25,18 +28,23 @@ public class MemeSubmission {
         this.messageType = messageType;
     }
     //websocket stuff end////////////////////////////////////////
-
+  
     @Column(nullable = false, columnDefinition = "TEXT")
     private String caption;
-    @JsonIgnore
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
+//    @JsonBackReference
+    @JsonIgnore
     private User user;
+
     @ManyToOne
     @JoinColumn(name = "round_id")
+    @JsonManagedReference
     private Round round;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "post_id")
+
+    @OneToOne(mappedBy = "memeSubmission")
+    @JsonBackReference
     private Post post;
 
     public MemeSubmission() {
@@ -95,14 +103,14 @@ public class MemeSubmission {
         this.post = post;
     }
 
-    @Override
-    public String toString() {
-        return "MemeSubmission{" +
-                "id=" + id +
-                ", caption='" + caption + '\'' +
-                ", user=" + user +
-                ", round=" + round +
-                ", post=" + post +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "MemeSubmission{" +
+//                "id=" + id +
+//                ", caption='" + caption + '\'' +
+//                ", user=" + user +
+//                ", round=" + round +
+//                ", post=" + post +
+//                '}';
+//    }
 }

@@ -1,5 +1,9 @@
 package com.youjabroni.youjabronicapstone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,15 +20,21 @@ public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+  
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "winner_id")
+    @JsonBackReference
     private User winner;
+  
     @Column(nullable = false, columnDefinition = "DATETIME")
     private Timestamp startTime;
+  
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
+    @JsonManagedReference
     private List<Round> rounds;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
+    @JsonManagedReference
     private Set<User> userSet;
 
     public Tournament(User winner, Timestamp startTime, List<Round> rounds, Set<User> userSet) {

@@ -13,6 +13,7 @@ VALUES ('user1', 'user1@example.com', 'password1'),
 
 
 INSERT INTO tournaments (winner_id, start_time)
+
 VALUES ('1', '2023-09-26 14:30:00'),
        ('2', '2023-10-01 16:30:00'),
        ('2', '2023-10-02 16:30:00');
@@ -42,7 +43,7 @@ VALUES ('1', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600
        ('3', '3', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966');
 
 
-insert into meme_submission (caption, user_id, round_id)
+insert into meme_submission (caption,message_type, user_id, round_id)
 VALUES ('user 1 round 1 caption', '1', '1'),
        ('user 2 round 1 caption', '2', '1'),
        ('user 3 round 1 caption', '3', '2'),

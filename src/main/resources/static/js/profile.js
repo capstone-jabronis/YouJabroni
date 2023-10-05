@@ -17,7 +17,7 @@ historyContainer.addEventListener('click', async (e) => {
             'X-CSRF-TOKEN': csrfToken2
         }
     });
-    const data = await results.json();
+    const data2 = await results.json();
     if (!results.ok) {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }
@@ -32,8 +32,8 @@ historyContainer.addEventListener('click', async (e) => {
         const endIndex = startIndex + itemsPerPage;
 
         // Loop through the data and create divs for each item
-        for (let i = startIndex; i < endIndex && i < data.length; i++) {
-            const item = data[i];
+        for (let i = startIndex; i < endIndex && i < data2.length; i++) {
+            const item = data2[i];
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('history-card');
 
@@ -80,6 +80,8 @@ historyContainer.addEventListener('click', async (e) => {
             addImg.src = item.round.meme_pic;
             addImg.classList.add('add-img');
 
+
+
             // Create a container for the caption
             const addCaptionDiv = document.createElement('div');
             const addCaption = document.createElement('h2');
@@ -95,8 +97,7 @@ historyContainer.addEventListener('click', async (e) => {
                 modalOverlay.classList.remove("hidden");
                 const addForm = document.querySelector("#add-post-form");
                 const memeId = document.querySelector("#meme-id");
-                memeId.setAttribute('value', item.id);
-                console.log(memeId.getAttribute('value'));
+                memeId.value = item.id;
                 addCaptionDiv.appendChild(addForm);
                 addForm.classList.remove("hidden");
             };
