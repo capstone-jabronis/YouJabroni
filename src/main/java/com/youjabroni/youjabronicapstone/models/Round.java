@@ -1,6 +1,8 @@
 package com.youjabroni.youjabronicapstone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,11 +19,13 @@ public class Round {
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
+    @JsonBackReference
     private Tournament tournament;
     @Column(nullable = false)
     private String meme_pic;
     @JsonIgnore
     @OneToMany(mappedBy = "round")
+    @JsonManagedReference
     private List<MemeSubmission> memeSubmissions;
 
     public Round() {

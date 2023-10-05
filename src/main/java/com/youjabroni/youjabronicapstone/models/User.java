@@ -2,7 +2,9 @@ package com.youjabroni.youjabronicapstone.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,19 +31,24 @@ public class User {
     private String profileURL;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonManagedReference
     private List<MemeSubmission> memeSubmissions;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonManagedReference
     private List<Post> posts;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
+    @JsonBackReference
     private Tournament tournament;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonManagedReference
     private List<Like> likes;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "winner")
+    @JsonManagedReference
     private List<Tournament> tournamentsWon;
 
     public User(String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament) {

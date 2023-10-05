@@ -77,7 +77,7 @@ historyContainer.addEventListener('click', async (e) => {
             const addImgContainer = document.createElement('div');
             addImgContainer.classList.add('add-img-container');
             const addImg = document.createElement('img');
-            addImg.src = item.round.meme_pic;
+            addImg.src = item.round_id.meme_pic;
             addImg.classList.add('add-img');
 
 

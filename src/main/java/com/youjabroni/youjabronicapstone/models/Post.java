@@ -1,5 +1,6 @@
 package com.youjabroni.youjabronicapstone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -14,14 +15,15 @@ public class Post {
     private long id;
     @Column
     private String description;
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "post")
+    @JsonManagedReference
     private List<Like> likes;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "meme_id")
+    @OneToOne(mappedBy = "post")
+    @JsonManagedReference
     private MemeSubmission memeSubmission;
 
     public Post() {

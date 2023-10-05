@@ -4,6 +4,7 @@ package com.youjabroni.youjabronicapstone.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youjabroni.youjabronicapstone.models.MemeSubmission;
+import com.youjabroni.youjabronicapstone.models.Post;
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
@@ -72,7 +73,15 @@ public class PagesController {
 //        System.out.println("inside viewHistory");
         User user = new User(userDao.findById(id).get());
         List<MemeSubmission> memes = user.getMemeSubmissions();
+        System.out.println(memes);
         return memes;
+    }
+
+    @GetMapping("/{id}/posts")
+    public @ResponseBody List<Post> viewAllPostsInJSONFormat(@PathVariable long id) {
+        User user = new User(userDao.findById(id).get());
+        List<Post> posts = user.getPosts();
+        return posts;
     }
 
     @GetMapping("/feed")
