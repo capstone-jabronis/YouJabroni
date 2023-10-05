@@ -49,11 +49,25 @@ const Socket = {
     connect() {
         console.log('Connected to Socket!' + Tournament.tournamentId);
         console.log(csrfToken);
+        const header = {'X-CSRF-TOKEN': csrfToken};
+        console.log(header);
         let socket = new SockJS("/secured/memespace-sock");
         console.log("right before Stomp.over");
         Tournament.stompClient = Stomp.over(socket);
-        console.log("right before connect with the csrf token");
-        Tournament.stompClient.connect({'X-CSRF-TOKEN': csrfToken}, this.onConnected, this.onError);
+        Tournament.stompClient.connect(header, this.onConnected, this.onError)
+        // Tournament.stompClient = new StompJs.Client({
+        //     brokerURL: 'wss://localhost:8080/secured/memespace-sock',
+        //     connectHeaders: header,
+        //     debug(err) {
+        //         console.log(err);
+        //     }
+        // });
+        // console.log("right before connect with the csrf token");
+        // Tournament.stompClient.connect({'X-CSRF-TOKEN': csrfToken}, this.onConnected, this.onError);
+        // Tournament.stompClient.onConnect = this.onConnected;
+        // Tournament.stompClient.onStompError = this.onError;
+        // console.log("about to activate stomp client");
+        // Tournament.stompClient.activate();
     },
     onConnected() {
         console.log("inside onConnected");

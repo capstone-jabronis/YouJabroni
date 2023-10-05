@@ -3,9 +3,11 @@ package com.youjabroni.youjabronicapstone.models;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.Entity;
 
 @Getter
 @Setter
