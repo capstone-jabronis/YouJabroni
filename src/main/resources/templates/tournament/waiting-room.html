@@ -25,8 +25,11 @@
 
                 <h2>here are players in lobby:</h2>
                 <ul th:each="user : ${users}">
-                    <li th:text="${user.getUsername()}"></li>
+                    <p class="user-info" th:text="${user.getUsername()}"></p>
                 </ul>
+<!--                TESTING REAL TIME UPDATES-->
+                <div id="memeCaption"></div>
+
                 <a href="/tournament/waiting-room/leave">Leave/Cancel</a>
             </div>
         </div>
