@@ -12,32 +12,32 @@ VALUES ('user1', 'user1@example.com', 'password1'),
        ('user8', 'user8@example.com', 'password8');
 
 INSERT INTO tournaments (winner_id, start_time)
-VALUES ('1', '2023-09-26 14:30:00');
+VALUES (1, '2023-09-26 14:30:00');
 
 INSERT INTO rounds (round_num, tournament_id, meme_pic)
-VALUES ('1', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
-       ('1', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
-       ('1', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
-       ('1', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
-       ('2', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
-       ('2', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
-       ('3', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966');
+VALUES (1, 1, 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
+       (1, 1, 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
+       (1, 1, 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
+       (1, 1, 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
+       (2, 1, 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
+       (2, 1, 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966'),
+       (3, 1, 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966');
 
 insert into meme_submission (caption, user_id, round_id)
-VALUES ('user 1 round 1 caption','1','1'),
-       ('user 2 round 1 caption','2','1'),
-       ('user 3 round 1 caption','3','2'),
-       ('user 4 round 1 caption','4','2'),
-       ('user 5 round 1 caption','5','3'),
-       ('user 6 round 1 caption','6','3'),
-       ('user 7 round 1 caption','7','4'),
-       ('user 8 round 1 caption','8','4'),
-       ('user 1 round 2 caption','1','5'),
-       ('user 3 round 2 caption','3','5'),
-       ('user 5 round 2 caption','5','6'),
-       ('user 7 round 2 caption','7','6'),
-       ('user 1 round 3 caption','1','7'),
-       ('user 7 round 3 caption','7','7');
+VALUES ('user 1 round 1 caption',1,1),
+       ('user 2 round 1 caption',2,1),
+       ('user 3 round 1 caption',3,2),
+       ('user 4 round 1 caption',4,2),
+       ('user 5 round 1 caption',5,3),
+       ('user 6 round 1 caption',6,3),
+       ('user 7 round 1 caption',7,4),
+       ('user 8 round 1 caption',8,4),
+       ('user 1 round 2 caption',1,5),
+       ('user 3 round 2 caption',3,5),
+       ('user 5 round 2 caption',5,6),
+       ('user 7 round 2 caption',7,6),
+       ('user 1 round 3 caption',1,7),
+       ('user 7 round 3 caption',7,7);
 
 INSERT INTO votes (user_id, meme_submission_id)
 VALUES ('3','1'),

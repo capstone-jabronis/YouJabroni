@@ -1,5 +1,6 @@
 package com.youjabroni.youjabronicapstone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -18,8 +19,7 @@ public class MemeSubmission {
     @ManyToOne
     @JoinColumn(name = "round_id")
     private Round round;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "post_id")
+    @OneToOne(mappedBy = "memeSubmission")
     private Post post;
 
     public MemeSubmission() {

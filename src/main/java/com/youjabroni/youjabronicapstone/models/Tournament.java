@@ -1,5 +1,6 @@
 package com.youjabroni.youjabronicapstone.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -11,8 +12,10 @@ import java.util.Set;
 public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long id;
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "winner_id")
     private User winner;
     @Column(nullable = false, columnDefinition = "DATETIME")
     private Timestamp startTime;

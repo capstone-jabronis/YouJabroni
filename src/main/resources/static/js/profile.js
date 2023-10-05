@@ -80,6 +80,8 @@ historyContainer.addEventListener('click', async (e) => {
             addImg.src = item.round.meme_pic;
             addImg.classList.add('add-img');
 
+
+
             // Create a container for the caption
             const addCaptionDiv = document.createElement('div');
             const addCaption = document.createElement('h2');
@@ -95,8 +97,7 @@ historyContainer.addEventListener('click', async (e) => {
                 modalOverlay.classList.remove("hidden");
                 const addForm = document.querySelector("#add-post-form");
                 const memeId = document.querySelector("#meme-id");
-                memeId.setAttribute('value', item.id);
-                console.log(memeId.getAttribute('value'));
+                memeId.value = item.id;
                 addCaptionDiv.appendChild(addForm);
                 addForm.classList.remove("hidden");
             };
