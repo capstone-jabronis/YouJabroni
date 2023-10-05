@@ -13,6 +13,7 @@ VALUES ('user1', 'user1@example.com', 'password1'),
 
 
 INSERT INTO tournaments (winner_id, start_time)
+
 VALUES ('1', '2023-09-26 14:30:00'),
        ('2', '2023-10-01 16:30:00'),
        ('2', '2023-10-02 16:30:00');
