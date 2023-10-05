@@ -42,7 +42,7 @@ VALUES ('1', '1', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600
        ('3', '3', 'https://assets.change.org/photos/9/be/ua/mdBeuawBAwcvRgk-1600x900-noPad.jpg?1526976966');
 
 
-insert into meme_submission (caption, user_id, round_id)
+insert into meme_submission (caption,message_type, user_id, round_id)
 VALUES ('user 1 round 1 caption', '1', '1'),
        ('user 2 round 1 caption', '2', '1'),
        ('user 3 round 1 caption', '3', '2'),
