@@ -11,18 +11,21 @@ public class MemeSubmission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     private String caption;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
 //    @JsonBackReference
     @JsonIgnore
     private User user;
+
     @ManyToOne
     @JoinColumn(name = "round_id")
-//    @JsonBackReference
-    @JsonIgnore
+    @JsonManagedReference
     private Round round;
+
     @OneToOne(mappedBy = "memeSubmission")
     @JsonManagedReference
     private Post post;

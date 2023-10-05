@@ -17,7 +17,7 @@ historyContainer.addEventListener('click', async (e) => {
             'X-CSRF-TOKEN': csrfToken2
         }
     });
-    const data = await results.json();
+    const data2 = await results.json();
     if (!results.ok) {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }
@@ -32,8 +32,8 @@ historyContainer.addEventListener('click', async (e) => {
         const endIndex = startIndex + itemsPerPage;
 
         // Loop through the data and create divs for each item
-        for (let i = startIndex; i < endIndex && i < data.length; i++) {
-            const item = data[i];
+        for (let i = startIndex; i < endIndex && i < data2.length; i++) {
+            const item = data2[i];
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('history-card');
 
@@ -77,7 +77,7 @@ historyContainer.addEventListener('click', async (e) => {
             const addImgContainer = document.createElement('div');
             addImgContainer.classList.add('add-img-container');
             const addImg = document.createElement('img');
-            addImg.src = item.round_id.meme_pic;
+            addImg.src = item.round.meme_pic;
             addImg.classList.add('add-img');
 
 

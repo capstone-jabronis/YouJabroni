@@ -25,7 +25,7 @@ public class Round {
     private String meme_pic;
     @JsonIgnore
     @OneToMany(mappedBy = "round")
-    @JsonManagedReference
+    @JsonBackReference
     private List<MemeSubmission> memeSubmissions;
 
     public Round() {
