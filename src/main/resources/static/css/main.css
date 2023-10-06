@@ -549,10 +549,28 @@ body {
     text-decoration-color: white;
 }
 
-.cancel-edit {
-    background-color: red;
+.bar {
+    width: 35px;
+    height: 4px;
+    background-color: white;
+    margin: 4px 0;
+}
+.bar.left {
+    transform: rotate(45deg);
+    position: fixed;
+    top: 35%;
+    right: 35%;
+}
+.bar.right {
+    transform: rotate(-45deg);
+    position: fixed;
+    top: 35%;
+    right: 35%;
 }
 
+.back-to-profile {
+    text-decoration: none;
+}
 /***************** START OF MODAL FOR ADDING POSTS **********************/
 
 .post-modal {
