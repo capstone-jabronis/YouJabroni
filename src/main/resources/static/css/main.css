@@ -217,6 +217,7 @@ body {
     align-items: center;
     margin-bottom: 30px;
     justify-content: space-evenly;
+    gap: 15px;
 }
 
 .history-card {
@@ -228,6 +229,7 @@ body {
     border-radius: 15px;
     align-items: center;
     justify-content: center;
+    margin-bottom: 15px;
 }
 
 .history-head {
@@ -663,11 +665,11 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #EEECFE;
-    height: 360px;
+    height: 400px;
     width: 350px;
     border-radius: 15px;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
 
 .post-head {

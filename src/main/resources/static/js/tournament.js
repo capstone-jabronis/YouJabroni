@@ -1,4 +1,4 @@
-// window.onload = async () => {
+// ( async () => {
 //     try {
 // //       For Jose's Tournament card code
 //         const resultsPage = document.querySelector("#jdtournamentResults");
@@ -46,8 +46,15 @@
 //                 Players:
 //                 0/8
 //             `;
+//             const formElement = document.createElement('form');
+//             const tournamentID = tournaments.id;
+//             formElement.setAttribute('action', `/tournament/waiting-room/${tournamentId}`);
+//             formElement.method = 'POST';
 //             const joinBTN = document.createElement("button");
+//             formElement.appendChild(joinBTN);
 //             joinBTN.innerHTML = 'JOIN NOW';
+//             joinBTN.setAttribute('data-th-tournament', `${tournamentID}`);
+//             joinBTN.setAttribute('type', 'submit');
 //             // HERE WE WOULD PUT THE TOURNAMENT! \(^.^)/ /\\/\/\//\/\/\/\/\/\/\/ 🏴‍☠️
 //             joinBTN.setAttribute("type", "submit");
 //             joinBTN.setAttribute("data-id", `${tournaments.id}`);
@@ -62,4 +69,4 @@
 //     } catch (error) {
 //         console.error("Error retrieving listed tournaments", error);
 //     }
-// };
+// }) ();
