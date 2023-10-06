@@ -3,11 +3,14 @@ package com.youjabroni.youjabronicapstone.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
 //import jakarta.persistence.*;
 import javax.persistence.*;
 
 import java.util.List;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "posts")
 public class Post {
@@ -18,7 +21,6 @@ public class Post {
     private String description;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "post")
     private List<Like> likes;

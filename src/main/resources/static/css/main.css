@@ -224,17 +224,17 @@ body {
     display: flex;
     flex-direction: column;
     background-color: var(--first);
-    height: 360px;
+    height: 400px;
     width: 350px;
     border-radius: 15px;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     margin-bottom: 15px;
 }
 
 .history-head {
     background-color: #9F8BFF;
-    height: 55px;
+    height: 55px!important;
     width: 350px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -394,11 +394,11 @@ body {
     color: #343CFF;
 }
 
-#post {
+.post {
     cursor: pointer;
 }
 
-#post:hover {
+.post:hover {
     color: #343CFF;;
 }
 
@@ -677,6 +677,7 @@ body {
     align-items: center;
     margin-bottom: 30px;
     justify-content: space-evenly;
+    gap: 15px;
 }
 
 .post-card {
@@ -688,11 +689,12 @@ body {
     border-radius: 15px;
     align-items: center;
     justify-content: start;
+    margin-bottom: 15px;
 }
 
 .post-head {
     background-color: #9F8BFF;
-    height: 50px!important;
+    height: 55px!important;
     width: 350px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -716,7 +718,9 @@ body {
     margin-top: unset;
 }
 
-
+.post-caption {
+    margin-bottom: 5px;
+}
 
 /*===============     LANDING PAGE     ===============*/
 

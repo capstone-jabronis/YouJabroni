@@ -54,14 +54,12 @@ public class SecurityConfiguration {
                                 "/*/profile/edit",
                                 "/*/profile/edit/password",
                                 "/profile/likes",
-                                "/*/memeSubmission",
-                                "/*/profile/posts"
+                                "/*/memeSubmission"
 
                 ).authenticated()
                 .and()
                 .authorizeRequests()
-                .antMatchers(
-                        "/",
+                .antMatchers("/",
                                 "/login",
                                 "/register",
                                 "/*/profile",
@@ -69,7 +67,8 @@ public class SecurityConfiguration {
                                 "/feed/api",
                                 "/profile/posts",
                                 "/tournaments/api",
-                                "/leaderboard"
+                                "/leaderboard",
+                                "/*/profile/posts"
                 ).permitAll();
         return http.build();
 
