@@ -35,17 +35,14 @@ public class MemeSubmission {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
-//    @JsonBackReference
     @JsonIgnore
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "round_id")
-    @JsonManagedReference
     private Round round;
 
     @OneToOne(mappedBy = "memeSubmission")
-    @JsonBackReference
     private Post post;
 
     public MemeSubmission() {
@@ -96,6 +93,7 @@ public class MemeSubmission {
         this.round = round;
     }
 
+    @JsonIgnore
     public Post getPost() {
         return post;
     }
