@@ -8,6 +8,7 @@ const confirmNewPassword = document.querySelector('.confirmNewPassword')
 const passwordError = document.querySelector('.password-error')
 const submitPasswordBtn = document.querySelector('.submit-password')
 const cancelPasswordChangeBtn = document.querySelector('.cancelPasswordChange')
+const cancelEditBtn = document.querySelector('.cancel-edit')
 changePasswordBtn.addEventListener('click', () => {
     passwordModal.classList.toggle('hidden')
 });
@@ -19,6 +20,10 @@ modalBackground.addEventListener('click', () => {
 
 confirmNewPassword.addEventListener('keyup', () => {
     passwordValidation()
+})
+
+cancelEditBtn.addEventListener('click', () => {
+
 })
 function passwordValidation() {
     if(confirmNewPassword.value === newPassword.value ) {

@@ -462,8 +462,8 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: var(--third);
-    height: 35rem;
-    width: 30rem;
+    height: 45rem;
+    width: 60rem;
     margin-top: 5rem;
     margin-bottom: 5rem;
     border-radius: 2rem;
@@ -481,6 +481,77 @@ body {
     margin: 0.30rem;
 }
 
+.edit-field {
+    width: 50rem
+}
+
+.changePassword {
+    display:flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 17px;
+    height: 2.5rem;
+    padding: 0.8em 1.3em 0.8em 0.9em;
+    margin: 10px;
+    color: var(--first);
+    background: #ad5389;
+    border: none;
+    letter-spacing: 0.05em;
+    border-radius: 16px;
+}
+.changePassword:hover {
+    cursor: pointer;
+}
+
+.previewImage {
+    margin: 10px;
+}
+
+.password-change-card {
+    background: #343CFF;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.submit-password {
+    height: 2rem;
+    margin-top: 10px;
+    background-color: #ad5389;
+    border: unset;
+    border-radius: 10px;
+}
+
+.changeProfileImg {
+    display:flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 17px;
+    height: 2.5rem;
+    padding: 0.8em 1.3em 0.8em 0.9em;
+    color: var(--first);
+    background: #ad5389;
+    border: none;
+    letter-spacing: 0.05em;
+    border-radius: 16px;
+    margin: 10px;
+}
+.changeProfileImg:hover {
+    cursor: pointer;
+}
+.submit-mods-btn {
+    width: 20rem;
+    margin: 0 0 10px 0;
+}
+.submit-mods-btn:hover {
+    background-color: black;
+    text-decoration-color: white;
+}
+
+.cancel-edit {
+    background-color: red;
+}
 
 /***************** START OF MODAL FOR ADDING POSTS **********************/
 
