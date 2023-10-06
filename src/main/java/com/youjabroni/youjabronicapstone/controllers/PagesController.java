@@ -72,7 +72,6 @@ public class PagesController {
 
     @GetMapping("/profile/history")
     public String showSubmissionHistory() {
-
         return "pages/history";
     }
 
@@ -160,5 +159,9 @@ public class PagesController {
         }
 
         return topTen;
+    }
+    @GetMapping("/about-us")
+    public String aboutUs(){
+        return "pages/about-us";
     }
 }
