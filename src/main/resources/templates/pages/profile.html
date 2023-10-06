@@ -88,7 +88,7 @@
         <div class="row d-flex justify-center">
             <ul class="d-flex justify-center tabs full-width">
                 <li class="profile-tab">
-                    <a class="profile-link">Posts</a>
+                    <a class="profile-link post">Posts</a>
                 </li>
             </ul>
         </div>
@@ -98,7 +98,7 @@
         <div class="row d-flex justify-center" th:if="${#authentication.principal.id != user.id}">
             <ul class="d-flex justify-center tabs full-width">
                 <li class="profile-tab">
-                    <a class="profile-link">Posts</a>
+                    <a class="profile-link post">Posts</a>
                 </li>
             </ul>
         </div>
@@ -108,7 +108,7 @@
         <div class="row" th:if="${#authentication.principal.id == user.id}">
             <ul class="d-flex align-center full-width tabs justify-space-around">
                 <li class="profile-tab">
-                    <a class="profile-link" id="post">Posts</a>
+                    <a class="profile-link post">Posts</a>
                 </li>
                 <li class="profile-tab">
                     <a class="profile-link" id="history">History</a>
@@ -140,5 +140,14 @@
 <script th:src="@{/js/profile.js}"></script>
 <script th:src="@{/js/posts.js}"></script>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Simulate a click on the "Post" tab
+        const postTabs = document.getElementsByClassName("post");
+        for(const postTab of postTabs) {
+            postTab.click();
+        }
+    });
+</script>
 </body>
 </html>

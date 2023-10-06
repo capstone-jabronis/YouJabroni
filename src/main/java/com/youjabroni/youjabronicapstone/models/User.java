@@ -39,6 +39,7 @@ public class User {
     private List<MemeSubmission> memeSubmissions;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonIgnore
     private List<Post> posts;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

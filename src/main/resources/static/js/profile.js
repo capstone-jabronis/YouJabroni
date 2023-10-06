@@ -57,7 +57,7 @@ historyContainer.addEventListener('click', async (e) => {
             const imageElement = document.createElement('img');
             imageElement.src = item.round.meme_pic;
             imageElement.width = 300;
-            imageElement.height = 200;
+            imageElement.height = 180;
             imageElement.classList.add("jdImgCSS");
 
             // Create the modal
@@ -79,7 +79,6 @@ historyContainer.addEventListener('click', async (e) => {
             const addImg = document.createElement('img');
             addImg.src = item.round.meme_pic;
             addImg.classList.add('add-img');
-
 
 
             // Create a container for the caption

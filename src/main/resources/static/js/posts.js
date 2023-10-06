@@ -1,5 +1,6 @@
 const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-const postElement = document.querySelector("#post");const userIDElement = document.querySelector("#results");
+const postElement = document.querySelector(".post");
+const userIDElement = document.querySelector("#results");
 let userID2 = userIDElement.getAttribute("dataId");
 let url2 = `/${userID2}/posts`
 
@@ -37,7 +38,7 @@ postElement.addEventListener('click', async(e) => {
             const postImg = document.createElement('img');
             postImg.src = post.memeSubmission.round.meme_pic;
             postImg.width = 300;
-            postImg.height = 200;
+            postImg.height = 180;
             postImg.classList.add('post-img');
 
             // Create the div for the caption
@@ -48,15 +49,25 @@ postElement.addEventListener('click', async(e) => {
             postCaptionDiv.classList.add('post-caption-div');
 
             // Create the h3 for the description
-            const postDescription = document.createElement('h3');
+            const postDescription = document.createElement('p');
             postDescription.textContent = `${post.description}`;
             postDescription.classList.add('post-description');
+
+            // Create a button to edit the posts
+            const editPostButton = document.createElement('button');
+            editPostButton.textContent = 'edit';
+            editPostButton.classList.add('edit-post-btn', 'btn', 'btn-open');
 
             postDiv.appendChild(postHead);
             postDiv.appendChild(postImg);
             postDiv.appendChild(postCaptionDiv);
             postCaptionDiv.appendChild(postCaption);
             postCaptionDiv.appendChild(postDescription);
+            // console.log("this is the user's id: " + userID2);
+            // console.log("this is the user id associated with the post: " + post.user.id);
+            // if(userID2 === post.user.id) {
+            //     postCaptionDiv.appendChild(editPostButton);
+            // }
             userIDElement.appendChild(postDiv);
         }
     }
