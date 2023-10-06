@@ -5,7 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.Getter;
@@ -51,8 +51,12 @@ public class User {
     @JsonManagedReference
     private List<Like> likes;
   
-    @JsonIgnore
-    @OneToMany(mappedBy = "winner")
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "winner")
+//    private List<Tournament> tournamentsWon;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "winner")
+    @JsonManagedReference
     private List<Tournament> tournamentsWon;
 
     public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament, List<Tournament> tournamentsWon) {
@@ -65,10 +69,6 @@ public class User {
         this.tournament = tournament;
         this.tournamentsWon = tournamentsWon;
     }
-
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "winner")
-    @JsonManagedReference
-    private List<Tournament> tournamentsWon;
 
     public User(String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament) {
         this.username = username;
