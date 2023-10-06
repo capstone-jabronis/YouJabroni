@@ -18,7 +18,6 @@ public class Post {
     private String description;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "post")
     private List<Like> likes;

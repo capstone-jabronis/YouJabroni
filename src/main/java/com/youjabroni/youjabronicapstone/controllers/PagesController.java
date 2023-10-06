@@ -103,7 +103,7 @@ public class PagesController {
 
     @GetMapping("/feed")
     public String showFeed(Model model) {
-        List<MemeSubmission> memes = memeDao.findAll();
+//        List<MemeSubmission> memes = memeDao.findAll();
         return "pages/feed";
     }
 
@@ -122,9 +122,9 @@ public class PagesController {
 //    }
 
     @GetMapping("/feed/api")
-    public @ResponseBody List<MemeSubmission> pagesInFeed() throws JsonProcessingException {
-        List<MemeSubmission> memes = memeDao.findAll();
-        return memes;
+    public @ResponseBody List<Post> pagesInFeed() throws JsonProcessingException {
+        List<Post> posts = postDao.findAll();
+        return posts;
     }
 
     @GetMapping("/leaderboard")
