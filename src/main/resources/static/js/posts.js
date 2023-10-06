@@ -2,11 +2,11 @@ const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('con
 const postElement = document.querySelector(".post");
 const userIDElement = document.querySelector("#results");
 let userID2 = userIDElement.getAttribute("dataId");
-let url2 = `/${userID2}/posts`
+let url2 = `/${userID2}/posts`;
+const isAuthenticated = document.querySelector("[data-authenticated]");
 
 postElement.addEventListener('click', async(e) => {
     e.preventDefault();
-    console.log("im in")
     let results = await fetch(url2, {
         method: 'GET',
         headers: {
@@ -65,9 +65,9 @@ postElement.addEventListener('click', async(e) => {
             postCaptionDiv.appendChild(postDescription);
             // console.log("this is the user's id: " + userID2);
             // console.log("this is the user id associated with the post: " + post.user.id);
-            // if(userID2 === post.user.id) {
-            //     postCaptionDiv.appendChild(editPostButton);
-            // }
+            if(userID2 == post.user.id && isAuthenticated) {
+                postCaptionDiv.appendChild(editPostButton);
+            }
             userIDElement.appendChild(postDiv);
         }
     }

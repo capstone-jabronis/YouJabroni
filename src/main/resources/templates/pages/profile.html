@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <div  th:replace="partials/partials :: head(title='Profile')">
+    <div th:replace="partials/partials :: head(title='Profile')">
 
     </div>
 </head>
@@ -11,7 +11,7 @@
     <div class="container user-profile-info">
         <img class="profile-pic" th:if="${user.profileURL == null}" src="/img/memespace.gif">
         <img class="profile-pic" th:if="${user.profileURL != null}" th:src="${user.profileURL}" alt="profile pic">
-<!--        <img class="profile-pic" src="/img/cat-profile-pic.jpeg" alt="profile pic">-->
+        <!--        <img class="profile-pic" src="/img/cat-profile-pic.jpeg" alt="profile pic">-->
         <div class="user-name-email">
             <div class="row d-flex align-center rank-username">
                 <div class="user-rank">#1</div>
@@ -123,7 +123,10 @@
 
     <div>
         <div id="results" th:dataId="${user.id}">
-
+            <div sec:authorize="isAuthenticated()">
+                <div th:attr="data-authenticated=${#authentication.principal.id == user.id}">
+                </div>
+            </div>
         </div>
         <form class="hidden" id="add-post-form" th:action="@{|/${user.id}/profile/posts|}" th:method="POST">
             <div class="add-form">
@@ -141,10 +144,10 @@
 <script th:src="@{/js/posts.js}"></script>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Simulate a click on the "Post" tab
         const postTabs = document.getElementsByClassName("post");
-        for(const postTab of postTabs) {
+        for (const postTab of postTabs) {
             postTab.click();
         }
     });
