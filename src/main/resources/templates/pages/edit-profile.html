@@ -11,6 +11,10 @@
     </div>
     <div class="modal-container">
         <div>
+            <div>
+                <div class="bar left"></div>
+                <div class="bar right"></div>
+            </div>
             <form class="password-change-card" th:action="@{|/${user.id}/profile/edit/password|}" th:method="POST">
                 <div class="column">
                     <label th:for="newPassword">New Password</label>
@@ -29,6 +33,7 @@
     </div>
 </div>
 <nav th:replace="partials/partials :: nav"></nav>
+
 <div class="page-wrapper container align-center justify-center ">
     <form class="edit-form-container d-flex justify-center" th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
     <h1 class="edit-form-title " >Edit Your Profile</h1>
@@ -50,8 +55,10 @@
         </div>
         <button class="submit-mods-btn edit-btn" type="submit" th:type="submit">Submit Changes</button>
     </form>
-    <button class="cancel-edit">Cancel</button>
 </div>
+<a class="back-to-profile" th:href="@{|/${#authentication.principal.id}/profile|}">
+<button class="cancel-edit reg-button" >Back to Profile</button>
+</a>
 <footer th:replace="partials/partials :: footer"></footer>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script th:src="@{/js/filestack.js}"></script>
