@@ -39,7 +39,7 @@
                     // Create the profile image and username that will be added to the head
                     let userProfilePicture = document.createElement('img');
                     const userUsername = document.createElement('p');
-                    userUsername.classList.add('user-username');
+                    userUsername.classList.add('user-post-username');
                     userProfilePicture.classList.add('user-profile-picture');
                     if (post.user.profileURL) {
                         userProfilePicture.src = post.user.profileURL;

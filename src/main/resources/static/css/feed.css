@@ -57,13 +57,13 @@
     cursor: pointer;
 }
 
-.user-username {
+.user-post-username {
     font-size: 18px;
     font-weight: bold;
     color: white;
 }
 
-.user-username:hover {
+.user-post-username:hover {
     cursor: pointer;
 }
 
