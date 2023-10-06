@@ -43,6 +43,7 @@ public class User {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
+    @JsonIgnore
     private Tournament tournament;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
