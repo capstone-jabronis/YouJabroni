@@ -1,7 +1,7 @@
 "use strict";
-(function () {
+(async () => {
     function validate() {
-        let username = document.getElementById('username').value;
+        let username = document.getElementById('username').value.toLowerCase();
         let email = document.getElementById('email').value;
         let password = document.getElementById('password').value;
         let confirmPassword = document.getElementById('confirmPassword').value;
@@ -66,4 +66,64 @@
     userField.value = sessionStorage.getItem('username');
     let emailField = document.getElementById('email');
     emailField.value = sessionStorage.getItem('email');
+
+    ///// ============================= JD USERNAME CHECK HERE ============================= \\\\
+
+
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const url = "/users";
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    }
+
+    const results = await fetch(url, options);
+    const usersData = await results.json();
+    const usernameInput = document.getElementById('username');
+    const registrationButton = document.querySelector('.reg-button');
+    let messageElement = null;
+
+
+    usernameInput.addEventListener('keyup', (e) => {
+        const enteredUsername = e.target.value.toLowerCase();
+
+        if (messageElement) {
+            messageElement.remove();
+            messageElement = null;
+        }
+        if (enteredUsername == "") {
+            registrationButton.style.display = 'none';
+            messageElement = document.createElement('h3');
+            messageElement.innerText = "Need a username!";
+            messageElement.style.color = 'red';
+            registrationButton.after(messageElement);
+            return;
+        } else if (enteredUsername.includes(" ")) {
+            registrationButton.style.display = 'none';
+            messageElement = document.createElement('h3');
+            messageElement.innerText = "Can't have spaces in username";
+            messageElement.style.color = 'red';
+            registrationButton.after(messageElement);
+            return;
+        } else {
+            for (const username of usersData) {
+                if (enteredUsername === username.toLowerCase()) {
+                    registrationButton.style.display = 'none';
+                    if (!messageElement) {
+                        messageElement = document.createElement('h3');
+                        messageElement.innerText = "Username is taken, please choose another.";
+                        messageElement.style.color = 'red';
+                    }
+                    registrationButton.after(messageElement);
+                    return;
+                }
+            }
+        }
+        registrationButton.style.display = 'block';
+    });
+
+
 })();
