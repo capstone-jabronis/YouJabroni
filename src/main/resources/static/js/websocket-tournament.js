@@ -27,35 +27,37 @@
 // console.log((location.pathname+location.search).substring(3))
 
 (() => {
+    //GLOBAL VARIABLES////////////////////////////////
+    //area to display users entering and leaving the room
+    const UserWaitingRoom = document.querySelector('#users-in-room');
+    //Object to control various game statuses to update the page accordingly
+    let gameController = {
+        gameStart: false
+    }
 
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-// const tournamentJoinBtns = document.querySelectorAll('button');
-// let tournamentIdClick;
-// for (let tournamentJoinBtn of tournamentJoinBtns) {
-//     tournamentJoinBtn.addEventListener('click', (e) => {
-//         tournamentIdClick = e.target.getAttribute('tournament')
-//         console.log(tournamentIdClick);
-//     })
-// }
 
     const Tournament = {
+        csrfToken: document.querySelector('meta[name="_csrf"]').getAttribute('content'),
         stompClient: null,
         tournamentId: tournamentId,
         topic: null,
         currentSubscription: null,
-        usersInRoom: document.querySelectorAll('.user-info')
-        // memeSubmission: document.querySelector('#memeCaption')
+        memeSubmission: document.querySelector('#memeCaption'),
+        usersInRoom: document.querySelectorAll('.user-info'),
+        initialize() {
+            Events.initialize();
+        }
     }
+
     const Socket = {
         connect() {
-            console.log('Connected to Socket!' + Tournament.tournamentId);
-            console.log(csrfToken);
-            const header = {'X-CSRF-TOKEN': csrfToken};
-            console.log(header);
+            console.log('Connected to Socket! ' + Tournament.tournamentId);
+            const header = {'X-CSRF-TOKEN': Tournament.csrfToken};
             let socket = new SockJS("/secured/memespace-sock");
-            console.log("right before Stomp.over");
             Tournament.stompClient = Stomp.over(socket);
             Tournament.stompClient.connect(header, this.onConnected, this.onError)
+
             // Tournament.stompClient = new StompJs.Client({
             //     brokerURL: 'wss://localhost:8080/secured/memespace-sock',
             //     connectHeaders: header,
@@ -83,38 +85,51 @@
             Tournament.topic = `/secured/tournament/waiting-room/${Tournament.tournamentId}`;
             Tournament.currentSubscription = Tournament.stompClient.subscribe(`/secured/tournament/${Tournament.tournamentId}`, this.onMessageReceived);
             Tournament.stompClient.send(`${Tournament.topic}`, {}, JSON.stringify({messageType: 'JOIN'}));
+            this.sendMessage();
         },
-        sendMessage(meme) {
+        sendMessage() {
             console.log("Inside sendMessage");
-            let usersInRoomMessage = "";
-            for(let i = 0; i < Tournament.usersInRoom.length; i++){
-                usersInRoomMessage += "<p>"+Tournament.usersInRoom[i].innerHTML+"</p>"
-            }
-            console.log(usersInRoomMessage);
-            // let memeContent = Tournament.memeSubmission.val();
-            // let memeContent = Tournament.usersInRoom.val();
-            // console.log(memeContent);
-            Tournament.topic = `/secured/tournament/create-meme/${Tournament.tournamentId}`;
-            console.log(Tournament.stompClient);
+            Tournament.topic = `/secured/tournament/waiting-room/${Tournament.tournamentId}`;
+            if (gameController.gameStart) {
+                console.log("Game has started, sending MemeSubmssion");
+                let memeContent = Tournament.memeSubmission.val();
+                console.log(memeContent);
+                console.log("Tournament Stomp client: " + Tournament.stompClient);
 
-            if (memeContent && Tournament.stompClient) {
-                let memeSub = {
-                    text: memeContent,
-                    messageType: 'CHAT'
-                };
-                console.log(memeSub);
-                Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(memeSub));
+                if (memeContent && Tournament.stompClient) {
+                    let memeSub = {
+                        text: memeContent,
+                        messageType: 'CHAT'
+                    };
+
+                    Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(memeSub));
+                }
+
+            } else if (!gameController.gameStart) {
+                console.log("In sendMessage function: Game has not started, tracking users in room...");
+                if (Tournament.stompClient) {
+                    Tournament.stompClient.send(`${Tournament.topic}/userjoin`, {}, JSON.stringify("User joined room!"));
+                }
             }
+            // if (memeContent && Tournament.stompClient) {
+            //     let memeSub = {
+            //         text: memeContent,
+            //         messageType: 'CHAT'
+            //     };
+            //     console.log(memeSub);
+            //     Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(memeSub));
+            // }
             // Tournament.memeSubmission.val("");
-            Tournament.usersInRoom = "";
+            // Tournament.usersInRoom = "";
         },
-        onMessageReceived(payload) {
+        async onMessageReceived(payload) {
             console.log("Inside onMessageReceived!");
             let message = JSON.parse(payload.body);
             console.log("Message received:");
             console.log(message);
+            // await Render.reloadTournamentMembers();
             if (message.messageType === 'JOIN') {
-                Print.joinMessage(message);
+                // Print.joinMessage(message);
             } else if (message.messageType === 'LEAVE') {
                 Print.leaveMessage(message);
             } else {
@@ -136,11 +151,40 @@
     }
     const Events = {
         async initialize() {
+            //waits for socket to connect before moving on
             await Socket.connect();
-            window.addEventListener("load", (event) => {
-                console.log("page is fully loaded: Added user to Waiting room List");
-                Socket.sendMessage()
-            });
+            // await Render.reloadTournamentMembers();
+        }
+    }
+
+    const Render = {
+        async reloadTournamentMembers() {
+            console.log("Calling Render.reloadTournamentMembers");
+            let tournamentMembers = await Fetch.Get.tournamentMembers();
+            console.log(tournamentMembers);
+            UserWaitingRoom.innerHTML = "";
+            for (let i = 0; i < tournamentMembers.length; i++) {
+                UserWaitingRoom.innerHTML += '<p>' + tournamentMembers[i].username + '<p>'
+            }
+        }
+    }
+
+    const Fetch = {
+        Get: {
+            // gets array of all users who are currently in the tournament userSet
+            async tournamentMembers() {
+                let members = await fetch(`/tournament/${Tournament.tournamentId}/members`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                if (!members.ok){
+                    throw new Error(`Error retrieving User Set for Tournament`);
+                }
+                return await members.json();
+            }
         }
     }
     //OG EVENT FOR BUTTON TO SUBMIT MEME CAPTION
@@ -157,7 +201,7 @@
 //     }
 // )
 
-    Events.initialize();
+    Tournament.initialize();
 
 
 })();

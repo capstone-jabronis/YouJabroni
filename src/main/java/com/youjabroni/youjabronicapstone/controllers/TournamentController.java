@@ -51,7 +51,13 @@ public class TournamentController {
         return "tournament/create-meme";
     }
 
-    //Websocket stuff. Sends memeSubmissions as "messages"////////////////////////////
+    //Websocket stuff. Sends memeSubmissions as "messages" and updates users in lobby////////////////////////////
+    @MessageMapping("/waiting-room/{tournamentId}/userjoin")
+    public void joinMessage(@DestinationVariable Long tournamentId, @Payload String joinMessage) {
+        System.out.println("----------In sendMessage method for userjoin---------");
+        System.out.println(joinMessage);
+        messagingTemplate.convertAndSend(format("/secured/waiting-room/%s", tournamentId), joinMessage);
+    }
     @MessageMapping("/create/{tournamentId}")
     public void sendSubmission(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission) {
         messagingTemplate.convertAndSend(format("tournament/create-meme/%s", tournamentId), memeSubmission);
@@ -114,6 +120,12 @@ public class TournamentController {
         return "redirect:/home";
     }
 
+    //Mapping to return and update users in tournament primarily for websocket
+    @GetMapping("/{tournamentId}/members")
+    public @ResponseBody Set<User> getTournamentMembers(@PathVariable Long tournamentId) {
+        Tournament tournament = tournamentDao.findById(tournamentId).get();
+        return tournament.getUserSet();
+    }
     //    @GetMapping("/waiting-room/{id}")
 //    public String waitingRoom(Model model, @PathVariable Long id) {
 //        Tournament tournament = tournamentDao.findById(id).get();

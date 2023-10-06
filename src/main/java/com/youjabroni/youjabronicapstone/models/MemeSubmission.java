@@ -21,6 +21,7 @@ public class MemeSubmission {
         CHAT, JOIN, LEAVE
     }
 
+    @Enumerated
     private MessageType messageType;
 
     public MessageType getMessageType() {

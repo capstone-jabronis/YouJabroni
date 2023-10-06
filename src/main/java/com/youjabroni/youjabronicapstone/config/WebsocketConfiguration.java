@@ -12,6 +12,7 @@ public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/secured/memespace-sock").withSockJS();
+//        registry.addEndpoint("/secured/memespace-eventlistener").withSockJS();
     }
 
     @Override

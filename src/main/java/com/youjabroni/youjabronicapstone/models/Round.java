@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 //import jakarta.persistence.*;
-
 import javax.persistence.*;
 import java.util.List;
 @Getter
