@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 //import jakarta.persistence.*;
-import javax.persistence.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -15,18 +15,19 @@ public class Round {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = false)
     private int round_num;
-    @JsonIgnore
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
-    @JsonBackReference
     private Tournament tournament;
+
     @Column(nullable = false)
     private String meme_pic;
+
     @JsonIgnore
     @OneToMany(mappedBy = "round")
-    @JsonBackReference
     private List<MemeSubmission> memeSubmissions;
 
     public Round() {
@@ -61,6 +62,7 @@ public class Round {
         this.round_num = round_num;
     }
 
+    @JsonIgnore
     public Tournament getTournament() {
         return tournament;
     }

@@ -5,13 +5,14 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-//import jakarta.persistence.*;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.*;
+//import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+
 
 @Getter
 @Setter
@@ -35,29 +36,25 @@ public class User {
     private String profileURL;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
-    @JsonManagedReference
     private List<MemeSubmission> memeSubmissions;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
-    @JsonManagedReference
     private List<Post> posts;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
-    @JsonBackReference
     private Tournament tournament;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
-    @JsonManagedReference
     private List<Like> likes;
   
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "winner")
-//    private List<Tournament> tournamentsWon;
-
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "winner")
-    @JsonManagedReference
+    @JsonIgnore
+    @OneToMany(mappedBy = "winner")
     private List<Tournament> tournamentsWon;
+
+//    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "winner")
+//    @JsonManagedReference
+//    private List<Tournament> tournamentsWon;
 
     public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament, List<Tournament> tournamentsWon) {
         this.id = id;
@@ -145,6 +142,7 @@ public class User {
         return id;
     }
 
+    @JsonIgnore
     public Tournament getTournament() {
         return tournament;
     }
