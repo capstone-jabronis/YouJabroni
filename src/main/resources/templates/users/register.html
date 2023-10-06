@@ -8,15 +8,17 @@
 <body class="page-wrapper">
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="register container">
-    <form class="form d-flex" th:action="@{/register}" method="POST" th:object="${user}">
+    <form id="registerForm" class="form d-flex" th:action="@{/register}" method="POST" th:object="${user}">
         <h1 class="register-header">Register To Make Memes!</h1>
         <div class="username input d-flex">
             <label class="field-name" for="username">Username</label>
             <input class="input-field" required id="username" th:field="*{username}"/>
+            <div id="incorrectUsernameInput"></div>
         </div>
         <div class="email input d-flex">
             <label class="field-name" for="email">Email</label>
             <input class="input-field" required id="email" th:field="*{email}"/>
+            <div id="incorrectEmailInput"></div>
         </div>
         <div class="password input d-flex">
             <label class="field-name" for="password">Password</label>
@@ -25,6 +27,7 @@
         <div class="confirm-password input d-flex">
             <label class="field-name" for="confirmPassword">Confirm Password</label>
             <input class="input-field" required id="confirmPassword" type="password"/>
+            <div id="incorrectConfirmPass"></div>
         </div>
         <button class="reg-button" type="submit">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -38,6 +41,6 @@
     </form>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
-
+<script th:src="@{/js/registerValidation.js}"></script>
 </body>
 </html>

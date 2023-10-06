@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="/css/layout.css">
         <link rel="stylesheet" href="/css/resets.css">
         <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/feed.css">
         <script th:src="@{/js/keys.js}"></script>
     </div>
 
@@ -68,7 +69,7 @@
             <!--                If user is logged in, logout will show-->
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <form th:action="@{/logout}" th:method="post">
-                    <button class="reg-button" type="submit" id="logout">
+                    <button class="reg-button logout-button" type="submit" id="logout">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                             <path fill="none" d="M0 0h24v24H0z"></path>
                             <path fill="currentColor"
@@ -190,6 +191,7 @@
     </div>
     <script th:src="@{/js/profile.js}"></script>
     <script th:src="@{/js/Leaderboard.js}"></script>
+    <script th:src="@{/js/logout.js}"></script>
 </footer>
 </body>
 </html>

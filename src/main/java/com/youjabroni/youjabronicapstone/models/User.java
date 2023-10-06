@@ -38,10 +38,12 @@ public class User {
     private List<MemeSubmission> memeSubmissions;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonIgnore
     private List<Post> posts;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
+    @JsonIgnore
     private Tournament tournament;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")

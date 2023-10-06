@@ -48,28 +48,28 @@ public class SecurityConfiguration {
                 .logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests()
-                .antMatchers( "/tournament/*",
-                                "/tournament/waiting-room/*",
-                                "/home",
-                                "/*/profile/edit",
-                                "/*/profile/edit/password",
-                                "/profile/likes",
-                                "/*/memeSubmission",
-                                "/*/profile/posts"
+                .antMatchers("/tournament/*",
+                        "/tournament/waiting-room/*",
+                        "/home",
+                        "/*/profile/edit",
+                        "/*/profile/edit/password",
+                        "/profile/likes",
+                        "/*/memeSubmission"
 
                 ).authenticated()
                 .and()
                 .authorizeRequests()
-                .antMatchers(
-                        "/",
-                                "/login",
-                                "/register",
-                                "/*/profile",
-                                "/feed",
-                                "/feed/api",
-                                "/profile/posts",
-                                "/tournaments/api",
-                                "/leaderboard"
+                .antMatchers("/",
+                        "/login",
+                        "/register",
+                        "/*/profile",
+                        "/feed",
+                        "/feed/api",
+                        "/profile/posts",
+                        "/tournaments/api",
+                        "/leaderboard",
+                        "/*/profile/posts",
+                        "/users"
                 ).permitAll();
         return http.build();
 

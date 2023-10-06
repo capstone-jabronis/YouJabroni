@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class UserController {
     private UserRepository userDao;
@@ -64,6 +67,16 @@ public class UserController {
         }
 
         return String.format("redirect:/%s/profile", id);
+    }
+
+    @GetMapping("/users")
+    public @ResponseBody List<String> checkUsername(){
+        List<User> usersWPassword = userDao.findAll();
+        List<String> usernames= new ArrayList<>();
+        for (User user:  usersWPassword){
+            usernames.add(user.getUsername());
+        }
+        return usernames;
     }
 
 
