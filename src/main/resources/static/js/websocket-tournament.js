@@ -27,8 +27,15 @@
 // console.log((location.pathname+location.search).substring(3))
 
 (() => {
+    //GLOBAL VARIABLES////////
+    const UserWaitingRoom = document.querySelector('#users-in-room');
+    //Object to control various game statuses to update the page accordingly
+    let gameController = {
+        gameStart: false
+    }
 
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+
 // const tournamentJoinBtns = document.querySelectorAll('button');
 // let tournamentIdClick;
 // for (let tournamentJoinBtn of tournamentJoinBtns) {
@@ -46,14 +53,13 @@
         usersInRoom: document.querySelectorAll('.user-info')
         // memeSubmission: document.querySelector('#memeCaption')
     }
+
     const Socket = {
         connect() {
-            console.log('Connected to Socket!' + Tournament.tournamentId);
-            console.log(csrfToken);
+            console.log('Connected to Socket! ' + Tournament.tournamentId);
+            WaitingRoom.reloadUsersInRoom();
             const header = {'X-CSRF-TOKEN': csrfToken};
-            console.log(header);
             let socket = new SockJS("/secured/memespace-sock");
-            console.log("right before Stomp.over");
             Tournament.stompClient = Stomp.over(socket);
             Tournament.stompClient.connect(header, this.onConnected, this.onError)
             // Tournament.stompClient = new StompJs.Client({
@@ -95,16 +101,24 @@
             // let memeContent = Tournament.usersInRoom.val();
             // console.log(memeContent);
             Tournament.topic = `/secured/tournament/create-meme/${Tournament.tournamentId}`;
-            console.log(Tournament.stompClient);
+            console.log("Tournament Stomp client: "+ Tournament.stompClient);
 
-            if (memeContent && Tournament.stompClient) {
-                let memeSub = {
-                    text: memeContent,
+            if (usersInRoomMessage && Tournament.stompClient) {
+                let usersInRoomChatMessage = {
+                    text: usersInRoomMessage,
                     messageType: 'CHAT'
                 };
-                console.log(memeSub);
-                Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(memeSub));
+                console.log(usersInRoomChatMessage);
+                Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(usersInRoomChatMessage));
             }
+            // if (memeContent && Tournament.stompClient) {
+            //     let memeSub = {
+            //         text: memeContent,
+            //         messageType: 'CHAT'
+            //     };
+            //     console.log(memeSub);
+            //     Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(memeSub));
+            // }
             // Tournament.memeSubmission.val("");
             Tournament.usersInRoom = "";
         },
@@ -141,6 +155,17 @@
                 console.log("page is fully loaded: Added user to Waiting room List");
                 Socket.sendMessage()
             });
+        }
+    }
+
+    const WaitingRoom = {
+        reloadUsersInRoom() {
+            console.log(usersInRoom);
+            UserWaitingRoom.innerHTML = "";
+            for(let i = 0; i < usersInRoom.length; i++){
+                UserWaitingRoom.innerHTML += '<p>' + usersInRoom[i].username + '<p>'
+            }
+
         }
     }
     //OG EVENT FOR BUTTON TO SUBMIT MEME CAPTION

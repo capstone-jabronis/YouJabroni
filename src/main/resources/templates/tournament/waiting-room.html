@@ -28,7 +28,8 @@
                     <p class="user-info" th:text="${user.getUsername()}"></p>
                 </ul>
 <!--                TESTING REAL TIME UPDATES-->
-                <div id="memeCaption"></div>
+                <h3>WEBSOCKET USER UPDATE</h3>
+                <div id="users-in-room"></div>
 
                 <a href="/tournament/waiting-room/leave">Leave/Cancel</a>
             </div>
@@ -46,7 +47,8 @@
 <script th:inline="javascript">/*<![CDATA[*/
 
 const tournamentId = /*[[${tournament.id}]]*/ 'default';
-console.log("FROM HOME html" + tournamentId);
+let usersInRoom = /*[[${users}]]*/ 'default';
+console.log("FROM HOME html " + usersInRoom);
 /*]]>*/
 </script>
 <script th:src="@{/js/tournament.js}"></script>
