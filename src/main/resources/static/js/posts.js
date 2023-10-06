@@ -53,11 +53,21 @@ postElement.addEventListener('click', async(e) => {
             postDescription.textContent = `${post.description}`;
             postDescription.classList.add('post-description');
 
+            // Create a button to edit the posts
+            const editPostButton = document.createElement('button');
+            editPostButton.textContent = 'edit';
+            editPostButton.classList.add('edit-post-btn', 'btn', 'btn-open');
+
             postDiv.appendChild(postHead);
             postDiv.appendChild(postImg);
             postDiv.appendChild(postCaptionDiv);
             postCaptionDiv.appendChild(postCaption);
             postCaptionDiv.appendChild(postDescription);
+            // console.log("this is the user's id: " + userID2);
+            // console.log("this is the user id associated with the post: " + post.user.id);
+            // if(userID2 === post.user.id) {
+            //     postCaptionDiv.appendChild(editPostButton);
+            // }
             userIDElement.appendChild(postDiv);
         }
     }

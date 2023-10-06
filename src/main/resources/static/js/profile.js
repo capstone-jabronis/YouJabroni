@@ -81,7 +81,6 @@ historyContainer.addEventListener('click', async (e) => {
             addImg.classList.add('add-img');
 
 
-
             // Create a container for the caption
             const addCaptionDiv = document.createElement('div');
             const addCaption = document.createElement('h2');
