@@ -9,10 +9,7 @@ import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -28,8 +25,6 @@ public class PostController {
         this.userDao = userDao;
         this.memeDao = memeDao;
     }
-
-
 
     @PostMapping("/{id}/profile/posts")
     public String addPost(@PathVariable long id, @RequestParam(name = "description") String description, @RequestParam(name = "meme-id") long memeId) {
@@ -50,18 +45,12 @@ public class PostController {
         }
 
         return "redirect:/" + user.getId() + "/profile";
-//        return "redirect:/home";
     }
-//    @PostMapping("/{id}/profile/posts")
-//    public String addPost (@PathVariable long id, Model model){
-//        User user = userDao.findById(id).get();
-//        MemeSubmission meme = (MemeSubmission) model.getAttribute("add-img");
-//        Post addpost = new Post();
-//                addpost.setDescription((String) model.getAttribute("add-caption"));
-//                addpost.setUser(user);
-//                addpost.setMemeSubmission((MemeSubmission) model.getAttribute("add-img"));
-//
-//                postDao.save(addpost);
-//        return "redirect:/" + user.getId() + "/profile";
-//    }
+
+   @PostMapping("/{id}/profile/posts/edit")
+    public String editPost(@PathVariable long id, @RequestParam(name = "edit-description") String description, @RequestParam(name = "post-id") long postId) {
+        Post postToEdit = postDao.findById(postId).get();
+        postToEdit.setDescription(description);
+        return "redirect:/" + id + "/profile";
+   }
 }
