@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div  th:replace="partials/partials :: head(title='About Us')"></div>
+    <link rel="stylesheet" href="/css/about-us.css">
+</head>
+<body>
+<nav th:replace="partials/partials :: nav"></nav>
+<div class="page-wrapper">
+<h1>About the Developers!</h1>
+    <img class="dev-pic" th:src="@{img/audrey.jpg}">
+    <img class="dev-pic" th:src="@{img/ava.png}">
+    <img class="dev-pic" th:src="@{img/luis.png}">
+    <img class="dev-pic" th:src="@{img/nic.png}">
+    <img class="dev-pic" th:src="@{img/jose.png}">
+
+</div>
+<footer th:replace="partials/partials :: footer"></footer>
+</body>
+</html>
