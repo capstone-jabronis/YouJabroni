@@ -80,15 +80,28 @@ postElement.addEventListener('click', async(e) => {
             editCloseButton.classList.add('btn-close');
             editCloseButton.textContent = 'x';
 
+            // Create the input for the edit form
+            const editDescription = document.createElement('input');
+            editDescription.value = post.description;
+            editDescription.id = 'edit-description';
+            editDescription.name = 'edit-description';
+            editDescription.setAttribute('type', 'text');
+
+            // Create the submit button for the edit form
+            const editFormSubmitBtn = document.createElement('button');
+            editFormSubmitBtn.setAttribute('type', 'submit');
+            editFormSubmitBtn.classList.add('submit-edit-post');
+            editFormSubmitBtn.textContent = 'save';
+
             // Function to close the modal
             const closeEditModal = function () {
                 editModalSection.classList.add("hidden");
                 editModalOverlay.classList.add("hidden");
             };
 
-            let description = document.querySelector("#edit-description");
-            description.value = post.description;
-            description.addEventListener("click", function(event) {
+            // let description = document.querySelector("#edit-description");
+            // description.value = post.description;
+            editDescription.addEventListener("click", function(event) {
                 event.stopPropagation();
             });
 
@@ -99,6 +112,8 @@ postElement.addEventListener('click', async(e) => {
                     editModalSection.classList.remove('hidden');
                     editModalOverlay.classList.remove('hidden');
                     const editPostForm = document.querySelector('#edit-post-form');
+                    editPostForm.appendChild(editDescription);
+                    editPostForm.appendChild(editFormSubmitBtn);
                     const postId = document.querySelector("#post-id");
                     postId.value = post.id;
                     editModalSection.appendChild(editPostForm);

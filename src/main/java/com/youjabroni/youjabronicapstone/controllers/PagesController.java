@@ -66,6 +66,7 @@ public class PagesController {
         model.addAttribute("tournaments", tournamentCount);
         model.addAttribute("wins", winningCount);
         model.addAttribute("user", userDao.findById(id).get());
+//        model.addAttribute("post", postDao.findByUserId(id));
         return "pages/profile";
     }
 
