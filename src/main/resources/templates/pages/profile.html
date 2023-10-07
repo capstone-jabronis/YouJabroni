@@ -34,8 +34,9 @@
                 <p class="description" th:if="${wins == 0 || wins > 1}">wins</p>
             </div>
             <div class="column d-flex align-center justify-center">
-                <span class="number">50</span>
-                <p class="description">tournaments</p>
+                <span class="number" th:text="${posts}"></span>
+                <p class="description" th:if="${posts == 1}">post</p>
+                <p class="description" th:if="${posts == 0 || posts > 1}">posts</p>
             </div>
             <div class="column d-flex align-center justify-center">
                 <span class="number">1,897</span>
@@ -52,8 +53,9 @@
                 <p class="description" th:if="${wins == 0 || wins > 1}">wins</p>
             </div>
             <div class="column d-flex align-center justify-center">
-                <span class="number">50</span>
-                <p class="description">tournaments</p>
+                <span class="number" th:text="${posts}"></span>
+                <p class="description" th:if="${posts == 1}">post</p>
+                <p class="description" th:if="${posts == 0 || posts > 1}">posts</p>
             </div>
             <div class="column d-flex align-center justify-center">
                 <span class="number">1,897</span>
@@ -71,8 +73,9 @@
                 <p class="description" th:if="${wins == 0 || wins > 1}">wins</p>
             </div>
             <div class="column d-flex align-center justify-center">
-                <span class="number">50</span>
-                <p class="description">tournaments</p>
+                <span class="number" th:text="${posts}"></span>
+                <p class="description" th:if="${posts == 1}">post</p>
+                <p class="description" th:if="${posts == 0 || posts > 1}">posts</p>
             </div>
             <div class="column d-flex align-center justify-center">
                 <span class="number">1,897</span>
