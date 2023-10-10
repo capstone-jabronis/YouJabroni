@@ -25,8 +25,8 @@ public class Tournament {
     @JoinColumn(name = "winner_id")
     private User winner;
   
-    @Column(nullable = false, columnDefinition = "DATETIME")
-    private Timestamp startTime;
+//    @Column(nullable = false, columnDefinition = "DATETIME")
+//    private Timestamp startTime;
   
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
     private List<Round> rounds;
@@ -34,22 +34,34 @@ public class Tournament {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
     private Set<User> userSet;
 
-    public Tournament(User winner, Timestamp startTime, List<Round> rounds, Set<User> userSet) {
+@OneToOne
+private User host;
+
+    public Tournament(User winner, List<Round> rounds, Set<User> userSet, User host) {
         this.winner = winner;
-        this.startTime = startTime;
+//        this.startTime = startTime;
         this.rounds = rounds;
         this.userSet = userSet;
+        this.host = host;
     }
 
     public Tournament() {
     }
 
-    public Tournament(long id, User winner, Timestamp startTime, List<Round> rounds, Set<User> userSet) {
+    public Tournament(long id, User winner, List<Round> rounds, Set<User> userSet) {
         this.id = id;
         this.winner = winner;
-        this.startTime = startTime;
+//        this.startTime = startTime;
         this.rounds = rounds;
         this.userSet = userSet;
+    }
+
+    public User getHost() {
+        return host;
+    }
+
+    public void setHost(User host) {
+        this.host = host;
     }
 
     public Set<User> getUserSet() {
@@ -60,9 +72,9 @@ public class Tournament {
         this.userSet = userSet;
     }
 
-    public Tournament(User winner, Timestamp startTime, List<Round> rounds) {
+    public Tournament(User winner, List<Round> rounds) {
         this.winner = winner;
-        this.startTime = startTime;
+//        this.startTime = startTime;
         this.rounds = rounds;
     }
 
@@ -90,11 +102,11 @@ public class Tournament {
         this.winner = winner;
     }
 
-    public Timestamp getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
+//    public Timestamp getStartTime() {
+//        return startTime;
+//    }
+//
+//    public void setStartTime(Timestamp startTime) {
+//        this.startTime = startTime;
+//    }
 }

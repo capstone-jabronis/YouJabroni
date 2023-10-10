@@ -15,23 +15,6 @@ public class MemeSubmission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    //For websocket messaging. Creating a meme submission as a message and sending it to/from the server client/////////////
-    public enum MessageType {
-        CHAT, JOIN, LEAVE
-    }
-
-    @Enumerated
-    private MessageType messageType;
-
-    public MessageType getMessageType() {
-        return messageType;
-    }
-
-    public void setMessageType(MessageType messageType) {
-        this.messageType = messageType;
-    }
-    //websocket stuff end////////////////////////////////////////
   
     @Column(nullable = false, columnDefinition = "TEXT")
     private String caption;

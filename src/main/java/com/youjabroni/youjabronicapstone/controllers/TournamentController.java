@@ -50,9 +50,9 @@ public class TournamentController {
         return "tournament/create-meme";
     }
 
-    //Websocket stuff. Sends memeSubmissions as "messages" and updates users in lobby////////////////////////////
+    //Websocket stuff////////////////////////////
     @MessageMapping("/tournament/waiting-room/{tournamentId}/userjoin")
-    public void joinMessage(@DestinationVariable Long tournamentId, @Payload Message joinMessage) throws JsonProcessingException{
+    public void joinMessage(@DestinationVariable Long tournamentId, @Payload Message joinMessage) throws JsonProcessingException {
         System.out.println("----------In sendMessage method for userjoin---------");
         joinMessage.setMessageType(Message.MessageType.JOIN);
         System.out.println(joinMessage);
@@ -70,25 +70,6 @@ public class TournamentController {
 //        }
 ////        headerAccessor.getSessionAttributes().put("name", memeSubmission.getUser());
 //        messagingTemplate.convertAndSend(format("/secured/tournament/waiting-room/%s", tournamentId), joinMessage);
-    }
-    @MessageMapping("/create/{tournamentId}")
-    public void sendSubmission(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission) {
-        messagingTemplate.convertAndSend(format("tournament/create-meme/%s", tournamentId), memeSubmission);
-    }
-
-    @MessageMapping("/create/{tournamentId}/addUser")
-    public void addUser(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission,
-                        SimpMessageHeaderAccessor headerAccessor) {
-        String currentTournamentId = (String) headerAccessor.getSessionAttributes().put("tournament_id", tournamentId);
-        if (tournamentId != null) {
-            MemeSubmission leaveSubmission = new MemeSubmission();
-
-            leaveSubmission.setMessageType(MemeSubmission.MessageType.LEAVE);
-            leaveSubmission.setUser(memeSubmission.getUser());
-            messagingTemplate.convertAndSend(format("/chat-room/%s", currentTournamentId), leaveSubmission);
-        }
-        headerAccessor.getSessionAttributes().put("name", memeSubmission.getUser());
-        messagingTemplate.convertAndSend(format("/chat-room/%s", tournamentId), memeSubmission);
     }
 //End websocket stuff/////////////////////////////////
 
@@ -139,12 +120,18 @@ public class TournamentController {
         Tournament tournament = tournamentDao.findById(tournamentId).get();
         return tournament.getUserSet();
     }
-    //    @GetMapping("/waiting-room/{id}")
-//    public String waitingRoom(Model model, @PathVariable Long id) {
-//        Tournament tournament = tournamentDao.findById(id).get();
-//        model.addAttribute("tournament", tournament);
-//        model.addAttribute("users", tournament.getUserSet());
-//        return "tournament/waiting-room";
-//    }
+
+    //Creating new tournaments
+    @GetMapping("/create-tournament")
+    public String createTournament(@AuthenticationPrincipal UserDetails userDetails) {
+        User user = userDao.findByUsername(userDetails.getUsername());
+        System.out.println("Creating tournament host: " + user.getUsername());
+        Tournament newTournament = new Tournament();
+        newTournament.setHost(user);
+        tournamentDao.save(newTournament);
+        String id = String.valueOf(newTournament.getId());
+        System.out.println("Tournament id: " + id);
+        return "redirect:tournament/waiting-room/" + id;
+    }
 
 }
