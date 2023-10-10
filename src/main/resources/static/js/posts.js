@@ -4,7 +4,7 @@ const userIDElement = document.querySelector("#results");
 let userID2 = userIDElement.getAttribute("dataId");
 let url2 = `/${userID2}/posts`;
 const isAuthenticated = document.querySelector("[data-authenticated]");
-
+let USER_POST_ID = [];
 postElement.addEventListener('click', async (e) => {
     e.preventDefault();
     let results = await fetch(url2, {
@@ -26,6 +26,7 @@ postElement.addEventListener('click', async (e) => {
         userIDElement.classList.add('posts-container');
 
         for (const post of data) {
+            USER_POST_ID.push(post.memeSubmission.id);
             // Create the div for the post card
             const postDiv = document.createElement('div');
             postDiv.classList.add('post-card');
