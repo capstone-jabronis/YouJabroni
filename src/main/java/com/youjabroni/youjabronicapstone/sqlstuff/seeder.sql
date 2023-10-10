@@ -221,6 +221,18 @@ VALUES ('user 1 round 1 caption tournament 1', '1', '1'),
        ('user 1 round 3 caption tournament 9', '1', '21'),
        ('user 7 round 3 caption tournament 9', '7', '21');
 
+
+INSERT INTO posts(description, meme_id, user_id)
+values ('post for user id 1 and meme id 1', '1','1'),
+       ('post for user id 2 and meme id 2', '2','2'),
+       ('post for user id 3 and meme id 3', '3','3'),
+       ('post for user id 2 and meme id 4', '4','2'),
+       ('post for user id 1 and meme id 5', '5','1'),
+       ('post for user id 6 and meme id 6', '6','6'),
+       ('post for user id 4 and meme id 7', '7','4'),
+       ('post for user id 5 and meme id 8', '2','2');
+
+
 INSERT INTO votes (user_id, meme_submission_id)
 VALUES ('3', '1'),
        ('4', '1'),

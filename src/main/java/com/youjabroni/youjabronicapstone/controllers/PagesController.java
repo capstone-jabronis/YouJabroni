@@ -53,18 +53,26 @@ public class PagesController {
     @GetMapping("/{id}/profile")
     public String showUsersProfile(@PathVariable long id, Model model) {
         int winningCount = 0;
-        int tournamentCount = 0;
+//        int tournamentCount = 0;
+        int postsCount = 0;
+
         List<Tournament> tournamentsUserHasWon = tournamentDao.findByWinnerId(id);
         for(Tournament tournament : tournamentsUserHasWon) {
             winningCount++;
+        }
+
+        List<Post> allUserPosts = postDao.findByUserId(id);
+        for(Post post : allUserPosts) {
+            postsCount++;
         }
 //        List<Tournament> tournamentsUserHasBeenIn = userDao.findAllTournamentById(id);
 //        for(Tournament tournament : tournamentsUserHasBeenIn) {
 //            tournamentCount++;
 //        }
 
-        model.addAttribute("tournaments", tournamentCount);
+//        model.addAttribute("tournaments", tournamentCount);
         model.addAttribute("wins", winningCount);
+        model.addAttribute("posts", postsCount);
         model.addAttribute("user", userDao.findById(id).get());
         return "pages/profile";
     }
@@ -72,7 +80,6 @@ public class PagesController {
 
     @GetMapping("/profile/history")
     public String showSubmissionHistory() {
-
         return "pages/history";
     }
 
@@ -160,5 +167,9 @@ public class PagesController {
         }
 
         return topTen;
+    }
+    @GetMapping("/about-us")
+    public String aboutUs(){
+        return "pages/about-us";
     }
 }
