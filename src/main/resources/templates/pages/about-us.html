@@ -6,15 +6,76 @@
 </head>
 <body>
 <nav th:replace="partials/partials :: nav"></nav>
-<div class="page-wrapper">
-<h1>About the Developers!</h1>
-    <img class="dev-pic" th:src="@{img/audrey.jpg}">
-    <img class="dev-pic" th:src="@{img/ava.png}">
-    <img class="dev-pic" th:src="@{img/luis.png}">
-    <img class="dev-pic" th:src="@{img/nic.png}">
-    <img class="dev-pic" th:src="@{img/jose.png}">
-
+<div class="page-wrapper ">
+    <div class="container">
+        <h1 class="dev-name">Meet the Team!</h1>
+        <div class="row first-row">
+            <div class="column d-flex justify-center dev-card">
+                <img class="dev-pic" th:src="@{img/audrey.jpg}">
+                <div class="row justify-center">
+                    <h2 class="dev-name">Audrey Tan</h2>
+                </div>
+                <div class="row justify-center social-icons">
+                    <a href=""><img src="img/linkedin-icon-48.png" ></a>
+                    <a href=""><img src="img/github-icon-48.png" width="48"></a>
+                    <a href=""><img src="img/Codey.png" width="48"></a>
+                </div>
+                <a class="align-self-center">audreysemail@gmail.com</a>
+            </div>
+            <div class="column d-flex justify-center dev-card">
+                <img class="dev-pic" th:src="@{img/ava.png}">
+                <div class="row justify-center">
+                    <h2 class="dev-name">Ava Smith</h2>
+                </div>
+                <div class="row justify-center social-icons">
+                    <a href=""><img src="img/linkedin-icon-48.png" ></a>
+                    <a href=""><img src="img/github-icon-48.png" width="48"></a>
+                    <a href=""><img src="img/Codey.png" width="48"></a>
+                </div>
+                <a class="align-self-center">avasemail@gmail.com</a>
+            </div>
+            <div class="column d-flex justify-center dev-card">
+                <img class="dev-pic" th:src="@{img/luis.png}">
+                <div class="row justify-center">
+                    <h2 class="dev-name">Luis Esquivel</h2>
+                </div>
+                <div class="row justify-center social-icons">
+                    <a href=""><img src="img/linkedin-icon-48.png" ></a>
+                    <a href=""><img src="img/github-icon-48.png" width="48"></a>
+                    <a href=""><img src="img/Codey.png" width="48"></a>
+                </div>
+                <a class="align-self-center" >luis.d.esquivel21@gmail.com</a>
+            </div>
+        </div>
+        <div class="row sec-row">
+            <div class=" bottom-column d-flex justify-center dev-card">
+                <img class="dev-pic" th:src="@{img/nic.png}">
+                <div class="row justify-center">
+                    <h2 class="dev-name">Nicholas Rowley</h2>
+                </div>
+                <div class="row justify-center social-icons">
+                    <a href=""><img src="img/linkedin-icon-48.png" ></a>
+                    <a href=""><img src="img/github-icon-48.png" width="48"></a>
+                    <a href=""><img src="img/Codey.png" width="48"></a>
+                </div>
+                <a class="align-self-center">nicsemail@gmail.com</a>
+            </div>
+            <div class=" bottom-column d-flex justify-center dev-card">
+                <img class="dev-pic" th:src="@{img/jose.png}">
+                <div class="row justify-center">
+                    <h2 class="dev-name">Jose De La Cruz</h2>
+                </div>
+                <div class="row justify-center social-icons">
+                    <a href=""><img src="img/linkedin-icon-48.png" ></a>
+                    <a href=""><img src="img/github-icon-48.png" width="48"></a>
+                    <a href=""><img src="img/Codey.png" width="48"></a>
+                </div>
+                <a class="align-self-center">josesemail@gmail.com</a>
+            </div>
+        </div>
+    </div>
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
 </body>
 </html>
+

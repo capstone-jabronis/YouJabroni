@@ -1,5 +1,44 @@
+.page-wrapper {
+    background: linear-gradient(to bottom, #0D0149, black);
+    /*background: white;*/
+}
+
 .dev-pic{
     height: 100px;
     width: 100px;
     border-radius: 50px;
+    display: flex;
+    align-self: center;
+}
+.align-self-center {
+    display: flex;
+    align-self: center;
+}
+.first-row {
+    gap: 100px;
+    max-width: max-content;
+    margin-bottom: 10px;
+}
+.sec-row {
+    display: flex;
+    justify-content: space-around;
+    margin:10px 0;
+}
+.dev-card {
+    /*background-color: #502449;*/
+    height: 400px;
+    width: 350px;
+    text-decoration-color: #ffe88d;
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(to top, #343CFF, #9F8BFF);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+}
+.dev-name {
+    color: #ffe88d;
+}
+
+.bottom-column {
+    flex-direction: column;
+
 }
