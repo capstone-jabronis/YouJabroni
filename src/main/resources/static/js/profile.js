@@ -51,6 +51,13 @@ historyContainer.addEventListener('click', async (e) => {
             const addPostButton = document.createElement('button');
             addPostButton.textContent = 'add';
             addPostButton.classList.add('add-post-btn', 'btn', 'btn-open');
+            console.log("these are memesubmissions id", item.id)
+            for (let postID of USER_POST_ID){
+                console.log("these are post ids", postID)
+                if (item.id === postID){
+                    addPostButton.style.display = "none"
+                }
+            }
 
             // Create an image element for the meme_pic
             const imageElement = document.createElement('img');
