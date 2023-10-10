@@ -32,7 +32,7 @@
                 </form>
             </div>
             <div th:each="tournament : ${tournaments}">
-                <form class="row player name jdTournamentCSS" th:action="@{|/tournament/waiting-room/${tournament.id}|}">
+                <form class="row player name jdTournamentCSS" th:action="@{|/tournament/lobby/${tournament.id}|}">
                     <p>TOURNAMENT ID: <span th:text="${tournament.id}"></span></p>
                     <p>PLAYERS: <span th:text="${#lists.size(tournament.userSet)}"></span>/8</p>
                     <button data-th-tournament="${tournament.id}" type="submit">Join Now!</button>

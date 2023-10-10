@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <div th:replace="partials/partials :: head(title='waiting-room')">
+    <div th:replace="partials/partials :: head(title='lobby')">
 
     </div>
     <!--    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>-->
@@ -34,13 +34,13 @@
             <div class="jdWaitColUl">
 
                 <h2>here are players in lobby:</h2>
-                <ul th:each="user : ${users}">
-                    <p class="user-info" th:text="${user.getUsername()}"></p>
-                </ul>
-                <!--                TESTING REAL TIME UPDATES-->
-                <h3>WEBSOCKET USER UPDATE</h3>
+<!--                <ul th:each="user : ${users}">-->
+<!--                    <p class="user-info" th:text="${user.getUsername()}"></p>-->
+<!--                </ul>-->
+<!--                &lt;!&ndash;                TESTING REAL TIME UPDATES&ndash;&gt;-->
+<!--                <h3>WEBSOCKET USER UPDATE</h3>-->
                 <div id="users-in-room"></div>
-                <a href="/tournament/waiting-room/leave">Leave/Cancel</a>
+                <button id="leave-lobby-btn">Leave/Cancel</button>
             </div>
             <div class="jdWaitColCanvas">
                 <canvas id="snakeGame" th:width="800" th:height="800">
@@ -53,9 +53,9 @@
 <footer th:replace="partials/partials :: footer"></footer>
 <script th:inline="javascript">/*<![CDATA[*/
 
+const currentUser = /*[[${currentUser}]]*/ 'default';
 const tournamentId = /*[[${tournament.id}]]*/ 'default';
-// let usersInRoom = /*[[${users}]]*/ 'default';
-// console.log("FROM HOME html " + usersInRoom);
+
 /*]]>*/
 </script>
 <script th:src="@{/js/tournament.js}"></script>
