@@ -14,7 +14,6 @@ let leaderboard = async () => {
             throw new Error(`HTTP error! Status: ${results.status}`);
         }
         const data = await results.json();
-        console.log(data);
         data.reverse();
         let rank = data.length;
         for (let user of data) {
@@ -25,7 +24,6 @@ let leaderboard = async () => {
                 playerDiv.classList.add('first');
             }
             let profileURL = user.user.profileURL;
-            console.log("this is the url ", profileURL);
             if (profileURL == null) {
                 profileURL = "/img/memespace.gif"
             }
