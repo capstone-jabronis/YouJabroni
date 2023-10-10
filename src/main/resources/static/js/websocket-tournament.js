@@ -82,14 +82,19 @@
         },
         enterRoom(tournamentId) {
             console.log("Inside enterRoom");
-            Tournament.topic = `/secured/tournament/waiting-room/${Tournament.tournamentId}`;
-            Tournament.currentSubscription = Tournament.stompClient.subscribe(`/secured/tournament/${Tournament.tournamentId}`, this.onMessageReceived);
-            Tournament.stompClient.send(`${Tournament.topic}`, {}, JSON.stringify({messageType: 'JOIN'}));
-            this.sendMessage();
+            Tournament.topic = `/secured/app/tournament/waiting-room/${Tournament.tournamentId}`;
+            Tournament.currentSubscription = Tournament.stompClient.subscribe(`/secured/tournament/waiting-room/${Tournament.tournamentId}`, this.onMessageReceived);
+            let message = {
+                user: 'nic',
+                text: "User Joined Tournament!",
+                messageType: 'JOIN'
+            }
+            Tournament.stompClient.send(`${Tournament.topic}/userjoin`, {}, JSON.stringify(message));
+            // this.sendMessage();
         },
         sendMessage() {
             console.log("Inside sendMessage");
-            Tournament.topic = `/secured/tournament/waiting-room/${Tournament.tournamentId}`;
+            Tournament.topic = `/secured/app/tournament/waiting-room/${Tournament.tournamentId}`;
             if (gameController.gameStart) {
                 console.log("Game has started, sending MemeSubmssion");
                 let memeContent = Tournament.memeSubmission.val();
@@ -108,7 +113,11 @@
             } else if (!gameController.gameStart) {
                 console.log("In sendMessage function: Game has not started, tracking users in room...");
                 if (Tournament.stompClient) {
-                    Tournament.stompClient.send(`${Tournament.topic}/userjoin`, {}, JSON.stringify("User joined room!"));
+                    let websocketMessage = {
+                        text: "User Joined Room!",
+                        messageType: 'JOIN'
+                    }
+                    Tournament.stompClient.send(`${Tournament.topic}/userjoin`, {}, JSON.stringify(websocketMessage));
                 }
             }
             // if (memeContent && Tournament.stompClient) {
@@ -127,9 +136,9 @@
             let message = JSON.parse(payload.body);
             console.log("Message received:");
             console.log(message);
-            // await Render.reloadTournamentMembers();
+            await Render.reloadTournamentMembers();
             if (message.messageType === 'JOIN') {
-                // Print.joinMessage(message);
+                Print.joinMessage("in conditional of recieve" + message);
             } else if (message.messageType === 'LEAVE') {
                 Print.leaveMessage(message);
             } else {
@@ -180,7 +189,7 @@
                         'X-CSRF-TOKEN': csrfToken
                     }
                 });
-                if (!members.ok){
+                if (!members.ok) {
                     throw new Error(`Error retrieving User Set for Tournament`);
                 }
                 return await members.json();

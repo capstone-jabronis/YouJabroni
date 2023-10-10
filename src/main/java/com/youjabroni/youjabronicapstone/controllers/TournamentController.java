@@ -1,8 +1,10 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.youjabroni.youjabronicapstone.models.MemeSubmission;
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
+import com.youjabroni.youjabronicapstone.models.Message;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.RoundRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
@@ -19,9 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import static java.lang.String.format;
@@ -52,11 +51,25 @@ public class TournamentController {
     }
 
     //Websocket stuff. Sends memeSubmissions as "messages" and updates users in lobby////////////////////////////
-    @MessageMapping("/waiting-room/{tournamentId}/userjoin")
-    public void joinMessage(@DestinationVariable Long tournamentId, @Payload String joinMessage) {
+    @MessageMapping("/tournament/waiting-room/{tournamentId}/userjoin")
+    public void joinMessage(@DestinationVariable Long tournamentId, @Payload Message joinMessage) throws JsonProcessingException{
         System.out.println("----------In sendMessage method for userjoin---------");
+        joinMessage.setMessageType(Message.MessageType.JOIN);
         System.out.println(joinMessage);
-        messagingTemplate.convertAndSend(format("/secured/waiting-room/%s", tournamentId), joinMessage);
+        messagingTemplate.convertAndSend(format("/secured/tournament/waiting-room/%s", tournamentId), joinMessage);
+
+//        , SimpMessageHeaderAccessor headerAccessor
+        //^For constructor
+//        String currentTournamentId = (String) headerAccessor.getSessionAttributes().put("tournament_id", tournamentId);
+//        if (tournamentId != null) {
+//            WebsocketMessage leaveMessage = new WebsocketMessage();
+//
+//            leaveMessage.setMessageType(WebsocketMessage.MessageType.LEAVE);
+////            leaveMessage.setSender(.getUser());
+//            messagingTemplate.convertAndSend(format("/secured/tournament/waiting-room/%s", currentTournamentId), leaveMessage);
+//        }
+////        headerAccessor.getSessionAttributes().put("name", memeSubmission.getUser());
+//        messagingTemplate.convertAndSend(format("/secured/tournament/waiting-room/%s", tournamentId), joinMessage);
     }
     @MessageMapping("/create/{tournamentId}")
     public void sendSubmission(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission) {
