@@ -79,13 +79,24 @@ historyContainer.addEventListener('click', async (e) => {
             addImg.src = item.round.meme_pic;
             addImg.classList.add('add-img');
 
-
             // Create a container for the caption
             const addCaptionDiv = document.createElement('div');
             const addCaption = document.createElement('h2');
             addCaption.textContent = `${item.caption}`;
             addCaption.classList.add('add-caption');
             addCaptionDiv.classList.add("add-caption-div");
+
+            // Create an input for the description
+            const descriptionInput = document.createElement('input');
+            descriptionInput.setAttribute('type', 'text');
+            descriptionInput.setAttribute('name', 'description');
+            descriptionInput.id = 'description';
+
+            // Create a button to submit the add form
+            const submitAddButton = document.createElement('button');
+            submitAddButton.setAttribute('type', 'submit');
+            submitAddButton.classList.add('add-btn');
+            submitAddButton.textContent = 'save';
 
 
             // Functions
@@ -96,6 +107,8 @@ historyContainer.addEventListener('click', async (e) => {
                 const addForm = document.querySelector("#add-post-form");
                 const memeId = document.querySelector("#meme-id");
                 memeId.value = item.id;
+                addForm.appendChild(descriptionInput);
+                addForm.appendChild(submitAddButton);
                 addCaptionDiv.appendChild(addForm);
                 addForm.classList.remove("hidden");
             };
@@ -104,18 +117,18 @@ historyContainer.addEventListener('click', async (e) => {
                 modalOverlay.classList.add("hidden");
             };
 
-
             addPostButton.addEventListener("click", function(event) {
                 event.stopPropagation();
                 openModal(event);
             });
-            const description = document.querySelector("#description");
-            description.addEventListener("click", function(event) {
+
+            // const description = document.querySelector("#description");
+            descriptionInput.addEventListener("click", function(event) {
                 event.stopPropagation();
             });
+
             modalOverlay.addEventListener("click", closeModal);
             closeButton.addEventListener("click", closeModal);
-
 
             closeButtonContainer.appendChild(closeButton);
             modalSection.appendChild(closeButtonContainer);
@@ -130,7 +143,6 @@ historyContainer.addEventListener('click', async (e) => {
             captionDiv.appendChild(addPostButton);
             captionDiv.appendChild(modalOverlay);
             itemDiv.appendChild(captionDiv);
-
 
             // Append the itemDiv to userIDElement
             userIDElement2.appendChild(itemDiv);
