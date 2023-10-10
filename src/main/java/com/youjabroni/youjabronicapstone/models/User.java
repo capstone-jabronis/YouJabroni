@@ -54,7 +54,7 @@ public class User {
 //    private List<Tournament> tournamentsWon;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "winner")
-    @JsonManagedReference
+    @JsonIgnore
     private List<Tournament> tournamentsWon;
 
     public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, Tournament tournament, List<Tournament> tournamentsWon) {
