@@ -348,6 +348,7 @@ body {
 /*================         HOME         ================*/
 .jdHomePageWrapperCSS {
     display: flex; /* Use flexbox to create a horizontal layout */
+    align-items: center;
 }
 
 .jdleaderboard {
@@ -386,6 +387,12 @@ body {
     margin-top: 50px;
 }
 
+.tab-clicked {
+    font-size: 24px;
+    font-weight: bold;
+    color: #343CFF;
+}
+
 #history {
     cursor: pointer;
 }
@@ -401,6 +408,23 @@ body {
 .post:hover {
     color: #343CFF;;
 }
+.jdTournamentEach{
+    border-bottom: solid #428bca;
+    align-content: center;
+    padding: .1%;
+}
+.jdTournamentEach form{
+    align-items: center;
+}
+
+.join-now{
+    background-color: #343CFF;
+    color: white;
+    border-radius: 25%;
+    padding: .2%;
+}
+
+/*================         END OF HOME         ================*/
 
 /********************************* Modals ***********************************/
 

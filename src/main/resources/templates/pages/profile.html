@@ -91,7 +91,7 @@
         <div class="row d-flex justify-center">
             <ul class="d-flex justify-center tabs full-width">
                 <li class="profile-tab">
-                    <a class="profile-link post">Posts</a>
+                    <a class="profile-link post tab-clicked">Posts</a>
                 </li>
             </ul>
         </div>
@@ -101,7 +101,7 @@
         <div class="row d-flex justify-center" th:if="${#authentication.principal.id != user.id}">
             <ul class="d-flex justify-center tabs full-width">
                 <li class="profile-tab">
-                    <a class="profile-link post">Posts</a>
+                    <a class="profile-link post tab-clicked">Posts</a>
                 </li>
             </ul>
         </div>
@@ -111,13 +111,13 @@
         <div class="row" th:if="${#authentication.principal.id == user.id}">
             <ul class="d-flex align-center full-width tabs justify-space-around">
                 <li class="profile-tab">
-                    <a class="profile-link post">Posts</a>
+                    <a class="profile-link post tab-clicked">Posts</a>
                 </li>
                 <li class="profile-tab">
-                    <a class="profile-link" id="history">History</a>
+                    <a class="profile-link tab-clicked" id="history">History</a>
                 </li>
                 <li class="profile-tab">
-                    <a class="profile-link" id="likedPost" th:href="@{/profile/likes}">Liked Posts</a>
+                    <a class="profile-link tab-clicked" id="likedPost" th:href="@{/profile/likes}">Liked Posts</a>
                 </li>
             </ul>
         </div>
@@ -135,9 +135,9 @@
         <form class="hidden" id="add-post-form" th:action="@{|/${user.id}/profile/posts|}" th:method="POST">
             <div class="add-form">
                 <h3 class="form-title">Add a short description or click save to continue</h3>
-                <input id="description" type="text" name="description" value="">
+<!--                <input id="description" type="text" name="description" value="">-->
                 <input id="meme-id" type="hidden" name="meme-id">
-                <button type="submit" class="add-btn">Save</button>
+<!--                <button id="add-post-btn" type="submit" class="add-btn">Save</button>-->
             </div>
         </form>
         <!-- THIS IS THE FORM TO EDIT POSTS -->

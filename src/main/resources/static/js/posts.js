@@ -4,7 +4,7 @@ const userIDElement = document.querySelector("#results");
 let userID2 = userIDElement.getAttribute("dataId");
 let url2 = `/${userID2}/posts`;
 const isAuthenticated = document.querySelector("[data-authenticated]");
-
+let USER_POST_ID = [];
 postElement.addEventListener('click', async (e) => {
     e.preventDefault();
     let results = await fetch(url2, {
@@ -26,6 +26,7 @@ postElement.addEventListener('click', async (e) => {
         userIDElement.classList.add('posts-container');
 
         for (const post of data) {
+            USER_POST_ID.push(post.memeSubmission.id);
             // Create the div for the post card
             const postDiv = document.createElement('div');
             postDiv.classList.add('post-card');
@@ -150,8 +151,11 @@ postElement.addEventListener('click', async (e) => {
                 deleteModalSection.classList.remove('hidden');
                 deleteModalOverlay.classList.remove('hidden');
                 const deletePostForm = document.querySelector('#delete-post-form');
-                deletePostForm.appendChild(submitDeleteButton);
-                deletePostForm.appendChild(deleteModalButtonsContainer);
+                const isSubmitDeleteButtonPresent = deletePostForm.contains(submitDeleteButton);
+
+                if (!document.querySelector('.submit-delete-post')) {
+                    deletePostForm.appendChild(submitDeleteButton);
+                }
                 const deletePostId = document.querySelector('#post-delete-id');
                 deletePostId.value = post.id;
                 deleteModalSection.appendChild(deletePostForm);
@@ -187,7 +191,9 @@ postElement.addEventListener('click', async (e) => {
             postCaptionDiv.appendChild(deleteModalOverlay);
             postCaptionDiv.appendChild(editModalOverlay);
             if (userID2 == post.user.id && isAuthenticated) {
-                buttonsContainer.appendChild(editPostButton);
+                if(post.description.trim() !== "") {
+                    buttonsContainer.appendChild(editPostButton);
+                }
                 buttonsContainer.appendChild(deletePostButton);
                 postCaptionDiv.appendChild(buttonsContainer);
             }
