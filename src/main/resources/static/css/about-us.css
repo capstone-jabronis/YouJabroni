@@ -48,12 +48,18 @@
     .dev-card {
         width: 300px;
         height: 400px;
+        background: none;
+        box-shadow: none;
     }
     .first-row {
         flex-wrap: wrap;
         gap: 0;
         margin: 0;
     }
+    .page-wrapper {
+        background: linear-gradient(to top, #343CFF, #9F8BFF);
+    }
+
 }
 @media screen and (max-width: 767px) {
     .first-row {
