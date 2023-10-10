@@ -5,6 +5,7 @@ let userID = userIDElement2.getAttribute("dataId");
 let url = `/${userID}/memeSubmission`
 const itemsPerPage = 10; // Change this number according to your requirements
 let currentPage = 1;
+const profileLinks = document.querySelectorAll('.profile-link');
 
 historyContainer.addEventListener('click', async (e) => {
     e.preventDefault();
@@ -159,3 +160,14 @@ historyContainer.addEventListener('click', async (e) => {
     // Render the current page
     renderPage(currentPage);
 });
+
+function handleLinkClicks (event) {
+    profileLinks.forEach(link => {
+        link.classList.remove('tab-clicked');
+    });
+    event.target.classList.add('tab-clicked');
+}
+
+profileLinks.forEach(link => {
+    link.addEventListener('click', handleLinkClicks);
+})

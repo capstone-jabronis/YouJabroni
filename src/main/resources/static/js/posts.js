@@ -191,7 +191,9 @@ postElement.addEventListener('click', async (e) => {
             postCaptionDiv.appendChild(deleteModalOverlay);
             postCaptionDiv.appendChild(editModalOverlay);
             if (userID2 == post.user.id && isAuthenticated) {
-                buttonsContainer.appendChild(editPostButton);
+                if(post.description.trim() !== "") {
+                    buttonsContainer.appendChild(editPostButton);
+                }
                 buttonsContainer.appendChild(deletePostButton);
                 postCaptionDiv.appendChild(buttonsContainer);
             }
