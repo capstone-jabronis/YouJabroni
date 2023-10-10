@@ -1,7 +1,6 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.youjabroni.youjabronicapstone.models.MemeSubmission;
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.models.Message;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,13 +48,13 @@ public class TournamentController {
         return "tournament/create-meme";
     }
 
-    //Websocket stuff. Sends memeSubmissions as "messages" and updates users in lobby////////////////////////////
-    @MessageMapping("/tournament/waiting-room/{tournamentId}/userjoin")
-    public void joinMessage(@DestinationVariable Long tournamentId, @Payload Message joinMessage) throws JsonProcessingException{
+    //Websocket stuff////////////////////////////
+    @MessageMapping("/tournament/lobby/{tournamentId}/userjoin")
+    public void joinMessage(@DestinationVariable Long tournamentId, @Payload Message joinMessage) throws JsonProcessingException {
         System.out.println("----------In sendMessage method for userjoin---------");
         joinMessage.setMessageType(Message.MessageType.JOIN);
         System.out.println(joinMessage);
-        messagingTemplate.convertAndSend(format("/secured/tournament/waiting-room/%s", tournamentId), joinMessage);
+        messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), joinMessage);
 
 //        , SimpMessageHeaderAccessor headerAccessor
         //^For constructor
@@ -71,24 +69,12 @@ public class TournamentController {
 ////        headerAccessor.getSessionAttributes().put("name", memeSubmission.getUser());
 //        messagingTemplate.convertAndSend(format("/secured/tournament/waiting-room/%s", tournamentId), joinMessage);
     }
-    @MessageMapping("/create/{tournamentId}")
-    public void sendSubmission(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission) {
-        messagingTemplate.convertAndSend(format("tournament/create-meme/%s", tournamentId), memeSubmission);
-    }
-
-    @MessageMapping("/create/{tournamentId}/addUser")
-    public void addUser(@DestinationVariable String tournamentId, @Payload MemeSubmission memeSubmission,
-                        SimpMessageHeaderAccessor headerAccessor) {
-        String currentTournamentId = (String) headerAccessor.getSessionAttributes().put("tournament_id", tournamentId);
-        if (tournamentId != null) {
-            MemeSubmission leaveSubmission = new MemeSubmission();
-
-            leaveSubmission.setMessageType(MemeSubmission.MessageType.LEAVE);
-            leaveSubmission.setUser(memeSubmission.getUser());
-            messagingTemplate.convertAndSend(format("/chat-room/%s", currentTournamentId), leaveSubmission);
-        }
-        headerAccessor.getSessionAttributes().put("name", memeSubmission.getUser());
-        messagingTemplate.convertAndSend(format("/chat-room/%s", tournamentId), memeSubmission);
+    @MessageMapping("/tournament/lobby/{tournamentId}/send")
+    public void sendMessage(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
+        System.out.println("----------In sendMessage method---------");
+        System.out.println(message.getMessageType());
+//        message.setMessageType(Message.MessageType.JOIN);
+        messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
     }
 //End websocket stuff/////////////////////////////////
 
@@ -104,7 +90,7 @@ public class TournamentController {
     }
 
 
-    @GetMapping("/waiting-room/{id}")
+    @GetMapping("/lobby/{id}")
     public String joinTournament(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable Long id) {
         User user = userDao.findByUsername(userDetails.getUsername());
         Tournament tournament = tournamentDao.findById(id).get();
@@ -116,11 +102,11 @@ public class TournamentController {
         tournamentDao.save(tournament);
         model.addAttribute("tournament", tournament);
         model.addAttribute("users", tournament.getUserSet());
-        System.out.println("userSet of Tourny" + tournamentDao.findById(id).get().getUserSet());
-        return "tournament/waiting-room";
+        model.addAttribute("currentUser", user);
+        return "/tournament/lobby";
     }
 
-    @GetMapping("/waiting-room/leave")
+    @GetMapping("/lobby/leave")
     public String leaveTournamentWaitingRoom(@AuthenticationPrincipal UserDetails userDetails) {
         User user = userDao.findByUsername(userDetails.getUsername());
         Tournament tournament = tournamentDao.findById(user.getTournament().getId()).get();
@@ -130,7 +116,30 @@ public class TournamentController {
         userDao.save(user);
         tournamentDao.save(tournament);
         System.out.println("LEFT TOURNY" + tournamentDao.findById(tournament.getId()).get().getUserSet());
+        //Logic to change host or delete tournament if users set is empty
+        if (updateUserSet.isEmpty()) {
+            System.out.println("----------Tournament empty, deleting");
+            tournamentDao.delete(tournament);
+        } else {
+            System.out.println("changing host to next user");
+            User newHost = updateUserSet.iterator().next();
+            tournament.setHost(newHost);
+            tournamentDao.save(tournament);
+        }
         return "redirect:/home";
+    }
+
+    //Creating new tournaments
+    @GetMapping("/create-tournament")
+    public String createTournament(@AuthenticationPrincipal UserDetails userDetails) {
+        User user = userDao.findByUsername(userDetails.getUsername());
+        System.out.println("Creating tournament host: " + user.getUsername());
+        Tournament newTournament = new Tournament();
+        newTournament.setHost(user);
+        tournamentDao.save(newTournament);
+        String id = String.valueOf(newTournament.getId());
+        System.out.println("Tournament id: " + id);
+        return "redirect:/tournament/lobby/" + id;
     }
 
     //Mapping to return and update users in tournament primarily for websocket
@@ -139,12 +148,12 @@ public class TournamentController {
         Tournament tournament = tournamentDao.findById(tournamentId).get();
         return tournament.getUserSet();
     }
-    //    @GetMapping("/waiting-room/{id}")
-//    public String waitingRoom(Model model, @PathVariable Long id) {
-//        Tournament tournament = tournamentDao.findById(id).get();
-//        model.addAttribute("tournament", tournament);
-//        model.addAttribute("users", tournament.getUserSet());
-//        return "tournament/waiting-room";
-//    }
+
+    //Mapping to return the current tournament host
+    @GetMapping("/{tournamentId}/host")
+    public @ResponseBody User getTournamentHost(@PathVariable Long tournamentId) {
+        Tournament tournament = tournamentDao.findById(tournamentId).get();
+        return tournament.getHost();
+    }
 
 }
