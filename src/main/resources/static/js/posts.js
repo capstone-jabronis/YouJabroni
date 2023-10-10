@@ -5,7 +5,7 @@ let userID2 = userIDElement.getAttribute("dataId");
 let url2 = `/${userID2}/posts`;
 const isAuthenticated = document.querySelector("[data-authenticated]");
 
-postElement.addEventListener('click', async(e) => {
+postElement.addEventListener('click', async (e) => {
     e.preventDefault();
     let results = await fetch(url2, {
         method: 'GET',
@@ -16,7 +16,7 @@ postElement.addEventListener('click', async(e) => {
     });
     let data = await results.json();
     console.log(data);
-    if(!results.ok) {
+    if (!results.ok) {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }
 
@@ -67,18 +67,39 @@ postElement.addEventListener('click', async(e) => {
             const buttonsContainer = document.createElement('div');
             buttonsContainer.classList.add('buttons-container');
 
-            // Create the modal
+            // Create the modal for edit
             const editModalOverlay = document.createElement('div');
             editModalOverlay.classList.add('hidden', 'overlay');
             const editModalSection = document.createElement('section');
             editModalSection.classList.add('hidden', 'post-modal');
 
-            // Create the exit button
+            // Create the modal for delete
+            const deleteModalOverlay = document.createElement('div');
+            deleteModalOverlay.classList.add('hidden', 'overlay');
+            const deleteModalSection = document.createElement('section');
+            deleteModalSection.classList.add('hidden', 'post-modal');
+
+            // Create the exit button for edit
             const editCloseButtonContainer = document.createElement('div');
             editCloseButtonContainer.classList.add('close-btn-container');
             const editCloseButton = document.createElement('button');
             editCloseButton.classList.add('btn-close');
             editCloseButton.textContent = 'x';
+
+            // Create the container for the buttons in the delete modal
+            const deleteModalButtonsContainer = document.createElement('div');
+            deleteModalButtonsContainer.classList.add('delete-modal-btns-container');
+
+            // Create the cancel button for delete
+            const cancelButton = document.createElement('button');
+            cancelButton.textContent = 'cancel';
+            cancelButton.classList.add('cancel-btn');
+
+            // Create the submit button for delete
+            const submitDeleteButton = document.createElement('button');
+            submitDeleteButton.setAttribute('type', 'submit');
+            submitDeleteButton.classList.add('submit-delete-post');
+            submitDeleteButton.textContent = 'yes';
 
             // Create the input for the edit form
             const editDescription = document.createElement('input');
@@ -93,43 +114,68 @@ postElement.addEventListener('click', async(e) => {
             editFormSubmitBtn.classList.add('submit-edit-post');
             editFormSubmitBtn.textContent = 'save';
 
-            // Function to close the modal
+            // Function to close the edit modal
             const closeEditModal = function () {
                 editModalSection.classList.add("hidden");
                 editModalOverlay.classList.add("hidden");
             };
 
-            // let description = document.querySelector("#edit-description");
-            // description.value = post.description;
-            editDescription.addEventListener("click", function(event) {
+            // Function to close the delete modal
+            const closeDeleteModal = function () {
+                deleteModalSection.classList.add('hidden');
+                deleteModalOverlay.classList.add('hidden');
+            }
+
+            editDescription.addEventListener("click", function (event) {
                 event.stopPropagation();
             });
 
-            // Function to open the modal
-            // document.addEventListener("DOMContentLoaded", function() {
-                const openEditModal = function (event) {
-                    event.stopPropagation();
-                    editModalSection.classList.remove('hidden');
-                    editModalOverlay.classList.remove('hidden');
-                    const editPostForm = document.querySelector('#edit-post-form');
-                    editPostForm.appendChild(editDescription);
-                    editPostForm.appendChild(editFormSubmitBtn);
-                    const postId = document.querySelector("#post-id");
-                    postId.value = post.id;
-                    editModalSection.appendChild(editPostForm);
-                    editPostForm.classList.remove('hidden');
-                }
+            // Function to open the edit modal
+            const openEditModal = function (event) {
+                event.stopPropagation();
+                editModalSection.classList.remove('hidden');
+                editModalOverlay.classList.remove('hidden');
+                const editPostForm = document.querySelector('#edit-post-form');
+                editPostForm.appendChild(editDescription);
+                editPostForm.appendChild(editFormSubmitBtn);
+                const postId = document.querySelector("#post-id");
+                postId.value = post.id;
+                editModalSection.appendChild(editPostForm);
+                editPostForm.classList.remove('hidden');
+            }
 
-            // });
+            // Function to open the delete modal
+            const openDeleteModal = function (event) {
+                event.stopPropagation();
+                deleteModalSection.classList.remove('hidden');
+                deleteModalOverlay.classList.remove('hidden');
+                const deletePostForm = document.querySelector('#delete-post-form');
+                deletePostForm.appendChild(submitDeleteButton);
+                deletePostForm.appendChild(deleteModalButtonsContainer);
+                const deletePostId = document.querySelector('#post-delete-id');
+                deletePostId.value = post.id;
+                deleteModalSection.appendChild(deletePostForm);
+                deleteModalSection.appendChild(cancelButton);
+                deletePostForm.classList.remove('hidden');
+            }
+
             // Stop the modal from closing
-            editPostButton.addEventListener("click", function(event) {
+            editPostButton.addEventListener("click", function (event) {
                 event.stopPropagation();
                 openEditModal(event);
             });
 
+            deletePostButton.addEventListener('click', function (event) {
+                event.stopPropagation();
+                openDeleteModal(event);
+            })
+
             // Event Listeners to close the modal
             editModalOverlay.addEventListener("click", closeEditModal);
             editCloseButton.addEventListener("click", closeEditModal);
+
+            deleteModalOverlay.addEventListener('click', closeDeleteModal);
+            cancelButton.addEventListener('click', closeDeleteModal);
 
             postDiv.appendChild(postHead);
             postDiv.appendChild(postImg);
@@ -137,8 +183,10 @@ postElement.addEventListener('click', async(e) => {
             postCaptionDiv.appendChild(postCaption);
             postCaptionDiv.appendChild(postDescription);
             editModalOverlay.appendChild(editModalSection);
+            deleteModalOverlay.appendChild(deleteModalSection);
+            postCaptionDiv.appendChild(deleteModalOverlay);
             postCaptionDiv.appendChild(editModalOverlay);
-            if(userID2 == post.user.id && isAuthenticated) {
+            if (userID2 == post.user.id && isAuthenticated) {
                 buttonsContainer.appendChild(editPostButton);
                 buttonsContainer.appendChild(deletePostButton);
                 postCaptionDiv.appendChild(buttonsContainer);
@@ -146,5 +194,6 @@ postElement.addEventListener('click', async(e) => {
             userIDElement.appendChild(postDiv);
         }
     }
+
     renderPage();
 });

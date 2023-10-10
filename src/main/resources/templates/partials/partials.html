@@ -29,8 +29,8 @@
             <!--                If user is logged in, Profile option will show up in navbar-->
             <li class="nav-link" sec:authorize="isAuthenticated()">
                 <!--                        View of user profile pic-->
-                <img class="profile-pic-link" th:src="${#authentication.principal.profileURL}">
-                <a class="nav-link" id="profile" th:href="@{|/${#authentication.principal.id}/profile|}" th:text="${#authentication.principal.username}"></a>
+<!--                <img class="profile-pic-link" th:src="${#authentication.principal.profileURL}">-->
+                <a class="nav-link" id="profile" th:href="@{|/${#authentication.principal.id}/profile|}">Profile</a>
             </li>
 
             <li class="nav-item" sec:authorize="isAuthenticated()">

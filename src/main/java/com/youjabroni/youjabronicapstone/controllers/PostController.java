@@ -54,4 +54,10 @@ public class PostController {
         postDao.save(postToEdit);
         return "redirect:/" + id + "/profile";
    }
+
+   @PostMapping("/{id}/profile/posts/delete")
+    public String deletePost(@PathVariable long id, @RequestParam(name = "post-delete-id") long postId) {
+        postDao.deleteById(postId);
+        return "redirect:/" + id + "/profile";
+   }
 }
