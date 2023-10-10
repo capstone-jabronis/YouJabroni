@@ -150,8 +150,11 @@ postElement.addEventListener('click', async (e) => {
                 deleteModalSection.classList.remove('hidden');
                 deleteModalOverlay.classList.remove('hidden');
                 const deletePostForm = document.querySelector('#delete-post-form');
-                deletePostForm.appendChild(submitDeleteButton);
-                deletePostForm.appendChild(deleteModalButtonsContainer);
+                const isSubmitDeleteButtonPresent = deletePostForm.contains(submitDeleteButton);
+
+                if (!document.querySelector('.submit-delete-post')) {
+                    deletePostForm.appendChild(submitDeleteButton);
+                }
                 const deletePostId = document.querySelector('#post-delete-id');
                 deletePostId.value = post.id;
                 deleteModalSection.appendChild(deletePostForm);
