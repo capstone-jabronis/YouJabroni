@@ -795,4 +795,59 @@ body {
 
 /*===============     END OF FEED     ===============*/
 
+/*===============     WAITING ROOM     ===============*/
 
+.jdWaitTitleContainer{
+    display: flex;
+    flex-wrap: wrap;
+    color: #9F8BFF;
+    border-bottom: #428bca;
+    justify-content: center;
+}
+.jdWaitTitleRow{
+    justify-content: center;
+}
+.jdWaitTitleCol{
+    display: flex;
+    justify-content: center;
+}
+.jdWaitContainer{
+    margin-bottom: 2%;
+    margin-right: 2%;
+    margin-left: 2%;
+    justify-content: center;
+    align-items: center;
+
+}
+.jdWaitRow{
+    display: flex;
+    flex-wrap: wrap;
+}
+.jdWaitColUl{
+    flex: 1;
+    padding: 20px;
+    background-color: #f2f2f2;
+}
+.jdWaitColCanvas{
+    flex: 1;
+    padding: 20px;
+    background-color: #e0e0e0;
+}
+#snakeGame {
+    max-width: 100%; /* Ensure the canvas doesn't exceed its container */
+    height: auto;
+}
+@media (max-width: 768px) {
+    /* Adjust styles for smaller screens here */
+    .jdWaitColUl, .jdWaitColCanvas {
+        flex: 100%; /* Full width on small screens */
+        padding: 10px; /* Reduce padding on small screens */
+    }
+}
+@media (min-width: 1201px) {
+    .jdWaitContainer {
+        height: 120vh; /* Adjust the height as needed */
+    }
+}
+
+/*===============     END OF WAITING ROOM     ===============*/
