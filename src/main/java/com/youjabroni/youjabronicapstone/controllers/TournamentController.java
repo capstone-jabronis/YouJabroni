@@ -97,7 +97,6 @@ public class TournamentController {
         tournamentDao.save(tournament);
         model.addAttribute("tournament", tournament);
         model.addAttribute("users", tournament.getUserSet());
-        System.out.println("userSet of Tourny" + tournamentDao.findById(id).get().getUserSet());
         return "tournament/waiting-room";
     }
 
@@ -111,6 +110,16 @@ public class TournamentController {
         userDao.save(user);
         tournamentDao.save(tournament);
         System.out.println("LEFT TOURNY" + tournamentDao.findById(tournament.getId()).get().getUserSet());
+        //Logic to change host or delete tournament if users set is empty
+        if(updateUserSet.isEmpty()){
+            System.out.println("----------Tournament empty, deleting");
+            tournamentDao.delete(tournament);
+        } else {
+            System.out.println("changing host to next user");
+            User newHost = tournament.getUserSet().iterator().next();
+            tournament.setHost(newHost);
+            tournamentDao.save(tournament);
+        }
         return "redirect:/home";
     }
 
@@ -131,7 +140,7 @@ public class TournamentController {
         tournamentDao.save(newTournament);
         String id = String.valueOf(newTournament.getId());
         System.out.println("Tournament id: " + id);
-        return "redirect:tournament/waiting-room/" + id;
+        return "redirect:/tournament/waiting-room/" + id;
     }
 
 }
