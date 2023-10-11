@@ -31,6 +31,16 @@ public class MemeSubmission {
     @OneToOne(mappedBy = "memeSubmission")
     private Post post;
 
+    private String memeURL;
+
+    public MemeSubmission(long id, String caption, User user, Post post, String memeURL) {
+        this.id = id;
+        this.caption = caption;
+        this.user = user;
+        this.post = post;
+        this.memeURL = memeURL;
+    }
+
     public MemeSubmission() {
     }
 
