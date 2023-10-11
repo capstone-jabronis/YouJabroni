@@ -44,11 +44,11 @@
         activePlayers: [],
         currentRoundPlayers: [],
         eliminatedPlayers: [],
-        activePlayerIndex: 0,
+        activePlayerIndexTracker: 0,
         gameComplete: false,
         meme1votes: 0,
         meme2votes: 0,
-        tieBreakerFunction(){
+        tieBreakerFunction() {
             //random method here to vote during a tie
         }
     }
@@ -88,7 +88,7 @@
             Tournament.topic = `/secured/app/tournament/lobby/${Tournament.tournamentId}`;
             Tournament.currentSubscription = Tournament.stompClient.subscribe(`/secured/tournament/lobby/${Tournament.tournamentId}`, this.onMessageReceived);
             let message = {
-                user: 'nic',
+                user: currentUser.username,
                 text: "User Joined Tournament!",
                 memeURL: '',
                 messageType: 'JOIN'
@@ -132,18 +132,26 @@
             console.log("Message received:");
             if (message.messageType === 'JOIN') {
                 await Render.reloadTournamentMembers('');
+                gameController.activePlayers.push(message.user);
+                console.log("---------ACTIVE PLAYERS IN JOIN-----------")
+                console.log(gameController.activePlayers)
             } else if (message.messageType === 'LEAVE') {
                 await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
+                // gameController.activePlayers = await Fetch.Get.tournamentMembers();
+                // console.log('ACTIVE PLAYERS:-------');
+                // console.log(gameController.activePlayers);
+                gameController.currentRoundPlayers.push(gameController.activePlayers[0]);
+                gameController.currentRoundPlayers.push(gameController.activePlayers[1]);
+                console.log('CURRENT ROUND PLAYERS:------')
+                console.log(gameController.currentRoundPlayers);
                 await Render.renderTournamentPage();
-                gameController.activePlayers = await Fetch.Get.tournamentMembers();
-                console.log(gameController.activePlayers);
             } else if (message.messageType === 'DATA') {
                 console.log('meme submitted!');
                 console.log(message);
-                gameController.currentRoundPlayers.push(message.user);
+                // gameController.currentRoundPlayers.push(message.user);
                 gameController.submittedMemes += 1;
-                if(gameController.submittedMemes === 2){
+                if (gameController.submittedMemes === 2) {
                     console.log("Both players have submitted memes, rendering vote page!")
                     gameController.submittedMemes = 0;
                     let user1 = gameController.currentRoundPlayers[0];
@@ -182,9 +190,9 @@
                 }
             }
             //to render start button when members reach required amount for game
-            if (tournamentMembers.length !== 2) {
+            if (tournamentMembers.length !== 4) {
                 startBtn.style.visibility = "hidden";
-            } else if (tournamentMembers.length === 2 && currentUser.username === tournamentHost.username) {
+            } else if (tournamentMembers.length === 4 && currentUser.username === tournamentHost.username) {
                 startBtn.style.visibility = "visible";
             }
         },
@@ -192,7 +200,12 @@
         async renderTournamentPage() {
             console.log("Render page for tourny");
             startBtn.style.visibility = "hidden";
-            lobbyContainer.innerHTML = `
+            console.log("------CURRENT USER FOR GAME CONTROLLER CHECK------")
+            console.log(currentUser);
+            console.log('----current Round players------');
+            console.log(gameController.currentRoundPlayers);
+            if (gameController.currentRoundPlayers.includes(currentUser.username)) {
+                lobbyContainer.innerHTML = `
             <div class="jdCreateContainer">
         <div class="jdCreateRow">
             <div class="jdCreateCol">
@@ -222,28 +235,30 @@
         </div>
     </div>
 `;
-           await Fetch.Get.getMeme();
-            let submitMemeBtn = document.querySelector('#submitMemeCaptionBtn');
+                await Fetch.Get.getMeme();
+                let submitMemeBtn = document.querySelector('#submitMemeCaptionBtn');
 
-            submitMemeBtn.addEventListener('click', () => {
-                let memeCaption = document.querySelector('#memeCaption').value
-                console.log("meme caption: " +memeCaption);
-                let memeUrl = document.querySelector('.memeAPIImage').getAttribute("src")
-                console.log("meme URL: " + memeUrl);
-                console.log('submit btn clicked');
-                let message = {
-                    user: currentUser.username,
-                    text: memeCaption,
-                    memeURL: memeUrl,
-                    messageType: 'DATA'
-                };
-                Socket.sendMessage(message);
-                submitMemeBtn.disabled = true;
-                submitMemeBtn.innerHTML = 'Caption Submitted!';
-            })
+                submitMemeBtn.addEventListener('click', () => {
+                    let memeCaption = document.querySelector('#memeCaption').value
+                    console.log("meme caption: " + memeCaption);
+                    let memeUrl = document.querySelector('.memeAPIImage').getAttribute("src")
+                    console.log("meme URL: " + memeUrl);
+                    console.log('submit btn clicked');
+                    let message = {
+                        user: currentUser.username,
+                        text: memeCaption,
+                        memeURL: memeUrl,
+                        messageType: 'DATA'
+                    };
+                    Socket.sendMessage(message);
+                    submitMemeBtn.disabled = true;
+                    submitMemeBtn.innerHTML = 'Caption Submitted!';
+                })
+            }
+
         },
 
-        renderVotePage(user1, user2){
+        renderVotePage(user1, user2) {
             lobbyContainer.innerHTML = `<h1>VOTE PAGE YO</h1>
 <h2>${user1} VS ${user2}</h2>
 <div>
@@ -334,6 +349,13 @@
     //EVENT LISTENERS
     leaveBtn.addEventListener('click', () => {
         console.log('leave button clicked');
+        for (let i = 0; i <= gameController.activePlayers; i++) {
+            if (gameController.activePlayers[i].username === currentUser.username) {
+                console.log('removing ' + gameController.activePlayers[i]);
+                gameController.activePlayers.splice(i, 1);
+            }
+        }
+        console.log(gameController.activePlayers);
         let message = {
             user: currentUser.username,
             text: 'USER HAS LEFT LOBBY',
