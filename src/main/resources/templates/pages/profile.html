@@ -136,23 +136,21 @@
         <!-- THIS IS THE FORM TO ADD POSTS -->
         <form class="hidden" id="add-post-form" th:action="@{|/${user.id}/profile/posts|}" th:method="POST">
             <div class="add-form">
-                <h3 class="form-title">Add a short description or click save to continue</h3>
-<!--                <input id="description" type="text" name="description" value="">-->
+                <h3 class="form-title hidden">Add a short description or click save to continue</h3>
                 <input id="meme-id" type="hidden" name="meme-id">
-<!--                <button id="add-post-btn" type="submit" class="add-btn">Save</button>-->
             </div>
         </form>
         <!-- THIS IS THE FORM TO EDIT POSTS -->
         <form class="hidden" id="edit-post-form" th:action="@{|/${user.id}/profile/posts/edit|}" th:method="POST">
 <!--            <div class="edit-form">-->
-                <h3 class="edit-post-form-title">Edit description</h3>
+                <h3 class="edit-post-form-title hidden">Edit description</h3>
                 <input id="post-id" type="hidden" name="post-id">
 <!--            </div>-->
         </form>
         <!-- THIS IS THE FORM TO DELETE POSTS -->
         <form class="hidden" id="delete-post-form" th:action="@{|/${user.id}/profile/posts/delete|}" th:method="POST">
             <div class="delete-form">
-                <h3 class="delete-post-title">Are you sure you want to delete?</h3>
+                <h3 class="delete-post-title hidden">Are you sure you want to delete?</h3>
                 <input id="post-delete-id" type="hidden" name="post-delete-id">
             </div>
         </form>

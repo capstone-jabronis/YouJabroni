@@ -124,12 +124,16 @@ postElement.addEventListener('click', async (e) => {
             const closeEditModal = function () {
                 editModalSection.classList.add("hidden");
                 editModalOverlay.classList.add("hidden");
+                const editPostFormTitle = document.querySelector('.edit-post-form-title');
+                editPostFormTitle.classList.add('hidden');
             };
 
             // Function to close the delete modal
             const closeDeleteModal = function () {
                 deleteModalSection.classList.add('hidden');
                 deleteModalOverlay.classList.add('hidden');
+                const deletePostTitle = document.querySelector('.delete-post-title');
+                deletePostTitle.classList.add('hidden');
             }
 
             // Event listener so the modal will not close when the user clicks on the input field
@@ -143,6 +147,7 @@ postElement.addEventListener('click', async (e) => {
                 editModalSection.classList.remove('hidden');
                 editModalOverlay.classList.remove('hidden');
                 const editPostForm = document.querySelector('#edit-post-form');
+                const editPostFormTitle = document.querySelector('.edit-post-form-title');
 
                 if (!document.querySelector('.edit-description-input')) {
                     editPostForm.appendChild(editDescription);
@@ -163,6 +168,7 @@ postElement.addEventListener('click', async (e) => {
                 editModalSection.appendChild(editPostForm);
                 editModalSection.appendChild(cancelEditForm);
                 editPostForm.classList.remove('hidden');
+                editPostFormTitle.classList.remove('hidden');
             }
 
             // Function to open the delete modal
@@ -171,6 +177,7 @@ postElement.addEventListener('click', async (e) => {
                 deleteModalSection.classList.remove('hidden');
                 deleteModalOverlay.classList.remove('hidden');
                 const deletePostForm = document.querySelector('#delete-post-form');
+                const deletePostTitle = document.querySelector('.delete-post-title');
 
                 // if the button is not there already, append it
                 if (!document.querySelector('.submit-delete-post')) {
@@ -182,6 +189,7 @@ postElement.addEventListener('click', async (e) => {
                 deleteModalSection.appendChild(deletePostForm);
                 deleteModalSection.appendChild(cancelButton);
                 deletePostForm.classList.remove('hidden');
+                deletePostTitle.classList.remove('hidden');
             }
 
             // Stop the modal from closing

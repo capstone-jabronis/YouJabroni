@@ -115,6 +115,7 @@ historyContainer.addEventListener('click', async (e) => {
                 modalOverlay.classList.remove("hidden");
                 const addForm = document.querySelector("#add-post-form");
                 const memeId = document.querySelector("#meme-id");
+                const formTitle = document.querySelector('.form-title');
                 memeId.value = item.id;
 
                 if(!document.querySelector('.description-input')) {
@@ -127,10 +128,13 @@ historyContainer.addEventListener('click', async (e) => {
                 }
                 addCaptionDiv.appendChild(addForm);
                 addForm.classList.remove("hidden");
+                formTitle.classList.remove('hidden');
             };
             const closeModal = function () {
                 modalSection.classList.add("hidden");
                 modalOverlay.classList.add("hidden");
+                const formTitle = document.querySelector('.form-title');
+                formTitle.classList.add('hidden');
             };
 
             addPostButton.addEventListener("click", function (event) {
