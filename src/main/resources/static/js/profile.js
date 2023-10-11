@@ -7,6 +7,7 @@ const itemsPerPage = 10; // Change this number according to your requirements
 let currentPage = 1;
 const profileLinks = document.querySelectorAll('.profile-link');
 
+
 historyContainer.addEventListener('click', async (e) => {
     e.preventDefault();
 
@@ -53,16 +54,16 @@ historyContainer.addEventListener('click', async (e) => {
             addPostButton.textContent = 'add';
             addPostButton.classList.add('add-post-btn', 'btn', 'btn-open');
             console.log("these are memesubmissions id", item.id)
-            for (let postID of USER_POST_ID){
+            for (let postID of USER_POST_ID) {
                 console.log("these are post ids", postID)
-                if (item.id === postID){
+                if (item.id === postID) {
                     addPostButton.style.display = "none"
                 }
             }
 
             // Create an image element for the meme_pic
             const imageElement = document.createElement('img');
-            imageElement.src = item.round.meme_pic;
+            imageElement.src = item.memeURL;
             imageElement.width = 300;
             imageElement.height = 180;
             imageElement.classList.add("jdImgCSS");
@@ -84,7 +85,7 @@ historyContainer.addEventListener('click', async (e) => {
             const addImgContainer = document.createElement('div');
             addImgContainer.classList.add('add-img-container');
             const addImg = document.createElement('img');
-            addImg.src = item.round.meme_pic;
+            addImg.src = item.memeURL;
             addImg.classList.add('add-img');
 
             // Create a container for the caption
@@ -125,13 +126,13 @@ historyContainer.addEventListener('click', async (e) => {
                 modalOverlay.classList.add("hidden");
             };
 
-            addPostButton.addEventListener("click", function(event) {
+            addPostButton.addEventListener("click", function (event) {
                 event.stopPropagation();
                 openModal(event);
             });
 
             // const description = document.querySelector("#description");
-            descriptionInput.addEventListener("click", function(event) {
+            descriptionInput.addEventListener("click", function (event) {
                 event.stopPropagation();
             });
 
@@ -159,15 +160,17 @@ historyContainer.addEventListener('click', async (e) => {
 
     // Render the current page
     renderPage(currentPage);
+
 });
 
-function handleLinkClicks (event) {
-    profileLinks.forEach(link => {
-        link.classList.remove('tab-clicked');
-    });
-    event.target.classList.add('tab-clicked');
-}
+    function handleLinkClicks(event) {
+        profileLinks.forEach(link => {
+            link.classList.remove('tab-clicked');
+        });
+        event.target.classList.add('tab-clicked');
+    }
 
-profileLinks.forEach(link => {
-    link.addEventListener('click', handleLinkClicks);
-})
+    profileLinks.forEach(link => {
+        link.addEventListener('click', handleLinkClicks);
+    })
+
