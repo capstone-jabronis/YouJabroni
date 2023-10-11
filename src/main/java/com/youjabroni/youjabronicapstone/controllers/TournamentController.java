@@ -46,10 +46,6 @@ public class TournamentController {
         this.roundDao = roundDao;
     };
 
-
-
-
-
     //MEME SUBMISSION FOR ROUNDS
     @GetMapping("/{id}/create")
     public String showCreateMemePage(@PathVariable long id, Model model) {
