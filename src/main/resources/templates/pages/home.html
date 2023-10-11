@@ -26,9 +26,15 @@
             <div class="leader-title row">
                 <h1>TOURNAMENTS</h1>
             </div>
-            <div class="jdTournamentEach" th:each="tournament : ${tournaments}">
-                <form class="row player name jdTournamentCSS" th:action="@{|/tournament/waiting-room/${tournament.id}|}">
-                    <p>TOURNAMENT <span th:text="${tournament.id}"></span></p>
+            <div>
+                <form id="create-tournament-form" th:action="@{/tournament/create-tournament}">
+                    <button type="submit">Host a Tournament!</button>
+                </form>
+            </div>
+            <div th:each="tournament : ${tournaments}">
+                <form class="row player name jdTournamentCSS" th:action="@{|/tournament/lobby/${tournament.id}|}">
+                    <p>TOURNAMENT ID: <span th:text="${tournament.id}"></span></p>
+
                     <p>PLAYERS: <span th:text="${#lists.size(tournament.userSet)}"></span>/8</p>
                     <button class="join-now" data-th-tournament="${tournament.id}" type="submit">Join Now!</button>
                 </form>

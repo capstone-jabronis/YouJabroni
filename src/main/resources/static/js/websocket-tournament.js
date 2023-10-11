@@ -30,6 +30,7 @@
     //GLOBAL VARIABLES////////////////////////////////
     //area to display users entering and leaving the room
     const UserWaitingRoom = document.querySelector('#users-in-room');
+    const leaveBtn = document.querySelector('#leave-lobby-btn');
     //Object to control various game statuses to update the page accordingly
     let gameController = {
         gameStart: false
@@ -57,20 +58,6 @@
             let socket = new SockJS("/secured/memespace-sock");
             Tournament.stompClient = Stomp.over(socket);
             Tournament.stompClient.connect(header, this.onConnected, this.onError)
-
-            // Tournament.stompClient = new StompJs.Client({
-            //     brokerURL: 'wss://localhost:8080/secured/memespace-sock',
-            //     connectHeaders: header,
-            //     debug(err) {
-            //         console.log(err);
-            //     }
-            // });
-            // console.log("right before connect with the csrf token");
-            // Tournament.stompClient.connect({'X-CSRF-TOKEN': csrfToken}, this.onConnected, this.onError);
-            // Tournament.stompClient.onConnect = this.onConnected;
-            // Tournament.stompClient.onStompError = this.onError;
-            // console.log("about to activate stomp client");
-            // Tournament.stompClient.activate();
         },
         onConnected() {
             console.log("inside onConnected");
@@ -82,44 +69,30 @@
         },
         enterRoom(tournamentId) {
             console.log("Inside enterRoom");
-            Tournament.topic = `/secured/app/tournament/waiting-room/${Tournament.tournamentId}`;
-            Tournament.currentSubscription = Tournament.stompClient.subscribe(`/secured/tournament/waiting-room/${Tournament.tournamentId}`, this.onMessageReceived);
+            Tournament.topic = `/secured/app/tournament/lobby/${Tournament.tournamentId}`;
+            Tournament.currentSubscription = Tournament.stompClient.subscribe(`/secured/tournament/lobby/${Tournament.tournamentId}`, this.onMessageReceived);
             let message = {
                 user: 'nic',
                 text: "User Joined Tournament!",
                 messageType: 'JOIN'
             }
             Tournament.stompClient.send(`${Tournament.topic}/userjoin`, {}, JSON.stringify(message));
-            // this.sendMessage();
         },
-        sendMessage() {
+        sendMessage(message) {
             console.log("Inside sendMessage");
-            Tournament.topic = `/secured/app/tournament/waiting-room/${Tournament.tournamentId}`;
-            if (gameController.gameStart) {
-                console.log("Game has started, sending MemeSubmssion");
-                let memeContent = Tournament.memeSubmission.val();
-                console.log(memeContent);
-                console.log("Tournament Stomp client: " + Tournament.stompClient);
+            console.log(message);
+            Tournament.topic = `/secured/app/tournament/lobby/${Tournament.tournamentId}`;
 
-                if (memeContent && Tournament.stompClient) {
-                    let memeSub = {
-                        text: memeContent,
-                        messageType: 'CHAT'
-                    };
+            if (Tournament.stompClient) {
+                Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(message));
 
-                    Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(memeSub));
+                if (message.messageType === 'LEAVE') {
+                    console.log('REDIRECT');
+                    window.location.replace("/tournament/lobby/leave");
                 }
 
-            } else if (!gameController.gameStart) {
-                console.log("In sendMessage function: Game has not started, tracking users in room...");
-                if (Tournament.stompClient) {
-                    let websocketMessage = {
-                        text: "User Joined Room!",
-                        messageType: 'JOIN'
-                    }
-                    Tournament.stompClient.send(`${Tournament.topic}/userjoin`, {}, JSON.stringify(websocketMessage));
-                }
             }
+
             // if (memeContent && Tournament.stompClient) {
             //     let memeSub = {
             //         text: memeContent,
@@ -136,11 +109,14 @@
             let message = JSON.parse(payload.body);
             console.log("Message received:");
             console.log(message);
-            await Render.reloadTournamentMembers();
+
             if (message.messageType === 'JOIN') {
-                Print.joinMessage("in conditional of recieve" + message);
+                console.log("in JOIN conditional");
+                await Render.reloadTournamentMembers('');
             } else if (message.messageType === 'LEAVE') {
-                Print.leaveMessage(message);
+                // Print.leaveMessage(message);
+                console.log("in LEAVE conditional")
+                await Render.reloadTournamentMembers(message.user);
             } else {
                 Print.chatMessage(message);
             }
@@ -167,13 +143,20 @@
     }
 
     const Render = {
-        async reloadTournamentMembers() {
+        async reloadTournamentMembers(userToRemove) {
             console.log("Calling Render.reloadTournamentMembers");
             let tournamentMembers = await Fetch.Get.tournamentMembers();
+            let tournamentHost = await Fetch.Get.tournamentHost();
             console.log(tournamentMembers);
+            console.log('HOST-----')
+            console.log(tournamentHost);
             UserWaitingRoom.innerHTML = "";
             for (let i = 0; i < tournamentMembers.length; i++) {
-                UserWaitingRoom.innerHTML += '<p>' + tournamentMembers[i].username + '<p>'
+                if (tournamentMembers[i].username === tournamentHost.username) {
+                    UserWaitingRoom.innerHTML += '<p>' + tournamentMembers[i].username + '  HOST<p>'
+                } else if (tournamentMembers[i].username !== userToRemove){
+                    UserWaitingRoom.innerHTML += '<p>' + tournamentMembers[i].username + '<p>'
+                }
             }
         }
     }
@@ -193,6 +176,20 @@
                     throw new Error(`Error retrieving User Set for Tournament`);
                 }
                 return await members.json();
+            },
+            //Get current host of the tournament
+            async tournamentHost() {
+                let host = await fetch(`/tournament/${Tournament.tournamentId}/host`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                if (!host.ok) {
+                    throw new Error(`Error retrieving User Set for Tournament`);
+                }
+                return await host.json();
             }
         }
     }
@@ -212,5 +209,15 @@
 
     Tournament.initialize();
 
+    //EVENT LISTENERS
+    leaveBtn.addEventListener('click', () => {
+        console.log('leave button clicked');
+        let message = {
+            user: currentUser.username,
+            text: 'USER HAS LEFT LOBBY',
+            messageType: 'LEAVE'
+        };
+        Socket.sendMessage(message);
+    })
 
 })();
