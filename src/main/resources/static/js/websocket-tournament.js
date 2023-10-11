@@ -31,6 +31,8 @@
     //area to display users entering and leaving the room
     const UserWaitingRoom = document.querySelector('#users-in-room');
     const leaveBtn = document.querySelector('#leave-lobby-btn');
+    const lobbyContainer = document.querySelector('.jdWaitContainer');
+    const startBtn = document.querySelector('#start-btn');
     //Object to control various game statuses to update the page accordingly
     let gameController = {
         gameStart: false
@@ -111,29 +113,15 @@
             console.log(message);
 
             if (message.messageType === 'JOIN') {
-                console.log("in JOIN conditional");
                 await Render.reloadTournamentMembers('');
             } else if (message.messageType === 'LEAVE') {
-                // Print.leaveMessage(message);
-                console.log("in LEAVE conditional")
                 await Render.reloadTournamentMembers(message.user);
-            } else {
-                Print.chatMessage(message);
+            } else if (message.messageType === 'START') {
+                Render.renderTournamentPage();
             }
         }
     }
 
-    const Print = {
-        joinMessage(message) {
-            console.log(`${message.sender.username} has joined the chat!`);
-        },
-        chatMessage(message) {
-            console.log(`${message.sender.username}: ${message.text}`);
-        },
-        leaveMessage(message) {
-            console.log(`${message.sender.username} left :(`);
-        }
-    }
     const Events = {
         async initialize() {
             //waits for socket to connect before moving on
@@ -147,18 +135,34 @@
             console.log("Calling Render.reloadTournamentMembers");
             let tournamentMembers = await Fetch.Get.tournamentMembers();
             let tournamentHost = await Fetch.Get.tournamentHost();
-            console.log(tournamentMembers);
-            console.log('HOST-----')
-            console.log(tournamentHost);
+
             UserWaitingRoom.innerHTML = "";
             for (let i = 0; i < tournamentMembers.length; i++) {
                 if (tournamentMembers[i].username === tournamentHost.username) {
                     UserWaitingRoom.innerHTML += '<p>' + tournamentMembers[i].username + '  HOST<p>'
-                } else if (tournamentMembers[i].username !== userToRemove){
+                } else if (tournamentMembers[i].username !== userToRemove.username) {
+                    console.log(userToRemove);
                     UserWaitingRoom.innerHTML += '<p>' + tournamentMembers[i].username + '<p>'
                 }
             }
+            //to render start button when members reach required amount for game
+            if (tournamentMembers.length !== 2) {
+                startBtn.style.visibility = "hidden";
+            } else if (tournamentMembers.length === 2 && currentUser.username === tournamentHost.username) {
+                startBtn.style.visibility = "visible";
+            }
+        },
+        renderTournamentPage(){
+            console.log("Render page for tourny");
+            lobbyContainer.innerHTML = `
+<div>MEME IMAGE</div>
+</br>
+<div><input type="text" placeholder="ENTER YOUR CAPTION"></div>
+</br>
+<div><button class="submit-caption-btn">SUBMIT CAPTION</button></div>                
+`;
         }
+
     }
 
     const Fetch = {
@@ -217,6 +221,26 @@
             text: 'USER HAS LEFT LOBBY',
             messageType: 'LEAVE'
         };
+        Socket.sendMessage(message);
+    })
+    startBtn.addEventListener('click', async () =>{
+        console.log('Start button clicked')
+        let host = await Fetch.Get.tournamentHost();
+        let message;
+        if(currentUser.username == host.username){
+             message = {
+                user: currentUser.username,
+                text: 'GAME START',
+                messageType: 'START'
+            };
+        } else {
+            console.log('Error: current user is not host');
+            message = {
+                user: currentUser.username,
+                text: 'Host check failed, rendering page again',
+                messageType: 'JOIN'
+            }
+        }
         Socket.sendMessage(message);
     })
 
