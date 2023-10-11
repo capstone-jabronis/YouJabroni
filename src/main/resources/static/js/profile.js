@@ -22,24 +22,6 @@ historyContainer.addEventListener('click', async (e) => {
     if (!results.ok) {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }
-    console.log(data2)
-
-});
-
-historyContainer.addEventListener('click', async (e) => {
-    e.preventDefault();
-
-    let results = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken2
-        }
-    });
-    const data2 = await results.json();
-    if (!results.ok) {
-        throw new Error(`HTTP error! Status: ${results.status}`);
-    }
 
     // Function to render items for the current page
     function renderPage(page) {
