@@ -498,16 +498,16 @@ body {
 
 /************************************************ Edit Profile Page ***********************************************/
 
-.edit-form-container {
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--third);
-    height: 45rem;
-    width: 60rem;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
-    border-radius: 2rem;
-}
+/*.edit-form-container {*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    background-color: var(--third);*/
+/*    height: 45rem;*/
+/*    width: 60rem;*/
+/*    margin-top: 5rem;*/
+/*    margin-bottom: 5rem;*/
+/*    border-radius: 2rem;*/
+/*}*/
 
 .edit-form-title {
     font-size: 2rem;
@@ -617,6 +617,18 @@ body {
 .back-to-profile {
     text-decoration: none;
 }
+.edit-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--third);
+    height: 40rem;
+    width: 60rem;
+    /*margin-top: 5rem;*/
+    /*margin-bottom: 5rem;*/
+    border-radius: 2rem;
+}
+
 
 /***************** START OF MODAL FOR ADDING POSTS **********************/
 
