@@ -40,11 +40,17 @@
     //Object to control various game statuses to update the page accordingly
     let gameController = {
         submittedMemes: 0,
+        currentMemeSubmissions: [],
         activePlayers: [],
         currentRoundPlayers: [],
         eliminatedPlayers: [],
         activePlayerIndex: 0,
         gameComplete: false,
+        meme1votes: 0,
+        meme2votes: 0,
+        tieBreakerFunction(){
+            //random method here to vote during a tie
+        }
     }
 
 
@@ -139,8 +145,15 @@
                 gameController.submittedMemes += 1;
                 if(gameController.submittedMemes === 2){
                     console.log("Both players have submitted memes, rendering vote page!")
-                    //render vote page
+                    gameController.submittedMemes = 0;
+                    let user1 = gameController.currentRoundPlayers[0];
+                    let user2 = gameController.currentRoundPlayers[1];
+                    Render.renderVotePage(user1, user2);
                 }
+            } else {
+                console.log("In else for onmessagerecieved: ")
+                console.log(message);
+                gameController.currentMemeSubmissions.push(message);
             }
         }
     }
@@ -175,6 +188,7 @@
                 startBtn.style.visibility = "visible";
             }
         },
+
         async renderTournamentPage() {
             console.log("Render page for tourny");
             startBtn.style.visibility = "hidden";
@@ -182,9 +196,9 @@
             <div class="jdCreateContainer">
         <div class="jdCreateRow">
             <div class="jdCreateCol">
-                <h1 class="jdrounds">
-                    ROUND # <span>10000000</span>
-                </h1>
+<!--                <h1 class="jdrounds">-->
+<!--                    ROUND # <span>10000000</span>-->
+<!--                </h1>-->
                 <h1 class="jdtime">
                     :TIME
                 </h1>
@@ -228,9 +242,23 @@
                 submitMemeBtn.innerHTML = 'Caption Submitted!';
             })
         },
+
         renderVotePage(user1, user2){
             lobbyContainer.innerHTML = `<h1>VOTE PAGE YO</h1>
-<h2>${user1.username} VS ${user2.username}</h2>`
+<h2>${user1} VS ${user2}</h2>
+<div>
+<img src="${gameController.currentMemeSubmissions[0].memeURL}"><span>${gameController.currentMemeSubmissions[0].caption}</span>
+<button>Vote for 1</button>
+</div>
+<div>
+<img src="${gameController.currentMemeSubmissions[1].memeURL}"><span>${gameController.currentMemeSubmissions[1].caption}</span>
+<button>Vote for 2</button>
+</div>
+
+</br>
+
+`
+            console.log(gameController.currentMemeSubmissions[0]);
         }
 
     }
