@@ -63,7 +63,7 @@
                     // Create the post image
                     const postFeedImage = document.createElement('img');
                     postFeedImage.classList.add('post-feed-image');
-                    postFeedImage.src = post.memeSubmission.round.meme_pic;
+                    postFeedImage.src = post.memeSubmission.memeURL;
                     postFeedImage.width = 300;
                     postFeedImage.height = 180;
                     postFeedCard.appendChild(postFeedImage);
