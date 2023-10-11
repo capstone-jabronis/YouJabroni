@@ -1,6 +1,7 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youjabroni.youjabronicapstone.models.*;
 
 import com.youjabroni.youjabronicapstone.models.Tournament;
@@ -38,13 +39,12 @@ public class TournamentController {
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
 
-    @Autowired
     public TournamentController(TournamentRepository tournamentDao, UserRepository userDao, MemeSubmissionRepository memeSubmissionDao, RoundRepository roundDao) {
         this.tournamentDao = tournamentDao;
         this.userDao = userDao;
         this.memeSubmissionDao = memeSubmissionDao;
         this.roundDao = roundDao;
-    }{}
+    };
 
 
 
@@ -106,6 +106,24 @@ public class TournamentController {
         System.out.println("----------In Meme Method---------");
         System.out.println(message.getMessageType());
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
+
+        MemeSubmission submittedMeme = new MemeSubmission();
+        User user = userDao.findByUsername(message.getUser());
+
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
+        submittedMeme.setCaption(message.getText());
+        submittedMeme.setMemeURL(message.getMemeURL());
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
+        memeSubmissionDao.save(submittedMeme);
+        List<MemeSubmission> submissions = user.getMemeSubmissions();
+        submissions.add(submittedMeme);
+        user.setMemeSubmissions(submissions);
+        userDao.save(user);
+        submittedMeme.setUser(user);
+        memeSubmissionDao.save(submittedMeme);
     }
 //End websocket stuff/////////////////////////////////
 
