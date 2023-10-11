@@ -29,16 +29,19 @@
 (() => {
     //GLOBAL VARIABLES////////////////////////////////
     //area to display users entering and leaving the room
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+
     const UserWaitingRoom = document.querySelector('#users-in-room');
     const leaveBtn = document.querySelector('#leave-lobby-btn');
     const lobbyContainer = document.querySelector('.jdWaitContainer');
     const startBtn = document.querySelector('#start-btn');
+    //MEME API VARIABLES//////////////////////////////////
+    let memeApiURL = "https://api.imgflip.com/get_memes";
     //Object to control various game statuses to update the page accordingly
     let gameController = {
         gameStart: false
     }
 
-    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 
     const Tournament = {
         csrfToken: document.querySelector('meta[name="_csrf"]').getAttribute('content'),
@@ -76,6 +79,7 @@
             let message = {
                 user: 'nic',
                 text: "User Joined Tournament!",
+                memeURL: '',
                 messageType: 'JOIN'
             }
             Tournament.stompClient.send(`${Tournament.topic}/userjoin`, {}, JSON.stringify(message));
@@ -86,7 +90,12 @@
             Tournament.topic = `/secured/app/tournament/lobby/${Tournament.tournamentId}`;
 
             if (Tournament.stompClient) {
-                Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(message));
+                if (message.messageType === 'DATA') {
+                    Tournament.stompClient.send(`${Tournament.topic}/meme`, {}, JSON.stringify(message));
+                } else {
+                    Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(message));
+                }
+
 
                 if (message.messageType === 'LEAVE') {
                     console.log('REDIRECT');
@@ -118,6 +127,9 @@
                 await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
                 Render.renderTournamentPage();
+            } else if (message.messageType === 'DATA') {
+                console.log('meme submitted!');
+                console.log(message);
             }
         }
     }
@@ -152,15 +164,56 @@
                 startBtn.style.visibility = "visible";
             }
         },
-        renderTournamentPage(){
+        async renderTournamentPage() {
             console.log("Render page for tourny");
+            startBtn.style.visibility = "hidden";
             lobbyContainer.innerHTML = `
-<div>MEME IMAGE</div>
-</br>
-<div><input type="text" placeholder="ENTER YOUR CAPTION"></div>
-</br>
-<div><button class="submit-caption-btn">SUBMIT CAPTION</button></div>                
+            <div class="jdCreateContainer">
+        <div class="jdCreateRow">
+            <div class="jdCreateCol">
+                <h1 class="jdrounds">
+                    ROUND # <span>10000000</span>
+                </h1>
+                <h1 class="jdtime">
+                    :TIME
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="jdCreateImgContainer">
+        <div class="jdCreateImgRow">
+            <div class="jdCreateImgCol">
+                <img class="memeAPIImage" src="" alt="WRITE SOMETHING FUNNY JABRONI">
+            </div>
+        </div>
+    </div>
+
+    <div class="jdCreateInputContainer">
+        <div class="jdCreateInputRow">
+            <div class="jdCreateInputCol">
+                    <input type="text" id="memeCaption" placeholder="Enter Your Meme Submission">
+                    <button id="submitMemeCaptionBtn" type="submit">Submit Caption</button>
+            </div>
+        </div>
+    </div>
 `;
+           await Fetch.Get.getMeme();
+            let submitMemeBtn = document.querySelector('#submitMemeCaptionBtn');
+
+            submitMemeBtn.addEventListener('click', () => {
+                let memeCaption = document.querySelector('#memeCaption').value
+                console.log("meme caption: " +memeCaption);
+                let memeUrl = document.querySelector('.memeAPIImage').getAttribute("src")
+                console.log("meme URL: " + memeUrl);
+                console.log('submit btn clicked');
+                let message = {
+                    user: currentUser.username,
+                    text: memeCaption,
+                    memeURL: memeUrl,
+                    messageType: 'DATA'
+                };
+                Socket.sendMessage(message);
+            })
         }
 
     }
@@ -194,6 +247,27 @@
                     throw new Error(`Error retrieving User Set for Tournament`);
                 }
                 return await host.json();
+            },
+
+            async getMeme() {
+                console.log("Getting Meme");
+                let imageContainer = document.querySelector(".memeAPIImage");
+                try {
+                    const response = await fetch(memeApiURL);
+                    const data = await response.json();
+                    console.log(data)
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+
+                    const memes = data.data.memes;
+                    const randomMeme = memes[Math.floor(Math.random() * memes.length)];
+                    const imageUrl = randomMeme.url;
+
+                    imageContainer.src = imageUrl;
+                } catch (error) {
+                    console.error('Error fetching meme:', error);
+                }
             }
         }
     }
@@ -211,7 +285,6 @@
 //     }
 // )
 
-    Tournament.initialize();
 
     //EVENT LISTENERS
     leaveBtn.addEventListener('click', () => {
@@ -219,18 +292,21 @@
         let message = {
             user: currentUser.username,
             text: 'USER HAS LEFT LOBBY',
+            memeURL: '',
             messageType: 'LEAVE'
         };
         Socket.sendMessage(message);
     })
-    startBtn.addEventListener('click', async () =>{
+
+    startBtn.addEventListener('click', async () => {
         console.log('Start button clicked')
         let host = await Fetch.Get.tournamentHost();
         let message;
-        if(currentUser.username == host.username){
-             message = {
+        if (currentUser.username == host.username) {
+            message = {
                 user: currentUser.username,
                 text: 'GAME START',
+                memeURL: '',
                 messageType: 'START'
             };
         } else {
@@ -238,10 +314,13 @@
             message = {
                 user: currentUser.username,
                 text: 'Host check failed, rendering page again',
+                memeURL: '',
                 messageType: 'JOIN'
             }
         }
         Socket.sendMessage(message);
     })
+
+    Tournament.initialize();
 
 })();

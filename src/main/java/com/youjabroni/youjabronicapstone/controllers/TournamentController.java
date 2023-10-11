@@ -73,10 +73,6 @@ public class TournamentController {
     }
 
 
-
-
-
-
     //Websocket stuff////////////////////////////
     @MessageMapping("/tournament/lobby/{tournamentId}/userjoin")
     public void joinMessage(@DestinationVariable Long tournamentId, @Payload Message joinMessage) throws JsonProcessingException {
@@ -102,7 +98,13 @@ public class TournamentController {
     public void sendMessage(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
         System.out.println("----------In sendMessage method---------");
         System.out.println(message.getMessageType());
-//        message.setMessageType(Message.MessageType.JOIN);
+        messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
+    }
+
+    @MessageMapping("/tournament/lobby/{tournamentId}/meme")
+    public void memeMapping(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
+        System.out.println("----------In Meme Method---------");
+        System.out.println(message.getMessageType());
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
     }
 //End websocket stuff/////////////////////////////////

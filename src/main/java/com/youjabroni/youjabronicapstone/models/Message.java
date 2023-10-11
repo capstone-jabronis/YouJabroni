@@ -7,18 +7,21 @@ public class Message {
     private MessageType messageType;
     private String user;
     private String text;
+    private String memeURL;
 
     public Message(){}
 
-    public Message(String user, String text) {
+    public Message(String user, String text, String memeURL) {
         this.user = user;
         this.text = text;
+        this.memeURL = memeURL;
     }
 
-    public Message(MessageType messageType, String user, String text) {
+    public Message(MessageType messageType, String user, String text, String memeURL) {
         this.messageType = messageType;
         this.user = user;
         this.text = text;
+        this.memeURL = memeURL;
     }
 
     public String getUser() {
@@ -37,7 +40,13 @@ public class Message {
         this.messageType = messageType;
     }
 
+    public String getMemeURL() {
+        return memeURL;
+    }
 
+    public void setMemeURL(String memeURL) {
+        this.memeURL = memeURL;
+    }
 
     public String getText() {
         return text;
