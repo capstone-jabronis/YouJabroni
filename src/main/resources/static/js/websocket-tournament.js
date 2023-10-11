@@ -39,7 +39,12 @@
     let memeApiURL = "https://api.imgflip.com/get_memes";
     //Object to control various game statuses to update the page accordingly
     let gameController = {
-        gameStart: false
+        submittedMemes: 0,
+        activePlayers: [],
+        currentRoundPlayers: [],
+        eliminatedPlayers: [],
+        activePlayerIndex: 0,
+        gameComplete: false,
     }
 
 
@@ -119,17 +124,23 @@
             console.log("Inside onMessageReceived!");
             let message = JSON.parse(payload.body);
             console.log("Message received:");
-            console.log(message);
-
             if (message.messageType === 'JOIN') {
                 await Render.reloadTournamentMembers('');
             } else if (message.messageType === 'LEAVE') {
                 await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
-                Render.renderTournamentPage();
+                await Render.renderTournamentPage();
+                gameController.activePlayers = await Fetch.Get.tournamentMembers();
+                console.log(gameController.activePlayers);
             } else if (message.messageType === 'DATA') {
                 console.log('meme submitted!');
                 console.log(message);
+                gameController.currentRoundPlayers.push(message.user);
+                gameController.submittedMemes += 1;
+                if(gameController.submittedMemes === 2){
+                    console.log("Both players have submitted memes, rendering vote page!")
+                    //render vote page
+                }
             }
         }
     }
@@ -213,7 +224,13 @@
                     messageType: 'DATA'
                 };
                 Socket.sendMessage(message);
+                submitMemeBtn.disabled = true;
+                submitMemeBtn.innerHTML = 'Caption Submitted!';
             })
+        },
+        renderVotePage(user1, user2){
+            lobbyContainer.innerHTML = `<h1>VOTE PAGE YO</h1>
+<h2>${user1.username} VS ${user2.username}</h2>`
         }
 
     }

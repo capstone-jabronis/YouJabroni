@@ -105,6 +105,7 @@ public class TournamentController {
     public void memeMapping(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
         System.out.println("----------In Meme Method---------");
         System.out.println(message.getMessageType());
+
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
     }
 //End websocket stuff/////////////////////////////////
