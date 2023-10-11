@@ -55,6 +55,7 @@ public class SecurityConfiguration {
                         "/*/profile/edit/password",
                         "/profile/likes",
                         "/*/memeSubmission"
+                        ,"tournament/{id}/create"
 
                 ).authenticated()
                 .and()
@@ -70,6 +71,10 @@ public class SecurityConfiguration {
                         "/leaderboard",
                         "/*/profile/posts",
                         "/users"
+
+
+
+
                 ).permitAll();
         return http.build();
 

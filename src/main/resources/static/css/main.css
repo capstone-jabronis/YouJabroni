@@ -869,3 +869,88 @@ body {
 }
 
 /*===============     END OF WAITING ROOM     ===============*/
+
+
+/*===============     CREATE MEME     ===============*/
+
+.jdCreateContainer{
+    position: relative;
+    height: 10vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.jdCreateRow{
+
+}
+.jdCreateCol{
+    justify-content: space-between;
+}
+.jdrounds {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.jdtime {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.jdCreateImgContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+.jdCreateImgRow{
+
+}
+.jdCreateImgCol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%; /* Adjust the width as needed */
+    height: 80%; /* Adjust the height as needed */
+    overflow: hidden;
+}
+.jdCreateImgCol img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+.jdCreateInputContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.jdCreateInputRow{
+
+}
+.jdCreateInputCol{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#memeCaption{
+    width: 70vw;
+    padding: 1.5%;
+    margin-bottom: 10px;
+}
+#submitMemeCaptionBtn{
+    background-color: #9F8BFF;
+    color: white;
+    padding: 10px 20px; /* Adjust padding to your preference */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*===============     END OF CREATE MEME     ===============*/
