@@ -1,9 +1,12 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.youjabroni.youjabronicapstone.models.*;
+
 import com.youjabroni.youjabronicapstone.models.Tournament;
 import com.youjabroni.youjabronicapstone.models.User;
 import com.youjabroni.youjabronicapstone.models.Message;
+
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.RoundRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 import static java.lang.String.format;
@@ -40,13 +44,38 @@ public class TournamentController {
         this.userDao = userDao;
         this.memeSubmissionDao = memeSubmissionDao;
         this.roundDao = roundDao;
-    }
+    }{}
 
-    @GetMapping("/create")
-    public String showCreateMemePage(Model model) {
 
+
+
+
+    //MEME SUBMISSION FOR ROUNDS
+    @GetMapping("/{id}/create")
+    public String showCreateMemePage(@PathVariable long id, Model model) {
+        //will eventually implement specific round num
+        Tournament tournament = tournamentDao.findById(1L).get();
+        List<Round> tournamentRounds =  tournament.getRounds();
+        System.out.println("heres something dude " + tournamentRounds.get(1).getRound_num());
+        model.addAttribute("tournament", tournament);
+        model.addAttribute("user", userDao.findById(id).get());
+        model.addAttribute("meme", new MemeSubmission());
         return "tournament/create-meme";
     }
+    @PostMapping("/{id}/create")
+    public String saveMemeSubmission(@PathVariable long id, @ModelAttribute MemeSubmission meme){
+        User user = userDao.findById(id).get();
+        Round round = roundDao.findById(meme.getRound().getId()).orElse(null);
+        meme.setUser(user);
+        meme.setRound(round);
+        memeSubmissionDao.save(meme);
+        return "redirect:/vote";
+    }
+
+
+
+
+
 
     //Websocket stuff////////////////////////////
     @MessageMapping("/tournament/lobby/{tournamentId}/userjoin")

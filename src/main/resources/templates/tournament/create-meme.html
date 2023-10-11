@@ -1,23 +1,62 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <div  th:replace="partials/partials :: head(title='Create-Meme')">
+    <div th:replace="partials/partials :: head(title='Create-Meme')">
 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
+            integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
+            integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 <div class="page-wrapper" name="_csrf" data-th-content="${_csrf.token}">
-    <h1>This is the page where the player will be presented with a meme picture, and they have to enter a caption in the
-        input field</h1>
-    <form>
-    <input type="text" id="memeCaption">
-        <button id="submitMemeCaptionBtn"type="submit">Submit Caption</button>
-    </form>
+
+
+    <!--    HERE IS THE ROUND WILL EVENTUALLY FIND OUT HOW TO DO IT BY TOURNAMENT CONTROLLER WITH THE TIMER WILL FIGURE THAT OUT LATER AS WELLL -->
+
+    <div class="jdCreateContainer">
+        <div class="jdCreateRow">
+            <div class="jdCreateCol">
+                <h1 class="jdrounds">
+                    ROUND # <span th:value="${round}" th:text="${round.getRounds().get(1).getRound_num()}"></span>
+                </h1>
+                <h1 class="jdtime">
+                    :TIME
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="jdCreateImgContainer">
+        <div class="jdCreateImgRow">
+            <div class="jdCreateImgCol">
+                <img class="memeAPIImage" src="" alt="WRITE SOMETHING FUNNY JABRONI">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="jdCreateInputContainer">
+        <div class="jdCreateInputRow">
+            <div class="jdCreateInputCol">
+<!--                <form class="input-form">-->
+<!--                    <input th:field="${caption}" type="text" id="memeCaption" placeholder="Enter Your Meme Submission">-->
+<!--                    <button id="submitMemeCaptionBtn" type="submit">Submit Caption</button>-->
+<!--                </form>-->
+                <form class="input-form" th:action="@{/${id}/create}" th:method="POST" th:object="meme" >
+                    <input th:field="${meme.caption}" type="text" id="memeCaption" placeholder="Enter Your Meme Submission">
+                    <input type="hidden" th:object="tournament" th:value="">
+                </form>
+
+            </div>
+        </div>
+    </div>
 
 </div>
 <script th:src="@{/js/tournament.js}"></script>
 <!--<script th:src="@{/js/websocket-tournament.js}"></script>-->
+<script th:src="@{/js/memeAPI.js}"></script>
 
 </body>
 </html>
