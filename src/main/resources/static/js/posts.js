@@ -37,7 +37,7 @@ postElement.addEventListener('click', async (e) => {
 
             // Create an image element for the meme_pic
             const postImg = document.createElement('img');
-            postImg.src = post.memeSubmission.round.meme_pic;
+            postImg.src = post.memeSubmission.memeURL;
             postImg.width = 300;
             postImg.height = 180;
             postImg.classList.add('post-img');
