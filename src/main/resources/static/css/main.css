@@ -234,7 +234,7 @@ body {
 
 .history-head {
     background-color: #9F8BFF;
-    height: 55px!important;
+    height: 55px !important;
     width: 350px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -408,22 +408,25 @@ body {
 .post:hover {
     color: #343CFF;;
 }
-.jdTournamentEach{
+
+.jdTournamentEach {
     border-bottom: solid #428bca;
     align-content: center;
     padding: .1%;
 }
-.jdTournamentEach form{
+
+.jdTournamentEach form {
     align-items: center;
 }
 
-.join-now{
+.join-now {
     background-color: #343CFF;
     color: white;
     border-radius: 25%;
     padding: .2%;
 }
-.jdTournamentCreateButton{
+
+.jdTournamentCreateButton {
     margin-top: .5%;
     width: inherit;
     background-color: #0D0149;
@@ -516,7 +519,7 @@ body {
 }
 
 .changePassword {
-    display:flex;
+    display: flex;
     align-items: center;
     font-family: inherit;
     font-weight: 500;
@@ -530,6 +533,7 @@ body {
     letter-spacing: 0.05em;
     border-radius: 16px;
 }
+
 .changePassword:hover {
     cursor: pointer;
 }
@@ -553,7 +557,7 @@ body {
 }
 
 .changeProfileImg {
-    display:flex;
+    display: flex;
     align-items: center;
     font-family: inherit;
     font-weight: 500;
@@ -567,13 +571,16 @@ body {
     border-radius: 16px;
     margin: 10px;
 }
+
 .changeProfileImg:hover {
     cursor: pointer;
 }
+
 .submit-mods-btn {
     width: 20rem;
     margin: 0 0 10px 0;
 }
+
 .submit-mods-btn:hover {
     background-color: black;
     text-decoration-color: white;
@@ -585,12 +592,14 @@ body {
     background-color: white;
     margin: 4px 0;
 }
+
 .bar.left {
     transform: rotate(45deg);
     position: fixed;
     top: 35%;
     right: 35%;
 }
+
 .bar.right {
     transform: rotate(-45deg);
     position: fixed;
@@ -601,6 +610,7 @@ body {
 .back-to-profile {
     text-decoration: none;
 }
+
 /***************** START OF MODAL FOR ADDING POSTS **********************/
 
 .post-modal {
@@ -724,7 +734,7 @@ body {
 
 .post-head {
     background-color: #9F8BFF;
-    height: 55px!important;
+    height: 55px !important;
     width: 350px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -798,27 +808,32 @@ body {
 /*===============     END OF LANDING PAGE     ===============*/
 
 /*===============     FEED     ===============*/
-.jdMemesContainer{
+.jdMemesContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
-.jdMemeContainer{
+
+.jdMemeContainer {
     border: solid black;
     background-color: #9F8BFF;
     margin: 5px;
 }
-.jdMemeImage{
+
+.jdMemeImage {
     border-bottom: solid black;
 }
-.jdMemeCaption{
+
+.jdMemeCaption {
     text-align: center;
 }
-.jdFeedJustifyCenter{
+
+.jdFeedJustifyCenter {
     display: flex;
     justify-content: center;
 }
-.jdFeedCenterButtons{
+
+.jdFeedCenterButtons {
     display: flex;
     justify-content: center;
 }
@@ -827,21 +842,24 @@ body {
 
 /*===============     WAITING ROOM     ===============*/
 
-.jdWaitTitleContainer{
+.jdWaitTitleContainer {
     display: flex;
     flex-wrap: wrap;
     color: #9F8BFF;
     border-bottom: #428bca;
     justify-content: center;
 }
-.jdWaitTitleRow{
+
+.jdWaitTitleRow {
     justify-content: center;
 }
-.jdWaitTitleCol{
+
+.jdWaitTitleCol {
     display: flex;
     justify-content: center;
 }
-.jdWaitContainer{
+
+.jdWaitContainer {
     margin-bottom: 2%;
     margin-right: 2%;
     margin-left: 2%;
@@ -849,24 +867,29 @@ body {
     align-items: center;
 
 }
-.jdWaitRow{
+
+.jdWaitRow {
     display: flex;
     flex-wrap: wrap;
 }
-.jdWaitColUl{
+
+.jdWaitColUl {
     flex: 1;
     padding: 20px;
     background-color: #f2f2f2;
 }
-.jdWaitColCanvas{
+
+.jdWaitColCanvas {
     flex: 1;
     padding: 20px;
     background-color: #e0e0e0;
 }
+
 #snakeGame {
     max-width: 100%; /* Ensure the canvas doesn't exceed its container */
     height: auto;
 }
+
 @media (max-width: 768px) {
     /* Adjust styles for smaller screens here */
     .jdWaitColUl, .jdWaitColCanvas {
@@ -874,6 +897,7 @@ body {
         padding: 10px; /* Reduce padding on small screens */
     }
 }
+
 @media (min-width: 1201px) {
     .jdWaitContainer {
         height: 120vh; /* Adjust the height as needed */
@@ -885,78 +909,43 @@ body {
 
 /*===============     CREATE MEME     ===============*/
 
-.jdCreateContainer{
-    position: relative;
-    height: 10vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding-left: 20px;
-    padding-right: 20px;
+.memeAPIImage{
+    width: 450px;
+    height: 450px;
+    object-fit: contain;
 }
-.jdCreateRow{
 
-}
-.jdCreateCol{
-    justify-content: space-between;
-}
-.jdrounds {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.jdtime {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-.jdCreateImgContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
-}
-.jdCreateImgRow{
 
-}
-.jdCreateImgCol{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%; /* Adjust the width as needed */
-    height: 80%; /* Adjust the height as needed */
-    overflow: hidden;
-}
-.jdCreateImgCol img{
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-}
-.jdCreateInputContainer{
+.jdCreateInputContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 }
-.jdCreateInputRow{
+
+.jdCreateInputRow {
 
 }
-.jdCreateInputCol{
+
+.jdCreateInputCol {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .input-form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-#memeCaption{
+
+#memeCaption {
     width: 70vw;
     padding: 1.5%;
     margin-bottom: 10px;
 }
-#submitMemeCaptionBtn{
+
+#submitMemeCaptionBtn {
     background-color: #9F8BFF;
     color: white;
     padding: 10px 20px; /* Adjust padding to your preference */
