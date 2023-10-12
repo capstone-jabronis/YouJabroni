@@ -70,7 +70,8 @@ public class SecurityConfiguration {
                         "/tournaments/api",
                         "/leaderboard",
                         "/*/profile/posts",
-                        "/users"
+                        "/users",
+                        "/keys.js"
 
 
 
