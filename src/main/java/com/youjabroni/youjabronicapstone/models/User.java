@@ -2,9 +2,6 @@ package com.youjabroni.youjabronicapstone.models;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 //import javax.persistence.*;
 import lombok.Getter;
@@ -41,13 +38,15 @@ public class User {
     @JsonIgnore
     private List<Post> posts;
 
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tournament_id")
     @JsonIgnore
     private Tournament tournament;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
-    private List<Like> likes;
+    @ManyToMany(cascade = CascadeType.PERSIST, mappedBy = "userLikes")
+    @JsonIgnore
+    private List<Post> likedPosts;
   
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "winner")
@@ -204,7 +203,14 @@ public class User {
         this.posts = posts;
     }
 
-    public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, List<Post> posts, Tournament tournament, List<Like> likes, List<Tournament> tournamentsWon) {
+    public List<Post> getLikedPosts() {
+        return likedPosts;
+    }
+    public void setLikedPosts(List<Post> likedPosts) {
+        this.likedPosts = likedPosts;
+    }
+
+    public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, List<Post> posts, Tournament tournament, List<Post> likedPosts, List<Tournament> tournamentsWon) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -213,9 +219,11 @@ public class User {
         this.memeSubmissions = memeSubmissions;
         this.posts = posts;
         this.tournament = tournament;
-        this.likes = likes;
+        this.likedPosts = likedPosts;
         this.tournamentsWon = tournamentsWon;
     }
+
+
 
 //    @Override
 //    public String toString() {

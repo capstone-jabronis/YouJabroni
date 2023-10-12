@@ -54,8 +54,10 @@
         submittedMemes: 0,
         currentMemeSubmissions: [],
         currentRoundPlayers: [],
+        votingPlayers: [],
+        activePlayers: [],
         eliminatedPlayers: [],
-        activePlayerIndexTracker: 0,
+        indexTracker: 0,
         gameComplete: false,
         meme1votes: 0,
         meme2votes: 0,
@@ -146,16 +148,34 @@
             } else if (message.messageType === 'LEAVE') {
                 await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
-                let activePlayers = await Fetch.Get.tournamentMembers();
-                activePlayers.sort(function (a, b) {
+                gameController.activePlayers = await Fetch.Get.tournamentMembers();
+                gameController.activePlayers.sort(function(a, b) {
+
                     return (a.id - b.id);
                 });
                 console.log('logging active players in START');
-                console.log(activePlayers);
+                console.log(gameController.activePlayers);
                 // console.log('ACTIVE PLAYERS:-------');
                 // console.log(gameController.activePlayers);
-                gameController.currentRoundPlayers.push(activePlayers[0].username);
-                gameController.currentRoundPlayers.push(activePlayers[1].username);
+                gameController.currentRoundPlayers = [];
+                gameController.currentRoundPlayers.push(gameController.activePlayers[0 + gameController.indexTracker].username);
+                gameController.currentRoundPlayers.push(gameController.activePlayers[1 + gameController.indexTracker].username);
+                console.log("logging current round players in START---")
+                console.log(gameController.currentRoundPlayers);
+                //adds remaining players to votingPlayers
+                gameController.votingPlayers = [];
+                let n = 0;
+                for(let i = 0; i < gameController.activePlayers.length; i++){
+                    console.log(gameController.currentRoundPlayers[n] + " " + gameController.activePlayers[i].username);
+                    if(gameController.currentRoundPlayers[n] === gameController.activePlayers[i].username){
+                        console.log("SKIP");
+                        n++;
+                    }else{
+                        gameController.votingPlayers.push(gameController.activePlayers[i]);
+                    }
+                }
+                console.log('Check voting players')
+                console.log(gameController.votingPlayers);
                 console.log("--CURRENT USER FOR GAME CONTROLLER CHECK--")
                 console.log(currentUser);
                 console.log('--current Round players--');
@@ -176,6 +196,19 @@
                     let user1 = gameController.currentRoundPlayers[0];
                     let user2 = gameController.currentRoundPlayers[1];
                     Render.renderVotePage(user1, user2);
+                }
+            } else if(message.messageType === 'VOTE'){
+                if(message.text === "1"){
+                    gameController.meme1votes += 1;
+                    console.log(gameController.meme1votes);
+                } else if (message.text === "2"){
+                    gameController.meme2votes += 1;
+                    console.log(gameController.meme2votes);
+                }
+                //check if all users voted
+                if((gameController.meme1votes + gameController.meme2votes) === gameController.votingPlayers.length){
+                    //Render results page
+                    Render.renderResultsPage();
                 }
             } else {
                 gameController.currentMemeSubmissions.push(message);
@@ -300,26 +333,90 @@
 
         renderVotePage(user1, user2) {
             lobbyContainer.innerHTML = `<h1>VOTE PAGE YO</h1>
-<h2>${user1} VS ${user2}</h2>
-<div>
-<img src="${gameController.currentMemeSubmissions[0].memeURL}"><span>${gameController.currentMemeSubmissions[0].caption}</span>
-<button>Vote for 1</button>
-</div>
-<div>
-<img src="${gameController.currentMemeSubmissions[1].memeURL}"><span>${gameController.currentMemeSubmissions[1].caption}</span>
-<button>Vote for 2</button>
-</div>
+            <h2>${user1} VS ${user2}</h2>
+            <h3 id="vote-status"></h3>
+            <div class="div-meme-vote">
+                <img src="${gameController.currentMemeSubmissions[0].memeURL}"><span>${gameController.currentMemeSubmissions[0].caption}</span>
+                <button id="vote-meme1">Vote for 1</button>
+                <div id="meme1-votes"></div>
+            </div>
+            <div class="div-meme-vote">
+                <img src="${gameController.currentMemeSubmissions[1].memeURL}"><span>${gameController.currentMemeSubmissions[1].caption}</span>
+                <button id="vote-meme2">Vote for 2</button>
+                <div id="meme1-votes"></div>
+            </div>
+            `
+            let voteMeme1btn = document.querySelector('#vote-meme1');
+            let voteMeme2btn = document.querySelector('#vote-meme2');
+            let meme1votes = document.querySelector('#meme1-votes');
+            let meme2votes = document.querySelector('#meme2-votes');
+            let voteStatusH3 = document.querySelector('#vote-status');
+            function voterBtns(){
+                voteMeme1btn.addEventListener('click',()=>{
+                    // gameController.meme1votes += 1;
+                    voteMeme1btn.style.visibility = "hidden";
+                    voteMeme2btn.style.visibility = "hidden";
+                    voteMeme1btn.disabled = true;
+                    // meme1votes.innerHTML = gameController.meme1votes;
+                    let message = {
+                        user: currentUser.username,
+                        text: '1',
+                        memeURL: '',
+                        messageType: 'VOTE'
+                    };
+                    Socket.sendMessage(message);
+                })
 
-</br>
+                voteMeme2btn.addEventListener('click',()=>{
+                    // gameController.meme2votes += 1;
+                    voteMeme1btn.style.visibility = "hidden";
+                    voteMeme2btn.style.visibility = "hidden";
+                    voteMeme2btn.disabled = true;
+                    // meme2votes.innerHTML = gameController.meme2votes;
+                    let message = {
+                        user: currentUser.username,
+                        text: '2',
+                        memeURL: '',
+                        messageType: 'VOTE'
+                    };
+                    Socket.sendMessage(message);
+                })
+            }
 
-`
+            function playerHideBtns(){
+                voteStatusH3.innerHTML = "VOTING IN PROGRESS";
+                voteMeme1btn.style.visibility = "hidden";
+                voteMeme2btn.style.visibility = "hidden";
+            }
+
+            if(gameController.votingPlayers[0].username === currentUser.username){
+                voterBtns();
+            } else if (gameController.votingPlayers[1].username === currentUser.username) {
+                voterBtns();
+            } else {
+                playerHideBtns();
+            }
+
             console.log(gameController.currentMemeSubmissions[0]);
         },
 
         renderWaitingPage() {
             lobbyContainer.innerHTML = `<h1>WAITING FOR MEME SUBMISSIONS...</h1>`
-        }
+        },
 
+        renderResultsPage(){
+            lobbyContainer.innerHTML = `<h1>RESULTS</h1>
+            <h2>${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
+            <h3 id="vote-status"></h3>
+            <div class="div-meme-vote">
+                <img src="${gameController.currentMemeSubmissions[0].memeURL}"><span>${gameController.currentMemeSubmissions[0].caption}</span>
+                <div id="meme1-votes">${gameController.meme1votes}</div>
+            </div>
+            <div class="div-meme-vote">
+                <img src="${gameController.currentMemeSubmissions[1].memeURL}"><span>${gameController.currentMemeSubmissions[1].caption}</span>
+                <div id="meme1-votes">${gameController.meme1votes}</div>
+            </div>`
+        }
     }
 
     const Fetch = {
@@ -378,20 +475,6 @@
 
         }
     }
-    //OG EVENT FOR BUTTON TO SUBMIT MEME CAPTION
-// const Events = {
-//     async initialize() {
-//         await Socket.connect();
-//         document.querySelector('#submitMemeCaptionBtn').addEventListener('click', () => {
-//             Socket.sendMessage()
-//         });
-//     }
-// }
-// document.addEventListener('DOMContentLoaded', async () => {
-//        await Events.initialize()
-//     }
-// )
-
 
     //EVENT LISTENERS
     leaveBtn.addEventListener('click', () => {
