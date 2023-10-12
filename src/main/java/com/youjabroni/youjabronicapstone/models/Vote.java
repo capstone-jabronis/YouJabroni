@@ -1,5 +1,6 @@
 package com.youjabroni.youjabronicapstone.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToOne
+    @JsonIgnore
     private User user;
     @OneToOne
     private MemeSubmission memeSubmission;

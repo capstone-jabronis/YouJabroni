@@ -99,7 +99,21 @@
     margin-bottom: 15px;
     margin-left: 10px;
 }
-
-.edit-modal {
-
+.like-box{
+    display: flex;
+    flex-direction: column;
 }
+.like-rocket{
+    height:30px;
+    width:30px;
+}
+
+
+
+
+
+
+
+
+
+
