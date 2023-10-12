@@ -3,6 +3,8 @@ const postElement = document.querySelector(".post");
 const userIDElement = document.querySelector("#results");
 let userID2 = userIDElement.getAttribute("dataId");
 let url2 = `/${userID2}/posts`;
+// const isAuthenticatedElement = document.querySelector("[data-authenticated]");
+// const isAuthenticated = isAuthenticatedElement.getAttribute("data-authenticated");
 const isAuthenticated = document.querySelector("[data-authenticated]");
 let USER_POST_ID = [];
 postElement.addEventListener('click', async (e) => {
@@ -203,11 +205,11 @@ postElement.addEventListener('click', async (e) => {
                 openDeleteModal(event);
             });
 
-            editModalSection.addEventListener('click', function(e) {
+            editModalSection.addEventListener('click', function (e) {
                 e.stopPropagation();
             });
 
-            deleteModalSection.addEventListener('click', function(e) {
+            deleteModalSection.addEventListener('click', function (e) {
                 e.stopPropagation();
             });
 
@@ -227,10 +229,18 @@ postElement.addEventListener('click', async (e) => {
             deleteModalOverlay.appendChild(deleteModalSection);
             document.body.appendChild(deleteModalOverlay);
             document.body.appendChild(editModalOverlay);
-            if (userID2 == post.user.id && isAuthenticated) {
+            // if (isAuthenticated === true) {
+            //     console.log(isAuthenticated);
+            //     buttonsContainer.appendChild(editPostButton);
+            //     buttonsContainer.appendChild(deletePostButton);
+            //     postCaptionDiv.appendChild(buttonsContainer);
+            // }
+            if (userID2 == post.user.id && isAuthenticated && loggedInUserId == userID2) {
                 buttonsContainer.appendChild(editPostButton);
                 buttonsContainer.appendChild(deletePostButton);
                 postCaptionDiv.appendChild(buttonsContainer);
+            } else {
+
             }
             userIDElement.appendChild(postDiv);
         }

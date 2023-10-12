@@ -10,12 +10,19 @@ import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PagesController {
@@ -49,8 +56,12 @@ public class PagesController {
 
     @GetMapping("/{id}/profile")
     public String showUsersProfile(@PathVariable long id, Model model) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String username = authentication.getName();
+//        User currentUser = userDao.findByUsername(username);
+
+//        System.out.println("This is the current user:" + username);
         int winningCount = 0;
-//        int tournamentCount = 0;
         int postsCount = 0;
         int postLikes = 0;
         List<Tournament> tournamentsUserHasWon = tournamentDao.findByWinnerId(id);
@@ -62,6 +73,7 @@ public class PagesController {
         for(Post post : allUserPosts) {
             postsCount++;
         }
+<<<<<<< HEAD
         List<Post> userLikedPosts = userDao.findById(id).get().getLikedPosts();
         for(Post post : userLikedPosts)
         {
@@ -71,11 +83,16 @@ public class PagesController {
 //        for(Tournament tournament : tournamentsUserHasBeenIn) {
 //            tournamentCount++;
 //        }
+=======
+>>>>>>> 4f1d4b8 (resolve pages controller conflicts)
 
-//        model.addAttribute("tournaments", tournamentCount);
         model.addAttribute("wins", winningCount);
         model.addAttribute("posts", postsCount);
+<<<<<<< HEAD
         model.addAttribute("likes", postLikes);
+=======
+//        model.addAttribute("currentUser", currentUser.getId());
+>>>>>>> 4f1d4b8 (resolve pages controller conflicts)
         model.addAttribute("user", userDao.findById(id).get());
         return "pages/profile";
     }

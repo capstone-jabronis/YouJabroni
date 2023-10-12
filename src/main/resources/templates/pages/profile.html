@@ -27,6 +27,7 @@
     <!-- START OF USER STATS -->
     <!--if as user is logged in, and they are on their profile they will see this-->
     <div class="container d-flex stats justify-center" sec:authorize="isAuthenticated()">
+<!--        th:attr="data-authenticated=${#authentication.principal.id == user.id}"-->
         <div class="row" th:if="${#authentication.principal.id == user.id}">
             <div class="column d-flex align-center justify-center">
                 <span class="number" th:text="${wins}"></span>
@@ -45,7 +46,7 @@
             </div>
         </div>
     </div>
-    <!--if a user is logged in, and they ar eon someone else's profile they will see this-->
+    <!--if a user is logged in, and they are on someone else's profile they will see this-->
     <div class="container d-flex stats-not-auth justify-center" sec:authorize="isAuthenticated()">
         <div class="row" th:if="${#authentication.principal.id != user.id}">
             <div class="column d-flex align-center justify-center">
@@ -159,6 +160,7 @@
         <section class="edit-user hidden">
             <form class="edit-form-container d-flex justify-center hidden" th:action="@{|/${user.id}/profile/edit|}"
                   th:method="POST">
+                <p class="exit-edit-profile-btn">X</p>
                 <h1 class="edit-form-title">Edit Your Profile</h1>
                 <div class="row">
                     <div class="column profile-pic-and-btns">
@@ -170,7 +172,7 @@
                         <div class="hidden hide-loader">
                             <div class="loading-overlay">
                                 <div class="loader"></div>
-                                <p>Loading...</p>
+                                <p class="loading-message">Loading...</p>
                             </div>
                         </div>
 
@@ -199,7 +201,12 @@
             </form>
         </section>
     </div>
-
+    <!--    <script th:inline="javascript">-->
+    <!--        let currentUser = [[${currentUser}]];-->
+    <!--    </script>-->
+<!--    <div th:if="${#authentication.isAuthenticated()}">-->
+<!--        <div id="authUserId" th:data-auth-id="${#authentication.principal.id}"></div>-->
+<!--    </div>-->
     <div>
         <div id="results" th:dataId="${user.id}">
             <div sec:authorize="isAuthenticated()">
@@ -228,6 +235,8 @@
                 <input id="post-delete-id" type="hidden" name="post-delete-id">
             </div>
         </form>
+
+
     </div>
 
 </div>

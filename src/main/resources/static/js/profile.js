@@ -198,18 +198,6 @@ historyContainer.addEventListener('click', async (e) => {
 
 });
 
-<<<<<<< HEAD
-    function handleLinkClicks(event) {
-        profileLinks.forEach(link => {
-            link.classList.remove('tab-clicked');
-        });
-        event.target.classList.add('tab-clicked');
-    }
-
-    profileLinks.forEach(link => {
-        link.addEventListener('click', handleLinkClicks);
-    })
-=======
 function handleLinkClicks (event) {
     profileLinks.forEach(link => {
         link.classList.remove('tab-clicked');
@@ -221,5 +209,4 @@ profileLinks.forEach(link => {
 })
 
 
->>>>>>> e425df3 (added a loading animation when the filestack is loading)
 
