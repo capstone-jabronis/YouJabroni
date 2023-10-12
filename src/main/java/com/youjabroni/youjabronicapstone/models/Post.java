@@ -22,8 +22,24 @@ public class Post {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "post")
-    private List<Like> likes;
+
+    public Post(long id, String description, User user, List<User> userLikes, MemeSubmission memeSubmission) {
+        this.id = id;
+        this.description = description;
+        this.user = user;
+        this.userLikes = userLikes;
+        this.memeSubmission = memeSubmission;
+    }
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "likes",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name="user_id")}
+    )
+    private List<User> userLikes;
+
+
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "meme_id")
     private MemeSubmission memeSubmission;
@@ -31,12 +47,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(long id, String description, User user, List<Like> likes) {
-        this.id = id;
-        this.description = description;
-        this.user = user;
-        this.likes = likes;
-    }
+
 
     public Post(String description, User user, MemeSubmission memeSubmission) {
         this.description = description;
@@ -73,13 +84,6 @@ public class Post {
         this.user = user;
     }
 
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
-    }
 
     public MemeSubmission getMemeSubmission() {
         return memeSubmission;
@@ -87,5 +91,12 @@ public class Post {
 
     public void setMemeSubmission(MemeSubmission memeSubmission) {
         this.memeSubmission = memeSubmission;
+    }
+    public List<User> getUserLikes() {
+        return userLikes;
+    }
+
+    public void setUserLikes(List<User> userLikes) {
+        this.userLikes = userLikes;
     }
 }
