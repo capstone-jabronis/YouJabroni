@@ -52,7 +52,7 @@ public class PagesController {
         int winningCount = 0;
 //        int tournamentCount = 0;
         int postsCount = 0;
-
+        int postLikes = 0;
         List<Tournament> tournamentsUserHasWon = tournamentDao.findByWinnerId(id);
         for(Tournament tournament : tournamentsUserHasWon) {
             winningCount++;
@@ -62,6 +62,11 @@ public class PagesController {
         for(Post post : allUserPosts) {
             postsCount++;
         }
+        List<Post> userLikedPosts = userDao.findById(id).get().getLikedPosts();
+        for(Post post : userLikedPosts)
+        {
+            postLikes++;
+        }
 //        List<Tournament> tournamentsUserHasBeenIn = userDao.findAllTournamentById(id);
 //        for(Tournament tournament : tournamentsUserHasBeenIn) {
 //            tournamentCount++;
@@ -70,6 +75,7 @@ public class PagesController {
 //        model.addAttribute("tournaments", tournamentCount);
         model.addAttribute("wins", winningCount);
         model.addAttribute("posts", postsCount);
+        model.addAttribute("likes", postLikes);
         model.addAttribute("user", userDao.findById(id).get());
         return "pages/profile";
     }
@@ -103,6 +109,13 @@ public class PagesController {
         System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(posts));
         return userPost;
     }
+    @GetMapping("/{id}/liked")
+    public @ResponseBody List<Post> viewLikedPosts(@PathVariable long id){
+        User user = userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+//        Post post = postDao.findById(id).get();
+        List<Post> userLikes = user.getLikedPosts();
+        return userLikes;
+    }
 
     @GetMapping("/feed")
     public String showFeed(Model model) {
@@ -124,37 +137,6 @@ public class PagesController {
         postDao.save(post);
         return post;
     }
-
-//  REFACTOR TO GETMAPPING SO THAT ALL THE USERS WHO HAVE LIKED THIS POST ARE COUNTED
-//    @PostMapping("/{postId}/liked")
-//    public @ResponseBody List<Post> likingUnlikingPost (@PathVariable long postId){
-//        User user = userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-//        Post post = postDao.findById(postId).get();
-//        List<Post> userLikes = user.getLikedPosts();
-//        if (userLikes.contains(post)){
-//            userLikes.remove(post);
-//            user.getLikedPosts().remove(post);
-//        } else {
-//            userLikes.add(post);
-//            user.getLikedPosts().add(post);
-//        }
-//        userDao.save(user);
-//        return userLikes;
-//    }
-
-
-//    public FeedResponseDTO(List<MemeSubmission> memes, List<User> users) {
-//        for (MemeSubmission meme : memeDao.findAll()) {
-//            memes.add(meme);
-//        }
-//        for (MemeSubmission meme : memeDao.findAll()) {
-//            for (User user : users) {
-//                if (meme.getUser().getId() == user.getId()) {
-//                    users.add(user);
-//                }
-//            }
-//        }
-//    }
 
     @GetMapping("/feed/api")
     public @ResponseBody List<Post> pagesInFeed() throws JsonProcessingException {
