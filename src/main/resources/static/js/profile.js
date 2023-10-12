@@ -1,12 +1,11 @@
 const csrfToken2 = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 const historyContainer = document.querySelector("#history");
 const userIDElement2 = document.querySelector("#results");
-// let userID = userIDElement2.getAttribute("dataId");
+let userID = userIDElement2.getAttribute("dataId");
 let url = `/${userID}/memeSubmission`
 const itemsPerPage = 10; // Change this number according to your requirements
 let currentPage = 1;
 const profileLinks = document.querySelectorAll('.profile-link');
-
 
 historyContainer.addEventListener('click', async (e) => {
     e.preventDefault();
