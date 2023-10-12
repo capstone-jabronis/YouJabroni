@@ -7,7 +7,6 @@ const itemsPerPage = 10; // Change this number according to your requirements
 let currentPage = 1;
 const profileLinks = document.querySelectorAll('.profile-link');
 
-
 historyContainer.addEventListener('click', async (e) => {
     e.preventDefault();
 
