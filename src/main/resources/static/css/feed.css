@@ -88,6 +88,12 @@
     margin-bottom: 15px;
 }
 
+.edit-post-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
 .delete-post-btn {
     background-color: #343CFF;
     color: white;
@@ -99,6 +105,7 @@
     margin-bottom: 15px;
     margin-left: 10px;
 }
+
 .like-box{
     display: flex;
     flex-direction: column;
@@ -108,12 +115,10 @@
     width:30px;
 }
 
-
-
-
-
-
-
-
+.delete-post-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
 
 

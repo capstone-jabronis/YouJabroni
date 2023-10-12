@@ -9,7 +9,7 @@
     flex-direction: column;
     align-items: center;
     background-color: var(--third);
-    height: 35rem;
+    height: 40rem;
     width: 30rem;
     margin-top: 5rem;
     margin-bottom: 5rem;
@@ -265,6 +265,12 @@ body {
     margin-bottom: 15px;
 }
 
+.add-post-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
 .profile-pic {
     border-radius: 50%;
     height: 250px;
@@ -325,10 +331,9 @@ body {
 }
 
 .edit-btn:hover {
-    background-color: #0D0149;
-    transition: 500ms;
-    width: 155px;
-    height: 55px;
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
 }
 
 .stats {
@@ -706,6 +711,12 @@ body {
     margin-top: 20px;
 }
 
+.add-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
 .add-caption-div {
     display: flex;
     flex-direction: column;
@@ -769,7 +780,13 @@ body {
     height: 40px;
     width: 100px;
     font-size: 18px;
-    margin-right: 4px;
+    margin-right: 110px;
+}
+
+.submit-edit-post:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
 }
 
 .cancel-edit-form {
@@ -780,7 +797,15 @@ body {
     height: 40px;
     width: 100px;
     font-size: 18px;
-    margin-left: 4px;
+    position: absolute;
+    top: 62.8%;
+    right: 25%;
+}
+
+.cancel-edit-form:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
 }
 
 /***************** END OF MODAL FOR EDITING POSTS **********************/
@@ -792,7 +817,7 @@ body {
     flex-direction: column;
     gap: 0.4rem;
     width: 450px;
-    height: 400px;
+    height: 300px;
     min-height: 250px;
     position: absolute;
     top: 15%;
@@ -800,6 +825,62 @@ body {
     background-color: #0D0149;
     border: 1px solid #07013d;
     border-radius: 15px;
+}
+
+#delete-post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.delete-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-post-title {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 50px;
+}
+
+.submit-delete-post {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    margin-right: 115px;
+}
+
+.submit-delete-post:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+.cancel-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    position: absolute;
+    top: 52.5%;
+    right: 26%;
+}
+
+.cancel-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
 }
 
 /***************** END OF MODAL FOR DELETING POSTS **********************/

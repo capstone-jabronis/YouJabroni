@@ -118,13 +118,7 @@ postElement.addEventListener('click', async (e) => {
             // Create the cancel button for the edit form
             const cancelEditForm = document.createElement('button');
             cancelEditForm.textContent = 'cancel';
-            cancelEditForm.setAttribute('type', 'button');
             cancelEditForm.classList.add('cancel-edit-form');
-
-            // Make the container for the edit form buttons
-            const editFormButtons = document.createElement('div');
-            editFormButtons.classList.add('edit-form-buttons');
-
 
             // Function to close the edit modal
             const closeEditModal = function () {
@@ -155,13 +149,8 @@ postElement.addEventListener('click', async (e) => {
                 }
 
                 if (!document.querySelector('.submit-edit-post')) {
-                    editFormButtons.appendChild(editFormSubmitBtn);
+                    editPostForm.appendChild(editFormSubmitBtn);
                 }
-
-                if (!document.querySelector('.cancel-edit-form')) {
-                    editFormButtons.appendChild(cancelEditForm);
-                }
-                editPostForm.appendChild(editFormButtons);
 
                 // set the hidden input's value to the current post id
                 const postId = document.querySelector("#post-id");
@@ -172,6 +161,7 @@ postElement.addEventListener('click', async (e) => {
                 editDescriptionInput.value = post.description;
 
                 editModalSection.appendChild(editPostForm);
+                editModalSection.appendChild(cancelEditForm);
                 editPostForm.classList.remove('hidden');
             }
 
@@ -215,7 +205,6 @@ postElement.addEventListener('click', async (e) => {
 
             // Event Listeners to close the modal
             editModalOverlay.addEventListener('click', closeEditModal);
-            editCloseButton.addEventListener('click', closeEditModal);
             cancelEditForm.addEventListener('click', closeEditModal);
 
             deleteModalOverlay.addEventListener('click', closeDeleteModal);
