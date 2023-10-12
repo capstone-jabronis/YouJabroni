@@ -71,15 +71,8 @@ public class SecurityConfiguration {
                         "/leaderboard",
                         "/*/profile/posts",
                         "/users",
-<<<<<<< HEAD
-                        "/keys.js"
-
-
-
-
-=======
+                        "/keys.js",
                         "/*/posts"
->>>>>>> 5549bb7 (trying to fix the edit and delete buttons on posts)
                 ).permitAll();
         return http.build();
 

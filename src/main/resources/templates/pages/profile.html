@@ -27,7 +27,6 @@
     <!-- START OF USER STATS -->
     <!--if as user is logged in, and they are on their profile they will see this-->
     <div class="container d-flex stats justify-center" sec:authorize="isAuthenticated()">
-<!--        th:attr="data-authenticated=${#authentication.principal.id == user.id}"-->
         <div class="row" th:if="${#authentication.principal.id == user.id}">
             <div class="column d-flex align-center justify-center">
                 <span class="number" th:text="${wins}"></span>
@@ -140,11 +139,11 @@
                 </div>
                 <form class="password-change-card" th:action="@{|/${user.id}/profile/edit/password|}" th:method="POST">
                     <div class="column">
-                        <label th:for="newPassword">New Password</label>
+                        <label class="change-pass-label" th:for="newPassword">New Password</label>
                         <input class="newPassword input-field" th:name="newPassword" th:type="password">
                     </div>
                     <div class="column">
-                        <label th:for="confirmNewPassword">Confirm New Password</label>
+                        <label class="change-pass-label" th:for="confirmNewPassword">Confirm New Password</label>
                         <input class="confirmNewPassword input-field" th:name="confirmNewPassword" th:type="password">
                     </div>
                     <div class="column">
@@ -160,8 +159,10 @@
         <section class="edit-user hidden">
             <form class="edit-form-container d-flex justify-center hidden" th:action="@{|/${user.id}/profile/edit|}"
                   th:method="POST">
-                <p class="exit-edit-profile-btn">X</p>
-                <h1 class="edit-form-title">Edit Your Profile</h1>
+                <div class="row align-center">
+                    <p class="exit-edit-profile-btn">x</p>
+                    <h1 class="edit-form-title">Edit Your Profile</h1>
+                </div>
                 <div class="row">
                     <div class="column profile-pic-and-btns">
                         <!-- this is the profile pic img -->
@@ -201,17 +202,10 @@
             </form>
         </section>
     </div>
-    <!--    <script th:inline="javascript">-->
-    <!--        let currentUser = [[${currentUser}]];-->
-    <!--    </script>-->
-<!--    <div th:if="${#authentication.isAuthenticated()}">-->
-<!--        <div id="authUserId" th:data-auth-id="${#authentication.principal.id}"></div>-->
-<!--    </div>-->
+
     <div>
         <div id="results" th:dataId="${user.id}">
-            <div sec:authorize="isAuthenticated()">
-                <div th:attr="data-authenticated=${#authentication.principal.id == user.id}">
-                </div>
+            <div>
             </div>
         </div>
         <!-- THIS IS THE FORM TO ADD POSTS -->

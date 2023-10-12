@@ -13,6 +13,7 @@ const modalOverlay = document.querySelector('#modal-overlay');
 const modalSection = document.querySelector('.edit-user');
 const editProfileButton = document.querySelector('.edit-btn');
 const editProfileForm = document.querySelector('.edit-form-container');
+const exitBtn = document.querySelector('.exit-edit-profile-btn');
 changePasswordBtn.addEventListener('click', () => {
     passwordModal.classList.toggle('hidden')
 });
@@ -62,6 +63,7 @@ const stopPropagation = function(e) {
 modalSection.addEventListener('click', stopPropagation);
 editProfileButton.addEventListener('click', openEditProfileModal);
 modalOverlay.addEventListener('click', closeEditProfileModal);
+exitBtn.addEventListener('click', closeEditProfileModal);
 
 //=======================================================================//
 

@@ -511,9 +511,8 @@ body {
 
 .edit-form-title {
     font-size: 2rem;
-    flex-direction: column;
-    align-items: center;
     color: var(--first);
+    margin-left: 245px;
 }
 
 .edit-label {
@@ -551,9 +550,18 @@ body {
 }
 
 .password-change-card {
-    background: #343CFF;
+    background: #0D0149;
+    color: white;
     padding: 30px;
     border-radius: 20px;
+}
+
+.newPassword {
+    margin-bottom: 20px;
+}
+
+.change-pass-label {
+    margin-left: 5px;
 }
 
 .submit-password {
@@ -663,6 +671,18 @@ body {
 
 .edit-email-field {
     margin-bottom: 45px;
+}
+
+.exit-edit-profile-btn {
+    color: white;
+    font-size: 32px;
+    margin-left: 10px;
+    padding-bottom: 20px;
+}
+
+.exit-edit-profile-btn:hover {
+    color: #343CFF;
+    cursor: pointer;
 }
 
 /***************** START OF MODAL FOR ADDING POSTS **********************/

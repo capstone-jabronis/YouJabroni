@@ -3,10 +3,15 @@ const postElement = document.querySelector(".post");
 const userIDElement = document.querySelector("#results");
 let userID2 = userIDElement.getAttribute("dataId");
 let url2 = `/${userID2}/posts`;
-// const isAuthenticatedElement = document.querySelector("[data-authenticated]");
-// const isAuthenticated = isAuthenticatedElement.getAttribute("data-authenticated");
-const isAuthenticated = document.querySelector("[data-authenticated]");
 let USER_POST_ID = [];
+console.log(document.querySelector('meta[name="userId"]'));
+const loggedInElement = document.querySelector('meta[name="userId"]');
+let loggedInUserId;
+if(loggedInElement != null) {
+    loggedInUserId = loggedInElement.getAttribute('data-user-id');
+    console.log(loggedInUserId);
+}
+
 postElement.addEventListener('click', async (e) => {
     e.preventDefault();
     let results = await fetch(url2, {
@@ -235,7 +240,7 @@ postElement.addEventListener('click', async (e) => {
             //     buttonsContainer.appendChild(deletePostButton);
             //     postCaptionDiv.appendChild(buttonsContainer);
             // }
-            if (userID2 == post.user.id && isAuthenticated && loggedInUserId == userID2) {
+            if (loggedInElement != null && userID2 == loggedInUserId) {
                 buttonsContainer.appendChild(editPostButton);
                 buttonsContainer.appendChild(deletePostButton);
                 postCaptionDiv.appendChild(buttonsContainer);
