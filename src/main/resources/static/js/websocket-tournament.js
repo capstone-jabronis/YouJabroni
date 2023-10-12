@@ -246,10 +246,10 @@
             //JOSE DONT FORGET TO CMD Z THIS
 
 
-            if (tournamentMembers.length !== 2) {
+            if (tournamentMembers.length !== 4) {
                 startGameButton.style.display = "none";
                 // startBtn.style.visibility = "hidden";
-            } else if (tournamentMembers.length === 2 && currentUser.username === tournamentHost.username) {
+            } else if (tournamentMembers.length === 4 && currentUser.username === tournamentHost.username) {
                 startGameButton.style.display = "block";
                 // startBtn.style.visibility = "visible";
             }
