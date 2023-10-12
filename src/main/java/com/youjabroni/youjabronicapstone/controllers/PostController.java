@@ -48,7 +48,7 @@ public class PostController {
     }
 
    @PostMapping("/{id}/profile/posts/edit")
-    public String editPost(@PathVariable long id, @RequestParam(name = "edit-description") String description, @RequestParam(name = "post-id") long postId) {
+    public String editPost(@PathVariable long id, @RequestParam(name = "editDescription") String description, @RequestParam(name = "post-id") long postId) {
         Post postToEdit = postDao.findById(postId).get();
         postToEdit.setDescription(description);
         postDao.save(postToEdit);

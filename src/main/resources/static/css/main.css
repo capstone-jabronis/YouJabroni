@@ -22,7 +22,7 @@
 }
 
 .input {
-    margin: 0.75rem;
+    margin: 1rem;
     flex-direction: column;
 }
 
@@ -30,6 +30,7 @@
     height: 2.5rem;
     width: 20rem;
     border-radius: 1rem;
+    padding-left: 10px;
     background-color: var(--first);
 }
 
@@ -258,7 +259,7 @@ body {
     color: white;
     border: unset;
     border-radius: 16px;
-    height: 30px;
+    height: 40px;
     width: 100px;
     font-size: 18px;
     margin-bottom: 15px;
@@ -276,6 +277,7 @@ body {
     display: flex;
     align-items: start;
     flex-direction: row;
+    margin-left: 50px;
 }
 
 .user-name-email {
@@ -319,7 +321,7 @@ body {
     height: 50px;
     font-size: 20px;
     margin-top: 130px;
-    margin-left: 400px;
+    margin-left: 350px;
 }
 
 .edit-btn:hover {
@@ -632,13 +634,6 @@ body {
     display: flex;
 }
 
-.post-modal input {
-    padding: 0.7rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 0.9em;
-}
-
 .btn-close {
     padding: 0.5rem 0.7rem;
     background: #eee;
@@ -700,6 +695,14 @@ body {
 }
 
 .add-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    margin-bottom: 15px;
     margin-top: 20px;
 }
 
@@ -708,7 +711,98 @@ body {
     flex-direction: column;
 }
 
+#add-post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /***************** END OF MODAL FOR ADDING POSTS **********************/
+
+/***************** START OF MODAL FOR EDITING POSTS **********************/
+
+.edit-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 450px;
+    height: 325px;
+    min-height: 250px;
+    position: absolute;
+    top: 15%;
+    right: 35%;
+    background-color: #0D0149;
+    border: 1px solid #07013d;
+    border-radius: 15px;
+}
+
+#edit-post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-post-form-title {
+    color: white;
+    font-size: 24px;
+}
+
+.edit-form-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.submit-edit-post {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    margin-right: 4px;
+}
+
+.cancel-edit-form {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    margin-left: 4px;
+}
+
+/***************** END OF MODAL FOR EDITING POSTS **********************/
+
+/***************** START OF MODAL FOR DELETING POSTS **********************/
+
+.delete-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 450px;
+    height: 400px;
+    min-height: 250px;
+    position: absolute;
+    top: 15%;
+    right: 35%;
+    background-color: #0D0149;
+    border: 1px solid #07013d;
+    border-radius: 15px;
+}
+
+/***************** END OF MODAL FOR DELETING POSTS **********************/
 
 .posts-container {
     display: flex;

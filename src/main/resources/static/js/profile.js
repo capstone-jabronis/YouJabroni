@@ -99,6 +99,7 @@ historyContainer.addEventListener('click', async (e) => {
             descriptionInput.setAttribute('type', 'text');
             descriptionInput.setAttribute('name', 'description');
             descriptionInput.id = 'description';
+            descriptionInput.classList.add('description-input', 'input-field');
 
             // Create a button to submit the add form
             const submitAddButton = document.createElement('button');
@@ -115,8 +116,15 @@ historyContainer.addEventListener('click', async (e) => {
                 const addForm = document.querySelector("#add-post-form");
                 const memeId = document.querySelector("#meme-id");
                 memeId.value = item.id;
-                addForm.appendChild(descriptionInput);
-                addForm.appendChild(submitAddButton);
+
+                if(!document.querySelector('.description-input')) {
+                    addForm.appendChild(descriptionInput);
+
+                }
+
+                if(!document.querySelector('.add-btn')) {
+                    addForm.appendChild(submitAddButton);
+                }
                 addCaptionDiv.appendChild(addForm);
                 addForm.classList.remove("hidden");
             };
@@ -130,8 +138,11 @@ historyContainer.addEventListener('click', async (e) => {
                 openModal(event);
             });
 
-            // const description = document.querySelector("#description");
-            descriptionInput.addEventListener("click", function (event) {
+            modalSection.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            descriptionInput.addEventListener("click", function(event) {
                 event.stopPropagation();
             });
 
@@ -149,7 +160,7 @@ historyContainer.addEventListener('click', async (e) => {
             itemDiv.appendChild(imageElement);
             captionDiv.appendChild(caption);
             captionDiv.appendChild(addPostButton);
-            captionDiv.appendChild(modalOverlay);
+            document.body.appendChild(modalOverlay);
             itemDiv.appendChild(captionDiv);
 
             // Append the itemDiv to userIDElement
