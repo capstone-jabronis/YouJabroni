@@ -5,6 +5,8 @@
     <div th:fragment="head(title)" th:remove="tag">
         <meta charset="UTF-8">
 
+<!--        add a meta tag with sec:authorized  with data-user-id -->
+        <meta name="userId" sec:authorize="isAuthenticated()" th:data-user-id="${#authentication.principal.id}">
         <meta name="_csrf" data-th-content="${_csrf.token}" data-th-header="${_csrf.headerName}"/>
         <title th:text="${'Meme Space | ' + title}"></title>
         <link rel="icon" type="image/x-icon" href="/img/rocket.png">

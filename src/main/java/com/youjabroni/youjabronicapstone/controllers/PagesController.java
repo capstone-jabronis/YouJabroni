@@ -3,22 +3,19 @@ package com.youjabroni.youjabronicapstone.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.youjabroni.youjabronicapstone.models.MemeSubmission;
-import com.youjabroni.youjabronicapstone.models.Post;
-import com.youjabroni.youjabronicapstone.models.Tournament;
-import com.youjabroni.youjabronicapstone.models.User;
+import com.youjabroni.youjabronicapstone.models.*;
 import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.PostRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class PagesController {
@@ -102,7 +99,6 @@ public class PagesController {
                 userPost.add(post);
             }
         }
-
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(posts));
         return userPost;
@@ -113,6 +109,38 @@ public class PagesController {
 //        List<MemeSubmission> memes = memeDao.findAll();
         return "pages/feed";
     }
+    @PostMapping("/{postId}/liked")
+    @ResponseBody
+    public Post showLiked(@PathVariable long postId){
+        User user = userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        Post post = postDao.findById(postId).get();
+        List<User> userLikes = post.getUserLikes();
+        if(userLikes.contains(user)){
+            userLikes.remove(user);
+        } else {
+            userLikes.add(user);
+        }
+        post.setUserLikes(userLikes);
+        postDao.save(post);
+        return post;
+    }
+
+//  REFACTOR TO GETMAPPING SO THAT ALL THE USERS WHO HAVE LIKED THIS POST ARE COUNTED
+//    @PostMapping("/{postId}/liked")
+//    public @ResponseBody List<Post> likingUnlikingPost (@PathVariable long postId){
+//        User user = userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+//        Post post = postDao.findById(postId).get();
+//        List<Post> userLikes = user.getLikedPosts();
+//        if (userLikes.contains(post)){
+//            userLikes.remove(post);
+//            user.getLikedPosts().remove(post);
+//        } else {
+//            userLikes.add(post);
+//            user.getLikedPosts().add(post);
+//        }
+//        userDao.save(user);
+//        return userLikes;
+//    }
 
 
 //    public FeedResponseDTO(List<MemeSubmission> memes, List<User> users) {
