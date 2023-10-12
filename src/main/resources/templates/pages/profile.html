@@ -2,27 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:replace="partials/partials :: head(title='Profile')">
-
     </div>
 </head>
 <body>
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
     <div class="container user-profile-info">
-        <img class="profile-pic" th:if="${user.profileURL == null}" src="/img/memespace.gif">
-        <img class="profile-pic" th:if="${user.profileURL != null}" th:src="${user.profileURL}" alt="profile pic">
-        <div class="user-name-email">
-            <div class="row d-flex align-center rank-username">
-                <div class="user-rank">#1</div>
-                <h1 class="user-username" th:text="${user.username}"></h1>
+        <div class="row">
+            <img class="profile-pic" th:if="${user.profileURL == null}" src="/img/memespace.gif">
+            <img class="profile-pic" th:if="${user.profileURL != null}" th:src="${user.profileURL}" alt="profile pic">
+            <div class="user-name-email">
+                <div class="row d-flex align-center rank-username">
+                    <!--                    <div class="user-rank">#1</div>-->
+                    <h1 class="user-username" th:text="${user.username}"></h1>
+                </div>
+                <p class="user-email" th:text="${user.email}"></p>
             </div>
-            <p class="user-email" th:text="${user.email}"></p>
+            <div sec:authorize="isAuthenticated()">
+                <button class="edit-btn" th:if="${#authentication.principal.id == user.id}">Edit profile</button>
+            </div>
         </div>
-<!--        <form th:method="GET" th:action="@{|/${user.id}/profile/edit|}" sec:authorize="isAuthenticated()">-->
-        <div sec:authorize="isAuthenticated()">
-            <button class="edit-btn" th:if="${#authentication.principal.id == user.id}">Edit profile</button>
-        </div>
-<!--        </form>-->
     </div>
 
     <!-- START OF USER STATS -->
@@ -141,7 +140,7 @@
                 <form class="password-change-card" th:action="@{|/${user.id}/profile/edit/password|}" th:method="POST">
                     <div class="column">
                         <label th:for="newPassword">New Password</label>
-                        <input class="newPassword input-field" th:name="newPassword" th:type="password" >
+                        <input class="newPassword input-field" th:name="newPassword" th:type="password">
                     </div>
                     <div class="column">
                         <label th:for="confirmNewPassword">Confirm New Password</label>
@@ -158,25 +157,45 @@
     <!-- This is the modal to edit the user's profile -->
     <div id="modal-overlay" class="overlay hidden">
         <section class="edit-user hidden">
-            <form class="edit-form-container d-flex justify-center hidden" th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
-                <h1 class="edit-form-title" >Edit Your Profile</h1>
-                <div class="column">
-                    <p class="edit-label" >Edit Username</p>
-                    <input class="input-field edit-field" th:name="username" th:type="text" th:value="${user.username}" th:field="${user.username}">
+            <form class="edit-form-container d-flex justify-center hidden" th:action="@{|/${user.id}/profile/edit|}"
+                  th:method="POST">
+                <h1 class="edit-form-title">Edit Your Profile</h1>
+                <div class="row">
+                    <div class="column profile-pic-and-btns">
+                        <!-- this is the profile pic img -->
+                        <img class="previewImage" id="previewImage" th:src="${user.getProfileURL()}"
+                             alt="Uploaded Image">
+
+                        <!-- this is the loading animation -->
+                        <div class="hidden hide-loader">
+                            <div class="loading-overlay">
+                                <div class="loader"></div>
+                                <p>Loading...</p>
+                            </div>
+                        </div>
+
+                        <!-- this is the change profile pic button -->
+                        <input th:name="ProfileURL" type="text" id="fileInput" th:value="${user.profileURL}" hidden>
+                        <span id="profilePic" class="changeProfileImg">edit picture</span>
+                    </div>
+                    <div class="column edit-inputs">
+                        <p class="edit-label">Edit Username</p>
+                        <input class="input-field edit-username-field" th:name="username" th:type="text"
+                               th:value="${user.username}"
+                               th:field="${user.username}">
+
+                        <p class="edit-label">Edit Email</p>
+                        <input class="input-field edit-email-field" th:name="email" th:type="text"
+                               th:value="${user.email}"
+                               th:field="${user.email}">
+
+                        <!-- this is the change password button -->
+                        <span id="changePassword" class="changePassword ">change password</span>
+                    </div>
                 </div>
-                <div class="column">
-                    <p class="edit-label">Edit Email</p>
-                    <input class="input-field edit-field" th:name="email" th:type="text" th:value="${user.email}" th:field="${user.email}">
+                <div class="submit-btn-container container">
+                    <button class="submit-mods-btn" type="submit" th:type="submit">save changes</button>
                 </div>
-                <div class="column">
-                    <span id="changePassword" class="changePassword ">Change Password</span>
-                </div>
-                <div class="column">
-                    <input th:name="ProfileURL" type="text" id="fileInput" th:value="${user.profileURL}" hidden>
-                    <span id="profilePic" class="changeProfileImg" >Change Profile Pic</span>
-                    <img class="previewImage" id="previewImage"  th:src="${user.getProfileURL()}" alt="Uploaded Image">
-                </div>
-                <button class="submit-mods-btn edit-btn" type="submit" th:type="submit">Submit Changes</button>
             </form>
         </section>
     </div>
@@ -191,16 +210,16 @@
         <!-- THIS IS THE FORM TO ADD POSTS -->
         <form class="hidden" id="add-post-form" th:action="@{|/${user.id}/profile/posts|}" th:method="POST">
             <div class="add-form">
-                <h3 class="form-title hidden">Add a short description or click save to continue</h3>
+                <p class="form-title hidden">Description</p>
                 <input id="meme-id" type="hidden" name="meme-id">
             </div>
         </form>
         <!-- THIS IS THE FORM TO EDIT POSTS -->
         <form class="hidden" id="edit-post-form" th:action="@{|/${user.id}/profile/posts/edit|}" th:method="POST">
-<!--            <div class="edit-form">-->
-                <h3 class="edit-post-form-title hidden">Edit description</h3>
-                <input id="post-id" type="hidden" name="post-id">
-<!--            </div>-->
+            <!--            <div class="edit-form">-->
+            <h3 class="edit-post-form-title hidden">Edit description</h3>
+            <input id="post-id" type="hidden" name="post-id">
+            <!--            </div>-->
         </form>
         <!-- THIS IS THE FORM TO DELETE POSTS -->
         <form class="hidden" id="delete-post-form" th:action="@{|/${user.id}/profile/posts/delete|}" th:method="POST">
@@ -213,10 +232,12 @@
 
 </div>
 <footer th:replace="partials/partials :: footer"></footer>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script th:src="@{/js/keys.js}"></script>
+<script th:src="@{/js/filestack.js}"></script>
 <script th:src="@{/js/profile.js}"></script>
 <script th:src="@{/js/posts.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Simulate a click on the "Post" tab

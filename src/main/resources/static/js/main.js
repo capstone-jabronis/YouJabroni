@@ -55,6 +55,11 @@ const closeEditProfileModal = function () {
     editProfileForm.classList.add('hidden');
 }
 
+const stopPropagation = function(e) {
+    e.stopPropagation();
+}
+
+modalSection.addEventListener('click', stopPropagation);
 editProfileButton.addEventListener('click', openEditProfileModal);
 modalOverlay.addEventListener('click', closeEditProfileModal);
 

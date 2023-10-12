@@ -99,13 +99,34 @@ historyContainer.addEventListener('click', async (e) => {
             descriptionInput.setAttribute('type', 'text');
             descriptionInput.setAttribute('name', 'description');
             descriptionInput.id = 'description';
+            descriptionInput.placeholder = 'add a short description here...';
             descriptionInput.classList.add('description-input', 'input-field');
+
+            // this is the - or -
+            const or = document.createElement('p');
+            or.textContent = '- or -';
+            or.style.color = 'white';
+            or.classList.add('hidden', 'or');
 
             // Create a button to submit the add form
             const submitAddButton = document.createElement('button');
             submitAddButton.setAttribute('type', 'submit');
             submitAddButton.classList.add('add-btn');
-            submitAddButton.textContent = 'save';
+            submitAddButton.textContent = 'save with no description';
+
+            // Add an event listener to descriptionInput
+            descriptionInput.addEventListener('input', function(event) {
+                // Check if the descriptionInput is empty
+                if (event.target.value.trim() === '') {
+                    // If it's empty, set submitAddButton textContent to "save"
+                    submitAddButton.textContent = 'save with no description';
+                    submitAddButton.style.width = '250px';
+                } else {
+                    // If it's not empty, set submitAddButton textContent to "save with no description"
+                    submitAddButton.textContent = 'save';
+                    submitAddButton.style.width = '100px';
+                }
+            });
 
 
             // Functions
@@ -122,7 +143,7 @@ historyContainer.addEventListener('click', async (e) => {
                     addForm.appendChild(descriptionInput);
 
                 }
-
+                addForm.appendChild(or);
                 if(!document.querySelector('.add-btn')) {
                     addForm.appendChild(submitAddButton);
                 }
@@ -177,6 +198,7 @@ historyContainer.addEventListener('click', async (e) => {
 
 });
 
+<<<<<<< HEAD
     function handleLinkClicks(event) {
         profileLinks.forEach(link => {
             link.classList.remove('tab-clicked');
@@ -187,4 +209,17 @@ historyContainer.addEventListener('click', async (e) => {
     profileLinks.forEach(link => {
         link.addEventListener('click', handleLinkClicks);
     })
+=======
+function handleLinkClicks (event) {
+    profileLinks.forEach(link => {
+        link.classList.remove('tab-clicked');
+    });
+    event.target.classList.add('tab-clicked');
+}
+profileLinks.forEach(link => {
+    link.addEventListener('click', handleLinkClicks);
+})
+
+
+>>>>>>> e425df3 (added a loading animation when the filestack is loading)
 
