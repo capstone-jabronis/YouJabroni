@@ -110,7 +110,7 @@
                             'X-CSRF-TOKEN': csrfToken
                         }
                     };
-
+                    //  Toggles the rocket icon by checking if user is in user likes list on post
                     const handleRocketIconClick = async function (e) {
                         const likePostId = post.id;
                         console.log(likePostId);

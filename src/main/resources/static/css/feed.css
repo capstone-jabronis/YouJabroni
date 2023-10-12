@@ -99,16 +99,15 @@
     margin-bottom: 15px;
     margin-left: 10px;
 }
+.like-box{
+    display: flex;
+    flex-direction: column;
+}
 .like-rocket{
     height:30px;
     width:30px;
-    background-image: url("../img/filled-rocket-btn.png");
 }
-.no-like-rocket{
-    height:30px;
-    width:30px;
-    background-image: url("../img/unfilled-rocket-btn.png");
-}
+
 
 
 
