@@ -41,7 +41,6 @@
     let gameController = {
         submittedMemes: 0,
         currentMemeSubmissions: [],
-        activePlayers: [],
         currentRoundPlayers: [],
         eliminatedPlayers: [],
         activePlayerIndexTracker: 0,
@@ -132,20 +131,28 @@
             console.log("Message received:");
             if (message.messageType === 'JOIN') {
                 await Render.reloadTournamentMembers('');
-                gameController.activePlayers.push(message.user);
-                console.log("---------ACTIVE PLAYERS IN JOIN-----------")
-                console.log(gameController.activePlayers)
             } else if (message.messageType === 'LEAVE') {
                 await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
-                // gameController.activePlayers = await Fetch.Get.tournamentMembers();
+                let activePlayers = await Fetch.Get.tournamentMembers();
+                activePlayers.sort(function(a, b) {
+                    return (a.id - b.id);
+                });
+                console.log('logging active players in START');
+                console.log(activePlayers);
                 // console.log('ACTIVE PLAYERS:-------');
                 // console.log(gameController.activePlayers);
-                gameController.currentRoundPlayers.push(gameController.activePlayers[0]);
-                gameController.currentRoundPlayers.push(gameController.activePlayers[1]);
-                console.log('CURRENT ROUND PLAYERS:------')
+                gameController.currentRoundPlayers.push(activePlayers[0].username);
+                gameController.currentRoundPlayers.push(activePlayers[1].username);
+                console.log("--CURRENT USER FOR GAME CONTROLLER CHECK--")
+                console.log(currentUser);
+                console.log('--current Round players--');
                 console.log(gameController.currentRoundPlayers);
-                await Render.renderTournamentPage();
+                if(gameController.currentRoundPlayers.includes(currentUser.username)){
+                    await Render.renderTournamentPage();
+                } else if (!gameController.currentRoundPlayers.includes(currentUser.username)){
+                    Render.renderWaitingPage();
+                }
             } else if (message.messageType === 'DATA') {
                 console.log('meme submitted!');
                 console.log(message);
@@ -159,8 +166,6 @@
                     Render.renderVotePage(user1, user2);
                 }
             } else {
-                console.log("In else for onmessagerecieved: ")
-                console.log(message);
                 gameController.currentMemeSubmissions.push(message);
             }
         }
@@ -200,18 +205,14 @@
         async renderTournamentPage() {
             console.log("Render page for tourny");
             startBtn.style.visibility = "hidden";
-            console.log("------CURRENT USER FOR GAME CONTROLLER CHECK------")
-            console.log(currentUser);
-            console.log('----current Round players------');
-            console.log(gameController.currentRoundPlayers);
-            if (gameController.currentRoundPlayers.includes(currentUser.username)) {
-                lobbyContainer.innerHTML = `
+            lobbyContainer.innerHTML = `
             <div class="jdCreateContainer">
+            <h1>${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h1>
         <div class="jdCreateRow">
             <div class="jdCreateCol">
-<!--                <h1 class="jdrounds">-->
-<!--                    ROUND # <span>10000000</span>-->
-<!--                </h1>-->
+                <h1 class="jdrounds">
+                    ROUND # <span>10000000</span>
+                </h1>
                 <h1 class="jdtime">
                     :TIME
                 </h1>
@@ -230,32 +231,32 @@
         <div class="jdCreateInputRow">
             <div class="jdCreateInputCol">
                     <input type="text" id="memeCaption" placeholder="Enter Your Meme Submission">
-                    <button id="submitMemeCaptionBtn" type="submit">Submit Caption</button>
+                    <button class="submit-meme-btn" id="submitMemeCaptionBtn" type="submit">Submit Caption</button>
             </div>
         </div>
     </div>
 `;
-                await Fetch.Get.getMeme();
-                let submitMemeBtn = document.querySelector('#submitMemeCaptionBtn');
 
-                submitMemeBtn.addEventListener('click', () => {
-                    let memeCaption = document.querySelector('#memeCaption').value
-                    console.log("meme caption: " + memeCaption);
-                    let memeUrl = document.querySelector('.memeAPIImage').getAttribute("src")
-                    console.log("meme URL: " + memeUrl);
-                    console.log('submit btn clicked');
-                    let message = {
-                        user: currentUser.username,
-                        text: memeCaption,
-                        memeURL: memeUrl,
-                        messageType: 'DATA'
-                    };
-                    Socket.sendMessage(message);
-                    submitMemeBtn.disabled = true;
-                    submitMemeBtn.innerHTML = 'Caption Submitted!';
-                })
-            }
+            //Calls function to get random meme
+            await Fetch.Get.getMeme();
+            let submitMemeBtn = document.querySelector('#submitMemeCaptionBtn');
 
+            //Events for submitting memes
+            submitMemeBtn.addEventListener('click', () => {
+                let memeCaption = document.querySelector('#memeCaption').value
+                let memeUrl = document.querySelector('.memeAPIImage').getAttribute("src")
+
+                console.log('submit btn 1 clicked');
+                let message = {
+                    user: currentUser.username,
+                    text: memeCaption,
+                    memeURL: memeUrl,
+                    messageType: 'DATA'
+                };
+                Socket.sendMessage(message);
+                submitMemeBtn.disabled = true;
+                submitMemeBtn.innerHTML = 'Caption Submitted!';
+            })
         },
 
         renderVotePage(user1, user2) {
@@ -274,6 +275,10 @@
 
 `
             console.log(gameController.currentMemeSubmissions[0]);
+        },
+
+        renderWaitingPage() {
+            lobbyContainer.innerHTML = `<h1>WAITING FOR MEME SUBMISSIONS...</h1>`
         }
 
     }
@@ -311,7 +316,7 @@
 
             async getMeme() {
                 console.log("Getting Meme");
-                let imageContainer = document.querySelector(".memeAPIImage");
+                let imageContainers = document.querySelectorAll(".memeAPIImage");
                 try {
                     const response = await fetch(memeApiURL);
                     const data = await response.json();
@@ -323,12 +328,15 @@
                     const memes = data.data.memes;
                     const randomMeme = memes[Math.floor(Math.random() * memes.length)];
                     const imageUrl = randomMeme.url;
-
-                    imageContainer.src = imageUrl;
+                    imageContainers.forEach((container)=>{
+                        container.src = imageUrl;
+                    })
+                    // imageContainer.src = imageUrl;
                 } catch (error) {
                     console.error('Error fetching meme:', error);
                 }
             }
+
         }
     }
     //OG EVENT FOR BUTTON TO SUBMIT MEME CAPTION
