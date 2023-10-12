@@ -35,6 +35,18 @@
     const leaveBtn = document.querySelector('#leave-lobby-btn');
     const lobbyContainer = document.querySelector('.jdWaitContainer');
     const startBtn = document.querySelector('#start-btn');
+
+
+    // JOSES TRYING SOMETHING
+    const startGameButton = document.createElement("button");
+    startGameButton.textContent = "Start Game";
+    const leaveLobbyButton = document.querySelector("#leave-lobby-btn");
+    leaveLobbyButton.after(startGameButton)
+    startGameButton.style.display = "none";
+
+
+
+
     //MEME API VARIABLES//////////////////////////////////
     let memeApiURL = "https://api.imgflip.com/get_memes";
     //Object to control various game statuses to update the page accordingly
@@ -135,7 +147,7 @@
                 await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
                 let activePlayers = await Fetch.Get.tournamentMembers();
-                activePlayers.sort(function(a, b) {
+                activePlayers.sort(function (a, b) {
                     return (a.id - b.id);
                 });
                 console.log('logging active players in START');
@@ -148,9 +160,9 @@
                 console.log(currentUser);
                 console.log('--current Round players--');
                 console.log(gameController.currentRoundPlayers);
-                if(gameController.currentRoundPlayers.includes(currentUser.username)){
+                if (gameController.currentRoundPlayers.includes(currentUser.username)) {
                     await Render.renderTournamentPage();
-                } else if (!gameController.currentRoundPlayers.includes(currentUser.username)){
+                } else if (!gameController.currentRoundPlayers.includes(currentUser.username)) {
                     Render.renderWaitingPage();
                 }
             } else if (message.messageType === 'DATA') {
@@ -185,6 +197,9 @@
             let tournamentMembers = await Fetch.Get.tournamentMembers();
             let tournamentHost = await Fetch.Get.tournamentHost();
 
+
+            //JOSES TRYING SOMETHING
+
             UserWaitingRoom.innerHTML = "";
             for (let i = 0; i < tournamentMembers.length; i++) {
                 if (tournamentMembers[i].username === tournamentHost.username) {
@@ -195,33 +210,57 @@
                 }
             }
             //to render start button when members reach required amount for game
-            if (tournamentMembers.length !== 4) {
-                startBtn.style.visibility = "hidden";
-            } else if (tournamentMembers.length === 4 && currentUser.username === tournamentHost.username) {
-                startBtn.style.visibility = "visible";
+            //JOSE DONT FORGET TO CMD Z THIS
+
+
+            if (tournamentMembers.length !== 2) {
+                startGameButton.style.display = "none";
+                // startBtn.style.visibility = "hidden";
+            } else if (tournamentMembers.length === 2 && currentUser.username === tournamentHost.username) {
+                startGameButton.style.display = "block";
+                // startBtn.style.visibility = "visible";
             }
         },
 
         async renderTournamentPage() {
             console.log("Render page for tourny");
+
+
+
+            //JOSES TRYING SOMETHING
             startBtn.style.visibility = "hidden";
+
+
+
+
+
+            // startGameButton.style.display = "none";
             lobbyContainer.innerHTML = `
-            <div class="jdCreateContainer">
-            <h1>${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h1>
-        <div class="jdCreateRow">
-            <div class="jdCreateCol">
-                <h1 class="jdrounds">
-                    ROUND # <span>10000000</span>
-                </h1>
-                <h1 class="jdtime">
-                    :TIME
-                </h1>
-            </div>
-        </div>
+    <div class="container full-width">
+    <div class="row">
+    <ul class="d-flex align-center full-width justify-space-around">
+        <li class="profile-tab">
+            <h1 class="jdrounds jdCreateH1">
+                ROUND # <span>10000000</span>
+            </h1>
+        </li>
+        <li class="profile-tab">
+            <h1 class="jdCreateH1">
+                ${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}
+            </h1>
+        </li>
+        <li class="profile-tab">
+            <h1 class="jdtime jdCreateH1">
+                :TIME
+            </h1>
+        </li>
+    <ul>
     </div>
-    <div class="jdCreateImgContainer">
-        <div class="jdCreateImgRow">
-            <div class="jdCreateImgCol">
+</div>
+
+    <div class="container justify-center">
+        <div class="row justify-center">
+            <div class="column justify-center align-center">
                 <img class="memeAPIImage" src="" alt="WRITE SOMETHING FUNNY JABRONI">
             </div>
         </div>
@@ -328,7 +367,7 @@
                     const memes = data.data.memes;
                     const randomMeme = memes[Math.floor(Math.random() * memes.length)];
                     const imageUrl = randomMeme.url;
-                    imageContainers.forEach((container)=>{
+                    imageContainers.forEach((container) => {
                         container.src = imageUrl;
                     })
                     // imageContainer.src = imageUrl;
@@ -373,7 +412,7 @@
         Socket.sendMessage(message);
     })
 
-    startBtn.addEventListener('click', async () => {
+    startGameButton.addEventListener('click', async () =>{
         console.log('Start button clicked')
         let host = await Fetch.Get.tournamentHost();
         let message;
@@ -394,7 +433,30 @@
             }
         }
         Socket.sendMessage(message);
-    })
+    });
+    //
+    // startBtn.addEventListener('click', async () => {
+    //     console.log('Start button clicked')
+    //     let host = await Fetch.Get.tournamentHost();
+    //     let message;
+    //     if (currentUser.username == host.username) {
+    //         message = {
+    //             user: currentUser.username,
+    //             text: 'GAME START',
+    //             memeURL: '',
+    //             messageType: 'START'
+    //         };
+    //     } else {
+    //         console.log('Error: current user is not host');
+    //         message = {
+    //             user: currentUser.username,
+    //             text: 'Host check failed, rendering page again',
+    //             memeURL: '',
+    //             messageType: 'JOIN'
+    //         }
+    //     }
+    //     Socket.sendMessage(message);
+    // })
 
     Tournament.initialize();
 
