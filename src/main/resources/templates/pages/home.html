@@ -27,8 +27,8 @@
                 <h1>TOURNAMENTS</h1>
             </div>
             <div>
-                <form id="create-tournament-form" th:action="@{/tournament/create-tournament}">
-                    <button type="submit">Host a Tournament!</button>
+                <form class="row player name jdTournamentCSS"  id="create-tournament-form" th:action="@{/tournament/create-tournament}">
+                    <button class="jdTournamentCreateButton" type="submit">Host a Tournament!</button>
                 </form>
             </div>
             <div th:each="tournament : ${tournaments}">

@@ -423,6 +423,12 @@ body {
     border-radius: 25%;
     padding: .2%;
 }
+.jdTournamentCreateButton{
+    margin-top: .5%;
+    width: inherit;
+    background-color: #0D0149;
+    color: #b4acef;
+}
 
 /*================         END OF HOME         ================*/
 
