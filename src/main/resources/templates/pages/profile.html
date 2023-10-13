@@ -10,8 +10,8 @@
 <div class="page-wrapper">
     <div class="container user-profile-info">
         <div class="row">
-            <img class="profile-pic" th:if="${user.profileURL == null}" src="/img/memespace.gif">
-            <img class="profile-pic" th:if="${user.profileURL != null}" th:src="${user.profileURL}" alt="profile pic">
+            <img class="profile-pic" th:if="${user.profileURL == null or #strings.isEmpty(user.profileURL)}" src="/img/memespace.gif">
+            <img class="profile-pic" th:if="${user.profileURL != null and !#strings.isEmpty(user.profileURL)}" th:src="${user.profileURL}" alt="profile pic">
             <div class="user-name-email">
                 <div class="row d-flex align-center rank-username">
                     <!--                    <div class="user-rank">#1</div>-->
@@ -166,8 +166,8 @@
                 <div class="row">
                     <div class="column profile-pic-and-btns">
                         <!-- this is the profile pic img -->
-                        <img th:if="${user.profileURL == null}" class="previewImage" src="/img/memespace.gif">
-                        <img th:if="${user.profileURL != null}" class="previewImage" th:src="${user.getProfileURL()}"
+                        <img th:if="${user.profileURL == null or #strings.isEmpty(user.profileURL)}" class="previewImage" src="/img/memespace.gif">
+                        <img th:if="${user.profileURL != null and !#strings.isEmpty(user.profileURL)}" class="previewImage" th:src="${user.getProfileURL()}"
                              alt="uploaded image">
 
                         <!-- this is the loading animation -->
@@ -179,7 +179,7 @@
                         </div>
 
                         <!-- this is the change profile pic button -->
-                        <input th:name="ProfileURL" type="text" id="fileInput" th:value="${user.profileURL}" hidden>
+                        <input name="ProfileURL" type="text" id="fileInput" th:value="${user.profileURL}" hidden>
                         <span id="profilePic" class="changeProfileImg">edit picture</span>
                     </div>
                     <div class="column edit-inputs">

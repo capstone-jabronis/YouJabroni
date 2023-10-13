@@ -821,6 +821,7 @@ body {
     margin-left: 55px;
     color: white;
     margin-top: 10px;
+    margin-right: 40px;
 }
 
 .form-title {
@@ -845,7 +846,7 @@ body {
     width: 250px;
     font-size: 18px;
     margin-bottom: 15px;
-    margin-top: 40px;
+    margin-top: 25px;
 }
 
 .add-btn:hover {
@@ -1122,7 +1123,7 @@ body {
     display: flex;
     align-items: start;
     flex-direction: column;
-    margin-right: 25px;
+    margin-left: 25px;
 }
 
 .post-description {

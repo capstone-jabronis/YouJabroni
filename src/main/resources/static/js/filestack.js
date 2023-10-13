@@ -15,7 +15,7 @@ const options = {
     },
     imageMax: [400, 400],
     onFileUploadFinished: file => {
-        // console.log(file);
+        console.log(file.url);
         fileInput.setAttribute('value', file.url);
         previewImage.setAttribute('src', file.url);
     },
