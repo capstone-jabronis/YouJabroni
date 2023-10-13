@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <div th:replace="partials/partials :: head(title='Profile')">
     </div>
@@ -165,8 +166,9 @@
                 <div class="row">
                     <div class="column profile-pic-and-btns">
                         <!-- this is the profile pic img -->
-                        <img class="previewImage" id="previewImage" th:src="${user.getProfileURL()}"
-                             alt="Uploaded Image">
+                        <img th:if="${user.profileURL == null}" class="previewImage" src="/img/memespace.gif">
+                        <img th:if="${user.profileURL != null}" class="previewImage" th:src="${user.getProfileURL()}"
+                             alt="uploaded image">
 
                         <!-- this is the loading animation -->
                         <div class="hidden hide-loader">
@@ -231,15 +233,18 @@
 
 
     </div>
-
 </div>
+
 <footer th:replace="partials/partials :: footer"></footer>
+
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-<script th:src="@{/js/keys.js}"></script>
+<script th:src="@{/keys.js}"></script>
 <script th:src="@{/js/filestack.js}"></script>
 <script th:src="@{/js/profile.js}"></script>
 <script th:src="@{/js/posts.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/likedPosts.js}"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Simulate a click on the "Post" tab

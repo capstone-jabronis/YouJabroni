@@ -1,6 +1,6 @@
 const loadingOverlay = document.querySelector('.hide-loader');
 const fileInput = document.getElementById('fileInput');
-const previewImage = document.getElementById('previewImage');
+const previewImage = document.querySelector('.previewImage');
 const profilePicButton = document.querySelector("#profilePic");
 const client = filestack.init(FILESTACK_API_KEY);
 let picker;

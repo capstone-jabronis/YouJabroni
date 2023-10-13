@@ -4,7 +4,6 @@ const userIDElement = document.querySelector("#results");
 let userID2 = userIDElement.getAttribute("dataId");
 let url2 = `/${userID2}/posts`;
 let USER_POST_ID = [];
-console.log(document.querySelector('meta[name="userId"]'));
 const loggedInElement = document.querySelector('meta[name="userId"]');
 let loggedInUserId;
 if (loggedInElement != null) {
@@ -22,7 +21,7 @@ postElement.addEventListener('click', async (e) => {
         }
     });
     let data = await results.json();
-    console.log(data);
+    // console.log(data);
     if (!results.ok) {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }
@@ -41,6 +40,32 @@ postElement.addEventListener('click', async (e) => {
             // Create a div for the heading of the card
             const postHead = document.createElement('div');
             postHead.classList.add('post-head');
+            const postLikesContainer = document.createElement('div');
+            postLikesContainer.classList.add('post-likes-container');
+            const postLikes = document.createElement('span');
+            postLikes.classList.add('post-likes', 'like-count-element');
+            const rocketImg = document.createElement('img');
+            rocketImg.classList.add('rocket-img');
+            rocketImg.src = '/img/filled-rocket-btn.png';
+            let count = 0;
+            for(let user of post.userLikes){
+                count++;
+            }
+            postLikes.textContent = count;
+            const likeNote = document.createElement('span');
+            if(count === 1) {
+                likeNote.textContent = 'like';
+            } else {
+                likeNote.textContent = 'likes';
+            }
+            likeNote.classList.add('post-like-note', 'like-count-element');
+
+
+            postLikesContainer.appendChild(rocketImg);
+            postLikesContainer.appendChild(postLikes);
+            postLikesContainer.appendChild(likeNote);
+            postHead.appendChild(postLikesContainer);
+
 
             // Create an image element for the meme_pic
             const postImg = document.createElement('img');
@@ -234,12 +259,6 @@ postElement.addEventListener('click', async (e) => {
             deleteModalOverlay.appendChild(deleteModalSection);
             document.body.appendChild(deleteModalOverlay);
             document.body.appendChild(editModalOverlay);
-            // if (isAuthenticated === true) {
-            //     console.log(isAuthenticated);
-            //     buttonsContainer.appendChild(editPostButton);
-            //     buttonsContainer.appendChild(deletePostButton);
-            //     postCaptionDiv.appendChild(buttonsContainer);
-            // }
             if (loggedInElement != null && userID2 == loggedInUserId) {
                 buttonsContainer.appendChild(editPostButton);
                 buttonsContainer.appendChild(deletePostButton);

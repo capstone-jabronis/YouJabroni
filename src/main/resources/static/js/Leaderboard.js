@@ -33,7 +33,7 @@ let leaderboard = async () => {
                 <img class="not-10 user-pic" src="${profileURL}">
                 <div class="leader-info column">
                 <div class="name">${user.user.username}</div>
-                <div class="wins">Wins: ${user.wins}</div>
+                <div class="wins">wins: ${user.wins}</div>
                 </div>
             `;
             const userPic = playerDiv.querySelector('.user-pic');
