@@ -210,6 +210,8 @@
                     await Render.renderResultsPage();
                 }
             } else if (message.messageType === 'RESULT') {
+                gameController.meme1votes = 0;
+                gameController.meme2votes = 0;
                 console.log('LOSERRRRRR: ' + message.text);
                 await Render.renderTournamentPage();
             } else {
@@ -456,7 +458,7 @@
                 loser = gameController.currentRoundPlayers[1];
                 document.querySelector('#player1-result').innerHTML = 'WINNER';
                 document.querySelector('#player2-result').innerHTML = 'LOSER';
-            } else if (gameController.meme1votes > gameController.meme2votes) {
+            } else if (gameController.meme1votes < gameController.meme2votes) {
                 loser = gameController.currentRoundPlayers[0];
                 document.querySelector('#player1-result').innerHTML = 'LOSER';
                 document.querySelector('#player2-result').innerHTML = 'WINNER';
