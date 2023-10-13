@@ -35,6 +35,16 @@ let leaderboard = async () => {
                 <div class="wins">Wins: ${user.wins}</div>
                 </div>
             `;
+            const userPic = playerDiv.querySelector('.user-pic');
+            userPic.addEventListener('click', function () {
+                window.location.href = `/${user.user.id}/profile`;
+            });
+
+            const username = playerDiv.querySelector('.name');
+            username.addEventListener('click', function () {
+                window.location.href = `/${user.user.id}/profile`;
+            });
+
             LeaderTitleElement.after(playerDiv);
         }
 

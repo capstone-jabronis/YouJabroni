@@ -34,9 +34,10 @@
 </div>
 <nav th:replace="partials/partials :: nav"></nav>
 
-<div class="page-wrapper container align-center justify-center ">
-    <form class="edit-form-container d-flex justify-center" th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
-    <h1 class="edit-form-title " >Edit Your Profile</h1>
+<div th:fragment="edit-user-form" class="container align-center justify-center overlay hidden">
+    <section class="edit-user">
+    <form class="edit-form-container d-flex justify-center hidden" th:action="@{|/${user.id}/profile/edit|}" th:method="POST">
+    <h1 class="edit-form-title" >Edit Your Profile</h1>
         <div class="column">
             <p class="edit-label" >Edit Username</p>
             <input class="input-field edit-field" th:name="username" th:type="text" th:value="${user.username}" th:field="${user.username}">
@@ -55,13 +56,13 @@
         </div>
         <button class="submit-mods-btn edit-btn" type="submit" th:type="submit">Submit Changes</button>
     </form>
+    </section>
 </div>
 <a class="back-to-profile" th:href="@{|/${#authentication.principal.id}/profile|}">
 <button class="cancel-edit reg-button" >Back to Profile</button>
 </a>
 <footer th:replace="partials/partials :: footer"></footer>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-<script th:src="@{/keys.js}"></script>
 <script th:src="@{/js/filestack.js}"></script>
 <script th:src="@{/js/main.js}" ></script>
 </body>

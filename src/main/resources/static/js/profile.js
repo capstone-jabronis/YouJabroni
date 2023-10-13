@@ -50,7 +50,7 @@ historyContainer.addEventListener('click', async (e) => {
 
             // Create a button to add to the posts
             const addPostButton = document.createElement('button');
-            addPostButton.textContent = 'add';
+            addPostButton.textContent = 'post';
             addPostButton.classList.add('add-post-btn', 'btn', 'btn-open');
             console.log("these are memesubmissions id", item.id)
             for (let postID of USER_POST_ID) {
@@ -76,7 +76,7 @@ historyContainer.addEventListener('click', async (e) => {
             // Create the exit button
             const closeButtonContainer = document.createElement('div');
             closeButtonContainer.classList.add('close-btn-container');
-            const closeButton = document.createElement('button');
+            const closeButton = document.createElement('span');
             closeButton.classList.add('btn-close');
             closeButton.textContent = 'x';
 
@@ -99,12 +99,34 @@ historyContainer.addEventListener('click', async (e) => {
             descriptionInput.setAttribute('type', 'text');
             descriptionInput.setAttribute('name', 'description');
             descriptionInput.id = 'description';
+            descriptionInput.placeholder = 'add a short description here...';
+            descriptionInput.classList.add('description-input', 'input-field');
+
+            // this is the - or -
+            const or = document.createElement('p');
+            or.textContent = '- or -';
+            or.style.color = 'white';
+            or.classList.add('hidden', 'or');
 
             // Create a button to submit the add form
             const submitAddButton = document.createElement('button');
             submitAddButton.setAttribute('type', 'submit');
             submitAddButton.classList.add('add-btn');
-            submitAddButton.textContent = 'save';
+            submitAddButton.textContent = 'save with no description';
+
+            // Add an event listener to descriptionInput
+            descriptionInput.addEventListener('input', function(event) {
+                // Check if the descriptionInput is empty
+                if (event.target.value.trim() === '') {
+                    // If it's empty, set submitAddButton textContent to "save"
+                    submitAddButton.textContent = 'save with no description';
+                    submitAddButton.style.width = '250px';
+                } else {
+                    // If it's not empty, set submitAddButton textContent to "save with no description"
+                    submitAddButton.textContent = 'save';
+                    submitAddButton.style.width = '100px';
+                }
+            });
 
 
             // Functions
@@ -114,15 +136,26 @@ historyContainer.addEventListener('click', async (e) => {
                 modalOverlay.classList.remove("hidden");
                 const addForm = document.querySelector("#add-post-form");
                 const memeId = document.querySelector("#meme-id");
+                const formTitle = document.querySelector('.form-title');
                 memeId.value = item.id;
-                addForm.appendChild(descriptionInput);
-                addForm.appendChild(submitAddButton);
+
+                if(!document.querySelector('.description-input')) {
+                    addForm.appendChild(descriptionInput);
+
+                }
+                addForm.appendChild(or);
+                if(!document.querySelector('.add-btn')) {
+                    addForm.appendChild(submitAddButton);
+                }
                 addCaptionDiv.appendChild(addForm);
                 addForm.classList.remove("hidden");
+                formTitle.classList.remove('hidden');
             };
             const closeModal = function () {
                 modalSection.classList.add("hidden");
                 modalOverlay.classList.add("hidden");
+                const formTitle = document.querySelector('.form-title');
+                formTitle.classList.add('hidden');
             };
 
             addPostButton.addEventListener("click", function (event) {
@@ -130,8 +163,11 @@ historyContainer.addEventListener('click', async (e) => {
                 openModal(event);
             });
 
-            // const description = document.querySelector("#description");
-            descriptionInput.addEventListener("click", function (event) {
+            modalSection.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            descriptionInput.addEventListener("click", function(event) {
                 event.stopPropagation();
             });
 
@@ -149,7 +185,7 @@ historyContainer.addEventListener('click', async (e) => {
             itemDiv.appendChild(imageElement);
             captionDiv.appendChild(caption);
             captionDiv.appendChild(addPostButton);
-            captionDiv.appendChild(modalOverlay);
+            document.body.appendChild(modalOverlay);
             itemDiv.appendChild(captionDiv);
 
             // Append the itemDiv to userIDElement
@@ -157,19 +193,30 @@ historyContainer.addEventListener('click', async (e) => {
         }
     }
 
-    // Render the current page
-    renderPage(currentPage);
-
+    if(data2.length === 0) {
+        userIDElement2.innerHTML = '';
+        const historyCallToActionContainer = document.createElement('div');
+        historyCallToActionContainer.classList.add('call-to-action-container');
+        const historyCallToAction = document.createElement('img');
+        historyCallToAction.src = '../img/history-call-to-action.png';
+        historyCallToAction.height = 200;
+        historyCallToAction.classList.add('history-call-to-action');
+        historyCallToActionContainer.appendChild(historyCallToAction);
+        userIDElement2.appendChild(historyCallToActionContainer);
+    } else {
+        renderPage(currentPage);
+    }
 });
 
-    function handleLinkClicks(event) {
-        profileLinks.forEach(link => {
-            link.classList.remove('tab-clicked');
-        });
-        event.target.classList.add('tab-clicked');
-    }
-
+function handleLinkClicks (event) {
     profileLinks.forEach(link => {
-        link.addEventListener('click', handleLinkClicks);
-    })
+        link.classList.remove('tab-clicked');
+    });
+    event.target.classList.add('tab-clicked');
+}
+profileLinks.forEach(link => {
+    link.addEventListener('click', handleLinkClicks);
+})
+
+
 

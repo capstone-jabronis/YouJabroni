@@ -71,11 +71,8 @@ public class SecurityConfiguration {
                         "/leaderboard",
                         "/*/profile/posts",
                         "/users",
-                        "/keys.js"
-
-
-
-
+                        "/keys.js",
+                        "/*/posts"
                 ).permitAll();
         return http.build();
 
