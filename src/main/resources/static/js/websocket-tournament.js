@@ -246,10 +246,10 @@
             //JOSE DONT FORGET TO CMD Z THIS
 
 
-            if (tournamentMembers.length !== 4) {
+            if (tournamentMembers.length !== 2) {
                 startGameButton.style.display = "none";
                 // startBtn.style.visibility = "hidden";
-            } else if (tournamentMembers.length === 4 && currentUser.username === tournamentHost.username) {
+            } else if (tournamentMembers.length === 2 && currentUser.username === tournamentHost.username) {
                 startGameButton.style.display = "block";
                 // startBtn.style.visibility = "visible";
             }
@@ -273,20 +273,15 @@
     <div class="row">
     <ul class="d-flex align-center full-width justify-space-around">
         <li class="profile-tab">
-            <h1 class="jdrounds jdCreateH1">
-                ROUND # <span>10000000</span>
-            </h1>
-        </li>
-        <li class="profile-tab">
             <h1 class="jdCreateH1">
                 ${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}
             </h1>
         </li>
-        <li class="profile-tab">
-            <h1 class="jdtime jdCreateH1">
-                :TIME
-            </h1>
-        </li>
+<!--        <li class="profile-tab">-->
+<!--            <h1 class="jdtime jdCreateH1">-->
+<!--                :TIME-->
+<!--            </h1>-->
+<!--        </li>-->
     <ul>
     </div>
 </div>
@@ -332,19 +327,48 @@
         },
 
         renderVotePage(user1, user2) {
-            lobbyContainer.innerHTML = `<h1>VOTE PAGE YO</h1>
-            <h2>${user1} VS ${user2}</h2>
-            <h3 id="vote-status"></h3>
-            <div class="div-meme-vote">
-                <img src="${gameController.currentMemeSubmissions[0].memeURL}"><span>${gameController.currentMemeSubmissions[0].caption}</span>
-                <button id="vote-meme1">Vote for 1</button>
-                <div id="meme1-votes"></div>
-            </div>
-            <div class="div-meme-vote">
-                <img src="${gameController.currentMemeSubmissions[1].memeURL}"><span>${gameController.currentMemeSubmissions[1].caption}</span>
-                <button id="vote-meme2">Vote for 2</button>
-                <div id="meme1-votes"></div>
-            </div>
+            lobbyContainer.innerHTML = `
+             <div class="container">
+                <div class="row">
+                    <div class="column justify-center align-center">
+                        <h1>VOTE FOR THE BEST MEME</h1>
+                    </div>
+                </div>
+             </div>
+             
+             <div class="container">
+                <div class="row">
+                    <div class="column justify-center align-center">
+                        <h2>${user1} VS ${user2}</h2>
+                    </div>
+                </div>
+             </div>
+             
+             <div class="container">
+                <div class="row">
+                    <div class="column justify-center align-center">
+                        <h3 id="vote-status"></h3>
+                    </div>
+                </div>
+             </div>
+             
+             <div class="container d-flex">
+                <div class="row justify-space-evenly">
+                    <div class="column flex-column align-center">
+                            <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}">
+                            <span>${gameController.currentMemeSubmissions[0].caption}</span>
+                            <button id="vote-meme1">Vote for 1</button>
+                            <div id="meme1-votes"></div>
+                    </div>
+                    
+                    <div class="column flex-column align-center">
+                            <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}">
+                            <span>${gameController.currentMemeSubmissions[1].caption}</span>
+                            <button id="vote-meme2">Vote for 2</button>
+                            <div id="meme1-votes"></div>
+                    <div>
+                </div>
+             </div>
             `
             let voteMeme1btn = document.querySelector('#vote-meme1');
             let voteMeme2btn = document.querySelector('#vote-meme2');

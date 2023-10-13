@@ -910,9 +910,10 @@ body {
 /*===============     CREATE MEME     ===============*/
 
 .memeAPIImage{
-    width: 450px;
-    height: 450px;
-    object-fit: contain;
+    max-width: 90%;
+    max-height: 90%;
+    min-width: 90%;
+    min-height: 90%;
 }
 
 
