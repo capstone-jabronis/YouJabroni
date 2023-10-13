@@ -1,4 +1,3 @@
-const csrfToken2 = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 const historyContainer = document.querySelector("#history");
 const userIDElement2 = document.querySelector("#results");
 let userID = userIDElement2.getAttribute("dataId");
@@ -14,7 +13,7 @@ historyContainer.addEventListener('click', async (e) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken2
+            'X-CSRF-TOKEN': csrfToken
         }
     });
     const data2 = await results.json();

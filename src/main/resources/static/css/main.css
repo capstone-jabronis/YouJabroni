@@ -211,7 +211,7 @@ body {
     flex: 1 0 0;
     margin-left: 20px;
 }
-
+/********** History of Meme Submissions View ***********/
 .history-container {
     display: flex;
     flex-direction: row;
@@ -272,7 +272,7 @@ body {
     border: 2px solid #343CFF;
     color: #343CFF;
 }
-
+/******** End of History of Meme Submissions *****/
 .profile-pic {
     border-radius: 50%;
     height: 250px;
