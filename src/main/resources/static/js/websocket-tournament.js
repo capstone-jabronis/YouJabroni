@@ -45,8 +45,6 @@
     startGameButton.style.display = "none";
 
 
-
-
     //MEME API VARIABLES//////////////////////////////////
     let memeApiURL = "https://api.imgflip.com/get_memes";
     //Object to control various game statuses to update the page accordingly
@@ -63,6 +61,7 @@
         meme2votes: 0,
         tieBreakerFunction() {
             //random method here to vote during a tie
+            return Math.floor(Math.random());
         }
     }
 
@@ -149,7 +148,7 @@
                 await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
                 gameController.activePlayers = await Fetch.Get.tournamentMembers();
-                gameController.activePlayers.sort(function(a, b) {
+                gameController.activePlayers.sort(function (a, b) {
 
                     return (a.id - b.id);
                 });
@@ -165,12 +164,12 @@
                 //adds remaining players to votingPlayers
                 gameController.votingPlayers = [];
                 let n = 0;
-                for(let i = 0; i < gameController.activePlayers.length; i++){
+                for (let i = 0; i < gameController.activePlayers.length; i++) {
                     console.log(gameController.currentRoundPlayers[n] + " " + gameController.activePlayers[i].username);
-                    if(gameController.currentRoundPlayers[n] === gameController.activePlayers[i].username){
+                    if (gameController.currentRoundPlayers[n] === gameController.activePlayers[i].username) {
                         console.log("SKIP");
                         n++;
-                    }else{
+                    } else {
                         gameController.votingPlayers.push(gameController.activePlayers[i]);
                     }
                 }
@@ -197,19 +196,22 @@
                     let user2 = gameController.currentRoundPlayers[1];
                     Render.renderVotePage(user1, user2);
                 }
-            } else if(message.messageType === 'VOTE'){
-                if(message.text === "1"){
+            } else if (message.messageType === 'VOTE') {
+                if (message.text === "1") {
                     gameController.meme1votes += 1;
                     console.log(gameController.meme1votes);
-                } else if (message.text === "2"){
+                } else if (message.text === "2") {
                     gameController.meme2votes += 1;
                     console.log(gameController.meme2votes);
                 }
                 //check if all users voted
-                if((gameController.meme1votes + gameController.meme2votes) === gameController.votingPlayers.length){
+                if ((gameController.meme1votes + gameController.meme2votes) === gameController.votingPlayers.length) {
                     //Render results page
-                    Render.renderResultsPage();
+                    await Render.renderResultsPage();
                 }
+            } else if (message.messageType === 'RESULT') {
+                console.log('LOSERRRRRR: ' + message.text);
+                await Render.renderTournamentPage();
             } else {
                 gameController.currentMemeSubmissions.push(message);
             }
@@ -220,7 +222,7 @@
         async initialize() {
             //waits for socket to connect before moving on
             await Socket.connect();
-            // await Render.reloadTournamentMembers();
+
         }
     }
 
@@ -259,12 +261,8 @@
             console.log("Render page for tourny");
 
 
-
             //JOSES TRYING SOMETHING
             startBtn.style.visibility = "hidden";
-
-
-
 
 
             // startGameButton.style.display = "none";
@@ -332,7 +330,7 @@
         },
 
         renderVotePage(user1, user2) {
-            lobbyContainer.innerHTML = `<h1>VOTE PAGE YO</h1>
+            lobbyContainer.innerHTML = `<h1>VOTE TIME!</h1>
             <h2>${user1} VS ${user2}</h2>
             <h3 id="vote-status"></h3>
             <div class="div-meme-vote">
@@ -346,13 +344,15 @@
                 <div id="meme1-votes"></div>
             </div>
             `
+
             let voteMeme1btn = document.querySelector('#vote-meme1');
             let voteMeme2btn = document.querySelector('#vote-meme2');
             let meme1votes = document.querySelector('#meme1-votes');
             let meme2votes = document.querySelector('#meme2-votes');
             let voteStatusH3 = document.querySelector('#vote-status');
-            function voterBtns(){
-                voteMeme1btn.addEventListener('click',()=>{
+
+            function voterBtns() {
+                voteMeme1btn.addEventListener('click', () => {
                     // gameController.meme1votes += 1;
                     voteMeme1btn.style.visibility = "hidden";
                     voteMeme2btn.style.visibility = "hidden";
@@ -367,7 +367,7 @@
                     Socket.sendMessage(message);
                 })
 
-                voteMeme2btn.addEventListener('click',()=>{
+                voteMeme2btn.addEventListener('click', () => {
                     // gameController.meme2votes += 1;
                     voteMeme1btn.style.visibility = "hidden";
                     voteMeme2btn.style.visibility = "hidden";
@@ -383,13 +383,13 @@
                 })
             }
 
-            function playerHideBtns(){
+            function playerHideBtns() {
                 voteStatusH3.innerHTML = "VOTING IN PROGRESS";
                 voteMeme1btn.style.visibility = "hidden";
                 voteMeme2btn.style.visibility = "hidden";
             }
 
-            if(gameController.votingPlayers[0].username === currentUser.username){
+            if (gameController.votingPlayers[0].username === currentUser.username) {
                 voterBtns();
             } else if (gameController.votingPlayers[1].username === currentUser.username) {
                 voterBtns();
@@ -404,18 +404,63 @@
             lobbyContainer.innerHTML = `<h1>WAITING FOR MEME SUBMISSIONS...</h1>`
         },
 
-        renderResultsPage(){
+        async renderResultsPage() {
+            let host = await Fetch.Get.tournamentHost();
             lobbyContainer.innerHTML = `<h1>RESULTS</h1>
             <h2>${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
             <h3 id="vote-status"></h3>
             <div class="div-meme-vote">
                 <img src="${gameController.currentMemeSubmissions[0].memeURL}"><span>${gameController.currentMemeSubmissions[0].caption}</span>
-                <div id="meme1-votes">${gameController.meme1votes}</div>
+                <h3 id="meme1-votes">${gameController.meme1votes}</h3>
+                <h3 id="player1-result"></h3>
             </div>
             <div class="div-meme-vote">
                 <img src="${gameController.currentMemeSubmissions[1].memeURL}"><span>${gameController.currentMemeSubmissions[1].caption}</span>
-                <div id="meme1-votes">${gameController.meme1votes}</div>
-            </div>`
+                <h3 id="meme2-votes">${gameController.meme2votes}</h3>
+                <h3 id="player2-result"></h3>
+            </div>
+            <button id="submit-results-btn">CONTINUE TO NEXT ROUND</button>
+            `
+            let nextRoundBtn = document.querySelector('#submit-results-btn');
+            if (host.username !== currentUser.username) {
+                nextRoundBtn.disabled = true;
+                nextRoundBtn.style.visibility = 'hidden';
+            }
+            //DECIDE WINNER AND ELIMINATE LOSER
+            let loser;
+            if (gameController.meme1votes > gameController.meme2votes) {
+                loser = gameController.currentRoundPlayers[1];
+                document.querySelector('#player1-result').innerHTML = 'WINNER';
+                document.querySelector('#player2-result').innerHTML = 'LOSER';
+            } else if (gameController.meme1votes > gameController.meme2votes) {
+                loser = gameController.currentRoundPlayers[0];
+                document.querySelector('#player1-result').innerHTML = 'LOSER';
+                document.querySelector('#player2-result').innerHTML = 'WINNER';
+            } else if (gameController.meme1votes === gameController.meme2votes) {
+                //TIE BREAKER
+                if (gameController.tieBreakerFunction() === 0) {
+                    loser = gameController.currentRoundPlayers[1];
+                    document.querySelector('#meme1-votes').innerHTML += ' (+1)'
+                    document.querySelector('#player1-result').innerHTML = '*WINNER BY COIN FLIP*';
+                    document.querySelector('#player2-result').innerHTML = 'LOSER';
+                } else if (gameController.tieBreakerFunction() === 1) {
+                    loser = gameController.currentRoundPlayers[0];
+                    document.querySelector('#meme2-votes').innerHTML += ' (+1)'
+                    document.querySelector('#player2-result').innerHTML = '*WINNER BY COIN FLIP*';
+                    document.querySelector('#player1-result').innerHTML = 'LOSER';
+                }
+            }
+
+            nextRoundBtn.addEventListener('click', () => {
+                console.log('next round!')
+                let message = {
+                    user: currentUser.username,
+                    text: loser,
+                    memeURL: '',
+                    messageType: 'RESULT'
+                }
+                Socket.sendMessage(message);
+            })
         }
     }
 
@@ -495,7 +540,7 @@
         Socket.sendMessage(message);
     })
 
-    startGameButton.addEventListener('click', async () =>{
+    startGameButton.addEventListener('click', async () => {
         console.log('Start button clicked')
         let host = await Fetch.Get.tournamentHost();
         let message;
@@ -517,29 +562,6 @@
         }
         Socket.sendMessage(message);
     });
-    //
-    // startBtn.addEventListener('click', async () => {
-    //     console.log('Start button clicked')
-    //     let host = await Fetch.Get.tournamentHost();
-    //     let message;
-    //     if (currentUser.username == host.username) {
-    //         message = {
-    //             user: currentUser.username,
-    //             text: 'GAME START',
-    //             memeURL: '',
-    //             messageType: 'START'
-    //         };
-    //     } else {
-    //         console.log('Error: current user is not host');
-    //         message = {
-    //             user: currentUser.username,
-    //             text: 'Host check failed, rendering page again',
-    //             memeURL: '',
-    //             messageType: 'JOIN'
-    //         }
-    //     }
-    //     Socket.sendMessage(message);
-    // })
 
     Tournament.initialize();
 
