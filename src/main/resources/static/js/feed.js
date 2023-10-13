@@ -69,6 +69,30 @@
                     postFeedImage.height = 180;
                     postFeedCard.appendChild(postFeedImage);
 
+                    // Create the div for the like count
+                    const likeCountRow = document.createElement('div');
+                    likeCountRow.classList.add('like-count-row');
+                    const likeCountContainer = document.createElement('div');
+                    likeCountContainer.classList.add('like-count-container');
+                    const likeCount = document.createElement('span');
+                    likeCount.classList.add('like-count', 'like-count-element');
+                    let count = 0;
+                    for(let user of post.userLikes){
+                        count++;
+                    }
+                    likeCount.textContent = count;
+                    const like = document.createElement('span');
+                    like.classList.add('like-span', 'like-count-element');
+                    if(count === 1) {
+                        like.textContent = 'like';
+                    } else {
+                        like.textContent = 'likes';
+                    }
+                    likeCountContainer.appendChild(likeCount);
+                    likeCountContainer.appendChild(like);
+                    likeCountRow.appendChild(likeCountContainer);
+                    postFeedCard.appendChild(likeCountRow);
+
                     // Create the div for the caption
                     const postFeedCaptionDiv = document.createElement('div');
                     const caption = document.createElement('h2');
@@ -86,7 +110,12 @@
 
                     // logic to dictate which rocket image to use
                     console.log(post);
-                    const loggedInUserId = document.querySelector('meta[name="userId"]').getAttribute('data-user-id');
+                    const loggedInElement = document.querySelector('meta[name="userId"]');
+                    let loggedInUserId;
+                    if (loggedInElement != null) {
+                        loggedInUserId = loggedInElement.getAttribute('data-user-id');
+                        console.log(loggedInUserId);
+                    }
                     let userHasLiked = false;
                     for (let user of post.userLikes) {
                         if (loggedInUserId == user.id) {
@@ -101,7 +130,9 @@
                         `<img class="like-rocket" src="${userHasLiked ? '../img/filled-rocket-btn.png' : '../img/unfilled-rocket-btn.png'}">
                         <span> Like </span>`;
 
-                    postFeedCard.appendChild(likeBtnDiv);
+                    if(loggedInUserId != null) {
+                        postFeedCard.appendChild(likeBtnDiv);
+                    }
 
                     const options = {
                         method: 'POST',
@@ -121,10 +152,18 @@
                         if (e.target.src.endsWith('/img/unfilled-rocket-btn.png')) {
                             console.log("Inside if statement")
                             e.target.src = '../img/filled-rocket-btn.png';
+                            count++;
                         } else {
                             e.target.src = '../img/unfilled-rocket-btn.png';
+                            count--;
                         }
 
+                        likeCount.textContent = count;
+                        if(count === 1) {
+                            like.textContent = 'like';
+                        } else {
+                            like.textContent = 'likes';
+                        }
                     };
                     likeBtnDiv.addEventListener('click', handleRocketIconClick);
 

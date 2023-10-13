@@ -1089,6 +1089,25 @@ body {
     width: 350px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    display: flex;
+    align-items: center
+}
+
+.post-likes-container {
+    font-size: 20px;
+    margin-left: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.rocket-img {
+    height: 30px;
+    width: 30px;
+}
+
+.post-likes {
+    margin-right: 5px;
+    margin-left: 10px;
 }
 
 .post-img {

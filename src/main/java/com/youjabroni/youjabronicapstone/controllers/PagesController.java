@@ -56,14 +56,10 @@ public class PagesController {
 
     @GetMapping("/{id}/profile")
     public String showUsersProfile(@PathVariable long id, Model model) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String username = authentication.getName();
-//        User currentUser = userDao.findByUsername(username);
-
-//        System.out.println("This is the current user:" + username);
         int winningCount = 0;
         int postsCount = 0;
         int postLikes = 0;
+
         List<Tournament> tournamentsUserHasWon = tournamentDao.findByWinnerId(id);
         for(Tournament tournament : tournamentsUserHasWon) {
             winningCount++;
@@ -74,20 +70,18 @@ public class PagesController {
             postsCount++;
         }
 
-        List<Post> userLikedPosts = userDao.findById(id).get().getLikedPosts();
+        List<Post> userLikedPosts = postDao.findByUserId(id);
         for(Post post : userLikedPosts)
         {
-            postLikes++;
+            List<User> totalLikes = post.getUserLikes();
+            for(User user : totalLikes) {
+                postLikes++;
+            }
         }
-//        List<Tournament> tournamentsUserHasBeenIn = userDao.findAllTournamentById(id);
-//        for(Tournament tournament : tournamentsUserHasBeenIn) {
-//            tournamentCount++;
-//        }
 
         model.addAttribute("wins", winningCount);
         model.addAttribute("posts", postsCount);
         model.addAttribute("likes", postLikes);
-//        model.addAttribute("currentUser", currentUser.getId());
         model.addAttribute("user", userDao.findById(id).get());
         return "pages/profile";
     }
@@ -131,7 +125,6 @@ public class PagesController {
 
     @GetMapping("/feed")
     public String showFeed(Model model) {
-//        List<MemeSubmission> memes = memeDao.findAll();
         return "pages/feed";
     }
     @PostMapping("/{postId}/liked")
