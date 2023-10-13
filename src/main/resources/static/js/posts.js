@@ -22,7 +22,7 @@ postElement.addEventListener('click', async (e) => {
         }
     });
     let data = await results.json();
-    console.log(data);
+    // console.log(data);
     if (!results.ok) {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }

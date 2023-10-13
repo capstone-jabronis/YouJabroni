@@ -122,10 +122,18 @@ public class PagesController {
         return userPost;
     }
     @GetMapping("/{id}/liked")
-    public @ResponseBody List<Post> viewLikedPosts(@PathVariable long id){
-        User user = userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+    public @ResponseBody List<Post> viewLikedPosts(@PathVariable long id) throws JsonProcessingException {
+        User user = new User(userDao.findById(id).get());
 //        Post post = postDao.findById(id).get();
-        List<Post> userLikes = user.getLikedPosts();
+        List<Post> userLikedPosts = user.getLikedPosts();
+        List<Post> userLikes = new ArrayList<>();
+        for (Post likedPost : userLikedPosts){
+            if (likedPost.getUserLikes().contains(user)){
+                userLikes.add(likedPost);
+            }
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLikedPosts));
         return userLikes;
     }
 
