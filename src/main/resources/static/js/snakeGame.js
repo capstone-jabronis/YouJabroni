@@ -1,4 +1,6 @@
 const snakeGameContainer = document.querySelector("#snakeGame");
+snakeGameContainer.style.display = "none";
+let colforsnake = document.querySelector(".jdWaitColCanvas")
 let blockSize = 25;
 let total_row = 30; // total row number
 let total_col = 30; // total column number
@@ -20,7 +22,20 @@ let gameOver = false;
 
 let foodColorHue = 0; // Initial hue value
 
-window.onload = function () {
+let h4Element = document.createElement("h4");
+h4Element.innerText = "PRESS SPACE TO PLAY A GAME WHILE YOU WAIT FOR LOBBY TO FILL"
+colforsnake.appendChild(h4Element);
+window.addEventListener("keydown", function(e) {
+    if (e.key === " ") {
+        e.preventDefault();
+        snakeGameContainer.style.display = "block";
+        h4Element.style.display = 'none';
+        startGame();
+        snakeGame();
+    }
+}, { once: true });
+
+const snakeGame = () => {
     // Set board height and width
     snakeGameContainer.height = total_row * blockSize;
     snakeGameContainer.width = total_col * blockSize;
