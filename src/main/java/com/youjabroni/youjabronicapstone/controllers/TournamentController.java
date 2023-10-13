@@ -97,6 +97,13 @@ public class TournamentController {
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
     }
 
+    @MessageMapping("/tournament/lobby/{tournamentId}/finish")
+    public void finishMessage(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
+        System.out.println("----------In FINISH method---------");
+        System.out.println(message.getMessageType());
+        messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
+    }
+
     @MessageMapping("/tournament/lobby/{tournamentId}/meme")
     public void memeMapping(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
         System.out.println("----------In Meme Method---------");
