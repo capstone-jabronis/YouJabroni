@@ -124,9 +124,8 @@ public class PagesController {
     public @ResponseBody List<Post> viewLikedPosts(@PathVariable long id) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         User user = new User(userDao.findById(id).get());
-        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user.getLikedPosts()));
         List<Post> userLikedPosts = postDao.findAllByUserLikes(user);
-        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLikedPosts));
+//        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLikedPosts));
         return userLikedPosts;
     }
 

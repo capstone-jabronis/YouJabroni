@@ -7,10 +7,9 @@ const loggedInElement2 = document.querySelector('meta[name="userId"]');
 let loggedInUserId2;
 if (loggedInElement2 != null) {
     loggedInUserId2 = loggedInElement2.getAttribute('data-user-id');
-    console.log(loggedInUserId2);
 }
 
-console.log(likedPostElement);
+
 
 likedPostElement.addEventListener('click', async(e)=>{
     console.log("likedPostElement clicked");
@@ -24,7 +23,7 @@ likedPostElement.addEventListener('click', async(e)=>{
         }
     });
     let data = await results.json();
-    console.log(data);
+    // console.log(data);
     if (!results.ok) {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }
@@ -32,10 +31,39 @@ likedPostElement.addEventListener('click', async(e)=>{
         // Creates container for liked posts
         userIDElement3.innerHTML='';
         userIDElement3.classList.add('liked-posts-container');
-        // console.log(data);
+
         for(const likedPost of data){
+            console.log(likedPost);
             USER_LIKED_POSTS_ID.push(likedPost);
-            console.log(likedPost)
+            const likedPostDiv = document.createElement('div');
+            likedPostDiv.classList.add('post-card');
+
+            const likedPostHead = document.createElement('div');
+            likedPostHead.classList.add('post-head');
+
+            const likedPostImage = document.createElement('img');
+            likedPostImage.src = likedPost.memeSubmission.memeURL;
+            likedPostImage.width = 300;
+            likedPostImage.height = 200;
+            likedPostImage.classList.add('post-img');
+
+            const likedPostCaptionDiv = document.createElement('div');
+            const likedPostCaption = document.createElement('h2');
+            likedPostCaption.textContent = `${likedPost.memeSubmission.caption}`;
+            likedPostCaption.classList.add('post-caption');
+            likedPostCaptionDiv.classList.add('post-caption-div');
+
+            const likedPostDescription = document.createElement('p');
+            likedPostDescription.textContent = `${likedPost.description}`;
+            likedPostDescription.classList.add('post-description');
+
+            likedPostDiv.appendChild(likedPostHead);
+            likedPostDiv.appendChild(likedPostImage);
+            likedPostCaptionDiv.appendChild(likedPostCaption);
+            likedPostCaptionDiv.appendChild(likedPostDescription);
+            likedPostDiv.appendChild(likedPostCaptionDiv);
+            userIDElement3.appendChild(likedPostDiv);
+
         }
     }
     renderPage();
