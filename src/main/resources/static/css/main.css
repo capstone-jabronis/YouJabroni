@@ -41,6 +41,7 @@
 .reg-button {
     display: flex;
     align-items: center;
+    justify-content: center;
     font-family: inherit;
     font-weight: 500;
     font-size: 17px;
@@ -74,7 +75,7 @@
 }
 
 .reg-button:hover {
-    background-color: var(--first);
+    background-color: white;
     color: var(--button);
 }
 
@@ -230,7 +231,7 @@ body {
     border-radius: 15px;
     align-items: center;
     justify-content: start;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 .history-head {
@@ -371,6 +372,11 @@ body {
 .jdTournamentCSS {
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 20px;
+    background-color: #0D0149;
+    color: white;
+    border-radius: 15px;
+    height: 100px;
 }
 
 .description {
@@ -392,6 +398,7 @@ body {
     padding: unset;
     font-size: 20px;
     margin-top: 50px;
+    margin-bottom: 60px;
 }
 
 .tab-clicked {
@@ -438,6 +445,9 @@ body {
     width: inherit;
     background-color: #0D0149;
     color: #b4acef;
+}
+.tournament-create-btn {
+    width: 280px;
 }
 
 /*================         END OF HOME         ================*/
@@ -491,23 +501,14 @@ body {
 /*===============     PROFILE     ===============*/
 .password-error {
     color: red;
-    align-self: center;
+    align-self: start;
+    margin-left: 45px;
+    margin-top: 5px;
 }
 
 /*===============     END OF PROFILE     ===============*/
 
 /************************************************ Edit Profile Page ***********************************************/
-
-/*.edit-form-container {*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    background-color: var(--third);*/
-/*    height: 45rem;*/
-/*    width: 60rem;*/
-/*    margin-top: 5rem;*/
-/*    margin-bottom: 5rem;*/
-/*    border-radius: 2rem;*/
-/*}*/
 
 .edit-form-title {
     font-size: 2rem;
@@ -552,24 +553,66 @@ body {
 .password-change-card {
     background: #0D0149;
     color: white;
-    padding: 30px;
+    min-height: 250px;
+    height: 270px;
+    width: 400px;
     border-radius: 20px;
+}
+
+.change-password-exit-container {
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+.change-password-exit {
+    margin-left: 20px;
+    padding-top: 10px;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.change-password-exit:hover {
+    color: #343CFF;
+    cursor: pointer;
 }
 
 .newPassword {
     margin-bottom: 20px;
+    margin-left: 40px;
+}
+
+.confirmNewPassword {
+    margin-left: 40px;
 }
 
 .change-pass-label {
-    margin-left: 5px;
+    margin-left: 45px;
 }
 
 .submit-password {
-    height: 2rem;
-    margin-top: 10px;
-    background-color: #ad5389;
+    height: 40px;
+    width: 100px;
+    font-size: 16px;
+    margin-top: 20px;
+    background-color: #343CFF;
     border: unset;
-    border-radius: 10px;
+    color: white;
+    border-radius: 16px;
+}
+
+.submit-password:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+    cursor: pointer;
+}
+
+
+
+.password-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center
 }
 
 .changeProfileImg {
@@ -611,7 +654,6 @@ body {
     border: 2px solid #343CFF;
     color: #343CFF;
 }
-
 .bar {
     width: 35px;
     height: 4px;
@@ -632,7 +674,6 @@ body {
     top: 35%;
     right: 35%;
 }
-
 .back-to-profile {
     text-decoration: none;
 }
@@ -641,7 +682,7 @@ body {
     flex-direction: column;
     /*align-items: center;*/
     background-color: var(--third);
-    height: 35rem;
+    height: 33rem;
     width: 50rem;
     position: absolute;
     top: 10%;
@@ -675,7 +716,7 @@ body {
 
 .exit-edit-profile-btn {
     color: white;
-    font-size: 32px;
+    font-size: 30px;
     margin-left: 10px;
     padding-bottom: 20px;
 }
@@ -707,10 +748,15 @@ body {
 }
 
 .btn-close {
-    padding: 0.5rem 0.7rem;
-    background: #eee;
-    border-radius: 50%;
-    margin: 5px;
+    color: white;
+    font-size: 24px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.btn-close:hover {
+    cursor: pointer;
+    color: #343CFF;
 }
 
 .overlay {
@@ -733,7 +779,8 @@ body {
 .close-btn-container {
     display: flex;
     align-items: start;
-    justify-content: end;
+    justify-content: start;
+    margin-bottom: 15px;
 
 }
 
@@ -859,7 +906,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .edit-form {
@@ -886,8 +933,9 @@ body {
     border-radius: 16px;
     height: 40px;
     width: 100px;
+    margin-top: 20px;
     font-size: 18px;
-    margin-right: 110px;
+    margin-right: 113px;
 }
 
 .submit-edit-post:hover {
@@ -903,10 +951,11 @@ body {
     border-radius: 16px;
     height: 40px;
     width: 100px;
+    margin-top: 20px;
     font-size: 18px;
     position: absolute;
-    top: 62.8%;
-    right: 25%;
+    top: 59.8%;
+    right: 27%;
 }
 
 .cancel-edit-form:hover {
@@ -981,7 +1030,7 @@ body {
     font-size: 18px;
     position: absolute;
     top: 52.5%;
-    right: 26%;
+    right: 27%;
 }
 
 .cancel-btn:hover {
@@ -1011,7 +1060,7 @@ body {
     border-radius: 15px;
     align-items: center;
     justify-content: start;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 .post-head {
@@ -1043,6 +1092,22 @@ body {
 .post-caption {
     margin-bottom: 5px;
 }
+/*===============     START OF CALL TO ACTION CSS     ===============*/
+
+.call-to-action-container {
+    display: flex;
+    justify-content: center;
+}
+
+.post-call-to-action {
+    margin-left: 50px;
+}
+
+.history-call-to-action {
+    margin-right: 100px;
+}
+
+/*===============     END OF CALL TO ACTION CSS     ===============*/
 
 /*===============     LANDING PAGE     ===============*/
 

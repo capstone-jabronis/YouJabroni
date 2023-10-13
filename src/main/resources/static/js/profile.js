@@ -50,7 +50,7 @@ historyContainer.addEventListener('click', async (e) => {
 
             // Create a button to add to the posts
             const addPostButton = document.createElement('button');
-            addPostButton.textContent = 'add';
+            addPostButton.textContent = 'post';
             addPostButton.classList.add('add-post-btn', 'btn', 'btn-open');
             console.log("these are memesubmissions id", item.id)
             for (let postID of USER_POST_ID) {
@@ -76,7 +76,7 @@ historyContainer.addEventListener('click', async (e) => {
             // Create the exit button
             const closeButtonContainer = document.createElement('div');
             closeButtonContainer.classList.add('close-btn-container');
-            const closeButton = document.createElement('button');
+            const closeButton = document.createElement('span');
             closeButton.classList.add('btn-close');
             closeButton.textContent = 'x';
 
@@ -193,9 +193,19 @@ historyContainer.addEventListener('click', async (e) => {
         }
     }
 
-    // Render the current page
-    renderPage(currentPage);
-
+    if(data2.length === 0) {
+        userIDElement2.innerHTML = '';
+        const historyCallToActionContainer = document.createElement('div');
+        historyCallToActionContainer.classList.add('call-to-action-container');
+        const historyCallToAction = document.createElement('img');
+        historyCallToAction.src = '../img/history-call-to-action.png';
+        historyCallToAction.height = 200;
+        historyCallToAction.classList.add('history-call-to-action');
+        historyCallToActionContainer.appendChild(historyCallToAction);
+        userIDElement2.appendChild(historyCallToActionContainer);
+    } else {
+        renderPage(currentPage);
+    }
 });
 
 function handleLinkClicks (event) {

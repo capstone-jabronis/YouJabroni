@@ -14,14 +14,21 @@ const modalSection = document.querySelector('.edit-user');
 const editProfileButton = document.querySelector('.edit-btn');
 const editProfileForm = document.querySelector('.edit-form-container');
 const exitBtn = document.querySelector('.exit-edit-profile-btn');
+const exitPasswordBtn = document.querySelector('.change-password-exit');
 changePasswordBtn.addEventListener('click', () => {
-    passwordModal.classList.toggle('hidden')
+    passwordModal.classList.remove('hidden')
 });
 modalBackground.addEventListener('click', () => {
-    passwordModal.classList.toggle('hidden')
+    passwordModal.classList.add('hidden')
     newPassword.value = ""
     confirmNewPassword.value = ""
-})
+});
+
+exitPasswordBtn.addEventListener('click', () => {
+    passwordModal.classList.add('hidden');
+    newPassword.value = ""
+    confirmNewPassword.value = ""
+});
 
 confirmNewPassword.addEventListener('keyup', () => {
     passwordValidation()

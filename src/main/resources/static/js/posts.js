@@ -7,7 +7,7 @@ let USER_POST_ID = [];
 console.log(document.querySelector('meta[name="userId"]'));
 const loggedInElement = document.querySelector('meta[name="userId"]');
 let loggedInUserId;
-if(loggedInElement != null) {
+if (loggedInElement != null) {
     loggedInUserId = loggedInElement.getAttribute('data-user-id');
     console.log(loggedInUserId);
 }
@@ -251,5 +251,17 @@ postElement.addEventListener('click', async (e) => {
         }
     }
 
-    renderPage();
+    if (data.length === 0 && loggedInElement != null && userID2 == loggedInUserId) {
+        userIDElement.innerHTML = '';
+        const callToActionContainer = document.createElement('div');
+        callToActionContainer.classList.add('call-to-action-container');
+        const postCallToAction = document.createElement('img');
+        postCallToAction.src = '../img/post-call-to-action.png';
+        postCallToAction.height = 200;
+        postCallToAction.classList.add('post-call-to-action');
+        callToActionContainer.appendChild(postCallToAction);
+        userIDElement.appendChild(callToActionContainer);
+    } else {
+        renderPage();
+    }
 });
