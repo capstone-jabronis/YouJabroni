@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByUserId(long id);
-
+    List<Post> findAllByUserLikes(User user);
 }

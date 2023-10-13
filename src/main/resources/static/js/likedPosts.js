@@ -1,13 +1,22 @@
-const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 const likedPostElement = document.querySelector("#likedPost");
-const userIDElement = document.querySelector("#results");
-let userID2 = userIDElement.getAttribute("dataId");
-let url2 = `/${userID2}/liked`;
-const isAuthenticated = document.querySelector("[data-authenticated]");
-let USER_POST_ID = [];
+const userIDElement3 = document.querySelector("#results");
+let userID3 = userIDElement3.getAttribute("dataId");
+let url3 = `/${userID3}/liked`;
+let USER_LIKED_POSTS_ID = [];
+const loggedInElement2 = document.querySelector('meta[name="userId"]');
+let loggedInUserId2;
+if (loggedInElement2 != null) {
+    loggedInUserId2 = loggedInElement2.getAttribute('data-user-id');
+    console.log(loggedInUserId2);
+}
+
+console.log(likedPostElement);
+
 likedPostElement.addEventListener('click', async(e)=>{
+    console.log("likedPostElement clicked");
     e.preventDefault();
-    let results = await fetch(url2, {
+    console.log(`url: ${url3}`);
+    let results = await fetch(url3, {
         method:'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -21,11 +30,11 @@ likedPostElement.addEventListener('click', async(e)=>{
     }
     function renderPage(){
         // Creates container for liked posts
-        userIDElement.innerHTML='';
-        userIDElement.classList.add('liked-posts-container');
-
+        userIDElement3.innerHTML='';
+        userIDElement3.classList.add('liked-posts-container');
+        // console.log(data);
         for(const likedPost of data){
-            // USER_POST_ID.push(likedPost);
+            USER_LIKED_POSTS_ID.push(likedPost);
             console.log(likedPost)
         }
     }

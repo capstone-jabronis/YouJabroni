@@ -4,7 +4,6 @@ const userIDElement = document.querySelector("#results");
 let userID2 = userIDElement.getAttribute("dataId");
 let url2 = `/${userID2}/posts`;
 let USER_POST_ID = [];
-console.log(document.querySelector('meta[name="userId"]'));
 const loggedInElement = document.querySelector('meta[name="userId"]');
 let loggedInUserId;
 if (loggedInElement != null) {

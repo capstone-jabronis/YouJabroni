@@ -54,8 +54,9 @@ public class SecurityConfiguration {
                         "/*/profile/edit",
                         "/*/profile/edit/password",
                         "/profile/likes",
-                        "/*/memeSubmission"
-                        ,"tournament/{id}/create"
+                        "/*/memeSubmission",
+                        "tournament/{id}/create",
+                        "/*/liked"
 
                 ).authenticated()
                 .and()

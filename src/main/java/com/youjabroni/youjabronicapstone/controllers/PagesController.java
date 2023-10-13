@@ -117,24 +117,17 @@ public class PagesController {
                 userPost.add(post);
             }
         }
-        ObjectMapper mapper = new ObjectMapper();
-        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(posts));
+
         return userPost;
     }
     @GetMapping("/{id}/liked")
     public @ResponseBody List<Post> viewLikedPosts(@PathVariable long id) throws JsonProcessingException {
-        User user = new User(userDao.findById(id).get());
-//        Post post = postDao.findById(id).get();
-        List<Post> userLikedPosts = user.getLikedPosts();
-        List<Post> userLikes = new ArrayList<>();
-        for (Post likedPost : userLikedPosts){
-            if (likedPost.getUserLikes().contains(user)){
-                userLikes.add(likedPost);
-            }
-        }
         ObjectMapper mapper = new ObjectMapper();
+        User user = new User(userDao.findById(id).get());
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user.getLikedPosts()));
+        List<Post> userLikedPosts = postDao.findAllByUserLikes(user);
         System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(userLikedPosts));
-        return userLikes;
+        return userLikedPosts;
     }
 
     @GetMapping("/feed")
@@ -148,13 +141,18 @@ public class PagesController {
         User user = userDao.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Post post = postDao.findById(postId).get();
         List<User> userLikes = post.getUserLikes();
+        List<Post> userLikesPosts = user.getLikedPosts();
         if(userLikes.contains(user)){
             userLikes.remove(user);
+            userLikesPosts.remove(post);
         } else {
             userLikes.add(user);
+            userLikesPosts.add(post);
         }
         post.setUserLikes(userLikes);
+        user.setLikedPosts(userLikesPosts);
         postDao.save(post);
+        userDao.save(user);
         return post;
     }
 
