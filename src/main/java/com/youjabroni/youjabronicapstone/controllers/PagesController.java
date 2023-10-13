@@ -73,7 +73,7 @@ public class PagesController {
         for(Post post : allUserPosts) {
             postsCount++;
         }
-<<<<<<< HEAD
+
         List<Post> userLikedPosts = userDao.findById(id).get().getLikedPosts();
         for(Post post : userLikedPosts)
         {
@@ -83,16 +83,11 @@ public class PagesController {
 //        for(Tournament tournament : tournamentsUserHasBeenIn) {
 //            tournamentCount++;
 //        }
-=======
->>>>>>> 4f1d4b8 (resolve pages controller conflicts)
 
         model.addAttribute("wins", winningCount);
         model.addAttribute("posts", postsCount);
-<<<<<<< HEAD
         model.addAttribute("likes", postLikes);
-=======
 //        model.addAttribute("currentUser", currentUser.getId());
->>>>>>> 4f1d4b8 (resolve pages controller conflicts)
         model.addAttribute("user", userDao.findById(id).get());
         return "pages/profile";
     }
