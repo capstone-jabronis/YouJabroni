@@ -39,12 +39,13 @@
                 </form>
             </div>
             <div th:each="tournament : ${tournaments}">
-                <form class="name jdTournamentCSS" th:action="@{|/tournament/lobby/${tournament.id}|}">
-                    <p>Tournament ID: <span th:text="${tournament.id}"></span></p>
-
-                    <p>Players: <span th:text="${#lists.size(tournament.userSet)}"></span>/8</p>
-                    <button class="join-now" data-th-tournament="${tournament.id}" type="submit">Join Now!</button>
-                </form>
+                <div th:if="${tournament.getWinner() == null}">
+                    <form class="name jdTournamentCSS" th:action="@{|/tournament/lobby/${tournament.id}|}">
+                        <p>Tournament ID: <span th:text="${tournament.id}"></span></p>
+                        <p>Players: <span th:text="${#lists.size(tournament.userSet)}"></span>/8</p>
+                        <button class="join-now" data-th-tournament="${tournament.id}" type="submit">Join Now!</button>
+                    </form>
+                </div>
             </div>
     </aside>
 </div>

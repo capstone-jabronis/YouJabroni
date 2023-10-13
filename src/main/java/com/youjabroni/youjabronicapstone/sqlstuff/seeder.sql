@@ -15,16 +15,16 @@ UPDATE users
 SET password = @password
 WHERE id <> 1;
 
-INSERT INTO tournaments (winner_id, start_time)
-VALUES ('1', '2023-09-26 14:30:00'),
-       ('2', '2023-10-01 16:30:00'),
-       ('2', '2023-10-02 16:30:00'),
-       ('3', '2023-09-26 14:30:00'),
-       ('4', '2023-10-01 16:30:00'),
-       ('5', '2023-10-02 16:30:00'),
-       ('6', '2023-09-26 14:30:00'),
-       ('7', '2023-10-01 16:30:00'),
-       ('8', '2023-10-02 16:30:00');
+INSERT INTO tournaments (winner_id)
+VALUES ('1'),
+       ('2'),
+       ('2'),
+       ('3'),
+       ('1'),
+       ('1'),
+       ('2'),
+       ('3'),
+       ('1');
 
 
 INSERT INTO rounds (round_num, tournament_id, meme_pic)

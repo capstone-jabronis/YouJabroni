@@ -15,6 +15,7 @@ let leaderboard = async () => {
         }
         const data = await results.json();
         data.reverse();
+        console.log(data)
         let rank = data.length;
         for (let user of data) {
             let playerDiv = document.createElement('div');
