@@ -251,6 +251,7 @@ body {
 .caption-div {
     display: flex;
     align-items: start;
+    width: 250px;
     flex-direction: column;
     margin-right: 25px;
 }

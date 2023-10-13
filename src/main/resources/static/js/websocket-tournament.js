@@ -479,7 +479,7 @@
     //EVENT LISTENERS
     leaveBtn.addEventListener('click', () => {
         console.log('leave button clicked');
-        for (let i = 0; i <= gameController.activePlayers; i++) {
+        for (let i = 0; i < gameController.activePlayers.length; i++) {
             if (gameController.activePlayers[i].username === currentUser.username) {
                 console.log('removing ' + gameController.activePlayers[i]);
                 gameController.activePlayers.splice(i, 1);
