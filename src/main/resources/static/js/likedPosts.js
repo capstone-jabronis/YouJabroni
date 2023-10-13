@@ -57,13 +57,50 @@ likedPostElement.addEventListener('click', async(e)=>{
             likedPostDescription.textContent = `${likedPost.description}`;
             likedPostDescription.classList.add('post-description');
 
+            const loggedInUserId = document.querySelector('meta[name="userId"]').getAttribute('data-user-id');
+            let userHasLiked = false;
+            for (let user of likedPost.userLikes) {
+                if (loggedInUserId == user.id) {
+                    userHasLiked = true;
+                }
+            }
+            const profileLikeBtnDiv = document.createElement('div');
+            profileLikeBtnDiv.classList.add('like-box');
+            profileLikeBtnDiv.innerHTML =
+                `<img class="like-rocket" src="${userHasLiked ? '../img/filled-rocket-btn.png' : '../img/unfilled-rocket-btn.png'}">
+                        <span> Like </span>`;
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            };
+            const handleRocketIconClick = async function (e) {
+                const likePostId = likedPost.id;
+                // console.log(likePostId);
+                let results = await fetch(`/${likePostId}/liked`, options);
+                const data = await results.json();
+                console.log(data);
+                console.log(e.target);
+                if (e.target.src.endsWith('/img/unfilled-rocket-btn.png')) {
+                    console.log("Inside if statement")
+                    e.target.src = '../img/filled-rocket-btn.png';
+                } else {
+                    e.target.src = '../img/unfilled-rocket-btn.png';
+                }
+
+            };
+
             likedPostDiv.appendChild(likedPostHead);
             likedPostDiv.appendChild(likedPostImage);
             likedPostCaptionDiv.appendChild(likedPostCaption);
             likedPostCaptionDiv.appendChild(likedPostDescription);
             likedPostDiv.appendChild(likedPostCaptionDiv);
+            likedPostDiv.appendChild(profileLikeBtnDiv);
             userIDElement3.appendChild(likedPostDiv);
 
+            profileLikeBtnDiv.addEventListener('click', handleRocketIconClick);
         }
     }
     renderPage();
