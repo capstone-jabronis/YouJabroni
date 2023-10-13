@@ -516,7 +516,16 @@ body {
 #snakeGame {
     background: #9F8BFF;
 }
+.jdWaitColCanvas {
+    flex: 1;
+    padding: 20px;
+    background-color: #e0e0e0;
+}
 
+#snakeGame {
+    max-width: 100%; /* Ensure the canvas doesn't exceed its container */
+    height: auto;
+}
 /*===============     END OF SNAKE GAME     ===============*/
 
 /*===============     PROFILE     ===============*/
@@ -627,8 +636,6 @@ body {
     color: #343CFF;
     cursor: pointer;
 }
-
-
 
 .password-btn {
     display: flex;
@@ -1161,10 +1168,10 @@ body {
     text-transform: uppercase;
     background-image: linear-gradient(
             -225deg,
-            #231557 0%,
-            #44107a 29%,
-            #ff1361 67%,
-            #fff800 100%
+            #3d04a1 0%,
+            #7c0eff 29%,
+            #f713ff 67%,
+            #7c0eff 100%
     );
     background-size: auto auto;
     background-clip: border-box;
@@ -1174,13 +1181,13 @@ body {
     text-fill-color: transparent;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: textclip 4s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite alternate; /* Use cubic-bezier for easing */
+    animation: textclip 3.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; /* Use cubic-bezier for easing */
     display: inline-block;
 }
 
 @keyframes textclip {
     0% {
-        background-position: 0% center; /* Start from the left */
+        background-position: -100% center; /* Start from the left */
     }
     100% {
         background-position: 100% center; /* End at the right */
@@ -1191,6 +1198,18 @@ body {
     display: flex;
     color: #9F8BFF;
 }
+
+.hero-row{
+    flex-direction: column;
+}
+/* Media Queries for Landing Page */
+/*@media (max-width: 768px) {*/
+/*    !* Adjust styles for smaller screens here *!*/
+/*    .landing-page-leaderboard {*/
+/*        flex: 100%; !* Full width on small screens *!*/
+/*        padding: 10px; !* Reduce padding on small screens *!*/
+/*    }*/
+/*}*/
 
 /*===============     END OF LANDING PAGE     ===============*/
 
@@ -1266,17 +1285,7 @@ body {
     background-color: #f2f2f2;
 }
 
-.jdWaitColCanvas {
-    flex: 1;
-    padding: 20px;
-    background-color: #e0e0e0;
-}
-
-#snakeGame {
-    max-width: 100%; /* Ensure the canvas doesn't exceed its container */
-    height: auto;
-}
-
+/* Media Queries For Waiting Room */
 @media (max-width: 768px) {
     /* Adjust styles for smaller screens here */
     .jdWaitColUl, .jdWaitColCanvas {
@@ -1311,9 +1320,6 @@ body {
     text-align: center;
 }
 
-.jdCreateInputRow {
-
-}
 
 .jdCreateInputCol {
     display: flex;
