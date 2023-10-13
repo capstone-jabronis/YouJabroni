@@ -21,14 +21,12 @@
     <!--        <div id="jdtournamentResults">-->
     <!--        </div>-->
     <!--    </aside>-->
-    <aside class="jdtournament-list leaderboard column">
-        <div class="leader-cards">
-            <div class="leader-title row">
+    <aside class="jdtournament-list column">
+            <div class="tournament-title d-flex justify-center align-center">
                 <h1>Tournaments</h1>
             </div>
             <div>
                 <form class="row name justify-center"  id="create-tournament-form" th:action="@{/tournament/create-tournament}">
-<!--                    <button class="jdTournamentCreateButton" type="submit">Host a Tournament!</button>-->
                     <button class="reg-button tournament-create-btn" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                             <path fill="none" d="M0 0h24v24H0z"></path>
@@ -42,13 +40,12 @@
             </div>
             <div th:each="tournament : ${tournaments}">
                 <form class="name jdTournamentCSS" th:action="@{|/tournament/lobby/${tournament.id}|}">
-                    <p>TOURNAMENT ID: <span th:text="${tournament.id}"></span></p>
+                    <p>Tournament ID: <span th:text="${tournament.id}"></span></p>
 
-                    <p>PLAYERS: <span th:text="${#lists.size(tournament.userSet)}"></span>/8</p>
+                    <p>Players: <span th:text="${#lists.size(tournament.userSet)}"></span>/8</p>
                     <button class="join-now" data-th-tournament="${tournament.id}" type="submit">Join Now!</button>
                 </form>
             </div>
-        </div>
     </aside>
 </div>
 <!--<div class="tournament-card d-flex" th:each="tournament : ${tournaments}">-->

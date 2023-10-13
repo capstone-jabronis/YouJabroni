@@ -365,13 +365,28 @@ body {
 }
 
 .jdtournament-list {
-    flex: 2; /* Takes up twice as much flexible space as the leaderboard */
-    width: 70%; /* Takes up 70% of the screen width */
+    flex: 2;
+    width: 700px;
+    align-items: center;
+    background-color: var(--first);
+    height: 41rem;
+    border-radius: 2rem;
+    margin: 2rem;
+}
+
+.tournament-title {
+    background-color: var(--third);
+    color: var(--first);
+    height: 3rem;
+    border-radius: 2rem 2rem 0 0;
+    width: 875px;
 }
 
 .jdTournamentCSS {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
+    width: 600px;
     margin-bottom: 20px;
     background-color: #0D0149;
     color: white;
@@ -436,7 +451,12 @@ body {
 .join-now {
     background-color: #343CFF;
     color: white;
-    border-radius: 25%;
+    border: unset;
+    height: 50px;
+    font-size: 18px;
+    width: 120px;
+    font-family: inherit;
+    border-radius: 16px;
     padding: .2%;
 }
 
