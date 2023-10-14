@@ -159,7 +159,7 @@
                     return (a.id - b.id);
                 });
                 //check if a winner has been decided
-                if(gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1){
+                if (gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1) {
 
                     await Render.renderCompletePage();
                 } else {
@@ -183,7 +183,7 @@
                     let active = gameController.activePlayers;
                     let skipPlayers = gameController.playersToSkip;
                     //FINAL ROUND CHECK, CLEARS skipPlayers if only 2 players are left
-                    if(active.length - eliminated.length === 2){
+                    if (active.length - eliminated.length === 2) {
                         gameController.playersToSkip = [];
                         skipPlayers = [];
                     }
@@ -381,6 +381,7 @@
         },
 
         renderVotePage(user1, user2) {
+            console.log(gameController.currentMemeSubmissions);
             lobbyContainer.innerHTML = `
              <div class="container">
                 <div class="row">
@@ -409,14 +410,14 @@
              <div class="container d-flex">
                 <div class="row justify-space-evenly">
                     <div class="column flex-column align-center">
-                            <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}">
+                            <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="ERROR LOADING IMAGE">
                             <span>${gameController.currentMemeSubmissions[0].caption}</span>
                             <button id="vote-meme1">Vote for 1</button>
                             <div id="meme1-votes"></div>
                     </div>
                     
                     <div class="column flex-column align-center">
-                            <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}">
+                            <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="ERROR LOADING IMAGE">
                             <span>${gameController.currentMemeSubmissions[1].caption}</span>
                             <button id="vote-meme2">Vote for 2</button>
                             <div id="meme1-votes"></div>
@@ -573,31 +574,52 @@
             })
         },
 
-        async renderNextPage(){
+        async renderNextPage() {
             let host = await Fetch.Get.tournamentHost();
 
+            // //MANUAL (THIS WORKS!)
+            // if (host.username === currentUser.username) {
+            //     if (gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1) {
+            //         lobbyContainer.innerHTML = `<h1>FINAL ROUND COMPLETE!</h1>
+            //     <button id="next-btn">TO RESULTS PAGE</button>`
+            //     } else {
+            //         lobbyContainer.innerHTML = `<h1>PRESS THE BUTTON FOR THE NEXT ROUND!</h1>
+            //     <button id="next-btn">NEXT ROUND</button>`
+            //     }
+            // } else {
+            //     lobbyContainer.innerHTML = `<h1>WAITING FOR THE HOST TO START THE NEXT ROUND...</h1>
+            //     `
+            // }
+            //
+            // let nextBtn = document.querySelector('#next-btn');
+            // if (host.username !== currentUser.username) {
+            //     nextBtn.disabled = true;
+            //     nextBtn.style.visibility = 'hidden';
+            // }
+            //
+            // nextBtn.addEventListener('click', () => {
+            //     let nextMessage = {
+            //         user: host.username,
+            //         text: "",
+            //         memeURL: '',
+            //         messageType: 'START'
+            //     }
+            //     Socket.sendMessage(nextMessage);
+            // })
+
+            //AUTOMATIC
             if (host.username === currentUser.username) {
-                lobbyContainer.innerHTML = `<h1>PRESS THE BUTTON FOR THE NEXT ROUND!</h1>
-                <button id="next-btn">NEXT ROUND</button>`
-            } else {
-                lobbyContainer.innerHTML = `<h1>WAITING FOR THE HOST TO START THE NEXT ROUND...</h1>
-                `
+                (function () {
+                    let nextMessage = {
+                        user: host.username,
+                        text: "",
+                        memeURL: '',
+                        messageType: 'START'
+                    }
+                    Socket.sendMessage(nextMessage);
+                })();
             }
 
-            let nextBtn = document.querySelector('#next-btn');
-            if (host.username !== currentUser.username) {
-                nextBtn.disabled = true;
-                nextBtn.style.visibility = 'hidden';
-            }
-            nextBtn.addEventListener('click', ()=>{
-                let nextMessage = {
-                    user: currentUser.username,
-                    text: "",
-                    memeURL: '',
-                    messageType: 'START'
-                }
-                Socket.sendMessage(nextMessage);
-            })
         }
     }
 
