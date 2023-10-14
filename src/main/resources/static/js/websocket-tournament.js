@@ -154,58 +154,76 @@
             } else if (message.messageType === 'START') {
                 //Get userSet of Tournament from server
                 gameController.activePlayers = await Fetch.Get.tournamentMembers();
+
                 gameController.activePlayers.sort(function (a, b) {
                     return (a.id - b.id);
                 });
-                //Empty the current round player array before pushing the next players
-                gameController.playersToSkip = gameController.currentRoundPlayers;
-                gameController.currentRoundPlayers = [];
-                //Check the current round against the gamecontroller round to clear the already played players
-                if (gameController.round === gameController.currentRound) {
-                    gameController.currentRound++;
-                    console.log('setting current round' + gameController.currentRound);
+                //check if a winner has been decided
+                if(gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1){
+                    await Render.renderCompletePage();
+                } else {
+                    //Empty the current round player array before pushing the next players
+                    gameController.playersToSkip = gameController.currentRoundPlayers;
+                    gameController.currentRoundPlayers = [];
+                    //Check the current round against the gamecontroller round to clear the already played players
+                    // if (gameController.round === gameController.currentRound) {
+                    //     gameController.currentRound++;
+                    //     console.log('setting current round' + gameController.currentRound);
+                    //     gameController.playersToSkip = [];
+                    // }
+                    //loop to add players to current round players
+                    let indexTracker = 0
+                    console.log('PLAYERS TO SKIP: ' + gameController.playersToSkip);
+                    console.log('ACTIVE PLAYERS: ');
+                    console.log(gameController.activePlayers);
+                    console.log('ELIMINATED PLAYERS:')
+                    console.log(gameController.eliminatedPlayers);
+                    let eliminated = gameController.eliminatedPlayers;
+                    let active = gameController.activePlayers;
+                    let skipPlayers = gameController.playersToSkip;
+                    //FINAL ROUND CHECK, CLEARS skipPlayers if only 2 players are left
+                    if(active.length - eliminated.length === 2){
+                        gameController.playersToSkip = [];
+                        skipPlayers = [];
+                    }
+
+                    while (gameController.currentRoundPlayers.length < 2) {
+                        if (eliminated.includes(active[indexTracker].username) || skipPlayers[0] === active[indexTracker].username || skipPlayers[1] === active[indexTracker].username) {
+                            console.log(`skipping ${gameController.activePlayers[indexTracker].username}, index Tracker at ${indexTracker}`);
+                            indexTracker++;
+                        } else {
+                            gameController.currentRoundPlayers.push(gameController.activePlayers[indexTracker].username)
+                            console.log(`added ${gameController.activePlayers[indexTracker].username}, index Tracker at ${indexTracker}`);
+                            indexTracker++;
+                        }
+                    }
+                    indexTracker = 0;
                     gameController.playersToSkip = [];
-                }
-                //loop to add players to current round players
-                let indexTracker = 0
-                console.log('PLAYERS TO SKIP: ' + gameController.playersToSkip);
-                console.log('ACTIVE PLAYERS: ' + gameController.activePlayers);
-                while (gameController.currentRoundPlayers.length < 2) {
-                    if (gameController.eliminatedPlayers.includes(gameController.activePlayers[indexTracker].username)) {
-                        console.log(`skipping ELIMINATED ${gameController.activePlayers[indexTracker].username}, index Tracker at ${indexTracker}`);
-                    } else if (gameController.playersToSkip.includes(gameController.activePlayers[indexTracker].username)) {
-                        console.log(`skipping ${gameController.activePlayers[indexTracker].username}, already played, index Tracker at ${indexTracker}`);
-                    } else {
-                        gameController.currentRoundPlayers.push(gameController.activePlayers[indexTracker].username)
-                        console.log(`added ${gameController.activePlayers[indexTracker].username}, index Tracker at ${indexTracker}`);
+                    // gameController.currentRoundPlayers.push(gameController.activePlayers[0 + gameController.indexTracker].username);
+                    //
+                    // gameController.currentRoundPlayers.push(gameController.activePlayers[1 + gameController.indexTracker].username);
+
+
+                    //adds remaining players to votingPlayers
+                    gameController.votingPlayers = [];
+
+                    //Loop to add the remaining players to the voting group
+                    let n = 0;
+                    for (let i = 0; i < gameController.activePlayers.length; i++) {
+                        if (gameController.currentRoundPlayers[n] === gameController.activePlayers[i].username) {
+                            n++;
+                        } else {
+                            gameController.votingPlayers.push(gameController.activePlayers[i]);
+                        }
                     }
-                    indexTracker++;
-                }
-                indexTracker = 0;
-                gameController.playersToSkip = [];
-                // gameController.currentRoundPlayers.push(gameController.activePlayers[0 + gameController.indexTracker].username);
-                //
-                // gameController.currentRoundPlayers.push(gameController.activePlayers[1 + gameController.indexTracker].username);
 
-
-                //adds remaining players to votingPlayers
-                gameController.votingPlayers = [];
-
-                //Loop to add the remaining players to the voting group
-                let n = 0;
-                for (let i = 0; i < gameController.activePlayers.length; i++) {
-                    if (gameController.currentRoundPlayers[n] === gameController.activePlayers[i].username) {
-                        n++;
-                    } else {
-                        gameController.votingPlayers.push(gameController.activePlayers[i]);
+                    if (gameController.currentRoundPlayers.includes(currentUser.username)) {
+                        await Render.renderTournamentPage();
+                    } else if (!gameController.currentRoundPlayers.includes(currentUser.username)) {
+                        Render.renderWaitingPage();
                     }
                 }
 
-                if (gameController.currentRoundPlayers.includes(currentUser.username)) {
-                    await Render.renderTournamentPage();
-                } else if (!gameController.currentRoundPlayers.includes(currentUser.username)) {
-                    Render.renderWaitingPage();
-                }
             } else if (message.messageType === 'DATA') {
                 console.log('meme submitted!');
                 console.log(message);
@@ -232,7 +250,7 @@
                     await Render.renderResultsPage();
                 }
             } else if (message.messageType === 'RESULT') {
-                if (gameController.eliminatedPlayers === 3) {
+                if (gameController.eliminatedPlayers.length === 3) {
                     for (let i = 0; i < gameController.activePlayers.length; i++) {
                         if (!gameController.eliminatedPlayers.includes(gameController.activePlayers[i].username)) {
                             console.log("WINNER!: " + gameController.activePlayers[i].username)
@@ -244,16 +262,7 @@
                     gameController.meme1votes = 0;
                     gameController.meme2votes = 0;
                     gameController.eliminatedPlayers.push(message.text);
-                    gameController.playersToSkip = gameController.currentRoundPlayers;
-                    gameController.round++;
-                    //send message back to START to start the next round with new players
-                    let nextMessage = {
-                        user: "",
-                        text: "",
-                        memeURL: '',
-                        messageType: 'START'
-                    }
-                    Socket.sendMessage(nextMessage);
+                    await Render.renderNextPage();
                 }
             } else if (message.messageType === 'FINISH') {
                 console.log(gameController.winner);
@@ -489,7 +498,7 @@
                 <h3 id="meme2-votes">${gameController.meme2votes}</h3>
                 <h3 id="player2-result"></h3>
             </div>
-            <button id="submit-results-btn">CONTINUE TO NEXT ROUND</button>
+            <button id="submit-results-btn">CONTINUE</button>
             `
             let nextRoundBtn = document.querySelector('#submit-results-btn');
             if (host.username !== currentUser.username) {
@@ -522,7 +531,6 @@
             }
 
             nextRoundBtn.addEventListener('click', () => {
-                console.log('next round!')
                 let message = {
                     user: currentUser.username,
                     text: loser,
@@ -560,6 +568,33 @@
                     messageType: 'FINISH'
                 }
                 Socket.sendMessage(message);
+            })
+        },
+
+        async renderNextPage(){
+            let host = await Fetch.Get.tournamentHost();
+
+            if (host.username === currentUser.username) {
+                lobbyContainer.innerHTML = `<h1>PRESS THE BUTTON FOR THE NEXT ROUND!</h1>
+                <button id="next-btn">NEXT ROUND</button>`
+            } else {
+                lobbyContainer.innerHTML = `<h1>WAITING FOR THE HOST TO START THE NEXT ROUND...</h1>
+                `
+            }
+
+            let nextBtn = document.querySelector('#next-btn');
+            if (host.username !== currentUser.username) {
+                nextBtn.disabled = true;
+                nextBtn.style.visibility = 'hidden';
+            }
+            nextBtn.addEventListener('click', ()=>{
+                let nextMessage = {
+                    user: currentUser.username,
+                    text: "",
+                    memeURL: '',
+                    messageType: 'START'
+                }
+                Socket.sendMessage(nextMessage);
             })
         }
     }
