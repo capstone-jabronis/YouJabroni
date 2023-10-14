@@ -160,6 +160,7 @@
                 });
                 //check if a winner has been decided
                 if(gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1){
+
                     await Render.renderCompletePage();
                 } else {
                     //Empty the current round player array before pushing the next players
@@ -543,7 +544,7 @@
 
         async renderCompletePage() {
             let host = await Fetch.Get.tournamentHost();
-
+            let winner;
             if (gameController.eliminatedPlayers.includes(currentUser.username)) {
                 lobbyContainer.innerHTML = `<h1>YOU LOSE...</h1>
                 <h2>${currentUser.username}</h2>
@@ -552,6 +553,7 @@
                 lobbyContainer.innerHTML = `<h1>YOU WIN!</h1>
                 <h2>${currentUser.username}</h2>
                 <button id="complete-btn">FINISH</button>`
+                winner = currentUser.username;
             }
 
             let completeBtn = document.querySelector('#complete-btn');
@@ -562,7 +564,7 @@
 
             completeBtn.addEventListener('click', () => {
                 let message = {
-                    user: gameController.winner,
+                    user: winner,
                     text: "",
                     memeURL: '',
                     messageType: 'FINISH'

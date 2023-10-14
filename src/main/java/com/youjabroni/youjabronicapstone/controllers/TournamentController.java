@@ -76,24 +76,21 @@ public class TournamentController {
         joinMessage.setMessageType(Message.MessageType.JOIN);
         System.out.println(joinMessage);
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), joinMessage);
-
-//        , SimpMessageHeaderAccessor headerAccessor
-        //^For constructor
-//        String currentTournamentId = (String) headerAccessor.getSessionAttributes().put("tournament_id", tournamentId);
-//        if (tournamentId != null) {
-//            WebsocketMessage leaveMessage = new WebsocketMessage();
-//
-//            leaveMessage.setMessageType(WebsocketMessage.MessageType.LEAVE);
-////            leaveMessage.setSender(.getUser());
-//            messagingTemplate.convertAndSend(format("/secured/tournament/waiting-room/%s", currentTournamentId), leaveMessage);
-//        }
-////        headerAccessor.getSessionAttributes().put("name", memeSubmission.getUser());
-//        messagingTemplate.convertAndSend(format("/secured/tournament/waiting-room/%s", tournamentId), joinMessage);
     }
+
     @MessageMapping("/tournament/lobby/{tournamentId}/send")
     public void sendMessage(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
         System.out.println("----------In sendMessage method---------");
         System.out.println(message.getMessageType());
+        String messageType = String.valueOf(message.getMessageType());
+        //change tournament started status if it isn't already started
+        if(messageType.equals("START")){
+            Tournament tournament = tournamentDao.findById(tournamentId).get();
+            if(!tournament.getStarted()){
+                tournament.setStarted(true);
+                tournamentDao.save(tournament);
+            }
+        }
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
     }
 
@@ -101,6 +98,12 @@ public class TournamentController {
     public void finishMessage(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
         System.out.println("----------In FINISH method---------");
         System.out.println(message.getMessageType());
+        System.out.println(message.getUser());
+        //Set winner in tournament
+        User winner = userDao.findByUsername(message.getUser());
+        Tournament tournament = tournamentDao.findById(tournamentId).get();
+        tournament.setWinner(winner);
+        tournamentDao.save(tournament);
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
     }
 
@@ -192,6 +195,7 @@ public class TournamentController {
         System.out.println("Creating tournament host: " + user.getUsername());
         Tournament newTournament = new Tournament();
         newTournament.setHost(user);
+        newTournament.setStarted(false);
         tournamentDao.save(newTournament);
         String id = String.valueOf(newTournament.getId());
         System.out.println("Tournament id: " + id);
