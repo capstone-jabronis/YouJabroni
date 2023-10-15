@@ -61,7 +61,6 @@
         meme1votes: 0,
         meme2votes: 0,
         round: 1,
-        currentRound: 1,
         tieBreakerFunction() {
             //random method here to vote during a tie
             return Math.floor(Math.random());
@@ -166,26 +165,22 @@
                     //Empty the current round player array before pushing the next players
                     gameController.playersToSkip = gameController.currentRoundPlayers;
                     gameController.currentRoundPlayers = [];
-                    //Check the current round against the gamecontroller round to clear the already played players
-                    // if (gameController.round === gameController.currentRound) {
-                    //     gameController.currentRound++;
-                    //     console.log('setting current round' + gameController.currentRound);
-                    //     gameController.playersToSkip = [];
-                    // }
-                    //loop to add players to current round players
+
                     let indexTracker = 0
-                    console.log('PLAYERS TO SKIP: ' + gameController.playersToSkip);
-                    console.log('ACTIVE PLAYERS: ');
-                    console.log(gameController.activePlayers);
-                    console.log('ELIMINATED PLAYERS:')
-                    console.log(gameController.eliminatedPlayers);
                     let eliminated = gameController.eliminatedPlayers;
                     let active = gameController.activePlayers;
                     let skipPlayers = gameController.playersToSkip;
-                    //FINAL ROUND CHECK, CLEARS skipPlayers if only 2 players are left
-                    if (active.length - eliminated.length === 2) {
+                    //FINAL ROUND CHECK, CLEARS skipPlayers if only 2 players are left. works for 4 players only
+                    // if (active.length - eliminated.length === 2) {
+                    //     gameController.playersToSkip = [];
+                    //     skipPlayers = [];
+                    // }
+                    //Round advancement scalability to support more players, works for 4 players, need to test for more (multiples of 4)
+                    if ((gameController.activePlayers.length / gameController.round) / gameController.eliminatedPlayers.length === 2){
+                        console.log("NEXT ROUND ---- CLEARING skipPlayers");
                         gameController.playersToSkip = [];
                         skipPlayers = [];
+                        gameController.round++;
                     }
 
                     while (gameController.currentRoundPlayers.length < 2) {
@@ -199,10 +194,7 @@
                         }
                     }
                     indexTracker = 0;
-                    gameController.playersToSkip = [];
-                    // gameController.currentRoundPlayers.push(gameController.activePlayers[0 + gameController.indexTracker].username);
-                    //
-                    // gameController.currentRoundPlayers.push(gameController.activePlayers[1 + gameController.indexTracker].username);
+                    // gameController.playersToSkip = [];
 
 
                     //adds remaining players to votingPlayers
@@ -577,36 +569,6 @@
         async renderNextPage() {
             let host = await Fetch.Get.tournamentHost();
 
-            // //MANUAL (THIS WORKS!)
-            // if (host.username === currentUser.username) {
-            //     if (gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1) {
-            //         lobbyContainer.innerHTML = `<h1>FINAL ROUND COMPLETE!</h1>
-            //     <button id="next-btn">TO RESULTS PAGE</button>`
-            //     } else {
-            //         lobbyContainer.innerHTML = `<h1>PRESS THE BUTTON FOR THE NEXT ROUND!</h1>
-            //     <button id="next-btn">NEXT ROUND</button>`
-            //     }
-            // } else {
-            //     lobbyContainer.innerHTML = `<h1>WAITING FOR THE HOST TO START THE NEXT ROUND...</h1>
-            //     `
-            // }
-            //
-            // let nextBtn = document.querySelector('#next-btn');
-            // if (host.username !== currentUser.username) {
-            //     nextBtn.disabled = true;
-            //     nextBtn.style.visibility = 'hidden';
-            // }
-            //
-            // nextBtn.addEventListener('click', () => {
-            //     let nextMessage = {
-            //         user: host.username,
-            //         text: "",
-            //         memeURL: '',
-            //         messageType: 'START'
-            //     }
-            //     Socket.sendMessage(nextMessage);
-            // })
-
             //AUTOMATIC
             if (host.username === currentUser.username) {
                 (function () {
@@ -703,7 +665,7 @@
         console.log('Start button clicked')
         let host = await Fetch.Get.tournamentHost();
         let message;
-        if (currentUser.username == host.username) {
+        if (currentUser.username === host.username) {
             message = {
                 user: currentUser.username,
                 text: 'GAME START',
