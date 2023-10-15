@@ -154,15 +154,19 @@ public class TournamentController {
         User user = userDao.findByUsername(userDetails.getUsername());
         Tournament tournament = tournamentDao.findById(id).get();
         Set<User> updatedUserSet = tournament.getUserSet();
-        updatedUserSet.add(user);
-        tournament.setUserSet(updatedUserSet);
-        user.setTournament(tournament);
-        userDao.save(user);
-        tournamentDao.save(tournament);
-        model.addAttribute("tournament", tournament);
-        model.addAttribute("users", tournament.getUserSet());
-        model.addAttribute("currentUser", user);
-        return "/tournament/lobby";
+        if(updatedUserSet.size() != 4) {
+            updatedUserSet.add(user);
+            tournament.setUserSet(updatedUserSet);
+            user.setTournament(tournament);
+            userDao.save(user);
+            tournamentDao.save(tournament);
+            model.addAttribute("tournament", tournament);
+            model.addAttribute("users", tournament.getUserSet());
+            model.addAttribute("currentUser", user);
+            return "/tournament/lobby";
+        } else {
+            return "redirect:/home";
+        }
     }
 
     @GetMapping("/lobby/leave")

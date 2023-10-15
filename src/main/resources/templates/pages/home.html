@@ -41,8 +41,8 @@
             <div th:each="tournament : ${tournaments}">
                 <div th:if="${tournament.getWinner() == null} AND ${tournament.getStarted() != true}">
                     <form class="name jdTournamentCSS" th:action="@{|/tournament/lobby/${tournament.id}|}">
-                        <p>Tournament ID: <span th:text="${tournament.id}"></span></p>
-                        <p>Players: <span th:text="${#lists.size(tournament.userSet)}"></span>/8</p>
+                        <p>Tournament Host: <span th:text="${tournament.host.username}"></span></p>
+                        <p>Players: <span th:text="${#lists.size(tournament.userSet)}"></span>/4</p>
                         <button class="join-now" data-th-tournament="${tournament.id}" type="submit">Join Now!</button>
                     </form>
                 </div>
@@ -58,9 +58,12 @@
 <!--</div>-->
 <footer th:replace="partials/partials :: footer"></footer>
 
-<script th:inline="javascript">
+<!--<script th:inline="javascript">/*<![CDATA[*/-->
 
-</script>
+<!--let tournamentFull = /*[[${tournamentFull}]]*/ 'default';-->
+
+<!--/*]]>*/-->
+<!--</script>-->
 <script th:src="@{/js/tournament.js}"></script>
 <!--<script th:src="@{/js/websocket-tournament.js}"></script>-->
 
