@@ -33,6 +33,5 @@ build/
 .vscode/
 
 DS_Store
-src/main/resources/static/js/keys.js
-
-src/main/resources/application.properties
+keys.js
+application.properties

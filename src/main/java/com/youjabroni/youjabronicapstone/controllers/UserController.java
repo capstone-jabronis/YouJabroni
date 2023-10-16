@@ -70,13 +70,9 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public @ResponseBody List<String> checkUsername(){
-        List<User> usersWPassword = userDao.findAll();
-        List<String> usernames= new ArrayList<>();
-        for (User user:  usersWPassword){
-            usernames.add(user.getUsername());
-        }
-        return usernames;
+    public @ResponseBody List<User> checkUsername(){
+        List<User> users = userDao.findAll();
+        return users;
     }
 
 
