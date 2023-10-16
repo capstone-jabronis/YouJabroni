@@ -391,23 +391,6 @@ body {
     pointer-events: none;
 }
 
-
-/*===============     SNAKE GAME     ===============*/
-#snakeGame {
-    background: #9F8BFF;
-}
-.jdWaitColCanvas {
-    flex: 1;
-    padding: 20px;
-    background-color: #e0e0e0;
-}
-
-#snakeGame {
-    max-width: 100%; /* Ensure the canvas doesn't exceed its container */
-    height: auto;
-}
-/*===============     END OF SNAKE GAME     ===============*/
-
 /*===============     PROFILE     ===============*/
 .password-error {
     color: red;
@@ -708,6 +691,7 @@ body {
     margin-left: 55px;
     color: white;
     margin-top: 10px;
+    margin-right: 40px;
 }
 
 .form-title {
@@ -732,7 +716,7 @@ body {
     width: 250px;
     font-size: 18px;
     margin-bottom: 15px;
-    margin-top: 40px;
+    margin-top: 25px;
 }
 
 .add-btn:hover {
@@ -1009,7 +993,7 @@ body {
     display: flex;
     align-items: start;
     flex-direction: column;
-    margin-right: 25px;
+    margin-left: 25px;
 }
 
 .post-description {
@@ -1074,15 +1058,14 @@ body {
 
 .jdWaitTitleContainer {
     display: flex;
-    flex-wrap: wrap;
-    color: #9F8BFF;
+    /*flex-wrap: wrap;*/
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: .2rem;
     border-bottom: #428bca;
     justify-content: center;
 }
 
-.jdWaitTitleRow {
-    justify-content: center;
-}
 
 .jdWaitTitleCol {
     display: flex;
@@ -1090,23 +1073,46 @@ body {
 }
 
 .jdWaitContainer {
-    margin-bottom: 2%;
-    margin-right: 2%;
-    margin-left: 2%;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.jdWaitRow {
     display: flex;
-    flex-wrap: wrap;
+    margin: 2%;
+    align-items: center;
+    flex-direction: column;
+    height: 40rem;
+    border-radius: 16px;
+    /* width: 100%; */
+    background-color: var(--first);
 }
 
-.jdWaitColUl {
-    flex: 1;
-    padding: 20px;
-    background-color: #f2f2f2;
+#snakeGame {
+    max-width: 100%; /* Ensure the canvas doesn't exceed its container */
+    /*height: auto;*/
+    /*margin-left: 50px;*/
+    /*border-radius: 16px;*/
+    height: 550px;
+    width: 550px;
+    margin-left: 3rem;
+    border-radius: 16px;
+    background-color: #0D0149;
+}
+
+.leave-tournament-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+}
+
+.snake-start-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 140px;
+    font-size: 18px;
 }
 
 /* Media Queries For Waiting Room */

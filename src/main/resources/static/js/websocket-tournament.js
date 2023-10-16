@@ -476,21 +476,43 @@
 
         async renderResultsPage() {
             let host = await Fetch.Get.tournamentHost();
-            lobbyContainer.innerHTML = `<h1>RESULTS</h1>
+            lobbyContainer.innerHTML = `
+           <div class="container">
+    <div class="row">
+        <div class="column align-center">
+            <h1>RESULTS</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column align-center">
             <h2>${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column align-center">
             <h3 id="vote-status"></h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column align-center">
             <div class="div-meme-vote">
-                <img src="${gameController.currentMemeSubmissions[0].memeURL}"><span>${gameController.currentMemeSubmissions[0].caption}</span>
+                <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="${gameController.currentMemeSubmissions[0].caption}">
+                <span>${gameController.currentMemeSubmissions[0].caption}</span>
                 <h3 id="meme1-votes">${gameController.meme1votes}</h3>
                 <h3 id="player1-result"></h3>
             </div>
+        </div>
+        <div class="column align-center">
             <div class="div-meme-vote">
-                <img src="${gameController.currentMemeSubmissions[1].memeURL}"><span>${gameController.currentMemeSubmissions[1].caption}</span>
+                <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="${gameController.currentMemeSubmissions[1].caption}">
+                <span>${gameController.currentMemeSubmissions[1].caption}</span>
                 <h3 id="meme2-votes">${gameController.meme2votes}</h3>
                 <h3 id="player2-result"></h3>
             </div>
+
             <button id="submit-results-btn">CONTINUE</button>
             `
+
             let nextRoundBtn = document.querySelector('#submit-results-btn');
             if (host.username !== currentUser.username) {
                 nextRoundBtn.disabled = true;
