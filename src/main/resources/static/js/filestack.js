@@ -2,11 +2,12 @@ const loadingOverlay = document.querySelector('.hide-loader');
 const fileInput = document.getElementById('fileInput');
 const previewImage = document.getElementById('previewImage');
 const profilePicButton = document.querySelector("#profilePic");
+console.log("profile pic button "+ profilePicButton);
 const client = filestack.init(FILESTACK_API_KEY);
-let picker;
+console.log("api key  " + FILESTACK_API_KEY);
 const options = {
     accept: ["image/*"],
-    fromSources: ["local_file_system"],
+    fromSources: ["local_file_system", "url"],
     transformations: {
         crop: false,
         circle: true,
@@ -15,9 +16,9 @@ const options = {
     },
     imageMax: [400, 400],
     onFileUploadFinished: file => {
-        // console.log(file);
-        fileInput.setAttribute('value', file.url);
-        previewImage.setAttribute('src', file.url);
+        console.log(file);
+        fileInput.value = file.url;
+        previewImage.src = file.url;
     },
     onFileSelected: file => {
         // If you throw any error in this function it will reject the file selection.
@@ -28,13 +29,15 @@ const options = {
     },
     onClose: () => {
         loadingOverlay.classList.add('hidden');
-    }
+    },
 };
 profilePicButton.addEventListener('click', (e) => {
     e.preventDefault();
     loadingOverlay.classList.remove('hidden');
-    picker = client.picker(options);
-    picker.open();
+    client.picker(options).open();
+    client.on('upload.error', (filestackError) => {
+        console.log(filestackError);
+    });
 });
 
 

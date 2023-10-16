@@ -87,39 +87,93 @@
     let messageElement = null;
 
 
+
     usernameInput.addEventListener('keyup', (e) => {
         const enteredUsername = e.target.value.toLowerCase();
-
+        console.log("entered Username is : " + enteredUsername)
         if (messageElement) {
             messageElement.remove();
             messageElement = null;
         }
         if (enteredUsername == "") {
             registrationButton.style.display = 'none';
-            messageElement = document.createElement('h3');
+            messageElement = document.createElement('p');
             messageElement.innerText = "Need a username!";
             messageElement.style.color = 'red';
-            registrationButton.after(messageElement);
+            usernameInput.after(messageElement)
+            // registrationButton.after(messageElement);
             return;
         } else if (enteredUsername.includes(" ")) {
             registrationButton.style.display = 'none';
-            messageElement = document.createElement('h3');
+            messageElement = document.createElement('p');
             messageElement.innerText = "Can't have spaces in username";
             messageElement.style.color = 'red';
-            registrationButton.after(messageElement);
+            usernameInput.after(messageElement)
+            // registrationButton.after(messageElement);
             return;
         } else {
-            for (const username of usersData) {
-                if (enteredUsername === username.toLowerCase()) {
+            for (let user of usersData){
+                if (enteredUsername === user.username.toLowerCase()) {
                     registrationButton.style.display = 'none';
                     if (!messageElement) {
-                        messageElement = document.createElement('h3');
+                        messageElement = document.createElement('p');
                         messageElement.innerText = "Username is taken, please choose another.";
                         messageElement.style.color = 'red';
                     }
-                    registrationButton.after(messageElement);
+                    usernameInput.after(messageElement)
+                    // registrationButton.after(messageElement);
                     return;
                 }
+            }
+        }
+        registrationButton.style.display = 'block';
+    });
+
+
+    ///// ============================= JD EMAIL CHECK HERE ============================= \\\\
+    const emailInput = document.getElementById('email');
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    emailInput.addEventListener('keyup', (e) => {
+        const enteredEmail = e.target.value.toLowerCase();
+        if (messageElement) {
+            messageElement.remove();
+            messageElement = null;
+        }
+        if (enteredEmail == "") {
+            registrationButton.style.display = 'none';
+            messageElement = document.createElement('p');
+            messageElement.innerText = "Need a email!";
+            messageElement.style.color = 'red';
+            emailInput.after(messageElement)
+            return;
+        } else if (enteredEmail.includes(" ")) {
+            registrationButton.style.display = 'none';
+            messageElement = document.createElement('p');
+            messageElement.innerText = "Can't have spaces in email";
+            messageElement.style.color = 'red';
+            emailInput.after(messageElement)
+            return;
+        }else if(!emailPattern.test(enteredEmail)){
+            registrationButton.style.display = 'none';
+            messageElement = document.createElement('p');
+            messageElement.innerText = "Invalid email format. Please enter a valid email.";
+            messageElement.style.color = 'red';
+            emailInput.after(messageElement)
+            return;
+        }else {
+            for (const user of usersData) {
+                    if (enteredEmail.toLowerCase() === user.email.toLowerCase()) {
+                        registrationButton.style.display = 'none';
+                        console.log("entered email")
+                        console.log(enteredEmail)
+                        if (!messageElement) {
+                            messageElement = document.createElement('p');
+                            messageElement.innerText = "Email is taken, please choose another.";
+                            messageElement.style.color = 'red';
+                        }
+                        emailInput.after(messageElement)
+                        return;
+                    }
             }
         }
         registrationButton.style.display = 'block';
