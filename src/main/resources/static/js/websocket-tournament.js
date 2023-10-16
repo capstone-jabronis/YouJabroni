@@ -35,8 +35,7 @@
     // const leaveBtn = document.querySelector('#leave-lobby-btn');
     const lobbyContainer = document.querySelector('.jdWaitContainer');
     const startBtn = document.querySelector('#start-btn');
-
-
+    const leaveBtn = document.querySelector('#leave-lobby-btn');
     // JOSES TRYING SOMETHING
     const startGameButton = document.createElement("button");
     startGameButton.textContent = "Start Game";
@@ -66,7 +65,6 @@
             return Math.floor(Math.random());
         }
     }
-
 
     const Tournament = {
         csrfToken: document.querySelector('meta[name="_csrf"]').getAttribute('content'),
@@ -126,8 +124,6 @@
                 } else {
                     Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(message));
                 }
-
-
             }
 
             // if (memeContent && Tournament.stompClient) {
@@ -279,9 +275,13 @@
             let tournamentMembers = await Fetch.Get.tournamentMembers();
             let tournamentHost = await Fetch.Get.tournamentHost();
 
+            tournamentMembers.sort(function (a, b) {
+                return (a.id - b.id);
+            });
             //JOSES TRYING SOMETHING
 
             UserWaitingRoom.innerHTML = "";
+            UserWaitingRoom.innerHTML += '<p>' + tournamentHost.username + '  HOST<p>'
             for (let i = 0; i < tournamentMembers.length; i++) {
                 console.log('Profile URL:', tournamentMembers[i].profileURL); // Log the profileURL for debugging
 
@@ -324,11 +324,11 @@
 
 
             if (tournamentMembers.length !== 4) {
-                startGameButton.style.display = "none";
-                // startBtn.style.visibility = "hidden";
+                // startGameButton.style.display = "none";
+                startBtn.style.visibility = "hidden";
             } else if (tournamentMembers.length === 4 && currentUser.username === tournamentHost.username) {
-                startGameButton.style.display = "block";
-                // startBtn.style.visibility = "visible";
+                // startGameButton.style.display = "block";
+                startBtn.style.visibility = "visible";
             }
         },
 
@@ -506,21 +506,43 @@
 
         async renderResultsPage() {
             let host = await Fetch.Get.tournamentHost();
-            lobbyContainer.innerHTML = `<h1>RESULTS</h1>
+            lobbyContainer.innerHTML = `
+           <div class="container">
+    <div class="row">
+        <div class="column align-center">
+            <h1>RESULTS</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column align-center">
             <h2>${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column align-center">
             <h3 id="vote-status"></h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column align-center">
             <div class="div-meme-vote">
-                <img src="${gameController.currentMemeSubmissions[0].memeURL}"><span>${gameController.currentMemeSubmissions[0].caption}</span>
+                <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="${gameController.currentMemeSubmissions[0].caption}">
+                <span>${gameController.currentMemeSubmissions[0].caption}</span>
                 <h3 id="meme1-votes">${gameController.meme1votes}</h3>
                 <h3 id="player1-result"></h3>
             </div>
+        </div>
+        <div class="column align-center">
             <div class="div-meme-vote">
-                <img src="${gameController.currentMemeSubmissions[1].memeURL}"><span>${gameController.currentMemeSubmissions[1].caption}</span>
+                <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="${gameController.currentMemeSubmissions[1].caption}">
+                <span>${gameController.currentMemeSubmissions[1].caption}</span>
                 <h3 id="meme2-votes">${gameController.meme2votes}</h3>
                 <h3 id="player2-result"></h3>
             </div>
+
             <button id="submit-results-btn">CONTINUE</button>
             `
+
             let nextRoundBtn = document.querySelector('#submit-results-btn');
             if (host.username !== currentUser.username) {
                 nextRoundBtn.disabled = true;
@@ -705,7 +727,7 @@
         };
         Socket.sendMessage(message);
     };
-    startGameButton.addEventListener('click', async () => {
+    startBtn.addEventListener('click', async () => {
         console.log('Start button clicked')
         let host = await Fetch.Get.tournamentHost();
         let message;
@@ -727,7 +749,9 @@
         }
         Socket.sendMessage(message);
     });
-
+    leaveBtn.addEventListener('click', ()=>{
+        location.replace('/home');
+    })
     Tournament.initialize();
 
 })();

@@ -8,12 +8,6 @@
 <body>
 <nav th:replace="partials/partials :: nav"></nav>
 <div class="page-wrapper">
-    <div th:if="${param.error}">
-        Invalid Username and Password.
-    </div>
-    <div class="" th:if="${param.logout}">
-        You have been logged out.
-    </div>
 
     <div class="register container">
         <form class="form d-flex" th:action="@{/login}" th:method="POST">
@@ -27,6 +21,12 @@
                 <label class="field-name" for="password">Password</label>
                 <input class="input-field" id="password" name="password" type="password"/>
                 <div class="incorrectPassword"></div>
+            </div>
+            <div style="color: red" th:if="${param.error}">
+                Invalid Username and/or Password.
+            </div>
+            <div style="color: red" class="" th:if="${param.logout}">
+                You have been logged out.
             </div>
             <button class="reg-button" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">

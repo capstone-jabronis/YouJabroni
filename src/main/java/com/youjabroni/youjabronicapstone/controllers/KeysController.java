@@ -14,7 +14,7 @@ public class KeysController {
     @GetMapping(value = "/keys.js", produces = "application/javascript")
     public String getKeys(){
         return String.format("""
-                const FILESTACK_API_KEY = "%S";
+                const FILESTACK_API_KEY = "%s";
                 """, keys.getFILESTACK_API_KEY());
     }
 }

@@ -179,8 +179,13 @@
                         </div>
 
                         <!-- this is the change profile pic button -->
-                        <input name="ProfileURL" type="text" id="fileInput" th:value="${user.profileURL}" hidden>
-                        <span id="profilePic" class="changeProfileImg">edit picture</span>
+
+                        <label for="fileInput">
+                            <input th:name="ProfileURL" type="text" id="fileInput" th:value="${user.profileURL}" hidden>
+                            <span id="profilePic" class="changeProfileImg">edit picture</span>
+                        </label>
+
+
                     </div>
                     <div class="column edit-inputs">
                         <p class="edit-label">Edit Username</p>
