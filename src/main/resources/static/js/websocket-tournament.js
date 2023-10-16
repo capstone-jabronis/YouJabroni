@@ -238,7 +238,7 @@
                     await Render.renderResultsPage();
                 }
             } else if (message.messageType === 'RESULT') {
-                if (gameController.eliminatedPlayers.length === 3) {
+                if (gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1) {
                     for (let i = 0; i < gameController.activePlayers.length; i++) {
                         if (!gameController.eliminatedPlayers.includes(gameController.activePlayers[i].username)) {
                             console.log("WINNER!: " + gameController.activePlayers[i].username)
@@ -256,6 +256,9 @@
                 console.log(gameController.winner);
                 window.location.replace('/home');
             } else {
+                if(gameController.currentMemeSubmissions.length ===2){
+                    gameController.currentMemeSubmissions = [];
+                }
                 gameController.currentMemeSubmissions.push(message);
             }
         }

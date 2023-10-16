@@ -107,7 +107,7 @@ public class TournamentController {
             System.out.println("LEFT TOURNY. CURRENT USERSET" + tournamentDao.findById(tournament.getId()).get().getUserSet());
             Set<User> currentUserSet = tournamentDao.findById(tournament.getId()).get().getUserSet();
             //Logic to change host or delete tournament if users set is empty
-            if (currentUserSet.isEmpty()) {
+            if (currentUserSet.isEmpty() && tournament.getWinner() == null) {
                 System.out.println("----------Tournament empty, deleting");
                 tournamentDao.delete(tournament);
             } else {
