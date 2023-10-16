@@ -25,24 +25,45 @@
                     <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true"
                            hidden="" checked="checked">
                     <div class="carousel-item">
-                        <img src="/img/memespace-landing-img.png">
+                        <img src="/img/carousel-first.png">
                     </div>
                     <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true"
                            hidden="">
                     <div class="carousel-item">
-                        <img src="/img/landing-img-create.png">
+                        <img src="/img/carousel-second.png">
                     </div>
                     <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true"
                            hidden="">
                     <div class="carousel-item">
-                        <img src="/img/landing-img-vote.png">
+                        <img src="/img/carousel-third.png">
                     </div>
-                    <label for="carousel-3" class="carousel-control prev control-1">‹</label>
+                    <input class="carousel-open" type="radio" id="carousel-4" name="carousel" aria-hidden="true"
+                           hidden="">
+                    <div class="carousel-item">
+                        <img src="/img/carousel-fourth.png">
+                    </div>
+                    <input class="carousel-open" type="radio" id="carousel-5" name="carousel" aria-hidden="true"
+                           hidden="">
+                    <div class="carousel-item">
+                        <img src="/img/carousel-fifth.png">
+                    </div>
+                    <input class="carousel-open" type="radio" id="carousel-6" name="carousel" aria-hidden="true"
+                           hidden="">
+                    <div class="carousel-item">
+                        <img src="/img/carousel-sixth.png">
+                    </div>
+                    <label for="carousel-6" class="carousel-control prev control-1">‹</label>
                     <label for="carousel-2" class="carousel-control next control-1">›</label>
                     <label for="carousel-1" class="carousel-control prev control-2">‹</label>
                     <label for="carousel-3" class="carousel-control next control-2">›</label>
                     <label for="carousel-2" class="carousel-control prev control-3">‹</label>
-                    <label for="carousel-1" class="carousel-control next control-3">›</label>
+                    <label for="carousel-4" class="carousel-control next control-3">›</label>
+                    <label for="carousel-3" class="carousel-control prev control-4">‹</label>
+                    <label for="carousel-5" class="carousel-control next control-4">›</label>
+                    <label for="carousel-4" class="carousel-control prev control-5">‹</label>
+                    <label for="carousel-6" class="carousel-control next control-5">›</label>
+                    <label for="carousel-5" class="carousel-control prev control-6">‹</label>
+                    <label for="carousel-1" class="carousel-control next control-6">›</label>
                     <ol class="carousel-indicators">
                         <li>
                             <label for="carousel-1" class="carousel-bullet">•</label>
@@ -53,22 +74,41 @@
                         <li>
                             <label for="carousel-3" class="carousel-bullet">•</label>
                         </li>
+                        <li>
+                            <label for="carousel-4" class="carousel-bullet">•</label>
+                        </li>
+                        <li>
+                            <label for="carousel-5" class="carousel-bullet">•</label>
+                        </li>
+                        <li>
+                            <label for="carousel-6" class="carousel-bullet">•</label>
+                        </li>
                     </ol>
                 </div>
             </div>
             <!--            End of Carousel Div -->
+
             <!--            Start of Hero Caption -->
             <div class="hero-caption-container container">
                 <div class="hero-row row">
                     <div class="hero-column column align-bottom">
                         <h1 class="jdH1Caption animate-character">
-                            A real-time competitive multiplayer game where the funniest meme caption reigns supreme!
+                            A player vs. player game where the funniest meme caption reigns supreme!
                         </h1>
                     </div>
-                    <div class="column align-bottom">
+                    <div class="hero-register column align-bottom">
                         <h2 class="jdH2Instructions">
-                            Explanation of how this website works?????
+                            Register for an account to enter tournaments and become the #1 silliest goose!
                         </h2>
+                        <button class="reg-button" type="submit" onclick="window.location.href='/register'">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor"
+                                      d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z">
+                                </path>
+                            </svg>
+                            <span>Register Now</span>
+                        </button>
                     </div>
                 </div>
                 <!--                End of Hero Row-->
@@ -79,8 +119,9 @@
     </div>
     <!--    End of Landing Page Container-->
 
-    <!--            Start of host tournament info container-->
     <div class="memespace-instructions container">
+        <!--            Start of host tournament info container-->
+
         <div class="tournament-info-container container">
             <div class="tournament-info-row row">
                 <div class="tournament-info-image column">
@@ -91,8 +132,8 @@
                         Host a tournament or join an existing one!
                     </h3>
                     <p>
-                        Host your own tournament or join someone else's tournament room to go head-to-head
-                        for the funniest meme caption!
+                        Host your own tournament with 4, 8, or 12 players, or join an already created tournament
+                        and go head to head with other players in a tourney-style competition.
                     </p>
                 </div>
             </div>
@@ -104,10 +145,12 @@
             <div class="meme-create-row row">
                 <div class="meme-create-text column">
                     <h3>
-                        Create your own caption for a randomly generated meme and submit for other players to vote.
+                        Create your own meme caption!
                     </h3>
                     <p>
-                        Explain meme creation process
+                        You will be matched against another user in the tournament (PvP).
+                        Everyone will receive a randomly-generated meme to create a caption for.
+                        When all players have submitted their caption, voting will start.
                     </p>
                 </div>
                 <div class="meme-create-image column">
@@ -125,40 +168,122 @@
                 </div>
                 <div class="meme-vote-text column">
                     <h3>
-                        Vote on other players' meme captions.
+                        Vote on other players' meme captions!
                     </h3>
                     <p>
-                        How voting works, and how winner/loser is decided!
-                        Leaderboard view on home page and landing page!
-                        Tournament wins displayed on profile view.
+                        Everyone will be prompted to vote on other meme caption showdowns.
+                        The person with the most votes between the two moves onto the next round of player matches until
+                        there's only one player.
+                        THERE CAN ONLY BE ONE!
                     </p>
                 </div>
             </div>
         </div>
         <!-- End of voting for meme container-->
+        <!-- Start of meme tournament winning container-->
+        <div class="meme-winner-container container">
+            <div class="meme-winner-row row">
+                <div class="meme-winner-text column">
+                    <h3>
+                        Winner Winner Chicken Dinner!
+                    </h3>
+                    <p>
+                        The number of wins you've collected will be displayed in your profile dashboard and may place
+                        you on the leaderboard.
+                    </p>
+                </div>
+                <div class="meme-winner-image column">
+                    Placeholder for winner page image/video.
+                </div>
+            </div>
+        </div>
+        <!--        End of meme tournament winning container -->
 
         <!--    Start of meme submission history and posts container -->
         <div class="meme-history-container container">
             <div class="meme-history-row row">
+                <div class="meme-history-image column">
+                    Placeholder for meme history image/video
+                </div>
                 <div class="meme-history-text column">
                     <h3>
-                        Look at your previous submissions and post to public feed!
+                        Look at your previous submissions and post your favorites!
                     </h3>
                     <p>
-                        How to look at submissions and post to public feed.
-                        Look through feed to view other meme submissions of proud players, and like their posts.
-                        Liked posts are archived on profile view!
+                        In your profile, you will also find your history of memes you've submitted in every tournament
+                        you've been in.
+                        You can post the meme submissions you're proud of to the public feed for others to see and like.
                     </p>
-                </div>
-                <div class="meme-history-image column">
-                    Placeholder for profile page tabs AND feed view image/video
                 </div>
             </div>
         </div>
         <!--      End of meme submission history and posts-->
+        <!--        Start of feed and liked posts container -->
+        <div class="meme-feed-container container">
+            <div class="meme-feed-row row">
+                <div class="meme-feed-text column">
+                    <h3>
+                        View the competition and give them kudos!
+                    </h3>
+                    <p>
+                        Look through the public feed to view other meme submissions of proud players, and like their
+                        posts.
+                        There is an archive of all the posts you've liked, in case you need more inspiration for the
+                        next tournament you enter.
+                    </p>
+                </div>
+                <div class="meme-feed-image column">
+                    Placeholder for feed view image/video
+                </div>
+            </div>
+        </div>
+        <!--        End of meme-->
     </div>
     <!--        End of memespace-instructions container -->
 
+    <!--    Start of multiplayer website functionality -->
+    <div class="multiplayer-container container">
+        <h1 class="animate-character">
+            How this website works
+        </h1>
+        <div class="websocket-diagram row">
+            <img src="/img/websocket-diagram.png">
+        </div>
+        <div class="websocket-info-row row">
+            <ol class="websocket-info">
+                <li>
+                    <h3 class="websocket-steps">A user logs into their account and joins a tournament as a players.</h3>
+                    <p class="websocket-describe">
+                        When a user hosts a tournament, they are redirected to a tournament lobby page and will automatically be
+                        subscribed to a websocket stream as the host of the tournament.
+                        The host has the ability to set the amount of players that they want in the tournament,
+                        and when the tournament can start.
+                        This websocket stream creates a new tournament object and connection that other players can join
+                        and subscribe to when they click the Join Now button on the home page.
+
+                    </p>
+                </li>
+                <li>
+                    <h3 class="websocket-steps">Websocket starts tournament and keeps connection between players.</h3>
+                    <p class="websocket-describe">
+                        Once the allotted number of players have joined the tournament lobby, the host can then push the
+                        Start Tournament button, which sends a message to the websocket server to use its connection to direct all
+                        players to a new view to create a meme.
+                    </p>
+                </li>
+                <li>
+                    <h3 class="websocket-steps">Websocket </h3>
+                </li>
+                <li>
+                    <h3 class="websocket-steps">Fourth Step</h3>
+                </li>
+                <li>
+                    <h3 class="websocket-steps">Fifth Step</h3>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- End of multiplayer website functionality -->
 
     <footer th:replace="partials/partials :: footer"></footer>
 

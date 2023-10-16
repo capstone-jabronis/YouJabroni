@@ -4,6 +4,8 @@
     display: flex;
     align-content: end;
     color: #b4acef;
+    text-align: center;
+    margin-bottom: unset;
 }
 
 .animate-character {
@@ -39,8 +41,14 @@
 .jdH2Instructions {
     display: flex;
     color: #9F8BFF;
+    margin-top: unset;
+    margin-bottom: unset;
 }
-
+.hero-register{
+    display: flex;
+    align-content: end;
+    text-align: center;
+}
 .hero-row{
     flex-direction: column;
 }
@@ -59,13 +67,13 @@
 .carousel-hero {
     flex: 2 0 0;
     /*justify-content: center;*/
-    margin-right: 30px;
+    margin-right:20px;
 }
 
 .carousel {
     position: relative;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.64);
-    margin-top: 26px;
+    margin-top: 30px;
     width: 80%;
 }
 
@@ -125,7 +133,10 @@
 
 #carousel-1:checked ~ .control-1,
 #carousel-2:checked ~ .control-2,
-#carousel-3:checked ~ .control-3 {
+#carousel-3:checked ~ .control-3,
+#carousel-4:checked ~ .control-4,
+#carousel-5:checked ~ .control-5,
+#carousel-6:checked ~ .control-6{
     display: block;
 }
 
@@ -147,20 +158,23 @@
 }
 
 .carousel-bullet {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.34);
     cursor: pointer;
     display: block;
     font-size: 35px;
 }
 
 .carousel-bullet:hover {
-    color: #aaaaaa;
+    color: rgba(170, 170, 170, 0.26);
 }
 
 #carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
 #carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
-#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
-    color: #428bca;
+#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet,
+#carousel-4:checked ~ .control-4 ~ .carousel-indicators li:nth-child(4) .carousel-bullet,
+#carousel-5:checked ~ .control-5 ~ .carousel-indicators li:nth-child(5) .carousel-bullet,
+#carousel-6:checked ~ .control-6 ~ .carousel-indicators li:nth-child(6) .carousel-bullet{
+    color: rgba(66, 139, 202, 0.88);
 }
 
 /********** END OF CAROUSEL *************/
@@ -174,4 +188,8 @@
 .landing-page-leaderboard {
     flex: 1 0 0;
     margin-left: 20px;
+}
+
+.memespace-instructions{
+    gap: 2rem;
 }

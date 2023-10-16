@@ -247,7 +247,7 @@ body {
 
 .jdtournament-list {
     flex: 2;
-    width: 700px;
+    width: 54rem;
     align-items: center;
     background-color: var(--first);
     height: 41rem;
@@ -260,7 +260,7 @@ body {
     color: var(--first);
     height: 3rem;
     border-radius: 2rem 2rem 0 0;
-    width: 875px;
+    width: 54rem;
 }
 
 .jdTournamentCSS {
