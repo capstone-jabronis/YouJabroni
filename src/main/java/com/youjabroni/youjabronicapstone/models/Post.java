@@ -23,14 +23,6 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Post(long id, String description, User user, List<User> userLikes, MemeSubmission memeSubmission) {
-        this.id = id;
-        this.description = description;
-        this.user = user;
-        this.userLikes = userLikes;
-        this.memeSubmission = memeSubmission;
-    }
-
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "likes",
@@ -47,11 +39,17 @@ public class Post {
     public Post() {
     }
 
-
-
     public Post(String description, User user, MemeSubmission memeSubmission) {
         this.description = description;
         this.user = user;
+        this.memeSubmission = memeSubmission;
+    }
+
+    public Post(long id, String description, User user, List<User> userLikes, MemeSubmission memeSubmission) {
+        this.id = id;
+        this.description = description;
+        this.user = user;
+        this.userLikes = userLikes;
         this.memeSubmission = memeSubmission;
     }
 

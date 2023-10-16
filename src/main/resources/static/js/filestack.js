@@ -1,6 +1,6 @@
 const loadingOverlay = document.querySelector('.hide-loader');
 const fileInput = document.getElementById('fileInput');
-const previewImage = document.getElementById('previewImage');
+const previewImage = document.querySelector('.previewImage');
 const profilePicButton = document.querySelector("#profilePic");
 console.log("profile pic button "+ profilePicButton);
 const client = filestack.init(FILESTACK_API_KEY);
@@ -16,9 +16,10 @@ const options = {
     },
     imageMax: [400, 400],
     onFileUploadFinished: file => {
-        console.log(file);
+
         fileInput.value = file.url;
         previewImage.src = file.url;
+
     },
     onFileSelected: file => {
         // If you throw any error in this function it will reject the file selection.

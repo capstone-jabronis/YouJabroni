@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div  th:replace="partials/partials :: head(title='Landing-Page')">
+    <div th:replace="partials/partials :: head(title='Landing-Page')">
 
     </div>
 </head>
 <body>
 <div class="page-wrapper">
+
     <nav th:replace="partials/partials :: nav"></nav>
-    <div class="landing-page-container container align-center">
+
+    <div class="leaderboard-hero-container container align-center">
+
+        <!--        Leaderboard partial -->
         <div class="landing-page-leaderboard">
             <aside th:replace="partials/partials :: leaderboard"></aside>
         </div>
+        <!-- End of Leaderboard partial -->
 
+        <!--        Start of carousel hero -->
         <div class="carousel-hero column align-center">
             <div class="carousel">
                 <div class="carousel-inner">
@@ -50,20 +56,113 @@
                     </ol>
                 </div>
             </div>
-            <div class="column">
-                <div class="row align-bottom">
-                    <h1 class="jdH1Caption animate-character">Unleash Your Wit in the Universe of Memes – Where the Funniest Captions
-                        Reign Supreme!</h1>
+            <!--            End of Carousel Div -->
+            <!--            Start of Hero Caption -->
+            <div class="hero-caption-container container">
+                <div class="hero-row row">
+                    <div class="hero-column column align-bottom">
+                        <h1 class="jdH1Caption animate-character">
+                            A real-time competitive multiplayer game where the funniest meme caption reigns supreme!
+                        </h1>
+                    </div>
+                    <div class="column align-bottom">
+                        <h2 class="jdH2Instructions">
+                            Explanation of how this website works?????
+                        </h2>
+                    </div>
                 </div>
-                <div class="row align-bottom">
-                    <h3 class="jdH3Instructions">Meme Space is an 8 player head-to-head game. Where the user with the
-                        best caption to a randomly
-                        generated meme wins. Users' have the ability to save their own memes to their own profile for others to see how funny they are!</h3>
+                <!--                End of Hero Row-->
+            </div>
+            <!--            End of Hero Caption -->
+        </div>
+        <!--        End of Carousel Hero -->
+    </div>
+    <!--    End of Landing Page Container-->
+
+    <!--            Start of host tournament info container-->
+    <div class="memespace-instructions container">
+        <div class="tournament-info-container container">
+            <div class="tournament-info-row row">
+                <div class="tournament-info-image column">
+                    Placeholder for tournament room image/video.
+                </div>
+                <div class="tournament-info-text column">
+                    <h3>
+                        Host a tournament or join an existing one!
+                    </h3>
+                    <p>
+                        Host your own tournament or join someone else's tournament room to go head-to-head
+                        for the funniest meme caption!
+                    </p>
                 </div>
             </div>
         </div>
+        <!--            End of host tournament info container-->
+
+        <!--            Start of creating memes container -->
+        <div class="meme-create-container container">
+            <div class="meme-create-row row">
+                <div class="meme-create-text column">
+                    <h3>
+                        Create your own caption for a randomly generated meme and submit for other players to vote.
+                    </h3>
+                    <p>
+                        Explain meme creation process
+                    </p>
+                </div>
+                <div class="meme-create-image column">
+                    Placeholder for meme creation page image/video.
+                </div>
+            </div>
+        </div>
+        <!--     End of creating memes container       -->
+
+        <!--    Start of voting for meme container    -->
+        <div class="meme-vote-container container">
+            <div class="meme-vote-row row">
+                <div class="meme-vote-image column">
+                    Placeholder for voting page image/video.
+                </div>
+                <div class="meme-vote-text column">
+                    <h3>
+                        Vote on other players' meme captions.
+                    </h3>
+                    <p>
+                        How voting works, and how winner/loser is decided!
+                        Leaderboard view on home page and landing page!
+                        Tournament wins displayed on profile view.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- End of voting for meme container-->
+
+        <!--    Start of meme submission history and posts container -->
+        <div class="meme-history-container container">
+            <div class="meme-history-row row">
+                <div class="meme-history-text column">
+                    <h3>
+                        Look at your previous submissions and post to public feed!
+                    </h3>
+                    <p>
+                        How to look at submissions and post to public feed.
+                        Look through feed to view other meme submissions of proud players, and like their posts.
+                        Liked posts are archived on profile view!
+                    </p>
+                </div>
+                <div class="meme-history-image column">
+                    Placeholder for profile page tabs AND feed view image/video
+                </div>
+            </div>
+        </div>
+        <!--      End of meme submission history and posts-->
     </div>
+    <!--        End of memespace-instructions container -->
+
+
     <footer th:replace="partials/partials :: footer"></footer>
+
 </div>
+<!-- End of Page Wrapper -->
 </body>
 </html>

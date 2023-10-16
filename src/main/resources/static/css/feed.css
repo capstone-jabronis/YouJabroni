@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     background-color: #EEECFE;
-    height: 400px;
+    height: 430px;
     width: 350px;
     border-radius: 15px;
     align-items: center;
@@ -46,7 +46,7 @@
     display: flex;
     align-items: start;
     flex-direction: column;
-    margin-right: 25px;
+    width: 280px;
 }
 
 .post-feed-description {
@@ -60,6 +60,7 @@
 
 .user-profile-picture:hover {
     cursor: pointer;
+    border: 2px solid #343CFF;
 }
 
 .user-post-username {
@@ -74,6 +75,7 @@
 }
 
 .post-feed-caption {
+    margin-top: 5px;
     margin-bottom: 5px;
 }
 
@@ -108,11 +110,34 @@
 
 .like-box{
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    width: 280px;
 }
 .like-rocket{
     height:30px;
     width:30px;
+    margin-right: 5px;
+}
+
+.like-count-row {
+    display: flex;
+    justify-content: end;
+    width: 280px;
+}
+
+.like-count-container {
+    background-color: #9F8BFF;
+    padding: 5px 10px 5px 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.like-count-element {
+    color: white;
+}
+
+.like-count {
+    margin-right: 5px;
 }
 
 .delete-post-btn:hover {

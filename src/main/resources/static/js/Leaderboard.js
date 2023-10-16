@@ -24,16 +24,18 @@ let leaderboard = async () => {
             if (rank == 1) {
                 playerDiv.classList.add('first');
             }
-            let profileURL = user.user.profileURL;
-            if (profileURL == null) {
-                profileURL = "/img/memespace.gif"
+            let profileURL;
+            if (user.user.profileURL == null || user.user.profileURL === '') {
+                profileURL = "/img/memespace.gif";
+            } else {
+                profileURL = user.user.profileURL;
             }
             playerDiv.innerHTML = `
                 <h1 class="rank">${rank--}</h1>
                 <img class="not-10 user-pic" src="${profileURL}">
                 <div class="leader-info column">
                 <div class="name">${user.user.username}</div>
-                <div class="wins">Wins: ${user.wins}</div>
+                <div class="wins">wins: ${user.wins}</div>
                 </div>
             `;
             const userPic = playerDiv.querySelector('.user-pic');

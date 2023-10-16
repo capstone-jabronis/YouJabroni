@@ -90,128 +90,8 @@ body {
     font-family: 'Nunito Sans', sans-serif;
 }
 
-/*********************************Landing Page Carousel***********************************/
 
-.carousel-hero {
-    flex: 2 0 0;
-    /*justify-content: center;*/
-    margin-right: 30px;
-}
-
-.carousel {
-    position: relative;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.64);
-    margin-top: 26px;
-    width: 80%;
-}
-
-.carousel-inner {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-}
-
-.carousel-open:checked + .carousel-item {
-    position: static;
-    opacity: 100;
-}
-
-.carousel-item {
-    position: absolute;
-    opacity: 0;
-    -webkit-transition: opacity 0.6s ease-out;
-    transition: opacity 0.6s ease-out;
-}
-
-.carousel-item img {
-    display: block;
-    height: 450px;
-    width: 1300px;
-}
-
-.carousel-control {
-    background: rgba(0, 0, 0, 0.28);
-    border-radius: 50%;
-    color: #fff;
-    cursor: pointer;
-    display: none;
-    font-size: 40px;
-    height: 40px;
-    line-height: 35px;
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    text-align: center;
-    width: 40px;
-    z-index: 10;
-}
-
-.carousel-control.prev {
-    left: 2%;
-}
-
-.carousel-control.next {
-    right: 2%;
-}
-
-.carousel-control:hover {
-    background: rgba(0, 0, 0, 0.8);
-    color: #aaaaaa;
-}
-
-#carousel-1:checked ~ .control-1,
-#carousel-2:checked ~ .control-2,
-#carousel-3:checked ~ .control-3 {
-    display: block;
-}
-
-.carousel-indicators {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    bottom: 2%;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 10;
-}
-
-.carousel-indicators li {
-    display: inline-block;
-    margin: 0 5px;
-}
-
-.carousel-bullet {
-    color: #fff;
-    cursor: pointer;
-    display: block;
-    font-size: 35px;
-}
-
-.carousel-bullet:hover {
-    color: #aaaaaa;
-}
-
-#carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
-#carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
-#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
-    color: #428bca;
-}
-
-/********** END OF CAROUSEL *************/
-
-.landing-page-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-}
-
-.landing-page-leaderboard {
-    flex: 1 0 0;
-    margin-left: 20px;
-}
-
+/********** History of Meme Submissions View ***********/
 .history-container {
     display: flex;
     flex-direction: row;
@@ -272,7 +152,7 @@ body {
     border: 2px solid #343CFF;
     color: #343CFF;
 }
-
+/******** End of History of Meme Submissions *****/
 .profile-pic {
     border-radius: 50%;
     height: 250px;
@@ -511,14 +391,6 @@ body {
     pointer-events: none;
 }
 
-
-/*===============     SNAKE GAME     ===============*/
-#snakeGame {
-    background: #9F8BFF;
-}
-
-/*===============     END OF SNAKE GAME     ===============*/
-
 /*===============     PROFILE     ===============*/
 .password-error {
     color: red;
@@ -627,8 +499,6 @@ body {
     color: #343CFF;
     cursor: pointer;
 }
-
-
 
 .password-btn {
     display: flex;
@@ -821,6 +691,7 @@ body {
     margin-left: 55px;
     color: white;
     margin-top: 10px;
+    margin-right: 40px;
 }
 
 .form-title {
@@ -845,7 +716,7 @@ body {
     width: 250px;
     font-size: 18px;
     margin-bottom: 15px;
-    margin-top: 40px;
+    margin-top: 25px;
 }
 
 .add-btn:hover {
@@ -1090,6 +961,25 @@ body {
     width: 350px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    display: flex;
+    align-items: center
+}
+
+.post-likes-container {
+    font-size: 20px;
+    margin-left: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.rocket-img {
+    height: 30px;
+    width: 30px;
+}
+
+.post-likes {
+    margin-right: 5px;
+    margin-left: 10px;
 }
 
 .post-img {
@@ -1103,7 +993,7 @@ body {
     display: flex;
     align-items: start;
     flex-direction: column;
-    margin-right: 25px;
+    margin-left: 25px;
 }
 
 .post-description {
@@ -1130,50 +1020,6 @@ body {
 
 /*===============     END OF CALL TO ACTION CSS     ===============*/
 
-/*===============     LANDING PAGE     ===============*/
-
-.jdH1Caption {
-    display: flex;
-    align-content: end;
-    color: #b4acef;
-}
-
-.animate-character {
-    text-transform: uppercase;
-    background-image: linear-gradient(
-            -225deg,
-            #231557 0%,
-            #44107a 29%,
-            #ff1361 67%,
-            #fff800 100%
-    );
-    background-size: auto auto;
-    background-clip: border-box;
-    background-size: 200% auto;
-    color: #fff;
-    background-clip: text;
-    text-fill-color: transparent;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textclip 4s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite alternate; /* Use cubic-bezier for easing */
-    display: inline-block;
-}
-
-@keyframes textclip {
-    0% {
-        background-position: 0% center; /* Start from the left */
-    }
-    100% {
-        background-position: 100% center; /* End at the right */
-    }
-}
-
-.jdH3Instructions {
-    display: flex;
-    color: #9F8BFF;
-}
-
-/*===============     END OF LANDING PAGE     ===============*/
 
 /*===============     FEED     ===============*/
 .jdMemesContainer {
@@ -1212,15 +1058,14 @@ body {
 
 .jdWaitTitleContainer {
     display: flex;
-    flex-wrap: wrap;
-    color: #9F8BFF;
+    /*flex-wrap: wrap;*/
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: .2rem;
     border-bottom: #428bca;
     justify-content: center;
 }
 
-.jdWaitTitleRow {
-    justify-content: center;
-}
 
 .jdWaitTitleCol {
     display: flex;
@@ -1228,36 +1073,49 @@ body {
 }
 
 .jdWaitContainer {
-    margin-bottom: 2%;
-    margin-right: 2%;
-    margin-left: 2%;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.jdWaitRow {
     display: flex;
-    flex-wrap: wrap;
-}
-
-.jdWaitColUl {
-    flex: 1;
-    padding: 20px;
-    background-color: #f2f2f2;
-}
-
-.jdWaitColCanvas {
-    flex: 1;
-    padding: 20px;
-    background-color: #e0e0e0;
+    margin: 2%;
+    align-items: center;
+    flex-direction: column;
+    height: 40rem;
+    border-radius: 16px;
+    /* width: 100%; */
+    background-color: var(--first);
 }
 
 #snakeGame {
     max-width: 100%; /* Ensure the canvas doesn't exceed its container */
-    height: auto;
+    /*height: auto;*/
+    /*margin-left: 50px;*/
+    /*border-radius: 16px;*/
+    height: 550px;
+    width: 550px;
+    margin-left: 3rem;
+    border-radius: 16px;
+    background-color: #0D0149;
 }
 
+.leave-tournament-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+}
+
+.snake-start-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 140px;
+    font-size: 18px;
+}
+
+/* Media Queries For Waiting Room */
 @media (max-width: 768px) {
     /* Adjust styles for smaller screens here */
     .jdWaitColUl, .jdWaitColCanvas {
@@ -1292,9 +1150,6 @@ body {
     text-align: center;
 }
 
-.jdCreateInputRow {
-
-}
 
 .jdCreateInputCol {
     display: flex;
