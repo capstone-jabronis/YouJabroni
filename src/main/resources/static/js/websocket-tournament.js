@@ -329,11 +329,11 @@
 
             if (tournamentMembers.length !== 4) {
                 // startGameButton.style.display = "none";
-                waitingTitle.style.visibility = "visible";
+                waitingTitle.classList.remove('hidden');
                 startBtn.style.visibility = "hidden";
             } else if (tournamentMembers.length === 4 && currentUser.username === tournamentHost.username) {
                 // startGameButton.style.display = "block";
-                waitingTitle.style.visibility
+                waitingTitle.classList.add('hidden');
                 startBtn.style.visibility = "visible";
             }
         },
@@ -347,37 +347,19 @@
 
 
             // startGameButton.style.display = "none";
+
             lobbyContainer.innerHTML = `
     <div class="container full-width">
-    <div class="row">
-    <ul class="d-flex align-center full-width justify-space-around">
-        <li class="profile-tab">
-            <h1 class="jdCreateH1">
-                ${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}
-            </h1>
-        </li>
-<!--        <li class="profile-tab">-->
-<!--            <h1 class="jdtime jdCreateH1">-->
-<!--                :TIME-->
-<!--            </h1>-->
-<!--        </li>-->
-    <ul>
-    </div>
-</div>
-
-    <div class="container justify-center">
-        <div class="row justify-center">
-            <div class="column justify-center align-center">
-                <img class="memeAPIImage" src="" alt="WRITE SOMETHING FUNNY JABRONI">
-            </div>
+        <div class="row vs-title justify-center">
+            <h1>${gameController.currentRoundPlayers[0]}  VS  ${gameController.currentRoundPlayers[1]}</h1>
         </div>
-    </div>
-
-    <div class="jdCreateInputContainer">
-        <div class="jdCreateInputRow">
-            <div class="jdCreateInputCol">
-                    <input type="text" id="memeCaption" placeholder="Enter Your Meme Submission">
-                    <button class="submit-meme-btn" id="submitMemeCaptionBtn" type="submit">Submit Caption</button>
+        <div class="row memePicture justify-center">
+            <img class="memeAPIImage" src="" alt="WRITE SOMETHING FUNNY JABRONI">
+        </div>
+        <div class="row meme-input">
+            <div class="column align-center">
+                <input class="input-field input" type="text" id="memeCaption" placeholder="Enter a short caption">
+                <button class="submit-meme-btn" id="submitMemeCaptionBtn" type="submit">submit caption</button>
             </div>
         </div>
     </div>
@@ -401,55 +383,37 @@
                 };
                 Socket.sendMessage(message);
                 submitMemeBtn.disabled = true;
-                submitMemeBtn.innerHTML = 'Caption Submitted!';
+                submitMemeBtn.innerHTML = 'caption submitted!';
+                submitMemeBtn.classList.add('btn-hover');
             })
         },
 
         renderVotePage(user1, user2) {
             console.log(gameController.currentMemeSubmissions);
             lobbyContainer.innerHTML = `
-             <div class="container">
-                <div class="row">
-                    <div class="column justify-center align-center">
-                        <h1>VOTE FOR THE BEST MEME</h1>
-                    </div>
+             <div class="container voting-container">
+                <div class="row justify-space-between align-center full-width">
+                    <h1 class="left-element">Vote for the Best Meme</h1>
+                    <h2 class="middle-element">${user1}  VS  ${user2}</h2>
+                    <h3 class="right-element" id="vote-status"></h3>
                 </div>
-             </div>
-             
-             <div class="container">
-                <div class="row">
-                    <div class="column justify-center align-center">
-                        <h2>${user1} VS ${user2}</h2>
-                    </div>
-                </div>
-             </div>
-             
-             <div class="container">
-                <div class="row">
-                    <div class="column justify-center align-center">
-                        <h3 id="vote-status"></h3>
-                    </div>
-                </div>
-             </div>
-             
-             <div class="container d-flex">
-                <div class="row justify-space-evenly">
-                    <div class="column flex-column align-center">
-                            <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="ERROR LOADING IMAGE">
-                            <span>${gameController.currentMemeSubmissions[0].caption}</span>
-                            <button id="vote-meme1">Vote for 1</button>
-                            <div id="meme1-votes"></div>
+                <div class="row justify-space-between">
+                    <div class="column vote-first-meme align-center">
+                        <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="ERROR LOADING IMAGE">
+                        <h2>${gameController.currentMemeSubmissions[0].caption}</h2>
+                        <button class="vote-button" id="vote-meme1">vote</button>
+                        <div id="meme1-votes"></div>
                     </div>
                     
-                    <div class="column flex-column align-center">
-                            <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="ERROR LOADING IMAGE">
-                            <span>${gameController.currentMemeSubmissions[1].caption}</span>
-                            <button id="vote-meme2">Vote for 2</button>
-                            <div id="meme1-votes"></div>
+                    <div class="column vote-second-meme align-center">
+                        <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="ERROR LOADING IMAGE">
+                        <h2>${gameController.currentMemeSubmissions[1].caption}</h2>
+                        <button class="vote-button" id="vote-meme2">vote</button>
+                        <div id="meme1-votes"></div>
                     <div>
                 </div>
              </div>
-            `
+            `;
 
             let voteMeme1btn = document.querySelector('#vote-meme1');
             let voteMeme2btn = document.querySelector('#vote-meme2');
@@ -507,47 +471,38 @@
         },
 
         renderWaitingPage() {
-            lobbyContainer.innerHTML = `<h1>WAITING FOR MEME SUBMISSIONS...</h1>`
+            lobbyContainer.innerHTML = `<h1>Waiting for Meme Submissions...</h1>
+                                        <canvas id="snakeGame"></canvas>
+                                        `;
         },
 
         async renderResultsPage() {
             let host = await Fetch.Get.tournamentHost();
             lobbyContainer.innerHTML = `
-           <div class="container">
-    <div class="row">
-        <div class="column align-center">
-            <h1>RESULTS</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column align-center">
-            <h2>${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column align-center">
-            <h3 id="vote-status"></h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column align-center">
-            <div class="div-meme-vote">
-                <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="${gameController.currentMemeSubmissions[0].caption}">
-                <span>${gameController.currentMemeSubmissions[0].caption}</span>
-                <h3 id="meme1-votes">${gameController.meme1votes}</h3>
-                <h3 id="player1-result"></h3>
-            </div>
-        </div>
-        <div class="column align-center">
-            <div class="div-meme-vote">
-                <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="${gameController.currentMemeSubmissions[1].caption}">
-                <span>${gameController.currentMemeSubmissions[1].caption}</span>
-                <h3 id="meme2-votes">${gameController.meme2votes}</h3>
-                <h3 id="player2-result"></h3>
-            </div>
-
-            <button id="submit-results-btn">CONTINUE</button>
-            `
+           <div class="container results-container">
+                <div class="row">
+                    <div class="column align-center">
+                        <h1>Results</h1>
+                        <h2>${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
+                        <h3 id="vote-status"></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column align-center result-first-meme">
+                         <h3 id="player1-result"></h3>
+                         <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="${gameController.currentMemeSubmissions[0].caption}">
+                         <h2>${gameController.currentMemeSubmissions[0].caption}</h2>
+                         <h3 id="meme1-votes">${gameController.meme1votes}</h3>
+                    </div>
+                    <div class="column align-center result-second-meme">
+                         <h3 id="player2-result"></h3>
+                         <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="${gameController.currentMemeSubmissions[1].caption}">
+                         <h2>${gameController.currentMemeSubmissions[1].caption}</h2>
+                         <h3 id="meme2-votes">${gameController.meme2votes}</h3>
+                    </div>
+                </div>
+                <button id="submit-results-btn">continue</button>
+           </div>`;
 
             let nextRoundBtn = document.querySelector('#submit-results-btn');
             if (host.username !== currentUser.username) {

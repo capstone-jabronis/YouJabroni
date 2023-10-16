@@ -1190,9 +1190,16 @@ body {
     color: white;
     border: unset;
     border-radius: 16px;
-    height: 40px;
-    width: 140px;
+    height: 50px;
+    width: 180px;
     font-size: 18px;
+    margin-top: 2rem;
+}
+
+#start-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
 }
 
 /* Media Queries For Waiting Room */
@@ -1216,10 +1223,12 @@ body {
 /*===============     CREATE MEME     ===============*/
 
 .memeAPIImage{
-    max-width: 90%;
-    max-height: 90%;
-    min-width: 90%;
-    min-height: 90%;
+    /*max-width: 90%;*/
+    /*max-height: 90%;*/
+    /*min-width: 90%;*/
+    /*min-height: 90%;*/
+    height: 25rem;
+    margin-bottom: 3rem;
 }
 
 
@@ -1247,15 +1256,88 @@ body {
     width: 70vw;
     padding: 1.5%;
     margin-bottom: 10px;
+    background-color: white;
 }
 
-#submitMemeCaptionBtn {
-    background-color: #9F8BFF;
+.submit-meme-btn {
+    background-color: #343CFF;
     color: white;
-    padding: 10px 20px; /* Adjust padding to your preference */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    border: unset;
+    border-radius: 16px;
+    height: 50px;
+    width: 200px;
+    font-size: 18px;
+    margin-top: 2rem;
+}
+
+.submit-meme-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+.btn-hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+.voting-memes {
+    flex-direction: row;
 }
 
 /*===============     END OF CREATE MEME     ===============*/
+
+/*===============     START OF MEME SUBMISSION CREATION    ===============*/
+
+/*===============     END OF MEME SUBMISSION CREATION    ===============*/
+
+/*===============     START OF VOTING     ===============*/
+
+.vote-button {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 50px;
+    width: 125px;
+    font-size: 18px;
+}
+
+.vote-button:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+.left-element,
+.right-element,
+.middle-element {
+    padding: 10px;
+}
+
+.middle-element {
+    flex-grow: 1; /* Allow the middle element to grow and take available space */
+}
+
+/*===============     END OF VOTING     ===============*/
+
+/*===============     START OF RESULTS     ===============*/
+
+#submit-results-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 50px;
+    width: 125px;
+    font-size: 18px;
+}
+
+#submit-results-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+/*===============     END OF RESULTS     ===============*/
