@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <div th:replace="partials/partials :: head(title='lobby')">
+    <div th:replace="partials/partials :: head(title='Lobby')">
 
     </div>
     <!--    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>-->
@@ -14,40 +14,42 @@
     <!--    <script th:src="@{/js/sockjs.min.js}"></script>-->
     <!--    <script th:src="@{/js/stomp.min.js}"></script>-->
 </head>
-<nav th:replace="partials/partials :: nav"></nav>
+<!--<nav th:replace="partials/partials :: nav"></nav>-->
 <body>
 <div class="page-wrapper">
     <!--  Just in case: try to grab value for tournament ID -->
     <!--                 <h1>TOURNAMENT ID: <span id="tournamentID" th:text="${tournament.id}"></span></h1>
                     <input type="hidden" name="tournamentId" value="${sessionScope.tournamentId} /> -->
-    <div class="jdWaitTitleContainer">
-        <div class="jdWaitTitleRow">
-            <div class="jdWaitTitleCol">
-                <h1>TOURNAMENT ID: <span data-th-tournament="${tournament.id}"
-                                         th:text="${tournament.getId()}"></span></h1>
+<!--    <div class="jdWaitTitleContainer container">-->
 
-                <button id="start-btn" style="visibility: hidden;">START GAME</button>
-            </div>
-        </div>
-    </div>
+<!--    </div>-->
 
     <div class="jdWaitContainer">
-        <div class="jdWaitRow">
-            <div class="jdWaitColUl">
+            <!--                <h1>TOURNAMENT ID: <span data-th-tournament="${tournament.id}"-->
+            <!--                                         th:text="${tournament.getId()}"></span></h1>-->
+            <h1>Waiting for other players...</h1>
 
-                <h2>here are players in lobby:</h2>
+            <button id="start-btn" style="visibility: hidden;">START GAME</button>
+        <div class="jdWaitRow row justify-space-between">
+            <div class="jdWaitColUl column">
+
+                <h2>Players:</h2>
+<!--                <ul th:each="user : ${users}">-->
+<!--                    <p class="user-info" th:text="${user.getUsername()}"></p>-->
+<!--                </ul>-->
+<!--                &lt;!&ndash;                TESTING REAL TIME UPDATES&ndash;&gt;-->
+<!--                <h3>WEBSOCKET USER UPDATE</h3>-->
                 <div id="users-in-room"></div>
-<!--                <button id="leave-lobby-btn">Leave/Cancel</button>-->
+                <button id="leave-lobby-btn" class="leave-tournament-btn">leave</button>
             </div>
-            <div class="jdWaitColCanvas">
-                <canvas id="snakeGame" th:width="800" th:height="800">
+            <div class="jdWaitColCanvas column">
+                <canvas id="snakeGame" th:width="1000" th:height="1000">
                 </canvas>
             </div>
         </div>
     </div>
 </div>
-</div>
-<footer th:replace="partials/partials :: footer"></footer>
+<!--<footer th:replace="partials/partials :: footer"></footer>-->
 <script th:inline="javascript">/*<![CDATA[*/
 
 const currentUser = /*[[${currentUser}]]*/ 'default';

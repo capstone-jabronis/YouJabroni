@@ -24,9 +24,11 @@ let leaderboard = async () => {
             if (rank == 1) {
                 playerDiv.classList.add('first');
             }
-            let profileURL = user.user.profileURL;
-            if (profileURL == null) {
-                profileURL = "/img/memespace.gif"
+            let profileURL;
+            if (user.user.profileURL == null || user.user.profileURL === '') {
+                profileURL = "/img/memespace.gif";
+            } else {
+                profileURL = user.user.profileURL;
             }
             playerDiv.innerHTML = `
                 <h1 class="rank">${rank--}</h1>

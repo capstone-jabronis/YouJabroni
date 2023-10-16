@@ -1,6 +1,6 @@
 const snakeGameContainer = document.querySelector("#snakeGame");
 snakeGameContainer.style.display = "none";
-let colforsnake = document.querySelector(".jdWaitColCanvas")
+let colForSnake = document.querySelector(".jdWaitColCanvas")
 let blockSize = 25;
 let total_row = 30; // total row number
 let total_col = 30; // total column number
@@ -22,18 +22,21 @@ let gameOver = false;
 
 let foodColorHue = 0; // Initial hue value
 
-let h4Element = document.createElement("h4");
-h4Element.innerText = "PRESS SPACE TO PLAY A GAME WHILE YOU WAIT FOR LOBBY TO FILL"
-colforsnake.appendChild(h4Element);
-window.addEventListener("keydown", function(e) {
-    if (e.key === " ") {
-        e.preventDefault();
-        snakeGameContainer.style.display = "block";
-        h4Element.style.display = 'none';
-        startGame();
-        snakeGame();
-    }
-}, { once: true });
+let h2Element = document.createElement("h2");
+h2Element.innerText = "While you wait play a snake game!";
+colForSnake.appendChild(h2Element);
+
+let gameButton = document.createElement('button');
+gameButton.textContent = 'start game';
+gameButton.classList.add('snake-start-btn');
+colForSnake.appendChild(gameButton)
+gameButton.addEventListener("click", function () {
+    snakeGameContainer.style.display = "block";
+    h2Element.style.display = 'none';
+    gameButton.style.display = 'none';
+    startGame();
+    snakeGame();
+}, {once: true});
 
 const snakeGame = () => {
     // Set board height and width
@@ -60,7 +63,7 @@ function update() {
     }
 
     // Background of a Game
-    context.fillStyle = "#9F8BFF";
+    context.fillStyle = "#0D0149";
     context.fillRect(0, 0, snakeGameContainer.width, snakeGameContainer.height);
 
     // Update food color with a rainbow effect
@@ -127,18 +130,15 @@ function changeDirection(e) {
         // snake will not move in the opposite direction
         speedX = 0;
         speedY = -1;
-    }
-    else if (e.code === "ArrowDown" && speedY !== -1) {
+    } else if (e.code === "ArrowDown" && speedY !== -1) {
         // If down arrow key pressed
         speedX = 0;
         speedY = 1;
-    }
-    else if (e.code === "ArrowLeft" && speedX !== 1) {
+    } else if (e.code === "ArrowLeft" && speedX !== 1) {
         // If left arrow key pressed
         speedX = -1;
         speedY = 0;
-    }
-    else if (e.code === "ArrowRight" && speedX !== -1) {
+    } else if (e.code === "ArrowRight" && speedX !== -1) {
         // If Right arrow key pressed
         speedX = 1;
         speedY = 0;
