@@ -35,8 +35,8 @@
     // const leaveBtn = document.querySelector('#leave-lobby-btn');
     const lobbyContainer = document.querySelector('.jdWaitContainer');
     const startBtn = document.querySelector('#start-btn');
-
-
+    const playerCount = document.querySelector('#player-count');
+    console.log(playerCount.value);
     // JOSES TRYING SOMETHING
     const startGameButton = document.createElement("button");
     startGameButton.textContent = "Start Game";
@@ -66,7 +66,6 @@
             return Math.floor(Math.random());
         }
     }
-
 
     const Tournament = {
         csrfToken: document.querySelector('meta[name="_csrf"]').getAttribute('content'),
@@ -126,8 +125,6 @@
                 } else {
                     Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(message));
                 }
-
-
             }
 
             // if (memeContent && Tournament.stompClient) {
@@ -279,13 +276,15 @@
             let tournamentMembers = await Fetch.Get.tournamentMembers();
             let tournamentHost = await Fetch.Get.tournamentHost();
 
+            tournamentMembers.sort(function (a, b) {
+                return (a.id - b.id);
+            });
             //JOSES TRYING SOMETHING
 
             UserWaitingRoom.innerHTML = "";
+            UserWaitingRoom.innerHTML += '<p>' + tournamentHost.username + '  HOST<p>'
             for (let i = 0; i < tournamentMembers.length; i++) {
-                if (tournamentMembers[i].username === tournamentHost.username) {
-                    UserWaitingRoom.innerHTML += '<p>' + tournamentMembers[i].username + '  HOST<p>'
-                } else if (tournamentMembers[i].username !== userToRemove.username) {
+                if (tournamentMembers[i].username !== userToRemove.username && tournamentMembers[i].username !== tournamentHost.username) {
                     console.log(userToRemove);
                     UserWaitingRoom.innerHTML += '<p>' + tournamentMembers[i].username + '<p>'
                 }

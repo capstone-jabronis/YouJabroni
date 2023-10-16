@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Set;
@@ -223,7 +224,9 @@ public class TournamentController {
 
     //Creating new tournaments
     @GetMapping("/create-tournament")
-    public String createTournament(@AuthenticationPrincipal UserDetails userDetails) {
+    public String createTournament(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("player-count") String playerCount) {
+        System.out.println("++++++++++++++++++++++++++++++");
+        System.out.println(playerCount);
         User user = userDao.findByUsername(userDetails.getUsername());
         System.out.println("Creating tournament host: " + user.getUsername());
         Tournament newTournament = new Tournament();

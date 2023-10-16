@@ -39,7 +39,7 @@
                 </form>
             </div>
             <div th:each="tournament : ${tournaments}">
-                <div th:if="${tournament.getWinner() == null} AND ${tournament.getStarted() != true}">
+                <div th:if="${tournament.getWinner() == null} AND ${tournament.getStarted() != true} AND ${tournament.getUserSet().size() > 0}">
                     <form class="name jdTournamentCSS" th:action="@{|/tournament/lobby/${tournament.id}|}">
                         <p>Tournament Host: <span th:text="${tournament.host.username}"></span></p>
                         <p>Players: <span th:text="${#lists.size(tournament.userSet)}"></span>/4</p>
@@ -49,13 +49,21 @@
             </div>
     </aside>
 </div>
-<!--<div class="tournament-card d-flex" th:each="tournament : ${tournaments}">-->
-<!--    <form th:action="@{|/tournament/waiting-room/${tournament.id}|}">-->
-<!--        <p>TEST TOURNAMENT</p>-->
-<!--        <p>TEST TOURNAMENT ID: <span th:text="${tournament.id}"></span></p>-->
-<!--        <button data-th-tournament="${tournament.id}" type="submit">Join Now!</button>-->
-<!--    </form>-->
-<!--</div>-->
+
+<!--MODAL FOR TOURNAMENT PLAYER SIZE, SHOULD POP UP WHEN 'HOST A TOURNAMENT' IS CLICKED-->
+<div id="host-tournament-modal">
+    <form th:action="@{/tournament/create-tournament}">
+        <div id="player-count-radios">
+            <input type="radio" id="four" name="player-count" value="4">
+            <label for="four">4</label><br>
+            <input type="radio" id="eight" name="player-count" value="8">
+            <label for="eight">8</label><br>
+            <input type="radio" id="twelve" name="player-count" value="12">
+            <label for="twelve">12</label>
+        </div>
+        <button type="submit">CREATE TOURNAMENT</button>
+    </form>
+</div>
 <footer th:replace="partials/partials :: footer"></footer>
 
 <!--<script th:inline="javascript">/*<![CDATA[*/-->
