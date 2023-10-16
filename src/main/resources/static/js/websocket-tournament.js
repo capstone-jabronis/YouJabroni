@@ -32,7 +32,7 @@
     const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 
     const UserWaitingRoom = document.querySelector('#users-in-room');
-    const leaveBtn = document.querySelector('#leave-lobby-btn');
+    // const leaveBtn = document.querySelector('#leave-lobby-btn');
     const lobbyContainer = document.querySelector('.jdWaitContainer');
     const startBtn = document.querySelector('#start-btn');
 
@@ -40,8 +40,8 @@
     // JOSES TRYING SOMETHING
     const startGameButton = document.createElement("button");
     startGameButton.textContent = "Start Game";
-    const leaveLobbyButton = document.querySelector("#leave-lobby-btn");
-    leaveLobbyButton.after(startGameButton)
+    // const leaveLobbyButton = document.querySelector("#leave-lobby-btn");
+    // leaveLobbyButton.after(startGameButton)
     startGameButton.style.display = "none";
 
 
@@ -119,15 +119,14 @@
                     Tournament.stompClient.send(`${Tournament.topic}/meme`, {}, JSON.stringify(message));
                 } else if (message.messageType === 'FINISH') {
                     Tournament.stompClient.send(`${Tournament.topic}/finish`, {}, JSON.stringify(message));
+                } else if (message.messageType === 'LEAVE') {
+                    Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(message));
+                    console.log('REDIRECT');
+                    window.location.replace("/tournament/lobby/leave");
                 } else {
                     Tournament.stompClient.send(`${Tournament.topic}/send`, {}, JSON.stringify(message));
                 }
 
-
-                if (message.messageType === 'LEAVE') {
-                    console.log('REDIRECT');
-                    window.location.replace("/tournament/lobby/leave");
-                }
 
             }
 
@@ -149,7 +148,7 @@
             if (message.messageType === 'JOIN') {
                 await Render.reloadTournamentMembers('');
             } else if (message.messageType === 'LEAVE') {
-                await Render.reloadTournamentMembers(message.user);
+                    await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
                 //Get userSet of Tournament from server
                 gameController.activePlayers = await Fetch.Get.tournamentMembers();
@@ -176,7 +175,7 @@
                     //     skipPlayers = [];
                     // }
                     //Round advancement scalability to support more players, works for 4 players, need to test for more (multiples of 4)
-                    if ((gameController.activePlayers.length / gameController.round) / gameController.eliminatedPlayers.length === 2){
+                    if ((gameController.activePlayers.length / gameController.round) / gameController.eliminatedPlayers.length === 2) {
                         console.log("NEXT ROUND ---- CLEARING skipPlayers");
                         gameController.playersToSkip = [];
                         skipPlayers = [];
@@ -279,7 +278,6 @@
             console.log("Calling Render.reloadTournamentMembers");
             let tournamentMembers = await Fetch.Get.tournamentMembers();
             let tournamentHost = await Fetch.Get.tournamentHost();
-
 
             //JOSES TRYING SOMETHING
 
@@ -643,24 +641,41 @@
     }
 
     //EVENT LISTENERS
-    leaveBtn.addEventListener('click', () => {
-        console.log('leave button clicked');
+    //only lets users leave the game from the lobby
+    // leaveBtn.addEventListener('click', () => {
+    //     console.log('leave button clicked');
+    //     for (let i = 0; i < gameController.activePlayers.length; i++) {
+    //         if (gameController.activePlayers[i].username === currentUser.username) {
+    //             console.log('removing ' + gameController.activePlayers[i]);
+    //             gameController.activePlayers.splice(i, 1);
+    //         }
+    //     }
+    //     console.log(gameController.activePlayers);
+    //     let message = {
+    //         user: currentUser.username,
+    //         text: 'USER HAS LEFT LOBBY',
+    //         memeURL: '',
+    //         messageType: 'LEAVE'
+    //     };
+    //     Socket.sendMessage(message);
+    // })
+//event to remove a user that left the page and reload the page for all other users
+    window.onbeforeunload = (event) => {
+        gameController.disconnectMessage = true;
         for (let i = 0; i < gameController.activePlayers.length; i++) {
             if (gameController.activePlayers[i].username === currentUser.username) {
                 console.log('removing ' + gameController.activePlayers[i]);
                 gameController.activePlayers.splice(i, 1);
             }
         }
-        console.log(gameController.activePlayers);
         let message = {
             user: currentUser.username,
-            text: 'USER HAS LEFT LOBBY',
+            text: 'DISCONNECTED',
             memeURL: '',
             messageType: 'LEAVE'
         };
         Socket.sendMessage(message);
-    })
-
+    };
     startGameButton.addEventListener('click', async () => {
         console.log('Start button clicked')
         let host = await Fetch.Get.tournamentHost();
