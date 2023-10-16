@@ -49,7 +49,7 @@
                             <img class="host-profile-pic" src="/img/memespace.gif">
                             <span th:text="${tournament.host.username}"></span>
                         </p>
-                        <p>Players: <span th:text="${#lists.size(tournament.userSet)}"></span>/4</p>
+                        <p>Players: <span th:text="${#lists.size(tournament.userSet)}"></span>/<span th:text="${tournament.playerCount}"></span></p>
                         <button class="join-now" data-th-tournament="${tournament.id}" type="submit">Join Now!</button>
                     </form>
                 </div>
@@ -61,7 +61,7 @@
 <div id="host-tournament-modal">
     <form th:action="@{/tournament/create-tournament}">
         <div id="player-count-radios">
-            <input type="radio" id="four" name="player-count" value="4">
+            <input type="radio" id="four" name="player-count" value="4" checked="checked">
             <label for="four">4</label><br>
             <input type="radio" id="eight" name="player-count" value="8">
             <label for="eight">8</label><br>

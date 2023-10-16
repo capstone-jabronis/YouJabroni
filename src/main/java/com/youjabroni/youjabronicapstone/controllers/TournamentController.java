@@ -104,13 +104,17 @@ public class TournamentController {
             user.setTournament(null);
             userDao.save(user);
             tournamentDao.save(tournament);
-            System.out.println("LEFT TOURNY. CURRENT USERSET" + tournamentDao.findById(tournament.getId()).get().getUserSet());
             Set<User> currentUserSet = tournamentDao.findById(tournament.getId()).get().getUserSet();
-            //Logic to change host or delete tournament if users set is empty
-            if (currentUserSet.isEmpty() && tournament.getWinner() == null) {
+            //Logic to change host or delete tournament if users set is empty, will keep the tournament if there is a winner
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+            if (currentUserSet.isEmpty() && tournamentDao.findById(tournamentId).get().getWinner() == null) {
                 System.out.println("----------Tournament empty, deleting");
                 tournamentDao.delete(tournament);
-            } else {
+            } else if (!tournament.getStarted()){
                 System.out.println("changing host to next user");
                 User newHost = currentUserSet.iterator().next();
                 tournament.setHost(newHost);
@@ -128,6 +132,7 @@ public class TournamentController {
         //Set winner in tournament
         User winner = userDao.findByUsername(message.getUser());
         Tournament tournament = tournamentDao.findById(tournamentId).get();
+//        tournament.setStarted(false);
         tournament.setWinner(winner);
         tournamentDao.save(tournament);
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
@@ -181,7 +186,7 @@ public class TournamentController {
             User user = userDao.findByUsername(userDetails.getUsername());
             Tournament tournament = tournamentDao.findById(id).get();
             Set<User> updatedUserSet = tournament.getUserSet();
-            if (updatedUserSet.size() != 4) {
+            if (updatedUserSet.size() != tournament.getPlayerCount()) {
                 updatedUserSet.add(user);
                 tournament.setUserSet(updatedUserSet);
                 user.setTournament(tournament);
@@ -224,11 +229,13 @@ public class TournamentController {
 
     //Creating new tournaments
     @GetMapping("/create-tournament")
-    public String createTournament(@AuthenticationPrincipal UserDetails userDetails) {
+    public String createTournament(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("player-count") String playerCount) {
+        int count = Integer.parseInt(playerCount);
         User user = userDao.findByUsername(userDetails.getUsername());
         System.out.println("Creating tournament host: " + user.getUsername());
         Tournament newTournament = new Tournament();
         newTournament.setHost(user);
+        newTournament.setPlayerCount(count);
         newTournament.setStarted(false);
         tournamentDao.save(newTournament);
         String id = String.valueOf(newTournament.getId());
@@ -249,5 +256,18 @@ public class TournamentController {
         Tournament tournament = tournamentDao.findById(tournamentId).get();
         return tournament.getHost();
     }
+
+    @GetMapping("/{tournamentId}/getWinner")
+    public @ResponseBody User getWinner(@PathVariable Long tournamentId) {
+        Tournament tournament = tournamentDao.findById(tournamentId).get();
+        return tournament.getWinner();
+    }
+
+    @GetMapping("/{tournamentId}/players")
+    public @ResponseBody int getPlayerAmount(@PathVariable Long tournamentId) {
+        Tournament tournament = tournamentDao.findById(tournamentId).get();
+        return tournament.getPlayerCount();
+    }
+
 
 }

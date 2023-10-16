@@ -34,27 +34,39 @@ public class Tournament {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
     private Set<User> userSet;
 
+    @Column
+    private int playerCount;
 
 
 @OneToOne
 private User host;
 
-    public Tournament(User winner, List<Round> rounds, Set<User> userSet, User host, Boolean started) {
+    public Tournament(User winner, List<Round> rounds, Set<User> userSet, User host, Boolean started, int playerCount) {
         this.winner = winner;
         this.rounds = rounds;
         this.userSet = userSet;
         this.host = host;
         this.started = started;
+        this.playerCount = playerCount;
     }
 
     public Tournament() {
     }
 
-    public Tournament(long id, User winner, List<Round> rounds, Set<User> userSet) {
+    public Tournament(long id, User winner, List<Round> rounds, Set<User> userSet, int playerCount) {
         this.id = id;
         this.winner = winner;
         this.rounds = rounds;
         this.userSet = userSet;
+        this.playerCount = playerCount;
+    }
+
+    public int getPlayerCount() {
+        return playerCount;
+    }
+
+    public void setPlayerCount(int playerCount) {
+        this.playerCount = playerCount;
     }
 
     public Boolean getStarted() {
