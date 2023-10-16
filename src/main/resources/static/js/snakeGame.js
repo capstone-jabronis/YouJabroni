@@ -27,7 +27,7 @@ h2Element.innerText = "While you wait play a snake game!";
 colForSnake.appendChild(h2Element);
 
 let gameButton = document.createElement('button');
-gameButton.textContent = 'start game';
+gameButton.textContent = 'play snake';
 gameButton.classList.add('snake-start-btn');
 colForSnake.appendChild(gameButton)
 gameButton.addEventListener("click", function () {
