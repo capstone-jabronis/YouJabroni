@@ -293,11 +293,11 @@
 
 
             if (tournamentMembers.length !== 4) {
-                startGameButton.style.display = "none";
-                // startBtn.style.visibility = "hidden";
+                // startGameButton.style.display = "none";
+                startBtn.style.visibility = "hidden";
             } else if (tournamentMembers.length === 4 && currentUser.username === tournamentHost.username) {
-                startGameButton.style.display = "block";
-                // startBtn.style.visibility = "visible";
+                // startGameButton.style.display = "block";
+                startBtn.style.visibility = "visible";
             }
         },
 
@@ -696,7 +696,7 @@
         };
         Socket.sendMessage(message);
     };
-    startGameButton.addEventListener('click', async () => {
+    startBtn.addEventListener('click', async () => {
         console.log('Start button clicked')
         let host = await Fetch.Get.tournamentHost();
         let message;
