@@ -131,9 +131,9 @@ body {
 .caption-div {
     display: flex;
     align-items: start;
-    width: 250px;
+    width: 18rem;
     flex-direction: column;
-    margin-right: 25px;
+    /*margin-right: 25px;*/
 }
 
 .add-post-btn {
@@ -339,6 +339,12 @@ body {
     font-family: inherit;
     border-radius: 16px;
     padding: .2%;
+}
+
+.join-now:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
 }
 
 .jdTournamentCreateButton {
@@ -960,7 +966,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #EEECFE;
-    height: 400px;
+    height: 27rem;
     width: 350px;
     border-radius: 15px;
     align-items: center;
@@ -1006,7 +1012,8 @@ body {
     display: flex;
     align-items: start;
     flex-direction: column;
-    margin-left: 25px;
+    /*margin-left: 25px;*/
+    width: 18rem;
 }
 
 .post-description {
@@ -1075,7 +1082,7 @@ body {
     font-size: 36px;
     font-weight: bold;
     letter-spacing: .2rem;
-    border-bottom: #428bca;
+    border-bottom: #343CFF;
     justify-content: center;
 }
 
@@ -1119,6 +1126,12 @@ body {
     margin-top: 3rem;
 }
 
+.leave-tournament-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
 .snake-start-btn {
     background-color: #343CFF;
     color: white;
@@ -1127,6 +1140,12 @@ body {
     height: 40px;
     width: 140px;
     font-size: 18px;
+}
+
+.snake-start-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
 }
 
 .player-container {
@@ -1164,6 +1183,16 @@ body {
     background-color: #b4acef;
     border-radius: 5px;
     padding: 5px;
+}
+
+#start-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 40px;
+    width: 140px;
+    font-size: 18px;
 }
 
 /* Media Queries For Waiting Room */

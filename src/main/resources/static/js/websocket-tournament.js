@@ -36,9 +36,11 @@
     const lobbyContainer = document.querySelector('.jdWaitContainer');
     const startBtn = document.querySelector('#start-btn');
     const leaveBtn = document.querySelector('#leave-lobby-btn');
+    const waitingTitle = document.querySelector('#waiting-title');
     // JOSES TRYING SOMETHING
     const startGameButton = document.createElement("button");
-    startGameButton.textContent = "Start Game";
+    startGameButton.textContent = "Start Game!";
+    startGameButton.classList.add('start-game-btn');
     // const leaveLobbyButton = document.querySelector("#leave-lobby-btn");
     // leaveLobbyButton.after(startGameButton)
     startGameButton.style.display = "none";
@@ -284,7 +286,6 @@
             //JOSES TRYING SOMETHING
 
             UserWaitingRoom.innerHTML = "";
-            UserWaitingRoom.innerHTML += '<p>' + tournamentHost.username + '  HOST<p>'
             for (let i = 0; i < tournamentMembers.length; i++) {
                 console.log('Profile URL:', tournamentMembers[i].profileURL); // Log the profileURL for debugging
 
@@ -328,9 +329,11 @@
 
             if (tournamentMembers.length !== 4) {
                 // startGameButton.style.display = "none";
+                waitingTitle.style.visibility = "visible";
                 startBtn.style.visibility = "hidden";
             } else if (tournamentMembers.length === 4 && currentUser.username === tournamentHost.username) {
                 // startGameButton.style.display = "block";
+                waitingTitle.style.visibility
                 startBtn.style.visibility = "visible";
             }
         },
