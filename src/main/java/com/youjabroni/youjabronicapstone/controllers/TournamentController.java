@@ -224,11 +224,12 @@ public class TournamentController {
 
     //Creating new tournaments
     @GetMapping("/create-tournament")
-    public String createTournament(@AuthenticationPrincipal UserDetails userDetails) {
+    public String createTournament(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("playerCount") int playerCount) {
         User user = userDao.findByUsername(userDetails.getUsername());
         System.out.println("Creating tournament host: " + user.getUsername());
         Tournament newTournament = new Tournament();
         newTournament.setHost(user);
+        newTournament.setPlayerCount(playerCount);
         newTournament.setStarted(false);
         tournamentDao.save(newTournament);
         String id = String.valueOf(newTournament.getId());
@@ -248,6 +249,11 @@ public class TournamentController {
     public @ResponseBody User getTournamentHost(@PathVariable Long tournamentId) {
         Tournament tournament = tournamentDao.findById(tournamentId).get();
         return tournament.getHost();
+    }
+    @GetMapping("/{tournamentId}/players")
+    public @ResponseBody int getPlayerAmount(@PathVariable Long tournamentId) {
+        Tournament tournament = tournamentDao.findById(tournamentId).get();
+        return tournament.getPlayerCount();
     }
 
 }

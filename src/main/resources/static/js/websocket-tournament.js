@@ -143,6 +143,8 @@
             console.log("Message received:");
             if (message.messageType === 'JOIN') {
                 await Render.reloadTournamentMembers('');
+                let players = await Fetch.Get.playerCount();
+                console.log(players);
             } else if (message.messageType === 'LEAVE') {
                     await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
@@ -633,7 +635,19 @@
                 }
                 return await host.json();
             },
-
+            async playerCount() {
+                let players = await fetch(`/tournament/${Tournament.tournamentId}/players`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                if (!players.ok) {
+                    throw new Error(`Error retrieving amount of players for tournament`);
+                }
+                return await players.json();
+            },
             async getMeme() {
                 console.log("Getting Meme");
                 let imageContainers = document.querySelectorAll(".memeAPIImage");
