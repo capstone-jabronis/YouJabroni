@@ -41,7 +41,14 @@
             <div th:each="tournament : ${tournaments}">
                 <div th:if="${tournament.getWinner() == null} AND ${tournament.getStarted() != true} AND ${tournament.getUserSet().size() > 0}">
                     <form class="name jdTournamentCSS" th:action="@{|/tournament/lobby/${tournament.id}|}">
-                        <p>Tournament Host: <span th:text="${tournament.host.username}"></span></p>
+                        <p th:if="${tournament.host.profileURL != null}" class="host">Host:
+                            <img class="host-profile-pic" th:src="${tournament.host.profileURL}">
+                            <span th:text="${tournament.host.username}"></span>
+                        </p>
+                        <p th:if="${tournament.host.profileURL == null}" class="host">Host:
+                            <img class="host-profile-pic" src="/img/memespace.gif">
+                            <span th:text="${tournament.host.username}"></span>
+                        </p>
                         <p>Players: <span th:text="${#lists.size(tournament.userSet)}"></span>/4</p>
                         <button class="join-now" data-th-tournament="${tournament.id}" type="submit">Join Now!</button>
                     </form>

@@ -240,7 +240,7 @@
                     await Render.renderResultsPage();
                 }
             } else if (message.messageType === 'RESULT') {
-                if (gameController.eliminatedPlayers.length === 3) {
+                if (gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1) {
                     for (let i = 0; i < gameController.activePlayers.length; i++) {
                         if (!gameController.eliminatedPlayers.includes(gameController.activePlayers[i].username)) {
                             console.log("WINNER!: " + gameController.activePlayers[i].username)
@@ -258,6 +258,9 @@
                 console.log(gameController.winner);
                 window.location.replace('/home');
             } else {
+                if(gameController.currentMemeSubmissions.length ===2){
+                    gameController.currentMemeSubmissions = [];
+                }
                 gameController.currentMemeSubmissions.push(message);
             }
         }
@@ -285,10 +288,41 @@
             UserWaitingRoom.innerHTML = "";
             UserWaitingRoom.innerHTML += '<p>' + tournamentHost.username + '  HOST<p>'
             for (let i = 0; i < tournamentMembers.length; i++) {
-                if (tournamentMembers[i].username !== userToRemove.username && tournamentMembers[i].username !== tournamentHost.username) {
-                    console.log(userToRemove);
-                    UserWaitingRoom.innerHTML += '<p>' + tournamentMembers[i].username + '<p>'
+                console.log('Profile URL:', tournamentMembers[i].profileURL); // Log the profileURL for debugging
+
+                let playerContainer = document.createElement('div');
+                playerContainer.classList.add('player-container');
+
+                let playerInfo = document.createElement('div');
+                playerInfo.classList.add('player-info');
+
+                let playerProfilePic = document.createElement('img');
+                playerProfilePic.classList.add('player-profile-pic');
+                playerProfilePic.src = '';
+                playerProfilePic.alt = 'user profile picture';
+
+                let playerUsername = document.createElement('p');
+                playerUsername.classList.add('player-username');
+                playerUsername.textContent = tournamentMembers[i].username;
+
+                console.log(tournamentMembers[i].profileURL === null);
+                if (tournamentMembers[i].profileURL === null) {
+                    playerProfilePic.src = '/img/memespace.gif';
+                } else if(tournamentMembers[i].profileURL === "") {
+                    playerProfilePic.src = '/img/memespace.gif';
+                } else {
+                    playerProfilePic.src = tournamentMembers[i].profileURL;
                 }
+
+                playerInfo.appendChild(playerProfilePic);
+                playerInfo.appendChild(playerUsername);
+                playerContainer.appendChild(playerInfo);
+
+                if (tournamentMembers[i].username === tournamentHost.username) {
+                    playerContainer.innerHTML += `<p class="role">HOST</p>`;
+                }
+
+                UserWaitingRoom.appendChild(playerContainer);
             }
             //to render start button when members reach required amount for game
             //JOSE DONT FORGET TO CMD Z THIS
