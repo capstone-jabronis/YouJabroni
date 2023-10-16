@@ -113,7 +113,7 @@
             return;
         } else {
             for (let user of usersData){
-                if (enteredUsername === user.username.toLowerCase()) {
+                if (enteredUsername.toLowerCase() === user.username.toLowerCase()) {
                     registrationButton.style.display = 'none';
                     if (!messageElement) {
                         messageElement = document.createElement('p');
