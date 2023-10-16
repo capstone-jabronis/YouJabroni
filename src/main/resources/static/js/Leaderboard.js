@@ -18,26 +18,30 @@ let leaderboard = async () => {
         console.log(data)
         let rank = data.length;
         for (let user of data) {
+            console.log(user);
             let playerDiv = document.createElement('div');
             playerDiv.classList.add('row');
             playerDiv.classList.add('player')
             if (rank == 1) {
                 playerDiv.classList.add('first');
             }
-            let profileURL;
-            if (user.user.profileURL == null || user.user.profileURL === '') {
-                profileURL = "/img/memespace.gif";
-            } else {
-                profileURL = user.user.profileURL;
-            }
             playerDiv.innerHTML = `
                 <h1 class="rank">${rank--}</h1>
-                <img class="not-10 user-pic" src="${profileURL}">
+                <img class="not-10 user-pic" src="">
                 <div class="leader-info column">
                 <div class="name">${user.user.username}</div>
                 <div class="wins">wins: ${user.wins}</div>
                 </div>
             `;
+
+            let userProfilePic = playerDiv.querySelector('.user-pic');
+
+            if (user.user.profileURL === null || user.user.profileURL === '') {
+                userProfilePic.src = "/img/memespace.gif";
+            } else {
+                userProfilePic.src = user.user.profileURL;
+            }
+
             const userPic = playerDiv.querySelector('.user-pic');
             userPic.addEventListener('click', function () {
                 window.location.href = `/${user.user.id}/profile`;
@@ -57,4 +61,4 @@ let leaderboard = async () => {
 
 }
 
-window.onload = leaderboard();
+window.onload = leaderboard;
