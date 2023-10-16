@@ -41,7 +41,7 @@ public class Tournament {
 @OneToOne
 private User host;
 
-    public Tournament(User winner, List<Round> rounds, Set<User> userSet, User host, Boolean started, int   playerCount) {
+    public Tournament(User winner, List<Round> rounds, Set<User> userSet, User host, Boolean started, int playerCount) {
         this.winner = winner;
         this.rounds = rounds;
         this.userSet = userSet;
@@ -53,11 +53,12 @@ private User host;
     public Tournament() {
     }
 
-    public Tournament(long id, User winner, List<Round> rounds, Set<User> userSet) {
+    public Tournament(long id, User winner, List<Round> rounds, Set<User> userSet, int playerCount) {
         this.id = id;
         this.winner = winner;
         this.rounds = rounds;
         this.userSet = userSet;
+        this.playerCount = playerCount;
     }
 
     public int getPlayerCount() {
