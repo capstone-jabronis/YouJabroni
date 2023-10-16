@@ -25,8 +25,8 @@ public class Tournament {
     @JoinColumn(name = "winner_id")
     private User winner;
   
-//    @Column(nullable = false, columnDefinition = "DATETIME")
-//    private Timestamp startTime;
+    @Column(columnDefinition = "BOOLEAN")
+    private Boolean started;
   
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
     private List<Round> rounds;
@@ -34,15 +34,17 @@ public class Tournament {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "tournament")
     private Set<User> userSet;
 
+
+
 @OneToOne
 private User host;
 
-    public Tournament(User winner, List<Round> rounds, Set<User> userSet, User host) {
+    public Tournament(User winner, List<Round> rounds, Set<User> userSet, User host, Boolean started) {
         this.winner = winner;
-//        this.startTime = startTime;
         this.rounds = rounds;
         this.userSet = userSet;
         this.host = host;
+        this.started = started;
     }
 
     public Tournament() {
@@ -51,9 +53,16 @@ private User host;
     public Tournament(long id, User winner, List<Round> rounds, Set<User> userSet) {
         this.id = id;
         this.winner = winner;
-//        this.startTime = startTime;
         this.rounds = rounds;
         this.userSet = userSet;
+    }
+
+    public Boolean getStarted() {
+        return started;
+    }
+
+    public void setStarted(Boolean started) {
+        this.started = started;
     }
 
     public User getHost() {

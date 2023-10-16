@@ -1,3 +1,9 @@
+// window.addEventListener("load", (event) => {
+//     if(tournamentFull){
+//         alert("Tournament Full, please try another!");
+//         tournamentFull = false;
+//     }
+// });
 // ( async () => {
 //     try {
 // //       For Jose's Tournament card code
