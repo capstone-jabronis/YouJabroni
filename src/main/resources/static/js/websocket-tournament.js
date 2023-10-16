@@ -35,8 +35,7 @@
     // const leaveBtn = document.querySelector('#leave-lobby-btn');
     const lobbyContainer = document.querySelector('.jdWaitContainer');
     const startBtn = document.querySelector('#start-btn');
-    const playerCount = document.querySelector('#player-count');
-    console.log(playerCount.value);
+    const leaveBtn = document.querySelector('#leave-lobby-btn');
     // JOSES TRYING SOMETHING
     const startGameButton = document.createElement("button");
     startGameButton.textContent = "Start Game";
@@ -719,7 +718,9 @@
         }
         Socket.sendMessage(message);
     });
-
+    leaveBtn.addEventListener('click', ()=>{
+        location.replace('/home');
+    })
     Tournament.initialize();
 
 })();
