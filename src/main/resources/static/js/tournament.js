@@ -100,3 +100,17 @@ radioDiv4.addEventListener('click', ()=>{
     radioDiv8.style.border = "none";
     radioDiv12.style.border = "none";
 })
+
+radioDiv8.addEventListener('click', ()=>{
+    radioEight.checked = true;
+    radioDiv8.style.border = "solid 3px white"
+    radioDiv4.style.border = "none";
+    radioDiv12.style.border = "none";
+})
+
+radioDiv12.addEventListener('click', ()=>{
+    radioTwelve.checked = true;
+    radioDiv12.style.border = "solid 3px white"
+    radioDiv4.style.border = "none";
+    radioDiv8.style.border = "none";
+})
