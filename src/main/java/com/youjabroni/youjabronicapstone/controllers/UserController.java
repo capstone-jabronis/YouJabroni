@@ -66,11 +66,9 @@ public class UserController {
         }
 
         //checking usernamevalidation
-        if (validationService.isValidUsername(username)) {
+        if (validationService.isValidUsername(username) && !validationService.usernameTaken(username)) {
             user.setUsername(username);
             userDao.save(user);
-        } else if (validationService.usernameTaken(username)) {
-            return String.format("redirect:/%s/profile", id);
         } else {
             return String.format("redirect:/%s/profile", id);
         }

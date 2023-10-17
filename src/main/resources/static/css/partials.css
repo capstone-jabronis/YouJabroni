@@ -187,6 +187,6 @@
     border: 2px solid #343CFF;
     color: #343CFF;
     cursor: pointer;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
 }
 
