@@ -107,7 +107,7 @@
                                       d="M5 13c0-5.088 2.903-9.436 7-11.182C16.097 3.564 19 7.912 19 13c0 .823-.076 1.626-.22 2.403l1.94 1.832a.5.5 0 0 1 .095.603l-2.495 4.575a.5.5 0 0 1-.793.114l-2.234-2.234a1 1 0 0 0-.707-.293H9.414a1 1 0 0 0-.707.293l-2.234 2.234a.5.5 0 0 1-.793-.114l-2.495-4.575a.5.5 0 0 1 .095-.603l1.94-1.832C5.077 14.626 5 13.823 5 13zm1.476 6.696l.817-.817A3 3 0 0 1 9.414 18h5.172a3 3 0 0 1 2.121.879l.817.817.982-1.8-1.1-1.04a2 2 0 0 1-.593-1.82c.124-.664.187-1.345.187-2.036 0-3.87-1.995-7.3-5-8.96C8.995 5.7 7 9.13 7 13c0 .691.063 1.372.187 2.037a2 2 0 0 1-.593 1.82l-1.1 1.039.982 1.8zM12 13a2 2 0 1 1 0-4 2 2 0 0 1 0 4z">
                                 </path>
                             </svg>
-                            <span>Register Now</span>
+                            <span>register now</span>
                         </button>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
     <!--    Start of multiplayer website functionality -->
     <div class="multiplayer-container container">
         <h1 class="animate-character">
-            How this website works
+            How this website works: Websocket, SockJS, STOMPJS
         </h1>
         <div class="websocket-diagram row">
             <img class="websocket-pic" src="/img/websocket-diagram.png">
@@ -261,9 +261,9 @@
                         When a user hosts a tournament, they are redirected to a tournament lobby page and will automatically be
                         subscribed to a websocket stream as the host of the tournament.
                         The host has the ability to set the amount of players that they want in the tournament,
-                        and when the tournament can start.
+                        when the tournament starts, and when it ends.
                         This websocket stream creates a new tournament object and connection that other players can join
-                        and subscribe to when they click the Join Now button on the home page.
+                        and subscribe to when they click the "join now" button on the home page.
                     </p>
                 </li>
                 <li class="websocket-step column">
@@ -273,17 +273,12 @@
                     </h3>
                     <p class="websocket-describe">
                         Once the allotted number of players have joined the tournament lobby, the host can then push the
-                        Start Tournament button, which sends a message to the websocket server to use its connection to direct all
+                        "start tournament" button, which sends a message to the websocket server to use its connection to direct all
                         players to the start of the tournament and create a meme.
-                        Once all the players have submitted a caption to their meme, the persistent websocket stream will redirect
-                        all the players to the voting page which players will then view other player memes and vote for their favorite.
-                        The creators of the current meme that is being voted on will not be able to vote on their meme and
-                        will have to wait for the other players to submit their vote.
-                        The websocket stream will then separate players based on the number of votes received, with the winners
+                        Once all the players have submitted a caption to their meme, the stream will redirect
+                        all the players to the voting page to view other player memes to vote for their favorite.
+                        Websocket will then separate players based on the number of votes received, with the winners
                         and losers being placed in their subsequent arrays.
-                        The persistent websocket connection will then launch the winners into another round of meme submissions
-                        and the losers will be sent to a waiting room until the other players have submitted their meme caption.
-                        This cycle will continue until only one player is left!
                     </p>
                 </li>
                 <li class="websocket-step column">
@@ -292,9 +287,12 @@
                         Websocket determines final winner!
                     </h3>
                     <p class="websocket-describe">
-                        When the last round of voting has completed, and the winner has been pushed to the winner array,
-                        the websocket connection will send a message to the backend server to save the tournament object
-                        which holds the id of the user who has won.
+                        The persistent websocket connection will then launch the winners into another round of meme submissions
+                        and the losers will be sent to a waiting room until the other players have submitted their meme caption,
+                        where everyone will be voting for a winner.
+                        This cycle will continue until only one player is left!
+                        When the last round of voting has completed, the websocket connection will send a message to the
+                        backend server to save the tournament object which holds the id of the user who has won.
                     </p>
                 </li>
                 <li class="websocket-step column">
@@ -303,8 +301,8 @@
                         Websocket connection ends and tournament information is saved onto server database.
                     </h3>
                     <p class="websocket-describe">
-                        When the users have left the tournament, the websocket stream will end, the tournament information
-                        will be saved to the server, and the meme submissions each user has created will be saved to the database.
+                        When the users have left the tournament, the websocket stream will end, and the meme submissions
+                        each user has created will be saved to the database.
                         When the users who have participated in the tournament go into their profile view, they will find in
                         their History tab all of their submitted memes, which they can decide to publish for all to see in the
                         Feed view available to both visitors and users of the website.
