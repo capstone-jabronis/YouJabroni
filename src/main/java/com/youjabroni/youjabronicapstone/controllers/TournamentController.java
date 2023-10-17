@@ -195,7 +195,7 @@ public class TournamentController {
                 model.addAttribute("tournament", tournament);
                 model.addAttribute("users", tournament.getUserSet());
                 model.addAttribute("currentUser", user);
-                return "/tournament/lobby";
+                return "tournament/lobby";
             } else {
                 return "redirect:/home";
             }
