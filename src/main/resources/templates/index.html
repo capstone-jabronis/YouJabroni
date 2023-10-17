@@ -173,7 +173,8 @@
                     <p>
                         Everyone will be prompted to vote on other meme caption showdowns.
                         The person with the most votes between the two moves onto the next round of player matches until
-                        there's only one player.
+                        there's only one player. If you lost a previous match, stay in the tournament to see more
+                        funny memes and vote for the winner!
                         THERE CAN ONLY BE ONE!
                     </p>
                 </div>
@@ -260,7 +261,6 @@
                         and when the tournament can start.
                         This websocket stream creates a new tournament object and connection that other players can join
                         and subscribe to when they click the Join Now button on the home page.
-
                     </p>
                 </li>
                 <li>
@@ -268,17 +268,48 @@
                     <p class="websocket-describe">
                         Once the allotted number of players have joined the tournament lobby, the host can then push the
                         Start Tournament button, which sends a message to the websocket server to use its connection to direct all
-                        players to a new view to create a meme.
+                        players to the start of the tournament and create a meme.
+                        Once all the players have submitted a caption to their meme, the persistent websocket stream will redirect
+                        all the players to the voting page which players will then view other player memes and vote for their favorite.
+                        The creators of the current meme that is being voted on will not be able to vote on their meme and
+                        will have to wait for the other players to submit their vote.
+                        The websocket stream will then separate players based on the number of votes received, with the winners
+                        and losers being placed in their subsequent arrays.
+                        The persistent websocket connection will then launch the winners into another round of meme submissions
+                        and the losers will be sent to a waiting room until the other players have submitted their meme caption.
+                        This cycle will continue until only one player is left!
                     </p>
                 </li>
                 <li>
-                    <h3 class="websocket-steps">Websocket </h3>
+                    <h3 class="websocket-steps">Websocket determines final winner!</h3>
+                    <p class="websocket-describe">
+                        When the last round of voting has completed, and the winner has been pushed to the winner array,
+                        the websocket connection will send a message to the backend server to save the tournament object
+                        which holds the id of the user who has won.
+                    </p>
                 </li>
                 <li>
-                    <h3 class="websocket-steps">Fourth Step</h3>
+                    <h3 class="websocket-steps">
+                        Websocket connection ends and tournament information is saved onto server database.
+                    </h3>
+                    <p class="websocket-describe">
+                        When the users have left the tournament, the websocket stream will end, the tournament information
+                        will be saved to the server, and the meme submissions each user has created will be saved to the database.
+                        When the users who have participated in the tournament go into their profile view, they will find in
+                        their History tab all of their submitted memes, which they can decide to publish for all to see in the
+                        Feed view available to both visitors and users of the website.
+                        The winner will find another point added to their wins tally.
+                    </p>
                 </li>
                 <li>
-                    <h3 class="websocket-steps">Fifth Step</h3>
+                    <h3 class="websocket-steps">
+                        The users can continue joining more tournaments, create more memes, and collect more wins!
+                    </h3>
+                    <p>
+                        A websocket connection can be established at any time when the user decides to create a tournament.
+                        And then the cycle can continue from Step 1!
+                        Happy meme-making!(:
+                    </p>
                 </li>
             </ol>
         </div>
