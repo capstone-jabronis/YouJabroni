@@ -191,5 +191,44 @@
 }
 
 .memespace-instructions{
-    gap: 2rem;
+    gap: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.landing-info-row{
+    gap: 5rem;
+}
+.landing-text{
+    justify-content: center;
+    background-color: var(--first);
+    border-radius: 2rem;
+    padding: 2rem;
+    color: var(--third);
+}
+.meme-create-text, .meme-winner-text, .meme-feed-text{
+    align-items: end;
+}
+.landing-text-end{
+    text-align:end;
+}
+.websocket-pic{
+    border-radius: 2rem;
+}
+.websocket-step{
+align-items: center;
+    background-color: var(--first);
+    border-radius: 4rem;
+    color: var(--third);
+    margin-top:2rem;
+    padding: 2rem;
+}
+.ws-step-num{
+background-color: var(--second);
+    width: 2rem;
+    border-radius: 50%;
+    color: #fae895;
+    text-align: center;
+}
+.websocket-describe{
+    text-align: center;
 }
