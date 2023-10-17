@@ -7,13 +7,27 @@ const radioTwelve = document.querySelector('#twelve');
 const radioDiv4 = document.querySelector('#radio-div-4');
 const radioDiv8 = document.querySelector('#radio-div-8');
 const radioDiv12 = document.querySelector('#radio-div-12');
+const tournamentModalOverlay = document.querySelector('.tournament-modal');
 
 hostTournamentBtn.addEventListener('click', ()=>{
-    hostTournamentModal.style.display = "flex";
+    console.log('Inside tournament modal')
+    hostTournamentModal.classList.remove('hidden');
+    tournamentModalOverlay.classList.remove('hidden');
+
 })
 
 cancelHostBtn.addEventListener('click', ()=>{
-    hostTournamentModal.style.display = "none";
+    hostTournamentModal.classList.add('hidden');
+    tournamentModalOverlay.classList.add('hidden');
+})
+
+tournamentModalOverlay.addEventListener('click', () => {
+    hostTournamentModal.classList.add('hidden');
+    tournamentModalOverlay.classList.add('hidden');
+})
+
+hostTournamentModal.addEventListener('click', (e) => {
+    e.stopPropagation();
 })
 
 radioDiv4.addEventListener('click', ()=>{
