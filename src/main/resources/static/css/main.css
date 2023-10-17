@@ -1282,6 +1282,7 @@ visibility: hidden;
 .match-up {
     display: flex;
     align-items: start;
+}
 
 .vs-usernames {
     background-color: #9F8BFF;
