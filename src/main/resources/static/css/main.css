@@ -302,6 +302,12 @@ body {
     font-weight: bold;
     color: #343CFF;
 }
+#likedPost{
+    cursor: pointer;
+}
+#likedPost:hover{
+    color: #343CFF;
+}
 
 #history {
     cursor: pointer;
