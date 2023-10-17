@@ -95,5 +95,18 @@ likedPostElement.addEventListener('click', async(e)=>{
             profileLikeBtnDiv.addEventListener('click', handleRocketIconClick);
         }
     }
-    renderPage();
+
+    if(data.length === 0) {
+        userIDElement3.innerHTML = '';
+        const likePostsCallToActionContainer = document.createElement('div');
+        likePostsCallToActionContainer.classList.add('call-to-action-container');
+        const likePostsCallToAction = document.createElement('img');
+        likePostsCallToAction.src = '../img/liked-posts.png';
+        likePostsCallToAction.height = 200;
+        likePostsCallToAction.classList.add('like-post-call-to-action');
+        likePostsCallToActionContainer.appendChild(likePostsCallToAction);
+        userIDElement3.appendChild(likePostsCallToActionContainer);
+    } else {
+        renderPage();
+    }
 });
