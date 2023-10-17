@@ -12,9 +12,7 @@ if (loggedInElement2 != null) {
 
 
 likedPostElement.addEventListener('click', async(e)=>{
-    console.log("likedPostElement clicked");
     e.preventDefault();
-    console.log(`url: ${url3}`);
     let results = await fetch(url3, {
         method:'GET',
         headers: {
@@ -23,7 +21,6 @@ likedPostElement.addEventListener('click', async(e)=>{
         }
     });
     let data = await results.json();
-    // console.log(data);
     if (!results.ok) {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }
@@ -33,7 +30,6 @@ likedPostElement.addEventListener('click', async(e)=>{
         userIDElement3.classList.add('liked-posts-container');
 
         for(const likedPost of data){
-            console.log(likedPost);
             USER_LIKED_POSTS_ID.push(likedPost);
             const likedPostDiv = document.createElement('div');
             likedPostDiv.classList.add('post-card');
@@ -78,13 +74,9 @@ likedPostElement.addEventListener('click', async(e)=>{
             };
             const handleRocketIconClick = async function (e) {
                 const likePostId = likedPost.id;
-                // console.log(likePostId);
                 let results = await fetch(`/${likePostId}/liked`, options);
                 const data = await results.json();
-                console.log(data);
-                console.log(e.target);
                 if (e.target.src.endsWith('/img/unfilled-rocket-btn.png')) {
-                    console.log("Inside if statement")
                     e.target.src = '../img/filled-rocket-btn.png';
                 } else {
                     e.target.src = '../img/unfilled-rocket-btn.png';

@@ -28,6 +28,7 @@
 }
 .footer-link:hover{
     color: var(--first);
+    cursor: pointer;
 }
 .nav-link:hover{
     color: var(--button);
@@ -163,5 +164,29 @@
     background-color: var(--second);
     height: 58px;
     align-items: center;
+}
+.jdFooterImage{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.jdAboutTeam{
+    margin-top: 3rem;
+    text-decoration: none;
+    list-style-type: none;
+    background-color: #343CFF;
+    color: white;
+    padding: 18px;
+    border: unset;
+    border-radius: 16px;
+    font-size: 18px;
+}
+.jdAboutTeam:hover{
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+    cursor: pointer;
+    text-decoration: underline;
 }
 

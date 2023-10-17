@@ -5,14 +5,15 @@
     <div th:fragment="head(title)" th:remove="tag">
         <meta charset="UTF-8">
 
-<!--        add a meta tag with sec:authorized  with data-user-id -->
+        <!--        add a meta tag with sec:authorized  with data-user-id -->
         <meta name="userId" sec:authorize="isAuthenticated()" th:data-user-id="${#authentication.principal.id}">
         <meta name="_csrf" data-th-content="${_csrf.token}" data-th-header="${_csrf.headerName}"/>
         <title th:text="${'Meme Space | ' + title}"></title>
         <link rel="icon" type="image/x-icon" href="/img/rocket.png">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700&display=swap"
+              rel="stylesheet">
         <title th:text="${'You Jabroni |' + title}"></title>
         <link rel="stylesheet" href="/css/partials.css">
         <link rel="stylesheet" href="/css/layout.css">
@@ -31,7 +32,7 @@
             <!--                If user is logged in, Profile option will show up in navbar-->
             <li class="nav-link" sec:authorize="isAuthenticated()">
                 <!--                        View of user profile pic-->
-<!--                <img class="profile-pic-link" th:src="${#authentication.principal.profileURL}">-->
+                <!--                <img class="profile-pic-link" th:src="${#authentication.principal.profileURL}">-->
                 <a class="nav-link" id="profile" th:href="@{|/${#authentication.principal.id}/profile|}">Profile</a>
             </li>
 
@@ -96,99 +97,36 @@
         <div class="leader-title row">
             <h1>Best Meme Makers</h1>
         </div>
-<!--        <div class="row player first">-->
-<!--            <h1 class="rank">1</h1>-->
-<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row player">-->
-<!--            <h1 class="rank">2</h1>-->
-<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row player">-->
-<!--            <h1 class="rank">3</h1>-->
-<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row player">-->
-<!--            <h1 class="rank">4</h1>-->
-<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row player">-->
-<!--            <h1 class="rank">5</h1>-->
-<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row player">-->
-<!--            <h1 class="rank">6</h1>-->
-<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row player">-->
-<!--            <h1 class="rank">7</h1>-->
-<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row player">-->
-<!--            <h1 class="rank">8</h1>-->
-<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row player">-->
-<!--            <h1 class="rank">9</h1>-->
-<!--            <img class="not-10 user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row player">-->
-<!--            <h1 class="rank">10</h1>-->
-<!--            <img class="user-pic" th:src="@{/img/memespace.gif}">-->
-<!--            <div class="leader-info column">-->
-<!--                <div class="name">Player Name Here</div>-->
-<!--                <div class="wins"> Wins:1</div>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 </aside>
 <!--END OF LEADERBOARD PARTIAL-->
 <!--START OF FOOTER PARTIAL-->
 <footer class="footer" th:fragment="footer">
     <div class="container">
-        <div class="row d-flex align-items-center justify-content-center justify-space-evenly">
-            <a class="team-name" th:href="@{/about-us}">About Team Jabroni</a>
-            <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/josedelaluziii/">Jose De La Luz</a>
-            <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/luis-esquivel-9652a0280/">Luis Esquivel</a>
-            <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/nic-rowley/">Nicholas Rowley</a>
-            <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/avaesmith/">Ava Smith</a>
-            <a class="footer-link" target="_blank" href="https://www.linkedin.com/in/audrey-tan1127/">Audrey Tan</a>
+        <div class="row d-flex align-items-center justify-content-center justify-space-evenly align-center">
+            <a class="jdAboutTeam  " th:href="@{/about-us}">
+                About Team Jabroni
+            </a>
+                <a class="footer-link d-flex" target="_blank" href="https://www.linkedin.com/in/josedelaluziii/">
+                    <img class="jdFooterImage" th:src="@{/img/jose.png}"/>
+                    <p>Jose De La Luz</p>
+                </a>
+                <a class="footer-link d-flex" target="_blank" href="https://www.linkedin.com/in/luis-esquivel-9652a0280/">
+                    <img class="jdFooterImage" th:src="@{/img/luis.png}">
+                    <p>Luis Esquivel</p>
+                </a>
+                <a class="footer-link d-flex" target="_blank" href="https://www.linkedin.com/in/nic-rowley/">
+                    <img class="jdFooterImage" th:src="@{/img/nic.png}">
+                    <p>Nicholas Rowley</p>
+                </a>
+                <a class="footer-link d-flex" target="_blank" href="https://www.linkedin.com/in/avaesmith/">
+                    <img class="jdFooterImage" th:src="@{/img/ava.png}">
+                    <p>Ava Smith</p>
+                </a>
+                <a class="footer-link d-flex" target="_blank" href="https://www.linkedin.com/in/audrey-tan1127/">
+                    <img class="jdFooterImage" th:src="@{/img/audrey.png}">
+                    <p>Audrey Tan</p>
+                </a>
         </div>
     </div>
     <script th:src="@{/js/profile.js}"></script>
