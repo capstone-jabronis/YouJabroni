@@ -38,7 +38,7 @@ public class ValidationService {
     }
 
     public boolean isValidUsername(String username) {
-        if (username.contains("") || username.contains(" ")){
+        if (username.equalsIgnoreCase("") || username.contains(" ")){
             return false;
         } else return true;
     }
@@ -51,5 +51,12 @@ public class ValidationService {
             }
         }
         return false;
+    }
+    public Boolean validProfileURL(String URL){
+        System.out.println(URL);
+        if (URL != null){
+            return true;
+        }
+        else return false;
     }
 }

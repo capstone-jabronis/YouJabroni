@@ -8,18 +8,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 public class UserController {
-    private UserRepository userDao;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userDao;
+    private final PasswordEncoder passwordEncoder;
 
-    private ValidationService validationService;
+    private final ValidationService validationService;
 
     @Autowired
     public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, ValidationService validationService) {
@@ -47,39 +43,89 @@ public class UserController {
 
     @GetMapping("{id}/profile/edit")
     public String showEditForm(@PathVariable long id, Model model) {
-        model.addAttribute("user", userDao.findById(id).get());
+        model.addAttribute("user", userDao.findById(id));
         return "pages/edit-profile";
     }
 
     @PostMapping("{id}/profile/edit")
     public String updateProfile(@PathVariable long id, @RequestParam(name = "username") String username, @RequestParam(name = "email") String email, @RequestParam(name = "ProfileURL") String profileUrl) {
         User user = userDao.findById(id).get();
-        //checking email validation
-        if (validationService.isValidEmail(email)) {
-            if (!validationService.emailTaken(email)) {
-                user.setEmail(email);
-            } else {
-                return String.format("redirect:/%s/profile?error=emailTaken", id);
+        // checking to see if username, profileURL and email is the same
+        if (profileUrl.equalsIgnoreCase(user.getProfileURL()) && email.equalsIgnoreCase(user.getEmail()) && username.equalsIgnoreCase(user.getUsername())) {
+            return String.format("redirect:/%s/profile", id);
+            //checking to see if username is changed
+        } else if (profileUrl.equalsIgnoreCase(user.getProfileURL()) && email.equalsIgnoreCase(user.getEmail()) && !username.equalsIgnoreCase(user.getUsername())) {
+            // checking to see if username is valid and not taken
+            if (validationService.isValidUsername(username) && !validationService.usernameTaken(username)) {
+                user.setUsername(username);
+                userDao.save(user);
+                //all else fails redirect
             }
-        } else {
-            return String.format("redirect:/%s/profile?error=invalidEmail", id);
-        }
-
-        //checking usernamevalidation
-        if (validationService.isValidUsername(username) && !validationService.usernameTaken(username)) {
-            user.setUsername(username);
-            userDao.save(user);
-        } else {
+            return String.format("redirect:/%s/profile", id);
+            //checking to see if username and email are changed
+        } else if (profileUrl.equalsIgnoreCase(user.getProfileURL()) && !email.equalsIgnoreCase(user.getEmail()) && !username.equalsIgnoreCase(user.getUsername())) {
+            //checking to see if username and email is valid and not taken
+            if (validationService.isValidUsername(username) && !validationService.usernameTaken(username) && validationService.isValidEmail(email) && !validationService.emailTaken(email)) {
+                user.setUsername(username);
+                user.setEmail(email);
+                userDao.save(user);
+                //all else fails redirect
+            }
+            return String.format("redirect:/%s/profile", id);
+            //checking to see email, username, and profile pic are changed
+        } else if (!profileUrl.equalsIgnoreCase(user.getProfileURL()) && !email.equalsIgnoreCase(user.getEmail()) && !username.equalsIgnoreCase(user.getUsername())) {
+            //checking username and email is valid and not taken and verifying that the profile picture url is not null
+            if (validationService.isValidUsername(username) && !validationService.usernameTaken(username) && validationService.isValidEmail(email) && !validationService.emailTaken(email) && validationService.validProfileURL(profileUrl)) {
+                user.setUsername(username);
+                user.setEmail(email);
+                user.setProfileURL(profileUrl);
+                userDao.save(user);
+                //all else fails redirect
+            }
+            return String.format("redirect:/%s/profile", id);
+            //checking to see if email is changed
+        } else if (profileUrl.equalsIgnoreCase(user.getProfileURL()) && !email.equalsIgnoreCase(user.getEmail()) && username.equalsIgnoreCase(user.getUsername())) {
+            //checking to see if email is valid and not taken
+            if (validationService.isValidEmail(email) && !validationService.emailTaken(email)) {
+                user.setEmail(email);
+                userDao.save(user);
+                //all else fails redirect
+            }
+            return String.format("redirect:/%s/profile", id);
+            //checking to see if email and profile pic are changed
+        } else if (!profileUrl.equalsIgnoreCase(user.getProfileURL()) && !email.equalsIgnoreCase(user.getEmail()) && username.equalsIgnoreCase(user.getUsername())) {
+            //checking valid profile url and email
+            if (validationService.isValidEmail(email) && !validationService.emailTaken(email) && validationService.validProfileURL(profileUrl)) {
+                user.setEmail(email);
+                user.setProfileURL(profileUrl);
+                userDao.save(user);
+                //all else fails redirect
+            }
+            return String.format("redirect:/%s/profile", id);
+            //checking to see if profile pic is changed
+        } else if (!profileUrl.equalsIgnoreCase(user.getProfileURL()) && email.equalsIgnoreCase(user.getEmail()) && username.equalsIgnoreCase(user.getUsername())) {
+            //checking valid profile url
+            if (validationService.validProfileURL(profileUrl)) {
+                user.setProfileURL(profileUrl);
+                userDao.save(user);
+                //all else fails redirect
+            }
+            return String.format("redirect:/%s/profile", id);
+            //checking to see if profile picture and username are changed
+        } else if (!profileUrl.equalsIgnoreCase(user.getProfileURL()) && email.equalsIgnoreCase(user.getEmail()) && !username.equalsIgnoreCase(user.getUsername()))
+                if (validationService.isValidUsername(username) && !validationService.usernameTaken(username) && validationService.validProfileURL(profileUrl)) {
+                    user.setProfileURL(profileUrl);
+                    user.setUsername(username);
+                    userDao.save(user);
+                    return String.format("redirect:/%s/profile", id);
+                    //all else fails redirect
+                } else {
+                    return String.format("redirect:/%s/profile", id);
+                }
+            //all else fails redirect
+            else {
             return String.format("redirect:/%s/profile", id);
         }
-        //validation for profileURL
-        if (profileUrl != null) {
-            user.setProfileURL(profileUrl);
-            userDao.save(user);
-        } else {
-            return String.format("redirect:/%s/profile?error=invalidEmail", id);
-        }
-        return String.format("redirect:/%s/profile", id);
     }
 
     @PostMapping("{id}/profile/edit/password")
