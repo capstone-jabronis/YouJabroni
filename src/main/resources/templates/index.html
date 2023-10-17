@@ -119,15 +119,15 @@
     </div>
     <!--    End of Landing Page Container-->
 
-    <div class="memespace-instructions container">
+    <div class="memespace-instructions container grow">
         <!--            Start of host tournament info container-->
 
-        <div class="tournament-info-container container">
-            <div class="tournament-info-row row">
+        <div class="tournament-info-container container grow">
+            <div class="landing-info-row tournament-info-row row">
                 <div class="tournament-info-image column">
-                    Placeholder for tournament room image/video.
+                    <img src="https://placehold.co/600x300">
                 </div>
-                <div class="tournament-info-text column">
+                <div class="landing-text tournament-info-text column">
                     <h3>
                         Host a tournament or join an existing one!
                     </h3>
@@ -142,19 +142,19 @@
 
         <!--            Start of creating memes container -->
         <div class="meme-create-container container">
-            <div class="meme-create-row row">
-                <div class="meme-create-text column">
+            <div class="landing-info-row meme-create-row row">
+                <div class="landing-text meme-create-text column">
                     <h3>
                         Create your own meme caption!
                     </h3>
-                    <p>
+                    <p class="landing-text-end">
                         You will be matched against another user in the tournament (PvP).
                         Everyone will receive a randomly-generated meme to create a caption for.
                         When all players have submitted their caption, voting will start.
                     </p>
                 </div>
                 <div class="meme-create-image column">
-                    Placeholder for meme creation page image/video.
+                    <img src="https://placehold.co/600x300">
                 </div>
             </div>
         </div>
@@ -162,11 +162,11 @@
 
         <!--    Start of voting for meme container    -->
         <div class="meme-vote-container container">
-            <div class="meme-vote-row row">
+            <div class="landing-info-row meme-vote-row row">
                 <div class="meme-vote-image column">
-                    Placeholder for voting page image/video.
+                    <img src="https://placehold.co/600x300">
                 </div>
-                <div class="meme-vote-text column">
+                <div class="landing-text meme-vote-text column">
                     <h3>
                         Vote on other players' meme captions!
                     </h3>
@@ -183,18 +183,18 @@
         <!-- End of voting for meme container-->
         <!-- Start of meme tournament winning container-->
         <div class="meme-winner-container container">
-            <div class="meme-winner-row row">
-                <div class="meme-winner-text column">
+            <div class="landing-info-row meme-winner-row row">
+                <div class="landing-text meme-winner-text column">
                     <h3>
                         Winner Winner Chicken Dinner!
                     </h3>
-                    <p>
+                    <p class="landing-text-end">
                         The number of wins you've collected will be displayed in your profile dashboard and may place
                         you on the leaderboard.
                     </p>
                 </div>
                 <div class="meme-winner-image column">
-                    Placeholder for winner page image/video.
+                    <img src="https://placehold.co/600x300">
                 </div>
             </div>
         </div>
@@ -202,11 +202,11 @@
 
         <!--    Start of meme submission history and posts container -->
         <div class="meme-history-container container">
-            <div class="meme-history-row row">
+            <div class="landing-info-row meme-history-row row">
                 <div class="meme-history-image column">
-                    Placeholder for meme history image/video
+                    <img src="https://placehold.co/600x300">
                 </div>
-                <div class="meme-history-text column">
+                <div class="landing-text meme-history-text column">
                     <h3>
                         Look at your previous submissions and post your favorites!
                     </h3>
@@ -221,12 +221,12 @@
         <!--      End of meme submission history and posts-->
         <!--        Start of feed and liked posts container -->
         <div class="meme-feed-container container">
-            <div class="meme-feed-row row">
-                <div class="meme-feed-text column">
+            <div class="landing-info-row meme-feed-row row">
+                <div class="landing-text meme-feed-text column">
                     <h3>
                         View the competition and give them kudos!
                     </h3>
-                    <p>
+                    <p class="landing-text-end">
                         Look through the public feed to view other meme submissions of proud players, and like their
                         posts.
                         There is an archive of all the posts you've liked, in case you need more inspiration for the
@@ -234,7 +234,7 @@
                     </p>
                 </div>
                 <div class="meme-feed-image column">
-                    Placeholder for feed view image/video
+                    <img src="https://placehold.co/600x300">
                 </div>
             </div>
         </div>
@@ -248,12 +248,15 @@
             How this website works
         </h1>
         <div class="websocket-diagram row">
-            <img src="/img/websocket-diagram.png">
+            <img class="websocket-pic" src="/img/websocket-diagram.png">
         </div>
         <div class="websocket-info-row row">
             <ol class="websocket-info">
-                <li>
-                    <h3 class="websocket-steps">A user logs into their account and joins a tournament as a players.</h3>
+                <li class="websocket-step column">
+                    <h2 class="ws-step-num">1</h2>
+                    <h3 class="websocket-title">
+                        A user logs into their account and joins a tournament as a player.
+                    </h3>
                     <p class="websocket-describe">
                         When a user hosts a tournament, they are redirected to a tournament lobby page and will automatically be
                         subscribed to a websocket stream as the host of the tournament.
@@ -263,8 +266,11 @@
                         and subscribe to when they click the Join Now button on the home page.
                     </p>
                 </li>
-                <li>
-                    <h3 class="websocket-steps">Websocket starts tournament and keeps connection between players.</h3>
+                <li class="websocket-step column">
+                    <h2 class="ws-step-num">2</h2>
+                    <h3 class="websocket-title">
+                        Websocket starts tournament and keeps connection between players.
+                    </h3>
                     <p class="websocket-describe">
                         Once the allotted number of players have joined the tournament lobby, the host can then push the
                         Start Tournament button, which sends a message to the websocket server to use its connection to direct all
@@ -280,16 +286,20 @@
                         This cycle will continue until only one player is left!
                     </p>
                 </li>
-                <li>
-                    <h3 class="websocket-steps">Websocket determines final winner!</h3>
+                <li class="websocket-step column">
+                    <h2 class="ws-step-num">3</h2>
+                    <h3 class="websocket-title">
+                        Websocket determines final winner!
+                    </h3>
                     <p class="websocket-describe">
                         When the last round of voting has completed, and the winner has been pushed to the winner array,
                         the websocket connection will send a message to the backend server to save the tournament object
                         which holds the id of the user who has won.
                     </p>
                 </li>
-                <li>
-                    <h3 class="websocket-steps">
+                <li class="websocket-step column">
+                    <h2 class="ws-step-num">4</h2>
+                    <h3 class="websocket-title">
                         Websocket connection ends and tournament information is saved onto server database.
                     </h3>
                     <p class="websocket-describe">
@@ -301,11 +311,12 @@
                         The winner will find another point added to their wins tally.
                     </p>
                 </li>
-                <li>
-                    <h3 class="websocket-steps">
+                <li class="websocket-step column">
+                    <h2 class="ws-step-num">5</h2>
+                    <h3 class="websocket-title">
                         The users can continue joining more tournaments, create more memes, and collect more wins!
                     </h3>
-                    <p>
+                    <p class="websocket-describe">
                         A websocket connection can be established at any time when the user decides to create a tournament.
                         And then the cycle can continue from Step 1!
                         Happy meme-making!(:
