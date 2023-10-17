@@ -351,8 +351,8 @@
             lobbyContainer.innerHTML = `
     <div class="container full-width">
         <div class="row vs-title">
-            <h1 class="vs-usernames">${gameController.currentRoundPlayers[0]}  VS  ${gameController.currentRoundPlayers[1]}</h1>
             <h1 class="create-meme-title">Create your Meme Submission</h1>
+            <h2 class="vs-usernames">${gameController.currentRoundPlayers[0]}  VS  ${gameController.currentRoundPlayers[1]}</h2>
         </div>
         <div class="row memePicture justify-center">
             <img class="memeAPIImage" src="" alt="WRITE SOMETHING FUNNY JABRONI">
@@ -393,7 +393,7 @@
             console.log(gameController.currentMemeSubmissions);
             lobbyContainer.innerHTML = `
              <div class="container voting-container">
-                <div class="row justify-space-between align-center full-width">
+                <div class="row justify-space-between align-center full-width voting-row">
                     <h1 class="middle-element">Vote for the Best Meme</h1>
                     <h3 class="right-element" id="vote-status"></h3>
                 </div>
@@ -460,8 +460,10 @@
             }
 
             if (gameController.votingPlayers[0].username === currentUser.username) {
+                voteStatusH3.innerHTML = "PLACE YOUR VOTES";
                 voterBtns();
             } else if (gameController.votingPlayers[1].username === currentUser.username) {
+                voteStatusH3.innerHTML = "PLACE YOUR VOTES";
                 voterBtns();
             } else {
                 playerHideBtns();
@@ -480,22 +482,22 @@
             let host = await Fetch.Get.tournamentHost();
             lobbyContainer.innerHTML = `
            <div class="container results-container">
-                <div class="row">
-                    <h2 class="left-element">${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
+                <div class="row justify-center align-center results-title-row">
                     <h1>Results</h1> 
+                    <h2 class="left-element">${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
                 </div>
                 <div class="row">
                     <div class="column align-center result-first-meme">
                          <h3 id="player1-result"></h3>
+                         <h3 id="meme1-votes">${gameController.meme1votes} votes</h3>
                          <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="${gameController.currentMemeSubmissions[0].caption}">
                          <h2>${gameController.currentMemeSubmissions[0].caption}</h2>
-                         <h3 id="meme1-votes">${gameController.meme1votes}</h3>
                     </div>
                     <div class="column align-center result-second-meme">
                          <h3 id="player2-result"></h3>
+                         <h3 id="meme2-votes">${gameController.meme2votes} votes</h3>
                          <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="${gameController.currentMemeSubmissions[1].caption}">
                          <h2>${gameController.currentMemeSubmissions[1].caption}</h2>
-                         <h3 id="meme2-votes">${gameController.meme2votes}</h3>
                     </div>
                 </div>
                 <button id="submit-results-btn">continue</button>
@@ -531,6 +533,27 @@
                 }
             }
 
+            if(gameController.meme1votes === 1 || gameController.meme2votes === 1) {
+                document.querySelector('#meme1-votes').innerHTML += 'vote';
+            } else {
+                document.querySelector('#meme1-votes').innerHTML += 'votes';
+            }
+
+            const player1Result = lobbyContainer.querySelector('#player1-result');
+            const player2Result = lobbyContainer.querySelector('#player2-result');
+
+            if (player1Result.innerText === 'WINNER' || player1Result.innerText === '*WINNER BY COIN FLIP*') {
+                const meme1Image = lobbyContainer.querySelector('.result-first-meme .memeAPIImage');
+                meme1Image.style.border = '1rem solid #9F8BFF';
+                meme1Image.style.borderRadius = '16px';
+            }
+
+            if (player2Result.innerText === 'WINNER' || player2Result.innerText === '*WINNER BY COIN FLIP*') {
+                const meme2Image = lobbyContainer.querySelector('.result-second-meme .memeAPIImage');
+                meme2Image.style.border = '1rem solid #9F8BFF';
+                meme2Image.style.borderRadius = '16px';
+            }
+
             nextRoundBtn.addEventListener('click', () => {
                 let message = {
                     user: currentUser.username,
@@ -546,13 +569,13 @@
             let host = await Fetch.Get.tournamentHost();
             let winner;
             if (gameController.eliminatedPlayers.includes(currentUser.username)) {
-                lobbyContainer.innerHTML = `<h1>YOU LOSE...</h1>
-                <h2>${currentUser.username}</h2>
-                <button id="complete-btn">FINISH</button>`
+                lobbyContainer.style.backgroundColor = '#0D0149';
+                lobbyContainer.innerHTML = `<img src="/img/lose.gif">
+                <button id="complete-btn">finish</button>`
             } else {
-                lobbyContainer.innerHTML = `<h1>YOU WIN!</h1>
-                <h2>${currentUser.username}</h2>
-                <button id="complete-btn">FINISH</button>`
+                lobbyContainer.style.backgroundColor = '#0D0149';
+                lobbyContainer.innerHTML = `<img src="/img/win.gif">
+                <button id="complete-btn">finish</button>`
                 winner = currentUser.username;
             }
 

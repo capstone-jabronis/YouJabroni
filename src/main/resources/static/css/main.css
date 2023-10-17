@@ -1242,6 +1242,7 @@ body {
     border-radius: 16px;
     color: white;
     margin-top: unset;
+    margin-left: 2rem;
 }
 
 .jdCreateInputContainer {
@@ -1304,6 +1305,10 @@ body {
 
 .vs-title {
     width: 300rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
 }
 
 .create-meme-title {
@@ -1343,23 +1348,28 @@ body {
 .left-element {
     background-color: #9F8BFF;
     color: white;
-    margin-top: unset;
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+    padding: 2%;
+    /* margin-top: unset; */
+    border-radius: 16px;
+    margin-left: 5rem;
 }
 
 .right-element {
     background-color: #9F8BFF;
     color: white;
-    margin-top: unset;
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+    padding: 2%;
+    /*margin-top: unset;*/
+    border-radius: 16px;
     display: flex;
     align-items: center;
 }
 
 .vote-second-meme {
     margin-left: 2%;
+}
+
+.voting-row {
+    margin-bottom: 2rem;
 }
 
 /*===============     END OF VOTING     ===============*/
@@ -1385,5 +1395,36 @@ body {
 .result-second-meme {
     margin-left: 2%;
 }
+
+#player1-result {
+    margin-bottom: unset;
+}
+
+#player2-result {
+    margin-bottom: unset;
+}
+
+.results-title-row {
+    width: 100rem;
+}
+
+#complete-btn {
+    position: absolute;
+    top: 10%;
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 50px;
+    width: 125px;
+    font-size: 18px;
+}
+
+#complete-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
 
 /*===============     END OF RESULTS     ===============*/
