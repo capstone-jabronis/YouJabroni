@@ -34,6 +34,7 @@
     const UserWaitingRoom = document.querySelector('#users-in-room');
     // const leaveBtn = document.querySelector('#leave-lobby-btn');
     const lobbyContainer = document.querySelector('.jdWaitContainer');
+    const lobbyReset = lobbyContainer.innerHTML;
     const startBtn = document.querySelector('#start-btn');
     const leaveBtn = document.querySelector('#leave-lobby-btn');
     const waitingTitle = document.querySelector('#waiting-title');
@@ -58,7 +59,6 @@
         activePlayers: [],
         eliminatedPlayers: [],
         winner: "",
-        gameComplete: false,
         meme1votes: 0,
         meme2votes: 0,
         round: 1,
@@ -67,6 +67,7 @@
             return Math.floor(Math.random());
         }
     }
+
 
     const Tournament = {
         csrfToken: document.querySelector('meta[name="_csrf"]').getAttribute('content'),
@@ -145,6 +146,8 @@
             console.log("Message received:");
             if (message.messageType === 'JOIN') {
                 await Render.reloadTournamentMembers('');
+                let players = await Fetch.Get.playerCount();
+                console.log(players);
             } else if (message.messageType === 'LEAVE') {
                     await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
@@ -156,7 +159,12 @@
                 });
                 //check if a winner has been decided
                 if (gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1) {
-
+                    for (let i = 0; i < gameController.activePlayers.length; i++) {
+                        if (!gameController.eliminatedPlayers.includes(gameController.activePlayers[i].username)) {
+                            console.log("WINNER!: " + gameController.activePlayers[i].username)
+                            gameController.winner = gameController.activePlayers[i].username;
+                        }
+                    }
                     await Render.renderCompletePage();
                 } else {
                     //Empty the current round player array before pushing the next players
@@ -167,11 +175,7 @@
                     let eliminated = gameController.eliminatedPlayers;
                     let active = gameController.activePlayers;
                     let skipPlayers = gameController.playersToSkip;
-                    //FINAL ROUND CHECK, CLEARS skipPlayers if only 2 players are left. works for 4 players only
-                    // if (active.length - eliminated.length === 2) {
-                    //     gameController.playersToSkip = [];
-                    //     skipPlayers = [];
-                    // }
+
                     //Round advancement scalability to support more players, works for 4 players, need to test for more (multiples of 4)
                     if ((gameController.activePlayers.length / gameController.round) / gameController.eliminatedPlayers.length === 2) {
                         console.log("NEXT ROUND ---- CLEARING skipPlayers");
@@ -240,7 +244,9 @@
                     await Render.renderResultsPage();
                 }
             } else if (message.messageType === 'RESULT') {
+                console.log("======IN RESULT MESSGE========");
                 if (gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1) {
+                    console.log("======GETTING WINNER======");
                     for (let i = 0; i < gameController.activePlayers.length; i++) {
                         if (!gameController.eliminatedPlayers.includes(gameController.activePlayers[i].username)) {
                             console.log("WINNER!: " + gameController.activePlayers[i].username)
@@ -256,7 +262,9 @@
                 }
             } else if (message.messageType === 'FINISH') {
                 console.log(gameController.winner);
-                window.location.replace('/home');
+                // let winner = await Fetch.Get.getWinner();
+                // console.log(winner);
+                location.replace('/home');
             } else {
                 if(gameController.currentMemeSubmissions.length ===2){
                     gameController.currentMemeSubmissions = [];
@@ -326,12 +334,13 @@
             //to render start button when members reach required amount for game
             //JOSE DONT FORGET TO CMD Z THIS
 
-
-            if (tournamentMembers.length !== 4) {
+            let playerCount = await Fetch.Get.playerCount();
+            console.log(playerCount);
+            if (tournamentMembers.length !== playerCount) {
                 // startGameButton.style.display = "none";
                 waitingTitle.classList.remove('hidden');
                 startBtn.style.visibility = "hidden";
-            } else if (tournamentMembers.length === 4 && currentUser.username === tournamentHost.username) {
+            } else if (tournamentMembers.length === playerCount && currentUser.username === tournamentHost.username) {
                 // startGameButton.style.display = "block";
                 waitingTitle.classList.add('hidden');
                 startBtn.style.visibility = "visible";
@@ -567,7 +576,6 @@
 
         async renderCompletePage() {
             let host = await Fetch.Get.tournamentHost();
-            let winner;
             if (gameController.eliminatedPlayers.includes(currentUser.username)) {
                 lobbyContainer.style.backgroundColor = '#0D0149';
                 lobbyContainer.innerHTML = `<img src="/img/lose.gif">
@@ -587,7 +595,7 @@
 
             completeBtn.addEventListener('click', () => {
                 let message = {
-                    user: winner,
+                    user: gameController.winner,
                     text: "",
                     memeURL: '',
                     messageType: 'FINISH'
@@ -645,7 +653,19 @@
                 }
                 return await host.json();
             },
-
+            async playerCount() {
+                let players = await fetch(`/tournament/${Tournament.tournamentId}/players`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                if (!players.ok) {
+                    throw new Error(`Error retrieving amount of players for tournament`);
+                }
+                return await players.json();
+            },
             async getMeme() {
                 console.log("Getting Meme");
                 let imageContainers = document.querySelectorAll(".memeAPIImage");
@@ -667,6 +687,19 @@
                 } catch (error) {
                     console.error('Error fetching meme:', error);
                 }
+            },
+            async getWinner() {
+                let winner = await fetch(`/tournament/${Tournament.tournamentId}/getWinner`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                if (!winner.ok) {
+                    throw new Error(`Error retrieving winner`);
+                }
+                return await winner.json();
             }
 
         }
@@ -708,6 +741,7 @@
         };
         Socket.sendMessage(message);
     };
+
     startBtn.addEventListener('click', async () => {
         console.log('Start button clicked')
         let host = await Fetch.Get.tournamentHost();
