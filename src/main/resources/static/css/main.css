@@ -106,7 +106,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: var(--first);
-    height: 400px;
+    height: 28rem;
     width: 350px;
     border-radius: 15px;
     align-items: center;
@@ -126,6 +126,7 @@ body {
     display: block;
     margin-top: 10px;
     border-radius: 15px;
+    height: 14rem;
 }
 
 .caption-div {
@@ -152,6 +153,7 @@ body {
     border: 2px solid #343CFF;
     color: #343CFF;
 }
+
 /******** End of History of Meme Submissions *****/
 .profile-pic {
     border-radius: 50%;
@@ -359,6 +361,7 @@ body {
     background-color: #0D0149;
     color: #b4acef;
 }
+
 .tournament-create-btn {
     width: 280px;
 }
@@ -374,6 +377,38 @@ body {
 .host {
     display: flex;
     align-items: center;
+}
+
+.host-tournament-modal {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    width: 600px;
+    height: 200px;
+    min-height: 250px;
+    position: absolute;
+    top: 15%;
+    right: 35%;
+    background-color: #0D0149;
+    border: 1px solid #07013d;
+    border-radius: 15px;
+}
+
+#player-count-radios {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.player-radio {
+visibility: hidden;
+}
+
+.host-modal-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 /*================         END OF HOME         ================*/
@@ -570,6 +605,7 @@ body {
     border: 2px solid #343CFF;
     color: #343CFF;
 }
+
 .bar {
     width: 35px;
     height: 4px;
@@ -590,9 +626,11 @@ body {
     top: 35%;
     right: 35%;
 }
+
 .back-to-profile {
     text-decoration: none;
 }
+
 .edit-user {
     display: flex;
     flex-direction: column;
@@ -795,8 +833,12 @@ body {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /***************** END OF LOADING ANIMATION **********************/
@@ -972,7 +1014,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #EEECFE;
-    height: 27rem;
+    height: 31rem;
     width: 350px;
     border-radius: 15px;
     align-items: center;
@@ -1011,7 +1053,7 @@ body {
     display: block;
     margin-top: 10px;
     border-radius: 15px;
-
+    height: 14rem;
 }
 
 .post-caption-div {
@@ -1029,6 +1071,7 @@ body {
 .post-caption {
     margin-bottom: 5px;
 }
+
 /*===============     START OF CALL TO ACTION CSS     ===============*/
 
 .call-to-action-container {
@@ -1105,7 +1148,7 @@ body {
     flex-direction: column;
     height: 40rem;
     border-radius: 16px;
-    /* width: 100%; */
+     /*width: 80rem;*/
     background-color: var(--first);
 }
 
@@ -1196,9 +1239,16 @@ body {
     color: white;
     border: unset;
     border-radius: 16px;
-    height: 40px;
-    width: 140px;
+    height: 50px;
+    width: 180px;
     font-size: 18px;
+    margin-top: 2rem;
+}
+
+#start-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
 }
 
 /* Media Queries For Waiting Room */
@@ -1222,12 +1272,26 @@ body {
 /*===============     CREATE MEME     ===============*/
 
 .memeAPIImage{
-    max-width: 90%;
-    max-height: 90%;
-    min-width: 90%;
-    min-height: 90%;
+    /*max-width: 90%;*/
+    /*max-height: 90%;*/
+    /*min-width: 90%;*/
+    /*min-height: 90%;*/
+    height: 25rem;
 }
 
+.match-up {
+    display: flex;
+    align-items: start;
+}
+
+.vs-usernames {
+    background-color: #9F8BFF;
+    padding: 2%;
+    border-radius: 16px;
+    color: white;
+    margin-top: unset;
+    margin-left: 2rem;
+}
 
 .jdCreateInputContainer {
     display: flex;
@@ -1250,18 +1314,165 @@ body {
 }
 
 #memeCaption {
-    width: 70vw;
+    width: 40vw;
     padding: 1.5%;
     margin-bottom: 10px;
+    background-color: white;
 }
 
-#submitMemeCaptionBtn {
-    background-color: #9F8BFF;
+.submit-meme-btn {
+    background-color: #343CFF;
     color: white;
-    padding: 10px 20px; /* Adjust padding to your preference */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    border: unset;
+    border-radius: 16px;
+    height: 50px;
+    width: 200px;
+    font-size: 18px;
+    margin-top: 2rem;
+}
+
+.submit-meme-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+.btn-hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+.voting-memes {
+    flex-direction: row;
 }
 
 /*===============     END OF CREATE MEME     ===============*/
+
+/*===============     START OF MEME SUBMISSION CREATION    ===============*/
+
+.vs-title {
+    width: 300rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.create-meme-title {
+    margin-left: 6rem;
+}
+
+/*===============     END OF MEME SUBMISSION CREATION    ===============*/
+
+/*===============     START OF VOTING     ===============*/
+
+.vote-button {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 50px;
+    width: 125px;
+    font-size: 18px;
+}
+
+.vote-button:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+.left-element,
+.right-element,
+.middle-element {
+    padding: 10px;
+}
+
+.middle-element {
+    flex-grow: 1; /* Allow the middle element to grow and take available space */
+}
+
+.left-element {
+    background-color: #9F8BFF;
+    color: white;
+    padding: 2%;
+    /* margin-top: unset; */
+    border-radius: 16px;
+    margin-left: 5rem;
+}
+
+.right-element {
+    background-color: #9F8BFF;
+    color: white;
+    padding: 2%;
+    /*margin-top: unset;*/
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.vote-second-meme {
+    margin-left: 2%;
+}
+
+.voting-row {
+    margin-bottom: 2rem;
+}
+
+/*===============     END OF VOTING     ===============*/
+
+/*===============     START OF RESULTS     ===============*/
+
+#submit-results-btn {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 50px;
+    width: 125px;
+    font-size: 18px;
+}
+
+#submit-results-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+.result-second-meme {
+    margin-left: 2%;
+}
+
+#player1-result {
+    margin-bottom: unset;
+}
+
+#player2-result {
+    margin-bottom: unset;
+}
+
+.results-title-row {
+    width: 100rem;
+}
+
+#complete-btn {
+    position: absolute;
+    top: 10%;
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 50px;
+    width: 125px;
+    font-size: 18px;
+}
+
+#complete-btn:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+
+/*===============     END OF RESULTS     ===============*/
