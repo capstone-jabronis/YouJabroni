@@ -90,7 +90,6 @@
 
     usernameInput.addEventListener('keyup', (e) => {
         const enteredUsername = e.target.value.toLowerCase();
-        console.log("entered Username is : " + enteredUsername)
         if (messageElement) {
             messageElement.remove();
             messageElement = null;
@@ -164,8 +163,6 @@
             for (const user of usersData) {
                     if (enteredEmail.toLowerCase() === user.email.toLowerCase()) {
                         registrationButton.style.display = 'none';
-                        console.log("entered email")
-                        console.log(enteredEmail)
                         if (!messageElement) {
                             messageElement = document.createElement('p');
                             messageElement.innerText = "Email is taken, please choose another.";

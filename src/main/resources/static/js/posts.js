@@ -8,7 +8,6 @@ const loggedInElement = document.querySelector('meta[name="userId"]');
 let loggedInUserId;
 if (loggedInElement != null) {
     loggedInUserId = loggedInElement.getAttribute('data-user-id');
-    console.log(loggedInUserId);
 }
 
 postElement.addEventListener('click', async (e) => {
@@ -21,7 +20,6 @@ postElement.addEventListener('click', async (e) => {
         }
     });
     let data = await results.json();
-    // console.log(data);
     if (!results.ok) {
         throw new Error(`HTTP error! Status: ${results.status}`);
     }

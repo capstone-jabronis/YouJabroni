@@ -109,12 +109,10 @@
                     postFeedCard.appendChild(postFeedCaptionDiv);
 
                     // logic to dictate which rocket image to use
-                    console.log(post);
                     const loggedInElement = document.querySelector('meta[name="userId"]');
                     let loggedInUserId;
                     if (loggedInElement != null) {
                         loggedInUserId = loggedInElement.getAttribute('data-user-id');
-                        console.log(loggedInUserId);
                     }
                     let userHasLiked = false;
                     for (let user of post.userLikes) {
@@ -144,13 +142,9 @@
                     //  Toggles the rocket icon by checking if user is in user likes list on post
                     const handleRocketIconClick = async function (e) {
                         const likePostId = post.id;
-                        console.log(likePostId);
                         let results = await fetch(`/${likePostId}/liked`, options);
                         const data = await results.json();
-                        console.log(data);
-                        console.log(e.target);
                         if (e.target.src.endsWith('/img/unfilled-rocket-btn.png')) {
-                            console.log("Inside if statement")
                             e.target.src = '../img/filled-rocket-btn.png';
                             count++;
                         } else {

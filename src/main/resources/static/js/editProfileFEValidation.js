@@ -10,11 +10,6 @@
     }
     let results = await fetch(url, options);
     let data = await results.json();
-    console.log("this is the data=>");
-    data.forEach(item => {
-        console.log(item);
-    });
-
     let usernameInput = document.querySelector(".edit-username-field");
     let emailInput = document.querySelector(".edit-email-field");
     let registrationButton = document.querySelector(".submit-mods-btn");
@@ -25,7 +20,6 @@
 
     usernameInput.addEventListener('keyup', (e) => {
         const enteredUsername = e.target.value.toLowerCase();
-        console.log("entered Username is : " + enteredUsername)
         if (messageElement) {
             messageElement.remove();
             messageElement = null;
@@ -48,7 +42,6 @@
             return;
         } else {
             for (let user of data) {
-                console.log("there should be a user here => " + user)
                 if (enteredUsername.toLowerCase() === user.username.toLowerCase()) {
                     registrationButton.style.display = 'none';
                     if (!messageElement) {
@@ -99,7 +92,6 @@
             return;
         } else {
             for (let user of data) {
-                console.log("there should be a user here => " + user.email)
                 if (enteredEmail === user.email) {
                     registrationButton.style.display = 'none';
                     if (!messageElement) {

@@ -2,9 +2,7 @@ const loadingOverlay = document.querySelector('.hide-loader');
 const fileInput = document.getElementById('fileInput');
 const previewImage = document.querySelector('.previewImage');
 const profilePicButton = document.querySelector("#profilePic");
-console.log("profile pic button "+ profilePicButton);
 const client = filestack.init(FILESTACK_API_KEY);
-console.log("api key  " + FILESTACK_API_KEY);
 const options = {
     accept: ["image/*"],
     fromSources: ["local_file_system", "url"],
