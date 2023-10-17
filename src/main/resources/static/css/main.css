@@ -152,6 +152,7 @@ body {
     border: 2px solid #343CFF;
     color: #343CFF;
 }
+
 /******** End of History of Meme Submissions *****/
 .profile-pic {
     border-radius: 50%;
@@ -359,6 +360,7 @@ body {
     background-color: #0D0149;
     color: #b4acef;
 }
+
 .tournament-create-btn {
     width: 280px;
 }
@@ -374,6 +376,38 @@ body {
 .host {
     display: flex;
     align-items: center;
+}
+
+.host-tournament-modal {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    width: 600px;
+    height: 200px;
+    min-height: 250px;
+    position: absolute;
+    top: 15%;
+    right: 35%;
+    background-color: #0D0149;
+    border: 1px solid #07013d;
+    border-radius: 15px;
+}
+
+#player-count-radios {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.player-radio {
+visibility: hidden;
+}
+
+.host-modal-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 /*================         END OF HOME         ================*/
@@ -570,6 +604,7 @@ body {
     border: 2px solid #343CFF;
     color: #343CFF;
 }
+
 .bar {
     width: 35px;
     height: 4px;
@@ -590,9 +625,11 @@ body {
     top: 35%;
     right: 35%;
 }
+
 .back-to-profile {
     text-decoration: none;
 }
+
 .edit-user {
     display: flex;
     flex-direction: column;
@@ -795,8 +832,12 @@ body {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /***************** END OF LOADING ANIMATION **********************/
@@ -1029,6 +1070,7 @@ body {
 .post-caption {
     margin-bottom: 5px;
 }
+
 /*===============     START OF CALL TO ACTION CSS     ===============*/
 
 .call-to-action-container {
@@ -1221,7 +1263,7 @@ body {
 
 /*===============     CREATE MEME     ===============*/
 
-.memeAPIImage{
+.memeAPIImage {
     max-width: 90%;
     max-height: 90%;
     min-width: 90%;
