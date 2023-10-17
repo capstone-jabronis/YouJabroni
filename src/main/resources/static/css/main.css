@@ -383,13 +383,14 @@ body {
     display: none;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 0.4rem;
-    width: 600px;
-    height: 200px;
+    width: 40rem;
+    height: 20rem;
     min-height: 250px;
     position: absolute;
-    top: 15%;
-    right: 35%;
+    top: 25%;
+    right: 28%;
     background-color: #0D0149;
     border: 1px solid #07013d;
     border-radius: 15px;
@@ -1085,6 +1086,10 @@ visibility: hidden;
 
 .history-call-to-action {
     margin-right: 100px;
+}
+
+.like-post-call-to-action {
+    margin-right: 3rem;
 }
 
 /*===============     END OF CALL TO ACTION CSS     ===============*/
