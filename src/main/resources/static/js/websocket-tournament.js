@@ -12,7 +12,7 @@
     const waitingTitle = document.querySelector('#waiting-title');
     // JOSES TRYING SOMETHING
     const startGameButton = document.createElement("button");
-    startGameButton.textContent = "Start Game!";
+    startGameButton.textContent = "start game!";
     startGameButton.classList.add('start-game-btn');
     // const leaveLobbyButton = document.querySelector("#leave-lobby-btn");
     // leaveLobbyButton.after(startGameButton)
@@ -413,13 +413,13 @@
                 <div class="row">
                     <div class="column align-center result-first-meme">
                          <h3 id="player1-result"></h3>
-                         <h3 id="meme1-votes">${gameController.meme1votes} votes</h3>
+                         <h3 id="meme1-votes">${gameController.meme1votes}</h3>
                          <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="${gameController.currentMemeSubmissions[0].caption}">
                          <h2>${gameController.currentMemeSubmissions[0].caption}</h2>
                     </div>
                     <div class="column align-center result-second-meme">
                          <h3 id="player2-result"></h3>
-                         <h3 id="meme2-votes">${gameController.meme2votes} votes</h3>
+                         <h3 id="meme2-votes">${gameController.meme2votes}</h3>
                          <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="${gameController.currentMemeSubmissions[1].caption}">
                          <h2>${gameController.currentMemeSubmissions[1].caption}</h2>
                     </div>
@@ -458,9 +458,11 @@
             }
 
             if(gameController.meme1votes === 1 || gameController.meme2votes === 1) {
-                document.querySelector('#meme1-votes').innerHTML += 'vote';
+                document.querySelector('#meme1-votes').innerHTML += ' vote';
+                document.querySelector('#meme2-votes').innerHTML += ' vote';
             } else {
-                document.querySelector('#meme1-votes').innerHTML += 'votes';
+                document.querySelector('#meme1-votes').innerHTML += ' votes';
+                document.querySelector('#meme2-votes').innerHTML += ' votes';
             }
 
             const player1Result = lobbyContainer.querySelector('#player1-result');

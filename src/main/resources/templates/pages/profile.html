@@ -20,7 +20,7 @@
                 <p class="user-email" th:text="${user.email}"></p>
             </div>
             <div sec:authorize="isAuthenticated()">
-                <button class="edit-btn" th:if="${#authentication.principal.id == user.id}">Edit profile</button>
+                <button class="edit-btn" th:if="${#authentication.principal.id == user.id}">edit profile</button>
             </div>
         </div>
     </div>
