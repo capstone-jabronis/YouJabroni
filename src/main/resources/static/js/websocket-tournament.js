@@ -350,8 +350,9 @@
 
             lobbyContainer.innerHTML = `
     <div class="container full-width">
-        <div class="row vs-title justify-center">
-            <h1>${gameController.currentRoundPlayers[0]}  VS  ${gameController.currentRoundPlayers[1]}</h1>
+        <div class="row vs-title">
+            <h1 class="vs-usernames">${gameController.currentRoundPlayers[0]}  VS  ${gameController.currentRoundPlayers[1]}</h1>
+            <h1 class="create-meme-title">Create your Meme Submission</h1>
         </div>
         <div class="row memePicture justify-center">
             <img class="memeAPIImage" src="" alt="WRITE SOMETHING FUNNY JABRONI">
@@ -393,8 +394,7 @@
             lobbyContainer.innerHTML = `
              <div class="container voting-container">
                 <div class="row justify-space-between align-center full-width">
-                    <h1 class="left-element">Vote for the Best Meme</h1>
-                    <h2 class="middle-element">${user1}  VS  ${user2}</h2>
+                    <h1 class="middle-element">Vote for the Best Meme</h1>
                     <h3 class="right-element" id="vote-status"></h3>
                 </div>
                 <div class="row justify-space-between">
@@ -481,11 +481,8 @@
             lobbyContainer.innerHTML = `
            <div class="container results-container">
                 <div class="row">
-                    <div class="column align-center">
-                        <h1>Results</h1>
-                        <h2>${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
-                        <h3 id="vote-status"></h3>
-                    </div>
+                    <h2 class="left-element">${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
+                    <h1>Results</h1> 
                 </div>
                 <div class="row">
                     <div class="column align-center result-first-meme">
