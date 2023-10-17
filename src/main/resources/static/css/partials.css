@@ -1,9 +1,3 @@
-:root{
---first: #b4acef;
-    --second: #9F8BFF;
-    --third:#0D0149 ;
-    --button: #343CFF;
-}
 .nav-link {
     text-decoration: none;
     list-style-type: none;
