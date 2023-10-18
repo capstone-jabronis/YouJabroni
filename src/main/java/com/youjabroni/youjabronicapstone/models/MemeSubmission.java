@@ -51,6 +51,12 @@ public class MemeSubmission {
         this.round = round;
     }
 
+    public MemeSubmission(String caption, User user, String memeURL) {
+        this.caption = caption;
+        this.user = user;
+        this.memeURL = memeURL;
+    }
+
     public MemeSubmission(String caption, User user, Round round) {
         this.caption = caption;
         this.user = user;
