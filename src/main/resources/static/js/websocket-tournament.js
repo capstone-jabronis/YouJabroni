@@ -269,12 +269,17 @@
         async onMessageReceived(payload) {
             let message = JSON.parse(payload.body);
             if (message.messageType === 'JOIN') {
+                console.log('-----JOIN MESSAGE------')
                 await Render.reloadTournamentMembers('');
                 let players = await Fetch.Get.playerCount();
             } else if (message.messageType === 'LEAVE') {
+                console.log('------LEAVE MESSAGE------')
+                console.log(gameController);
                     await Render.reloadTournamentMembers(message.user);
             } else if (message.messageType === 'START') {
                 //Get userSet of Tournament from server
+                console.log('------START MESSAGE-------')
+                console.log(gameController);
                 gameController.activePlayers = await Fetch.Get.tournamentMembers();
 
                 gameController.activePlayers.sort(function (a, b) {
@@ -338,7 +343,10 @@
                 }
 
             } else if (message.messageType === 'DATA') {
+                console.log('-----DATA MEME MESSAGE-----')
+                console.log(gameController);
                 gameController.submittedMemes += 1;
+                console.log(gameController.submittedMemes)
                 if (gameController.submittedMemes === 2) {
                     gameController.submittedMemes = 0;
                     let user1 = gameController.currentRoundPlayers[0];
@@ -346,6 +354,8 @@
                     Render.renderVotePage(user1, user2);
                 }
             } else if (message.messageType === 'VOTE') {
+                console.log('-----VOTE MESSAGE-----')
+                console.log(gameController);
                 if (message.text === "1") {
                     gameController.meme1votes += 1;
                 } else if (message.text === "2") {
@@ -357,6 +367,8 @@
                     await Render.renderResultsPage();
                 }
             } else if (message.messageType === 'RESULT') {
+                console.log('-------RESULT MESSAGE-----')
+                console.log(gameController);
                 if (gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1) {
                     for (let i = 0; i < gameController.activePlayers.length; i++) {
                         if (!gameController.eliminatedPlayers.includes(gameController.activePlayers[i].username)) {

@@ -251,6 +251,7 @@ body {
     flex: 2;
     width: 54rem;
     align-items: center;
+    overflow: auto;
     background-color: var(--first);
     height: 41rem;
     border-radius: 2rem;
