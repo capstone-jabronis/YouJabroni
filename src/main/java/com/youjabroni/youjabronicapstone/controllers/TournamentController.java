@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -166,11 +167,17 @@ public class TournamentController {
             System.out.println("---set user to meme----");
 //            memeSubmissionDao.save(submittedMeme);
 //            System.out.println("----save new meme to database---");
-            System.out.println("checking size to initialize empty submission list");
-//            Hibernate.initialize();
-            int sizeCheck = user.getMemeSubmissions().size();
-            System.out.println(sizeCheck);
-            List<MemeSubmission> submissions = user.getMemeSubmissions();
+
+//            Hibernate.initialize(user);
+//            int sizeCheck = user.getMemeSubmissions().size();
+//            System.out.println(sizeCheck);
+            System.out.println("creating empty list");
+            List<MemeSubmission> submissions = new ArrayList<>();
+            System.out.println("checking if user list is null");
+            if(user.getMemeSubmissions() != null){
+                System.out.println("user list is not null");
+                submissions = user.getMemeSubmissions();
+            }
 //            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
             System.out.println(submissions);
             System.out.println("----got user current submission list----");
