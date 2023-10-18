@@ -134,7 +134,12 @@ body {
     align-items: start;
     width: 18rem;
     flex-direction: column;
+    overflow: auto;
     /*margin-right: 25px;*/
+}
+
+.caption {
+    overflow: auto;
 }
 
 .add-post-btn {
@@ -1113,6 +1118,7 @@ visibility: hidden;
     align-items: center;
     justify-content: start;
     margin-bottom: 30px;
+
 }
 
 .post-head {
@@ -1155,6 +1161,7 @@ visibility: hidden;
     flex-direction: column;
     /*margin-left: 25px;*/
     width: 18rem;
+    overflow: auto;
 }
 
 .post-description {
@@ -1163,6 +1170,15 @@ visibility: hidden;
 
 .post-caption {
     margin-bottom: 5px;
+}
+
+.post-caption-container {
+    overflow: auto;
+    height: 7rem;
+}
+
+.buttons-container {
+    margin-top: 1rem;
 }
 
 /*===============     START OF CALL TO ACTION CSS     ===============*/
