@@ -144,7 +144,6 @@ public class TournamentController {
             System.out.println("----------In Meme Method---------");
             System.out.println(message.getMessageType());
 
-
             ObjectMapper mapper = new ObjectMapper();
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
 
@@ -185,6 +184,7 @@ public class TournamentController {
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
             System.out.println("COMPLETE MEME MESSAGE");
         } catch (Exception e){
+            System.out.println(e.getCause().getMessage());
             System.out.println("ERROR IN MEME MESSAGE MAPPING");
         }
     }

@@ -31,7 +31,7 @@ public class User {
     @Column(nullable = true)
     private String profileURL;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user")
     private List<MemeSubmission> memeSubmissions;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")

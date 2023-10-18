@@ -628,12 +628,12 @@
                 document.querySelector('#player2-result').innerHTML = 'WINNER';
             } else if (gameController.meme1votes === gameController.meme2votes) {
                 //TIE BREAKER
-                if (gameController.tieBreakerFunction() === 0) {
+                if (gameController.tieBreakerFunction()%2 === 0) {
                     loser = gameController.currentRoundPlayers[1];
                     document.querySelector('#meme1-votes').innerHTML += ' (+1)'
                     document.querySelector('#player1-result').innerHTML = '*WINNER BY COIN FLIP*';
                     document.querySelector('#player2-result').innerHTML = 'LOSER';
-                } else if (gameController.tieBreakerFunction() === 1) {
+                } else {
                     loser = gameController.currentRoundPlayers[0];
                     document.querySelector('#meme2-votes').innerHTML += ' (+1)'
                     document.querySelector('#player2-result').innerHTML = '*WINNER BY COIN FLIP*';
