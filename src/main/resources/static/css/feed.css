@@ -112,6 +112,9 @@
     align-items: center;
     width: 280px;
 }
+.like-box:hover{
+    cursor:pointer;
+}
 .like-rocket{
     height:30px;
     width:30px;
