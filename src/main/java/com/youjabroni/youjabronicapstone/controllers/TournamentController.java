@@ -151,10 +151,13 @@ public class TournamentController {
         User user = userDao.findByUsername(message.getUser());
 
         System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
+
         submittedMeme.setCaption(message.getText());
         submittedMeme.setMemeURL(message.getMemeURL());
+
         System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
         System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
+
         memeSubmissionDao.save(submittedMeme);
         List<MemeSubmission> submissions = user.getMemeSubmissions();
         submissions.add(submittedMeme);
