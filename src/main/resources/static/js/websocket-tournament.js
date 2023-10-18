@@ -581,8 +581,9 @@
 
         renderWaitingPage() {
             lobbyContainer.innerHTML = `<h1>Waiting for Meme Submissions...</h1>
-                                        <canvas id="snakeGame"></canvas>
+                                        <canvas id="snakeGameWaiting"></canvas>
                                         `;
+            gameController.snakeGame();
         },
 
         async renderResultsPage() {

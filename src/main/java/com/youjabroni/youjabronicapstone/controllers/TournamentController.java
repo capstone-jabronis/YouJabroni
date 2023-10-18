@@ -163,8 +163,8 @@ public class TournamentController {
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
             submittedMeme.setUser(user);
             System.out.println("---set user to meme----");
-            memeSubmissionDao.save(submittedMeme);
-            System.out.println("----save new meme to database---");
+//            memeSubmissionDao.save(submittedMeme);
+//            System.out.println("----save new meme to database---");
             List<MemeSubmission> submissions = user.getMemeSubmissions();
             System.out.println(submissions);
             System.out.println("----got user current submission list----");
@@ -175,7 +175,6 @@ public class TournamentController {
             System.out.println("----save new meme to user MemeSubmission List----");
             userDao.save(user);
             System.out.println("----save the user----");
-            System.out.println("----set the user to the submitted meme----");
             memeSubmissionDao.save(submittedMeme);
             System.out.println("---save the meme in the memeSubmission table---");
             //sending meme back to front end
@@ -183,6 +182,7 @@ public class TournamentController {
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
             System.out.println("----Attempting to send message back to front end----");
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
+            System.out.println("COMPLETE MEME MESSAGE");
         } catch (Exception e){
             System.out.println("ERROR IN MEME MESSAGE MAPPING");
         }
