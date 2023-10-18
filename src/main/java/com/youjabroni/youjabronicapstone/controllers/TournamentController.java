@@ -176,7 +176,7 @@ public class TournamentController {
             System.out.println("creating empty list");
 //            List<MemeSubmission> submissions = new ArrayList<>();
             List<MemeSubmission> submissions = user.getMemeSubmissions();
-            System.out.println(submissions);
+//            System.out.println(submissions);
             System.out.println("checking if user list is null");
             if(submissions == null){
                 System.out.println("user list is null");
@@ -185,14 +185,16 @@ public class TournamentController {
 //            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
             System.out.println("----got user current submission list----");
             submissions.add(submittedMeme);
-            System.out.println(submissions);
+//            System.out.println(submissions);
             System.out.println("----add to current submissions----");
             user.setMemeSubmissions(submissions);
             System.out.println("----save new meme to user MemeSubmission List----");
+            userDao.save(user);
+            submittedMeme.setUser(user);
 
             memeSubmissionDao.save(submittedMeme);
             System.out.println("---save the meme in the memeSubmission table---");
-            userDao.save(user);
+//            userDao.save(user);
             System.out.println("----save the user----");
 
             //sending meme back to front end
