@@ -165,7 +165,7 @@ public class TournamentController {
             memeSubmissionDao.save(submittedMeme);
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
-            submittedMeme.setUser(user);
+//            submittedMeme.setUser(user);
             System.out.println("---set user to meme----");
 //            memeSubmissionDao.save(submittedMeme);
 //            System.out.println("----save new meme to database---");
@@ -174,14 +174,15 @@ public class TournamentController {
 //            int sizeCheck = user.getMemeSubmissions().size();
 //            System.out.println(sizeCheck);
             System.out.println("creating empty list");
-            List<MemeSubmission> submissions = new ArrayList<>();
+//            List<MemeSubmission> submissions = new ArrayList<>();
+            List<MemeSubmission> submissions = user.getMemeSubmissions();
+            System.out.println(submissions);
             System.out.println("checking if user list is null");
-            if(user.getMemeSubmissions() != null){
-                System.out.println("user list is not null");
-                submissions = user.getMemeSubmissions();
+            if(submissions == null){
+                System.out.println("user list is null");
+                submissions = new ArrayList<>();
             }
 //            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
-            System.out.println(submissions);
             System.out.println("----got user current submission list----");
             submissions.add(submittedMeme);
             System.out.println(submissions);
