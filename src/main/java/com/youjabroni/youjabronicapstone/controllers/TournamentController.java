@@ -162,7 +162,7 @@ public class TournamentController {
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
             submittedMeme.setUser(user);
             System.out.println("---set user to meme----");
-//            memeSubmissionDao.save(submittedMeme);
+            memeSubmissionDao.save(submittedMeme);
 //            System.out.println("----save new meme to database---");
 //            List<MemeSubmission> submissions = user.getMemeSubmissions();
             List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
