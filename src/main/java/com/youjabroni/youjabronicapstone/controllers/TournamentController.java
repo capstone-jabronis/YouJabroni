@@ -164,6 +164,9 @@ public class TournamentController {
             System.out.println("---set user to meme----");
 //            memeSubmissionDao.save(submittedMeme);
 //            System.out.println("----save new meme to database---");
+            System.out.println("checking size to initialize empty submission list");
+            int sizeCheck = user.getMemeSubmissions().size();
+            System.out.println(sizeCheck);
             List<MemeSubmission> submissions = user.getMemeSubmissions();
 //            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
             System.out.println(submissions);
