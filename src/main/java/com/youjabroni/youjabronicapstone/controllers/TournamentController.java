@@ -164,8 +164,8 @@ public class TournamentController {
             System.out.println("---set user to meme----");
 //            memeSubmissionDao.save(submittedMeme);
 //            System.out.println("----save new meme to database---");
-//            List<MemeSubmission> submissions = user.getMemeSubmissions();
-            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
+            List<MemeSubmission> submissions = user.getMemeSubmissions();
+//            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
             System.out.println(submissions);
             System.out.println("----got user current submission list----");
             submissions.add(submittedMeme);
@@ -186,7 +186,7 @@ public class TournamentController {
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
             System.out.println("COMPLETE MEME MESSAGE");
         } catch (Exception e){
-            System.out.println(e.getCause().getMessage());
+            System.out.println(e.getMessage());
             System.out.println("ERROR IN MEME MESSAGE MAPPING");
         }
     }
