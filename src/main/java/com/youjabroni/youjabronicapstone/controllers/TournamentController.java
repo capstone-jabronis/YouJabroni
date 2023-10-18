@@ -151,6 +151,7 @@ public class TournamentController {
 
             MemeSubmission submittedMeme = new MemeSubmission();
             User user = userDao.findByUsername(message.getUser());
+
             System.out.println(user.getUsername());
             System.out.println("----NEW MEME CREATED, USER GOT FROM DAO----");
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
@@ -161,6 +162,7 @@ public class TournamentController {
             submittedMeme.setMemeURL(message.getMemeURL());
             System.out.println("URL set");
             System.out.println("----set caption and url to new Meme----");
+            memeSubmissionDao.save(submittedMeme);
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
             submittedMeme.setUser(user);
