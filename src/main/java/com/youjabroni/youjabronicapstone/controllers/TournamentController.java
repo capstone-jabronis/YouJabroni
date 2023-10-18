@@ -146,18 +146,19 @@ public class TournamentController {
 
 
             ObjectMapper mapper = new ObjectMapper();
-            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
 
             MemeSubmission submittedMeme = new MemeSubmission();
             User user = userDao.findByUsername(message.getUser());
             System.out.println("----NEW MEME CREATED, USER GOT FROM DAO----");
-            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
-
-            submittedMeme.setCaption(message.getText());
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
+            String text = message.getText();
+            System.out.println(text);
+            submittedMeme.setCaption(text);
             submittedMeme.setMemeURL(message.getMemeURL());
             System.out.println("----set caption and url to new Meme----");
-            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
-            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
 
             memeSubmissionDao.save(submittedMeme);
             System.out.println("----save new meme to database---");
