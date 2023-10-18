@@ -12,6 +12,7 @@ import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.RoundRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -165,6 +166,7 @@ public class TournamentController {
 //            memeSubmissionDao.save(submittedMeme);
 //            System.out.println("----save new meme to database---");
             System.out.println("checking size to initialize empty submission list");
+            Hibernate.initialize(user.getMemeSubmissions());
             int sizeCheck = user.getMemeSubmissions().size();
             System.out.println(sizeCheck);
             List<MemeSubmission> submissions = user.getMemeSubmissions();
