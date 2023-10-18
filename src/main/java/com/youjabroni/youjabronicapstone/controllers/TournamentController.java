@@ -153,7 +153,7 @@ public class TournamentController {
             User user = userDao.findByUsername(message.getUser());
 
 //            System.out.println(user.getUsername());
-            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
             System.out.println("----NEW MEME CREATED, USER GOT FROM DAO----");
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
             String text = message.getText();

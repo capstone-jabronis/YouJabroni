@@ -11,8 +11,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 
-@Getter
-@Setter
+//@Getter
+//@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -209,6 +209,14 @@ public class User {
     }
     public void setLikedPosts(List<Post> likedPosts) {
         this.likedPosts = likedPosts;
+    }
+
+    public List<Tournament> getTournamentsWon() {
+        return tournamentsWon;
+    }
+
+    public void setTournamentsWon(List<Tournament> tournamentsWon) {
+        this.tournamentsWon = tournamentsWon;
     }
 
     public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, List<Post> posts, Tournament tournament, List<Post> likedPosts, List<Tournament> tournamentsWon) {
