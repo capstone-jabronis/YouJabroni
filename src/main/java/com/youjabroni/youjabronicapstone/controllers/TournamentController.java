@@ -184,6 +184,7 @@ public class TournamentController {
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
             System.out.println("COMPLETE MEME MESSAGE");
         } catch (Exception e){
+            System.out.println(e.getCause().getMessage());
             System.out.println("ERROR IN MEME MESSAGE MAPPING");
         }
     }
