@@ -151,6 +151,7 @@ public class PagesController {
     @GetMapping("/feed/api")
     public @ResponseBody List<Post> pagesInFeed() throws JsonProcessingException {
         List<Post> posts = postDao.findAll();
+        Collections.reverse(posts);
         return posts;
     }
 
