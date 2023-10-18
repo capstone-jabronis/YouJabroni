@@ -1587,5 +1587,22 @@ visibility: hidden;
     color: #343CFF;
 }
 
-
+.user-profile-info-row {
+    margin-bottom: 2rem;
+}
 /*===============     END OF RESULTS     ===============*/
+
+/*===============     START OF MEDIA QUERIES FOR PROFILE     ===============*/
+
+@media (max-width: 500px) {
+    .edit-btn {
+        margin-left: 8rem;
+    }
+    .profile-pic {
+        margin-left: unset;
+    }
+}
+
+/*===============     END OF MEDIA QUERIES FOR PROFILE     ===============*/
+
+
