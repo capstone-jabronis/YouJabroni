@@ -155,21 +155,25 @@ public class TournamentController {
             String text = message.getText();
             System.out.println(text);
             submittedMeme.setCaption(text);
+            System.out.println("caption set");
             submittedMeme.setMemeURL(message.getMemeURL());
+            System.out.println("URL set");
             System.out.println("----set caption and url to new Meme----");
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
-
+            submittedMeme.setUser(user);
             memeSubmissionDao.save(submittedMeme);
             System.out.println("----save new meme to database---");
             List<MemeSubmission> submissions = user.getMemeSubmissions();
+            System.out.println(submissions);
+            System.out.println("----got user current submission list----");
             submissions.add(submittedMeme);
-            System.out.println("get user MemeSubmission List and add new submission---");
+            System.out.println(submissions);
+            System.out.println("----add to current submissions----");
             user.setMemeSubmissions(submissions);
             System.out.println("----save new meme to user MemeSubmission List----");
             userDao.save(user);
             System.out.println("----save the user----");
-            submittedMeme.setUser(user);
             System.out.println("----set the user to the submitted meme----");
             memeSubmissionDao.save(submittedMeme);
             System.out.println("---save the meme in the memeSubmission table---");
