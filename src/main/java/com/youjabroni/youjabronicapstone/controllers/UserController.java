@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -32,13 +33,34 @@ public class UserController {
 
     @PostMapping("/register")
     public String saveUser(@ModelAttribute User user) {
-        //validation for username
+        String email = user.getEmail();
+        String username = user.getUsername();
+        String password = user.getPassword();
+
+        boolean validEmail = false;
+        boolean validUsername = false;
+        boolean validPassword = false;
+
+        if (validationService.isValidEmail(email) && !validationService.emailTaken(email)) {
+            validEmail = true;
+        }
+        if (validationService.isValidUsername(username) && !validationService.usernameTaken(username)) {
+            validUsername = true;
+        }
+        if (validationService.isValidPassword(password)) {
+            validPassword = true;
+        }
+
+        if (validEmail && validUsername && validPassword) {
+            String hash = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hash);
+            userDao.save(user);
+            return "redirect:/login";
+        } else {
+            return "redirect:/register";
+        }
 
 
-        String hash = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hash);
-        userDao.save(user);
-        return "redirect:/login";
     }
 
     @GetMapping("{id}/profile/edit")
@@ -113,17 +135,17 @@ public class UserController {
             return String.format("redirect:/%s/profile", id);
             //checking to see if profile picture and username are changed
         } else if (!profileUrl.equalsIgnoreCase(user.getProfileURL()) && email.equalsIgnoreCase(user.getEmail()) && !username.equalsIgnoreCase(user.getUsername()))
-                if (validationService.isValidUsername(username) && !validationService.usernameTaken(username) && validationService.validProfileURL(profileUrl)) {
-                    user.setProfileURL(profileUrl);
-                    user.setUsername(username);
-                    userDao.save(user);
-                    return String.format("redirect:/%s/profile", id);
-                    //all else fails redirect
-                } else {
-                    return String.format("redirect:/%s/profile", id);
-                }
+            if (validationService.isValidUsername(username) && !validationService.usernameTaken(username) && validationService.validProfileURL(profileUrl)) {
+                user.setProfileURL(profileUrl);
+                user.setUsername(username);
+                userDao.save(user);
+                return String.format("redirect:/%s/profile", id);
+                //all else fails redirect
+            } else {
+                return String.format("redirect:/%s/profile", id);
+            }
             //all else fails redirect
-            else {
+        else {
             return String.format("redirect:/%s/profile", id);
         }
     }
@@ -131,14 +153,11 @@ public class UserController {
     @PostMapping("{id}/profile/edit/password")
     public String updatePassword(@PathVariable long id, @RequestParam(name = "newPassword") String newPassword) {
         User user = userDao.findById(id).get();
-        if (newPassword != "") {
+        if (validationService.isValidPassword(newPassword)){
             String hash = passwordEncoder.encode(newPassword);
             user.setPassword(hash);
             userDao.save(user);
-        } else {
-            return String.format("redirect:/%s/profile", id);
         }
-
         return String.format("redirect:/%s/profile", id);
     }
 
