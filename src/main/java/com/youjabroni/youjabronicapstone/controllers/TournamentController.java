@@ -150,6 +150,7 @@ public class TournamentController {
 
             MemeSubmission submittedMeme = new MemeSubmission();
             User user = userDao.findByUsername(message.getUser());
+            System.out.println(user.getUsername());
             System.out.println("----NEW MEME CREATED, USER GOT FROM DAO----");
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
             String text = message.getText();
@@ -166,7 +167,7 @@ public class TournamentController {
 //            memeSubmissionDao.save(submittedMeme);
 //            System.out.println("----save new meme to database---");
             System.out.println("checking size to initialize empty submission list");
-            Hibernate.initialize(user.getMemeSubmissions());
+//            Hibernate.initialize();
             int sizeCheck = user.getMemeSubmissions().size();
             System.out.println(sizeCheck);
             List<MemeSubmission> submissions = user.getMemeSubmissions();
