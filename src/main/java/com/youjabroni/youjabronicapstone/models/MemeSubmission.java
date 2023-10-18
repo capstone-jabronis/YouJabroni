@@ -51,6 +51,12 @@ public class MemeSubmission {
         this.round = round;
     }
 
+    public MemeSubmission(String caption, User user, String memeURL) {
+        this.caption = caption;
+        this.user = user;
+        this.memeURL = memeURL;
+    }
+
     public MemeSubmission(String caption, User user, Round round) {
         this.caption = caption;
         this.user = user;
@@ -98,6 +104,13 @@ public class MemeSubmission {
         this.post = post;
     }
 
+    public String getMemeURL() {
+        return memeURL;
+    }
+
+    public void setMemeURL(String memeURL) {
+        this.memeURL = memeURL;
+    }
 //    @Override
 //    public String toString() {
 //        return "MemeSubmission{" +

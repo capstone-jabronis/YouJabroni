@@ -83,17 +83,17 @@ public class TournamentController {
     }
 
     @MessageMapping("/tournament/lobby/{tournamentId}/send")
-    public void sendMessage(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
+    public void sendMessage(@DestinationVariable Long tournamentId, @Payload Message message) {
         System.out.println("----------In sendMessage method---------");
         System.out.println(message.getMessageType());
         String messageType = String.valueOf(message.getMessageType());
         //change tournament started status if it isn't already started
         if (messageType.equals("START")) {
-            Tournament tournament = tournamentDao.findById(tournamentId).get();
-            if (!tournament.getStarted()) {
-                tournament.setStarted(true);
-                tournamentDao.save(tournament);
-            }
+                Tournament tournament = tournamentDao.findById(tournamentId).get();
+                if (!tournament.getStarted()) {
+                    tournament.setStarted(true);
+                    tournamentDao.save(tournament);
+                }
         } else if (messageType.equals("LEAVE")) {
             System.out.println("------BACKEND LEAVE MESSAGE-----");
             User user = userDao.findByUsername(message.getUser());
@@ -140,34 +140,52 @@ public class TournamentController {
 
     @MessageMapping("/tournament/lobby/{tournamentId}/meme")
     public void memeMapping(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
-        System.out.println("----------In Meme Method---------");
-        System.out.println(message.getMessageType());
+        try {
+            System.out.println("----------In Meme Method---------");
+            System.out.println(message.getMessageType());
 
+            ObjectMapper mapper = new ObjectMapper();
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
 
-//        ObjectMapper mapper = new ObjectMapper();
-//        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
-
-        MemeSubmission submittedMeme = new MemeSubmission();
-        User user = userDao.findByUsername(message.getUser());
-
-//        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
-
-        submittedMeme.setCaption(message.getText());
-        submittedMeme.setMemeURL(message.getMemeURL());
-
-//        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
-//        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
-
-        memeSubmissionDao.save(submittedMeme);
-        List<MemeSubmission> submissions = user.getMemeSubmissions();
-        submissions.add(submittedMeme);
-        user.setMemeSubmissions(submissions);
-        userDao.save(user);
-        submittedMeme.setUser(user);
-        memeSubmissionDao.save(submittedMeme);
-        //sending meme back to front end
-        messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
-        messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
+            MemeSubmission submittedMeme = new MemeSubmission();
+            User user = userDao.findByUsername(message.getUser());
+            System.out.println("----NEW MEME CREATED, USER GOT FROM DAO----");
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
+            String text = message.getText();
+            System.out.println(text);
+            submittedMeme.setCaption(text);
+            System.out.println("caption set");
+            submittedMeme.setMemeURL(message.getMemeURL());
+            System.out.println("URL set");
+            System.out.println("----set caption and url to new Meme----");
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
+            submittedMeme.setUser(user);
+            System.out.println("---set user to meme----");
+//            memeSubmissionDao.save(submittedMeme);
+//            System.out.println("----save new meme to database---");
+//            List<MemeSubmission> submissions = user.getMemeSubmissions();
+            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
+            System.out.println(submissions);
+            System.out.println("----got user current submission list----");
+            submissions.add(submittedMeme);
+            System.out.println(submissions);
+            System.out.println("----add to current submissions----");
+            user.setMemeSubmissions(submissions);
+            System.out.println("----save new meme to user MemeSubmission List----");
+            userDao.save(user);
+            System.out.println("----save the user----");
+            memeSubmissionDao.save(submittedMeme);
+            System.out.println("---save the meme in the memeSubmission table---");
+            //sending meme back to front end
+            System.out.println("----Attempting to send meme back to frontend----");
+            messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
+            System.out.println("----Attempting to send message back to front end----");
+            messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
+            System.out.println("COMPLETE MEME MESSAGE");
+        } catch (Exception e){
+            System.out.println("ERROR IN MEME MESSAGE MAPPING");
+        }
     }
 //End websocket stuff/////////////////////////////////
 
