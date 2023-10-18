@@ -146,13 +146,14 @@ public class TournamentController {
             System.out.println("----------In Meme Method---------");
             System.out.println(message.getMessageType());
 
-//            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper();
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
 
             MemeSubmission submittedMeme = new MemeSubmission();
             User user = userDao.findByUsername(message.getUser());
 
-            System.out.println(user.getUsername());
+//            System.out.println(user.getUsername());
+            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
             System.out.println("----NEW MEME CREATED, USER GOT FROM DAO----");
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
             String text = message.getText();
@@ -175,13 +176,13 @@ public class TournamentController {
 //            System.out.println(sizeCheck);
             System.out.println("creating empty list");
 //            List<MemeSubmission> submissions = new ArrayList<>();
-            List<MemeSubmission> submissions = user.getMemeSubmissions();
+            List<MemeSubmission> submissions = memeSubmissionDao.findAllByUser(user);
 //            System.out.println(submissions);
-            System.out.println("checking if user list is null");
-            if(submissions == null){
-                System.out.println("user list is null");
-                submissions = new ArrayList<>();
-            }
+//            System.out.println("checking if user list is null");
+//            if(submissions == null){
+//                System.out.println("user list is null");
+//                submissions = new ArrayList<>();
+//            }
 //            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
             System.out.println("----got user current submission list----");
             submissions.add(submittedMeme);
