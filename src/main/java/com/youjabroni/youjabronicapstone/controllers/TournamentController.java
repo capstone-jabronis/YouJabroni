@@ -150,24 +150,32 @@ public class TournamentController {
 
             MemeSubmission submittedMeme = new MemeSubmission();
             User user = userDao.findByUsername(message.getUser());
-
+            System.out.println("----NEW MEME CREATED, USER GOT FROM DAO----");
             System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
 
             submittedMeme.setCaption(message.getText());
             submittedMeme.setMemeURL(message.getMemeURL());
-
+            System.out.println("----set caption and url to new Meme----");
             System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
             System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
 
             memeSubmissionDao.save(submittedMeme);
+            System.out.println("----save new meme to database---");
             List<MemeSubmission> submissions = user.getMemeSubmissions();
             submissions.add(submittedMeme);
+            System.out.println("get user MemeSubmission List and add new submission---");
             user.setMemeSubmissions(submissions);
+            System.out.println("----save new meme to user MemeSubmission List----");
             userDao.save(user);
+            System.out.println("----save the user----");
             submittedMeme.setUser(user);
+            System.out.println("----set the user to the submitted meme----");
             memeSubmissionDao.save(submittedMeme);
+            System.out.println("---save the meme in the memeSubmission table---");
             //sending meme back to front end
+            System.out.println("----Attempting to send meme back to frontend----");
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
+            System.out.println("----Attempting to send message back to front end----");
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
         } catch (Exception e){
             System.out.println("ERROR IN MEME SUBMISSION MESSAGE HANDLER");
