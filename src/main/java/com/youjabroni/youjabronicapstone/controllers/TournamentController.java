@@ -144,7 +144,7 @@ public class TournamentController {
             System.out.println("----------In Meme Method---------");
             System.out.println(message.getMessageType());
 
-            ObjectMapper mapper = new ObjectMapper();
+//            ObjectMapper mapper = new ObjectMapper();
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
 
             MemeSubmission submittedMeme = new MemeSubmission();
@@ -162,7 +162,7 @@ public class TournamentController {
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
             submittedMeme.setUser(user);
             System.out.println("---set user to meme----");
-            memeSubmissionDao.save(submittedMeme);
+//            memeSubmissionDao.save(submittedMeme);
 //            System.out.println("----save new meme to database---");
 //            List<MemeSubmission> submissions = user.getMemeSubmissions();
             List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
@@ -173,10 +173,12 @@ public class TournamentController {
             System.out.println("----add to current submissions----");
             user.setMemeSubmissions(submissions);
             System.out.println("----save new meme to user MemeSubmission List----");
-            userDao.save(user);
-            System.out.println("----save the user----");
+
             memeSubmissionDao.save(submittedMeme);
             System.out.println("---save the meme in the memeSubmission table---");
+            userDao.save(user);
+            System.out.println("----save the user----");
+
             //sending meme back to front end
             System.out.println("----Attempting to send meme back to frontend----");
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
