@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/feed.css">
         <link rel="stylesheet" href="/css/landing-page.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </div>
 
 </head>
@@ -85,12 +86,15 @@
             </li>
             <!--                End of logout div-->
         </ul>
-        <!--        END OF NAVBAR/ROW-->
+        <!--        END OF NAVBAR OPTIONS   -->
     </div>
     <!--    END OF NAVBAR/CONTAINER-->
 </nav>
 <!--END OF NAVBAR PARTIAL-->
+
 <br>
+<!--        Start of mobile navbar    -->
+    <!--        End of mobile navbar    -->
 <!--START OF LEADERBOARD PARTIAL-->
 <aside th:fragment="leaderboard" class="leaderboard column">
     <div class="leader-cards">
@@ -133,6 +137,16 @@
     <script th:src="@{/js/Leaderboard.js}"></script>
     <script th:src="@{/js/logout.js}"></script>
     <script th:src="@{/js/main.js}"></script>
+    <script>
+        function myFunction() {
+            let x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
 </footer>
 </body>
 </html>

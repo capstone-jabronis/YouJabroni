@@ -44,14 +44,17 @@
     margin-top: unset;
     margin-bottom: unset;
 }
-.hero-register{
+
+.hero-register {
     display: flex;
     align-content: end;
     text-align: center;
 }
-.hero-row{
+
+.hero-row {
     flex-direction: column;
 }
+
 /* Media Queries for Landing Page */
 /*@media (max-width: 768px) {*/
 /*    !* Adjust styles for smaller screens here *!*/
@@ -67,7 +70,7 @@
 .carousel-hero {
     flex: 2 0 0;
     /*justify-content: center;*/
-    margin-right:20px;
+    margin-right: 20px;
 }
 
 .carousel {
@@ -136,7 +139,7 @@
 #carousel-3:checked ~ .control-3,
 #carousel-4:checked ~ .control-4,
 #carousel-5:checked ~ .control-5,
-#carousel-6:checked ~ .control-6{
+#carousel-6:checked ~ .control-6 {
     display: block;
 }
 
@@ -173,7 +176,7 @@
 #carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet,
 #carousel-4:checked ~ .control-4 ~ .carousel-indicators li:nth-child(4) .carousel-bullet,
 #carousel-5:checked ~ .control-5 ~ .carousel-indicators li:nth-child(5) .carousel-bullet,
-#carousel-6:checked ~ .control-6 ~ .carousel-indicators li:nth-child(6) .carousel-bullet{
+#carousel-6:checked ~ .control-6 ~ .carousel-indicators li:nth-child(6) .carousel-bullet {
     color: rgba(66, 139, 202, 0.88);
 }
 
@@ -190,45 +193,53 @@
     margin-left: 20px;
 }
 
-.memespace-instructions{
+.memespace-instructions {
     gap: 3rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
-.landing-info-row{
+
+.landing-info-row {
     gap: 7rem;
 }
-.landing-text{
+
+.landing-text {
     justify-content: center;
     background-color: var(--first);
     border-radius: 2rem;
     padding: 2rem;
     color: var(--third);
 }
-.meme-create-text, .meme-winner-text, .meme-feed-text{
+
+.meme-create-text, .meme-winner-text, .meme-feed-text {
     align-items: end;
 }
-.landing-text-end{
-    text-align:end;
+
+.landing-text-end {
+    text-align: end;
 }
-.websocket-pic{
+
+.websocket-pic {
     border-radius: 2rem;
 }
-.websocket-step{
-align-items: center;
+
+.websocket-step {
+    align-items: center;
     background-color: var(--first);
     border-radius: 4rem;
     color: var(--third);
-    margin-top:2rem;
+    margin-top: 2rem;
     padding: 2rem;
 }
-.ws-step-num{
-background-color: var(--second);
+
+.ws-step-num {
+    background-color: var(--second);
     width: 2rem;
     border-radius: 50%;
     color: #fae895;
     text-align: center;
 }
-.websocket-describe{
+
+.websocket-describe {
     text-align: center;
 }

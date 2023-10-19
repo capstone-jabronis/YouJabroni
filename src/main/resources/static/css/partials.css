@@ -100,11 +100,7 @@
     top: 50px;
 }
 
-/*#logoAuth {*/
-/*    position: absolute;*/
-/*    left: 667px;*/
-/*    top: 5px;*/
-/*}*/
+/* End of navbar partial */
 
 .user-pic {
     height: 50px;
@@ -189,3 +185,5 @@
     cursor: pointer;
 }
 
+@media screen and (max-width: 480px){
+}
