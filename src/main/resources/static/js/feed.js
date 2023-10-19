@@ -184,10 +184,16 @@
             let forwardBTN = document.querySelector("#forward");
             let backBTN = document.querySelector("#back");
 
+            backBTN.style.display = "none";
+
             forwardBTN.addEventListener("click", () => {
                 if (currentPage < Math.ceil(posts.length / itemsPerPage)) {
                     currentPage++;
                     renderPage(currentPage);
+                    backBTN.style.display = "block";
+                }
+                if (currentPage === Math.ceil(posts.length / itemsPerPage)) {
+                    forwardBTN.style.display = "none";
                 }
             });
 
@@ -195,6 +201,10 @@
                 if (currentPage > 1) {
                     currentPage--;
                     renderPage(currentPage);
+                    forwardBTN.style.display = "block";
+                }
+                if (currentPage === 1) {
+                    backBTN.style.display = "none";
                 }
             });
         } catch (e) {
