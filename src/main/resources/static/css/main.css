@@ -1597,13 +1597,25 @@ visibility: hidden;
 
 /*===============     START OF MEDIA QUERIES FOR PROFILE     ===============*/
 
-@media (max-width: 500px) {
-    .edit-btn {
-        margin-left: 8rem;
-    }
-    .profile-pic {
-        margin-left: unset;
-    }
+.post-caption-div-like {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    width: 18rem;
+    height: 7rem;
+    overflow: auto;
+}
+
+.post-card-like {
+    display: flex;
+    flex-direction: column;
+    background-color: #EEECFE;
+    height: 31rem;
+    width: 350px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 30px;
 }
 
 /*===============     END OF MEDIA QUERIES FOR PROFILE     ===============*/
