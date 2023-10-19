@@ -653,7 +653,7 @@
                     document.querySelector('#meme1-votes').innerHTML += ' (+1)';
                 }
 
-                function renderLoserPlayer2Tie() {
+                function renderWinnerPlayer2Tie() {
                     loser = gameController.currentRoundPlayers[0];
                     document.querySelector('#player2-result').innerHTML = '*WINNER BY COIN FLIP*';
                     document.querySelector('#meme2-votes').innerHTML += ' (+1)';
@@ -668,7 +668,7 @@
                     if (gameController.tieBreaker1 === 1) {
                         renderWinnerPlayer1Tie()
                     } else if (gameController.tieBreaker2 === 1) {
-                        renderLoserPlayer2Tie()
+                        renderWinnerPlayer2Tie()
                     }
                 }
 
