@@ -122,6 +122,13 @@ public class TournamentController {
                 tournament.setHost(newHost);
                 tournamentDao.save(tournament);
             }
+        } else if (messageType.equals("TIE")){
+            int num = (int) Math.floor(Math.random() * 100);
+            if(num % 2 == 0){
+                message.setText("3");
+            } else {
+                message.setText("4");
+            }
         }
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
     }
