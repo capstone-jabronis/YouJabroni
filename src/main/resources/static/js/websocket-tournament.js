@@ -319,7 +319,6 @@
                         indexTracker = 0;
                         // gameController.playersToSkip = [];
 
-
                         //adds remaining players to votingPlayers
                         gameController.votingPlayers = [];
 
