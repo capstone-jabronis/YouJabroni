@@ -358,16 +358,16 @@
                         gameController.meme1votes += 1;
                     } else if (message.text === "2") {
                         gameController.meme2votes += 1;
-                    } else if (message.text === "3"){
+                    } else if (message.text === "3") {
                         gameController.tieBreaker1 = 1;
-                    } else if (message.text === "4"){
+                    } else if (message.text === "4") {
                         gameController.tieBreaker2 = 1;
                     }
                     //check if all users voted
                     if ((gameController.meme1votes + gameController.meme2votes) === gameController.votingPlayers.length) {
                         if ((gameController.meme1votes + gameController.tieBreaker1) === (gameController.meme2votes + gameController.tieBreaker2)) {
                             if (host.username === currentUser.username) {
-                               await Render.tieBreaker();
+                                await Render.tieBreaker();
                             }
                         }
                         //Render results page
@@ -375,6 +375,9 @@
                     }
                 } else if (message.messageType === 'RESULT') {
                     console.log('-------RESULT MESSAGE-----')
+                    console.log(gameController);
+                    gameController.eliminatedPlayers.push(message.text);
+                    console.log('ELIMINATING PLAYER')
                     console.log(gameController);
                     //Winner check
                     if (gameController.activePlayers.length - gameController.eliminatedPlayers.length === 1) {
@@ -389,7 +392,6 @@
                         gameController.meme2votes = 0;
                         gameController.tieBreaker1 = 0;
                         gameController.tieBreaker2 = 0;
-                        gameController.eliminatedPlayers.push(message.text);
                         await Render.renderNextPage();
                     }
                 } else if (message.messageType === 'FINISH') {
@@ -592,8 +594,8 @@
                 }
             },
 
-        renderWaitingPage() {
-            lobbyContainer.innerHTML = `
+            renderWaitingPage() {
+                lobbyContainer.innerHTML = `
                 <h1>Waiting for Meme Submissions...</h1>
                 <h2>In the memetime sit back, relax, and wait for both users to submit</h2>
                 <img class="jdCatGifImgCSS" src="/img/catOnLaptop.gif">

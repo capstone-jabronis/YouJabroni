@@ -15,8 +15,17 @@ let leaderboard = async () => {
         }
         const data = await results.json();
         data.reverse();
-        let rank = data.length;
-        for (let user of data) {
+        console.log(data);
+        let betterData = [];
+        //remove null users
+        for(let i = 0; i < data.length; i++){
+            if(data[i].user != null){
+                betterData.push(data[i]);
+            }
+        }
+        console.log(betterData);
+        let rank = betterData.length;
+        for (let user of betterData) {
             let playerDiv = document.createElement('div');
             playerDiv.classList.add('row');
             playerDiv.classList.add('player')
