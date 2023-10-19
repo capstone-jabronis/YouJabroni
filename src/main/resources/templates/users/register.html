@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div  th:replace="partials/partials :: head(title='register')">
+    <div th:replace="partials/partials :: head(title='register')">
 
     </div>
 </head>
@@ -21,11 +21,19 @@
             <div id="incorrectEmailInput"></div>
         </div>
         <div class="password input d-flex">
-            <label class="field-name" for="password">Password</label>
+            <label class="field-name" for="password">
+                <p>
+                    Password
+                </p>
+                <small class="password-Instructions">5-20 characters with capitalization & a symbol</small>
+            </label>
             <input class="input-field" required id="password" type="password" th:field="*{password}"/>
         </div>
         <div class="confirm-password input d-flex">
-            <label class="field-name" for="confirmPassword">Confirm Password</label>
+            <label class="field-name" for="confirmPassword">
+                Confirm Password
+            </label>
+            </label>
             <input class="input-field" required id="confirmPassword" type="password"/>
             <div id="incorrectConfirmPass"></div>
         </div>

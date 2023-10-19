@@ -592,9 +592,12 @@
                 }
             },
 
-            renderWaitingPage() {
-                lobbyContainer.innerHTML = `<h1>Waiting for Meme Submissions...</h1>
-                                        <canvas id="snakeGameWaiting"></canvas>
+        renderWaitingPage() {
+            lobbyContainer.innerHTML = `
+                <h1>Waiting for Meme Submissions...</h1>
+                <h2>In the memetime sit back, relax, and wait for both users to submit</h2>
+                <img class="jdCatGifImgCSS" src="/img/catOnLaptop.gif">
+
                                         `;
                 gameController.snakeGame();
             }

@@ -59,4 +59,23 @@ public class ValidationService {
         }
         else return false;
     }
+
+    public boolean isValidPassword(String password) {
+        if (password.length() < 5 || password.length() > 20) {
+            return false;
+        }
+        boolean hasCapitalLetter = false;
+        boolean hasSymbol = false;
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasCapitalLetter = true;
+            } else if ("!@#$%^&*()-_+={}[]|\\;:<>,.?/~`".contains(String.valueOf(c))) {
+                hasSymbol = true;
+            }
+            if (hasCapitalLetter && hasSymbol) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

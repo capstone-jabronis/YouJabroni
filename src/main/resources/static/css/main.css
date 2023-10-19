@@ -765,7 +765,9 @@ visibility: hidden;
 .edit-email-field {
     margin-bottom: 45px;
 }
-
+.email{
+    margin: unset;
+}
 .exit-edit-profile-btn {
     color: white;
     font-size: 30px;
@@ -1356,6 +1358,7 @@ visibility: hidden;
     width: 180px;
     font-size: 18px;
     margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 #start-btn:hover {
@@ -1605,4 +1608,22 @@ visibility: hidden;
 
 /*===============     END OF MEDIA QUERIES FOR PROFILE     ===============*/
 
+
+
+/*===============     END OF RESULTS     ===============*/
+
+/*===============     WAITING ROOM     ===============*/
+.jdCatGifImgCSS{
+    height: 25rem;
+    display: block;
+    margin-top: 10px;
+    border-radius: 15px;
+}
+/*===============     END OF WAITING ROOM     ===============*/
+
+/*===============     REGISTER PAGE     ===============*/
+.password-Instructions{
+    color: powderblue;
+}
+/*===============     END OF REGISTER PAGE     ===============*/
 
