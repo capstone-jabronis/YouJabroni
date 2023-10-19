@@ -19,7 +19,7 @@ public class MemeSubmission {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String caption;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;

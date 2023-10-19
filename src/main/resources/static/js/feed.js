@@ -126,7 +126,12 @@
                     likeBtnDiv.classList.add('like-box');
                     likeBtnDiv.innerHTML =
                         `<img class="like-rocket" src="${userHasLiked ? '../img/filled-rocket-btn.png' : '../img/unfilled-rocket-btn.png'}">
-                        <span> Like </span>`;
+`;
+                    const likeBtnCaption = document.createElement('span');
+                    likeBtnCaption.classList.add('like-span');
+                    likeBtnCaption.innerText = userHasLiked ? 'Unlike' : 'Like'; // Set initial text based on user's like status
+                    likeBtnDiv.appendChild(likeBtnCaption);
+
 
                     if(loggedInUserId != null) {
                         postFeedCard.appendChild(likeBtnDiv);
@@ -144,16 +149,20 @@
                         const likePostId = post.id;
                         let results = await fetch(`/${likePostId}/liked`, options);
                         const data = await results.json();
+
                         if (e.target.src.endsWith('/img/unfilled-rocket-btn.png')) {
                             e.target.src = '../img/filled-rocket-btn.png';
+                            userHasLiked = true;
                             count++;
                         } else {
                             e.target.src = '../img/unfilled-rocket-btn.png';
+                            userHasLiked = false;
                             count--;
                         }
 
                         likeCount.textContent = count;
-                        if(count === 1) {
+                        likeBtnCaption.innerText = userHasLiked ? 'Unlike' : 'Like';
+                        if (count === 1) {
                             like.textContent = 'like';
                         } else {
                             like.textContent = 'likes';
@@ -175,10 +184,16 @@
             let forwardBTN = document.querySelector("#forward");
             let backBTN = document.querySelector("#back");
 
+            backBTN.style.display = "none";
+
             forwardBTN.addEventListener("click", () => {
                 if (currentPage < Math.ceil(posts.length / itemsPerPage)) {
                     currentPage++;
                     renderPage(currentPage);
+                    backBTN.style.display = "block";
+                }
+                if (currentPage === Math.ceil(posts.length / itemsPerPage)) {
+                    forwardBTN.style.display = "none";
                 }
             });
 
@@ -186,6 +201,10 @@
                 if (currentPage > 1) {
                     currentPage--;
                     renderPage(currentPage);
+                    forwardBTN.style.display = "block";
+                }
+                if (currentPage === 1) {
+                    backBTN.style.display = "none";
                 }
             });
         } catch (e) {

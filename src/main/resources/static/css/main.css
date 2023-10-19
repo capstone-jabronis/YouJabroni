@@ -134,7 +134,12 @@ body {
     align-items: start;
     width: 18rem;
     flex-direction: column;
+    overflow: auto;
     /*margin-right: 25px;*/
+}
+
+.caption {
+    overflow: auto;
 }
 
 .add-post-btn {
@@ -1115,6 +1120,7 @@ visibility: hidden;
     align-items: center;
     justify-content: start;
     margin-bottom: 30px;
+
 }
 
 .post-head {
@@ -1157,6 +1163,7 @@ visibility: hidden;
     flex-direction: column;
     /*margin-left: 25px;*/
     width: 18rem;
+    overflow: auto;
 }
 
 .post-description {
@@ -1165,6 +1172,15 @@ visibility: hidden;
 
 .post-caption {
     margin-bottom: 5px;
+}
+
+.post-caption-container {
+    overflow: auto;
+    height: 7rem;
+}
+
+.buttons-container {
+    margin-top: 1rem;
 }
 
 /*===============     START OF CALL TO ACTION CSS     ===============*/
@@ -1264,20 +1280,20 @@ visibility: hidden;
 }
 
 .leave-tournament-btn {
-    background-color: #343CFF;
+    background-color: #E45C85;
     color: white;
     border: unset;
     border-radius: 16px;
     height: 40px;
     width: 100px;
     font-size: 18px;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .leave-tournament-btn:hover {
     background-color: white;
-    border: 2px solid #343CFF;
-    color: #343CFF;
+    border: 2px solid #E45C85;
+    color: #E45C85;
 }
 
 .snake-start-btn {
@@ -1574,6 +1590,25 @@ visibility: hidden;
     color: #343CFF;
 }
 
+.user-profile-info-row {
+    margin-bottom: 2rem;
+}
+/*===============     END OF RESULTS     ===============*/
+
+/*===============     START OF MEDIA QUERIES FOR PROFILE     ===============*/
+
+@media (max-width: 500px) {
+    .edit-btn {
+        margin-left: 8rem;
+    }
+    .profile-pic {
+        margin-left: unset;
+    }
+}
+
+/*===============     END OF MEDIA QUERIES FOR PROFILE     ===============*/
+
+
 
 /*===============     END OF RESULTS     ===============*/
 
@@ -1591,3 +1626,4 @@ visibility: hidden;
     color: powderblue;
 }
 /*===============     END OF REGISTER PAGE     ===============*/
+

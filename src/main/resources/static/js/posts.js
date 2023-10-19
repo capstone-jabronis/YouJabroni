@@ -84,6 +84,10 @@ postElement.addEventListener('click', async (e) => {
             postDescription.textContent = `${post.description}`;
             postDescription.classList.add('post-description');
 
+            // Create the container for the description and caption
+            const postCaptionContainer = document.createElement('div');
+            postCaptionContainer.classList.add('post-caption-container');
+
             // Create a button to edit the posts
             const editPostButton = document.createElement('button');
             editPostButton.textContent = 'edit';
@@ -251,8 +255,9 @@ postElement.addEventListener('click', async (e) => {
             postDiv.appendChild(postHead);
             postDiv.appendChild(postImg);
             postDiv.appendChild(postCaptionDiv);
-            postCaptionDiv.appendChild(postCaption);
-            postCaptionDiv.appendChild(postDescription);
+            postCaptionContainer.appendChild(postCaption);
+            postCaptionContainer.appendChild(postDescription);
+            postCaptionDiv.appendChild(postCaptionContainer)
             editModalOverlay.appendChild(editModalSection);
             deleteModalOverlay.appendChild(deleteModalSection);
             document.body.appendChild(deleteModalOverlay);

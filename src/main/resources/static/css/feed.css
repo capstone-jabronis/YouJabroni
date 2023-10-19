@@ -6,16 +6,14 @@
     margin: 5%;
     justify-content: center;
     gap: 5%;
-    /*margin-right: 50px;*/
-
-    /*justify-content: space-evenly;*/
+    margin-bottom: unset;
 }
 
 .post-feed-card {
     display: flex;
     flex-direction: column;
     background-color: #EEECFE;
-    height: 31.5rem;
+    height: 30rem;
     width: 350px;
     border-radius: 15px;
     align-items: center;
@@ -46,6 +44,8 @@
     align-items: start;
     flex-direction: column;
     width: 280px;
+    overflow: auto;
+    height: 7rem;
 }
 
 .post-feed-description {
@@ -96,7 +96,7 @@
 }
 
 .delete-post-btn {
-    background-color: #343CFF;
+    background-color: #E45C85;
     color: white;
     border: unset;
     border-radius: 16px;
@@ -111,6 +111,9 @@
     display: flex;
     align-items: center;
     width: 280px;
+}
+.like-box:hover{
+    cursor:pointer;
 }
 .like-rocket{
     height:30px;
@@ -140,6 +143,49 @@
 }
 
 .delete-post-btn:hover {
+    background-color: white;
+    border: 2px solid #E45C85;
+    color: #E45C85;
+}
+
+.titles {
+    background-color: #0D0149;
+    color: white;
+    padding: 10px 30px 10px 30px;
+    border-radius: 16px;
+}
+
+#back {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 3rem;
+    width: 8rem;
+    font-size: 18px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+#back:hover {
+    background-color: white;
+    border: 2px solid #343CFF;
+    color: #343CFF;
+}
+
+#forward {
+    background-color: #343CFF;
+    color: white;
+    border: unset;
+    border-radius: 16px;
+    height: 3rem;
+    width: 8rem;
+    font-size: 18px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+#forward:hover {
     background-color: white;
     border: 2px solid #343CFF;
     color: #343CFF;
