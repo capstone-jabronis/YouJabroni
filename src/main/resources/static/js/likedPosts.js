@@ -32,10 +32,33 @@ likedPostElement.addEventListener('click', async(e)=>{
         for(const likedPost of data){
             USER_LIKED_POSTS_ID.push(likedPost);
             const likedPostDiv = document.createElement('div');
-            likedPostDiv.classList.add('post-card');
+            likedPostDiv.classList.add('post-card-like');
 
             const likedPostHead = document.createElement('div');
             likedPostHead.classList.add('post-head');
+
+            // add total likes to the bottom of the img
+            const likePostCountRow = document.createElement('div');
+            likePostCountRow.classList.add('like-count-row');
+            const likePostCountContainer = document.createElement('div');
+            likePostCountContainer.classList.add('like-count-container');
+            const likePostCount = document.createElement('span');
+            likePostCount.classList.add('like-count', 'like-count-element');
+            let count = 0;
+            for(let user of likedPost.userLikes){
+                count++;
+            }
+            likePostCount.textContent = count;
+            const likeText = document.createElement('span');
+            likeText.classList.add('like-span', 'like-count-element');
+            if(count === 1) {
+                likeText.textContent = 'like';
+            } else {
+                likeText.textContent = 'likes';
+            }
+            likePostCountContainer.appendChild(likePostCount);
+            likePostCountContainer.appendChild(likeText);
+            likePostCountRow.appendChild(likePostCountContainer);
 
             const likedPostImage = document.createElement('img');
             likedPostImage.src = likedPost.memeSubmission.memeURL;
@@ -47,7 +70,7 @@ likedPostElement.addEventListener('click', async(e)=>{
             const likedPostCaption = document.createElement('h2');
             likedPostCaption.textContent = `${likedPost.memeSubmission.caption}`;
             likedPostCaption.classList.add('post-caption');
-            likedPostCaptionDiv.classList.add('post-caption-div');
+            likedPostCaptionDiv.classList.add('post-caption-div-like');
 
             const likedPostDescription = document.createElement('p');
             likedPostDescription.textContent = `${likedPost.description}`;
@@ -86,6 +109,7 @@ likedPostElement.addEventListener('click', async(e)=>{
 
             likedPostDiv.appendChild(likedPostHead);
             likedPostDiv.appendChild(likedPostImage);
+            likedPostDiv.appendChild(likePostCountRow);
             likedPostCaptionDiv.appendChild(likedPostCaption);
             likedPostCaptionDiv.appendChild(likedPostDescription);
             likedPostDiv.appendChild(likedPostCaptionDiv);
