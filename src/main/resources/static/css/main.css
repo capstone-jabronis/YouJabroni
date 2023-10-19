@@ -765,7 +765,9 @@ visibility: hidden;
 .edit-email-field {
     margin-bottom: 45px;
 }
-
+.email{
+    margin: unset;
+}
 .exit-edit-profile-btn {
     color: white;
     font-size: 30px;
@@ -1278,20 +1280,20 @@ visibility: hidden;
 }
 
 .leave-tournament-btn {
-    background-color: #343CFF;
+    background-color: #E45C85;
     color: white;
     border: unset;
     border-radius: 16px;
     height: 40px;
     width: 100px;
     font-size: 18px;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .leave-tournament-btn:hover {
     background-color: white;
-    border: 2px solid #343CFF;
-    color: #343CFF;
+    border: 2px solid #E45C85;
+    color: #E45C85;
 }
 
 .snake-start-btn {
@@ -1356,6 +1358,7 @@ visibility: hidden;
     width: 180px;
     font-size: 18px;
     margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 #start-btn:hover {
@@ -1587,5 +1590,52 @@ visibility: hidden;
     color: #343CFF;
 }
 
+.user-profile-info-row {
+    margin-bottom: 2rem;
+}
+/*===============     END OF RESULTS     ===============*/
+
+/*===============     START OF MEDIA QUERIES FOR PROFILE     ===============*/
+
+.post-caption-div-like {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    width: 18rem;
+    height: 7rem;
+    overflow: auto;
+}
+
+.post-card-like {
+    display: flex;
+    flex-direction: column;
+    background-color: #EEECFE;
+    height: 31rem;
+    width: 350px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 30px;
+}
+
+/*===============     END OF MEDIA QUERIES FOR PROFILE     ===============*/
+
+
 
 /*===============     END OF RESULTS     ===============*/
+
+/*===============     WAITING ROOM     ===============*/
+.jdCatGifImgCSS{
+    height: 25rem;
+    display: block;
+    margin-top: 10px;
+    border-radius: 15px;
+}
+/*===============     END OF WAITING ROOM     ===============*/
+
+/*===============     REGISTER PAGE     ===============*/
+.password-Instructions{
+    color: powderblue;
+}
+/*===============     END OF REGISTER PAGE     ===============*/
+

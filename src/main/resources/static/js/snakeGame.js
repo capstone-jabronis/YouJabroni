@@ -36,7 +36,7 @@ gameButton.addEventListener("click", function () {
     gameButton.style.display = 'none';
     startGame();
     snakeGame();
-}, {once: true});
+});
 
 const snakeGame = () => {
     // Set board height and width

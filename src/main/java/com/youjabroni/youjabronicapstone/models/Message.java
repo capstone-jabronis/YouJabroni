@@ -2,7 +2,7 @@ package com.youjabroni.youjabronicapstone.models;
 
 public class Message {
     public enum MessageType {
-        DATA, START, JOIN, LEAVE, VOTE, RESULT, FINISH
+        DATA, START, JOIN, LEAVE, VOTE, RESULT, FINISH, TIE
     }
     private MessageType messageType;
     private String user;

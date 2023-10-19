@@ -1,5 +1,6 @@
 package com.youjabroni.youjabronicapstone.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,8 +11,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 
-@Getter
-@Setter
+//@Getter
+//@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -32,7 +33,7 @@ public class User {
     private String profileURL;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<MemeSubmission> memeSubmissions;
+    private List<MemeSubmission> memeSubmissions = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     @JsonIgnore
@@ -208,6 +209,14 @@ public class User {
     }
     public void setLikedPosts(List<Post> likedPosts) {
         this.likedPosts = likedPosts;
+    }
+
+    public List<Tournament> getTournamentsWon() {
+        return tournamentsWon;
+    }
+
+    public void setTournamentsWon(List<Tournament> tournamentsWon) {
+        this.tournamentsWon = tournamentsWon;
     }
 
     public User(long id, String username, String email, String password, String profileURL, List<MemeSubmission> memeSubmissions, List<Post> posts, Tournament tournament, List<Post> likedPosts, List<Tournament> tournamentsWon) {

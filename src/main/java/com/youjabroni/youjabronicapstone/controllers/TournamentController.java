@@ -25,6 +25,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -121,6 +122,13 @@ public class TournamentController {
                 tournament.setHost(newHost);
                 tournamentDao.save(tournament);
             }
+        } else if (messageType.equals("TIE")){
+            int num = (int) Math.floor(Math.random() * 100);
+            if(num % 2 == 0){
+                message.setText("3");
+            } else {
+                message.setText("4");
+            }
         }
         messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
     }
@@ -145,11 +153,14 @@ public class TournamentController {
             System.out.println("----------In Meme Method---------");
             System.out.println(message.getMessageType());
 
-//            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper();
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
 
             MemeSubmission submittedMeme = new MemeSubmission();
             User user = userDao.findByUsername(message.getUser());
+
+//            System.out.println(user.getUsername());
+//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
             System.out.println("----NEW MEME CREATED, USER GOT FROM DAO----");
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
             String text = message.getText();
@@ -159,29 +170,39 @@ public class TournamentController {
             submittedMeme.setMemeURL(message.getMemeURL());
             System.out.println("URL set");
             System.out.println("----set caption and url to new Meme----");
+            memeSubmissionDao.save(submittedMeme);
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
 //            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
-            submittedMeme.setUser(user);
+//            submittedMeme.setUser(user);
             System.out.println("---set user to meme----");
 //            memeSubmissionDao.save(submittedMeme);
 //            System.out.println("----save new meme to database---");
-            System.out.println("checking size to initialize empty submission list");
-            Hibernate.initialize(user.getMemeSubmissions());
-            int sizeCheck = user.getMemeSubmissions().size();
-            System.out.println(sizeCheck);
-            List<MemeSubmission> submissions = user.getMemeSubmissions();
+
+//            Hibernate.initialize(user);
+//            int sizeCheck = user.getMemeSubmissions().size();
+//            System.out.println(sizeCheck);
+            System.out.println("creating empty list");
+//            List<MemeSubmission> submissions = new ArrayList<>();
+            List<MemeSubmission> submissions = memeSubmissionDao.findAllByUser(user);
+//            System.out.println(submissions);
+//            System.out.println("checking if user list is null");
+//            if(submissions == null){
+//                System.out.println("user list is null");
+//                submissions = new ArrayList<>();
+//            }
 //            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
-            System.out.println(submissions);
             System.out.println("----got user current submission list----");
             submissions.add(submittedMeme);
-            System.out.println(submissions);
+//            System.out.println(submissions);
             System.out.println("----add to current submissions----");
             user.setMemeSubmissions(submissions);
             System.out.println("----save new meme to user MemeSubmission List----");
+            userDao.save(user);
+            submittedMeme.setUser(user);
 
             memeSubmissionDao.save(submittedMeme);
             System.out.println("---save the meme in the memeSubmission table---");
-            userDao.save(user);
+//            userDao.save(user);
             System.out.println("----save the user----");
 
             //sending meme back to front end
