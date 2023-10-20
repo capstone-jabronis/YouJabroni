@@ -267,6 +267,7 @@
             async onMessageReceived(payload) {
                 let message = JSON.parse(payload.body);
                 if (message.messageType === 'JOIN') {
+                    console.log(gameController.eliminatedPlayers)
                     console.log('-----JOIN MESSAGE------')
                     await Render.reloadTournamentMembers('');
                     let players = await Fetch.Get.playerCount();
@@ -307,9 +308,14 @@
                             skipPlayers = [];
                             gameController.round++;
                         }
-
+                        console.log(gameController.eliminatedPlayers);
+                        console.log(gameController.playersToSkip);
                         while (gameController.currentRoundPlayers.length < 2) {
-                            if (eliminated.includes(active[indexTracker].username) || skipPlayers[0] === active[indexTracker].username || skipPlayers[1] === active[indexTracker].username) {
+                            if (eliminated.includes(active[indexTracker].username)){
+                                indexTracker++;
+                            } else if (skipPlayers[0] === active[indexTracker].username){
+                                indexTracker++
+                            } else if (skipPlayers[1] === active[indexTracker].username) {
                                 indexTracker++;
                             } else {
                                 gameController.currentRoundPlayers.push(gameController.activePlayers[indexTracker].username)
