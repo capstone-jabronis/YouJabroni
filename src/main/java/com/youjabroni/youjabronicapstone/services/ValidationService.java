@@ -38,12 +38,13 @@ public class ValidationService {
     }
 
     public boolean isValidUsername(String username) {
-        // Define a regular expression pattern that allows only letters, numbers, and underscores
-        String regex = "^[a-zA-Z0-9_]+$";
+        // Define a regular expression pattern that allows letters, numbers, underscores, and periods
+        String regex = "^[a-zA-Z0-9_.]+$";
 
         // Check if the username matches the pattern
         return username.matches(regex);
     }
+
 
 
     public boolean usernameTaken(String username) {
