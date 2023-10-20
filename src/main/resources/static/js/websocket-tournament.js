@@ -346,14 +346,20 @@
 
                 } else if (message.messageType === 'DATA') {
                     console.log('-----DATA MEME MESSAGE-----')
+                    console.log(message);
                     console.log(gameController);
                     gameController.submittedMemes += 1;
                     console.log(gameController.submittedMemes)
+                    if (gameController.currentMemeSubmissions.length === 2) {
+                        gameController.currentMemeSubmissions = [];
+                    }
+                    gameController.currentMemeSubmissions.push(message);
+
                     if (gameController.submittedMemes === 2) {
                         gameController.submittedMemes = 0;
-                        let user1 = gameController.currentRoundPlayers[0];
-                        let user2 = gameController.currentRoundPlayers[1];
-                        Render.renderVotePage(user1, user2);
+                        // let user1 = gameController.currentRoundPlayers[0];
+                        // let user2 = gameController.currentRoundPlayers[1];
+                        Render.renderVotePage();
                     }
                 } else if (message.messageType === 'VOTE' || message.messageType === 'TIE') {
                     console.log('-----VOTE MESSAGE-----')
@@ -405,10 +411,11 @@
                 } else if (message.messageType === 'FINISH') {
                     location.replace('/home');
                 } else {
-                    if (gameController.currentMemeSubmissions.length === 2) {
-                        gameController.currentMemeSubmissions = [];
-                    }
-                    gameController.currentMemeSubmissions.push(message);
+                    // if (gameController.currentMemeSubmissions.length === 2) {
+                    //     gameController.currentMemeSubmissions = [];
+                    // }
+                    // gameController.currentMemeSubmissions.push(message);
+                    console.log("---NO MESSAGE TYPE---")
                 }
             }
         }
@@ -519,7 +526,8 @@
                 })
             },
 
-            renderVotePage(user1, user2) {
+            renderVotePage() {
+                //the order of the submitting memes and the current players in getting mixed up sometimes, need to ensure the correct user is assigned to the correct meme
                 lobbyContainer.innerHTML = `
              <div class="container voting-container">
                 <div class="row justify-space-between align-center full-width voting-row">
@@ -529,14 +537,14 @@
                 <div class="row justify-space-between">
                     <div class="column vote-first-meme align-center">
                         <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="ERROR LOADING IMAGE">
-                        <h2>${gameController.currentMemeSubmissions[0].caption}</h2>
+                        <h2>${gameController.currentMemeSubmissions[0].text}</h2>
                         <button class="vote-button" id="vote-meme1">vote</button>
                         <div id="meme1-votes"></div>
                     </div>
                     
                     <div class="column vote-second-meme align-center">
                         <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="ERROR LOADING IMAGE">
-                        <h2>${gameController.currentMemeSubmissions[1].caption}</h2>
+                        <h2>${gameController.currentMemeSubmissions[1].text}</h2>
                         <button class="vote-button" id="vote-meme2">vote</button>
                         <div id="meme1-votes"></div>
                     <div>
@@ -620,20 +628,20 @@
            <div class="container results-container">
                 <div class="row justify-center align-center results-title-row">
                     <h1>Results</h1> 
-                    <h2 class="left-element">${gameController.currentRoundPlayers[0]} VS ${gameController.currentRoundPlayers[1]}</h2>
+                    <h2 class="left-element">${gameController.currentMemeSubmissions[0].user} VS ${gameController.currentMemeSubmissions[1].user}</h2>
                 </div>
                 <div class="row">
                     <div class="column align-center result-first-meme">
                          <h3 id="player1-result"></h3>
                          <h3 id="meme1-votes">${gameController.meme1votes}</h3>
-                         <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="${gameController.currentMemeSubmissions[0].caption}">
-                         <h2>${gameController.currentMemeSubmissions[0].caption}</h2>
+                         <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[0].memeURL}" alt="${gameController.currentMemeSubmissions[0].text}">
+                         <h2>${gameController.currentMemeSubmissions[0].text}</h2>
                     </div>
                     <div class="column align-center result-second-meme">
                          <h3 id="player2-result"></h3>
                          <h3 id="meme2-votes">${gameController.meme2votes}</h3>
-                         <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="${gameController.currentMemeSubmissions[1].caption}">
-                         <h2>${gameController.currentMemeSubmissions[1].caption}</h2>
+                         <img class="memeAPIImage" src="${gameController.currentMemeSubmissions[1].memeURL}" alt="${gameController.currentMemeSubmissions[1].text}">
+                         <h2>${gameController.currentMemeSubmissions[1].text}</h2>
                     </div>
                 </div>
                 <button id="submit-results-btn">continue</button>
@@ -647,25 +655,25 @@
 
                 //DECIDE WINNER AND ELIMINATE LOSER
                 function renderWinnerPlayer1() {
-                    loser = gameController.currentRoundPlayers[1];
+                    loser = gameController.currentMemeSubmissions[1].user;
                     document.querySelector('#player1-result').innerHTML = 'WINNER';
                     document.querySelector('#player2-result').innerHTML = 'LOSER';
                 }
 
                 function renderWinnerPlayer2() {
-                    loser = gameController.currentRoundPlayers[0];
+                    loser = gameController.currentMemeSubmissions[0].user;
                     document.querySelector('#player1-result').innerHTML = 'LOSER';
                     document.querySelector('#player2-result').innerHTML = 'WINNER';
                 }
 
                 function renderWinnerPlayer1Tie() {
-                    loser = gameController.currentRoundPlayers[1];
+                    loser = gameController.currentMemeSubmissions[1].user;
                     document.querySelector('#player1-result').innerHTML = '*WINNER BY COIN FLIP*';
                     document.querySelector('#meme1-votes').innerHTML += ' (+1)';
                 }
 
                 function renderWinnerPlayer2Tie() {
-                    loser = gameController.currentRoundPlayers[0];
+                    loser = gameController.currentMemeSubmissions[0].user;
                     document.querySelector('#player2-result').innerHTML = '*WINNER BY COIN FLIP*';
                     document.querySelector('#meme2-votes').innerHTML += ' (+1)';
                 }

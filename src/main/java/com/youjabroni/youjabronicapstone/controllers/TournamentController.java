@@ -205,9 +205,11 @@ public class TournamentController {
 //            userDao.save(user);
             System.out.println("----save the user----");
 
-            //sending meme back to front end
+            //sending meme info back to front end
+
+
             System.out.println("----Attempting to send meme back to frontend----");
-            messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
+//            messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
             System.out.println("----Attempting to send message back to front end----");
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
             System.out.println("COMPLETE MEME MESSAGE");
