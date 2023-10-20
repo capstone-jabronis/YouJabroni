@@ -294,7 +294,6 @@
                         await Render.renderCompletePage();
                     } else {
                         //Empty the current round player array before pushing the next players
-                        gameController.playersToSkip = gameController.currentRoundPlayers;
                         gameController.currentRoundPlayers = [];
 
                         let indexTracker = 0
@@ -382,6 +381,8 @@
                 } else if (message.messageType === 'RESULT') {
                     console.log('-------RESULT MESSAGE-----')
                     console.log(gameController);
+                    console.log("----LOSER----")
+                    console.log(message.text);
                     gameController.eliminatedPlayers.push(message.text);
                     console.log('ELIMINATING PLAYER')
                     console.log(gameController);
@@ -394,6 +395,7 @@
                         }
                         await Render.renderCompletePage();
                     } else {
+                        gameController.playersToSkip = gameController.currentRoundPlayers;
                         gameController.meme1votes = 0;
                         gameController.meme2votes = 0;
                         gameController.tieBreaker1 = 0;
@@ -613,6 +615,7 @@
 
             async renderResultsPage() {
                 let host = await Fetch.Get.tournamentHost();
+                console.log(gameController.currentMemeSubmissions);
                 lobbyContainer.innerHTML = `
            <div class="container results-container">
                 <div class="row justify-center align-center results-title-row">
@@ -635,7 +638,7 @@
                 </div>
                 <button id="submit-results-btn">continue</button>
            </div>`;
-
+                let loser;
                 let nextRoundBtn = document.querySelector('#submit-results-btn');
                 if (host.username !== currentUser.username) {
                     nextRoundBtn.disabled = true;
@@ -667,7 +670,6 @@
                     document.querySelector('#meme2-votes').innerHTML += ' (+1)';
                 }
 
-                let loser;
                 if (gameController.meme1votes > gameController.meme2votes) {
                     renderWinnerPlayer1()
                 } else if (gameController.meme1votes < gameController.meme2votes) {
