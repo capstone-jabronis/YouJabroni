@@ -38,10 +38,13 @@ public class ValidationService {
     }
 
     public boolean isValidUsername(String username) {
-        if (username.equalsIgnoreCase("") || username.contains(" ")){
-            return false;
-        } else return true;
+        // Define a regular expression pattern that allows only letters, numbers, and underscores
+        String regex = "^[a-zA-Z0-9_]+$";
+
+        // Check if the username matches the pattern
+        return username.matches(regex);
     }
+
 
     public boolean usernameTaken(String username) {
         List<User> users = userDao.findAll();
