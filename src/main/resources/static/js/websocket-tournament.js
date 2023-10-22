@@ -269,8 +269,9 @@
                 if (message.messageType === 'JOIN') {
                     console.log(gameController.eliminatedPlayers)
                     console.log('-----JOIN MESSAGE------')
+                    console.log(message);
                     await Render.reloadTournamentMembers('');
-                    let players = await Fetch.Get.playerCount();
+                    // let players = await Fetch.Get.playerCount();
                 } else if (message.messageType === 'LEAVE') {
                     console.log('------LEAVE MESSAGE------')
                     console.log(gameController);
