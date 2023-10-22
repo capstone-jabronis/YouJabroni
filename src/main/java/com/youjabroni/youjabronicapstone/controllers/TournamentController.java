@@ -1,7 +1,6 @@
 package com.youjabroni.youjabronicapstone.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youjabroni.youjabronicapstone.models.*;
 
 import com.youjabroni.youjabronicapstone.models.Tournament;
@@ -12,7 +11,6 @@ import com.youjabroni.youjabronicapstone.repositories.MemeSubmissionRepository;
 import com.youjabroni.youjabronicapstone.repositories.RoundRepository;
 import com.youjabroni.youjabronicapstone.repositories.TournamentRepository;
 import com.youjabroni.youjabronicapstone.repositories.UserRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -23,9 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -91,14 +87,15 @@ public class TournamentController {
         String messageType = String.valueOf(message.getMessageType());
         //change tournament started status if it isn't already started
         if (messageType.equals("START")) {
-                Tournament tournament = tournamentDao.findById(tournamentId).get();
-                if (!tournament.getStarted()) {
-                    tournament.setStarted(true);
-                    tournamentDao.save(tournament);
-                }
+            Tournament tournament = tournamentDao.findById(tournamentId).get();
+            if (!tournament.getStarted()) {
+                tournament.setStarted(true);
+                tournamentDao.save(tournament);
+            }
         } else if (messageType.equals("LEAVE")) {
             System.out.println("------BACKEND LEAVE MESSAGE-----");
             User user = userDao.findByUsername(message.getUser());
+            cleanTournaments(user);
             System.out.println(user.getUsername());
             Tournament tournament = tournamentDao.findById(tournamentId).get();
             Set<User> updateUserSet = tournament.getUserSet();
@@ -116,15 +113,15 @@ public class TournamentController {
             if (currentUserSet.isEmpty() && tournamentDao.findById(tournamentId).get().getWinner() == null) {
                 System.out.println("----------Tournament empty, deleting");
                 tournamentDao.delete(tournament);
-            } else if (!tournament.getStarted()){
+            } else if (!tournament.getStarted()) {
                 System.out.println("changing host to next user");
                 User newHost = currentUserSet.iterator().next();
                 tournament.setHost(newHost);
                 tournamentDao.save(tournament);
             }
-        } else if (messageType.equals("TIE")){
+        } else if (messageType.equals("TIE")) {
             int num = (int) Math.floor(Math.random() * 100);
-            if(num % 2 == 0){
+            if (num % 2 == 0) {
                 message.setText("3");
             } else {
                 message.setText("4");
@@ -151,67 +148,21 @@ public class TournamentController {
     public void memeMapping(@DestinationVariable Long tournamentId, @Payload Message message) throws JsonProcessingException {
         try {
             System.out.println("----------In Meme Method---------");
-            System.out.println(message.getMessageType());
-
-            ObjectMapper mapper = new ObjectMapper();
-//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(message));
-
             MemeSubmission submittedMeme = new MemeSubmission();
             User user = userDao.findByUsername(message.getUser());
-
-//            System.out.println(user.getUsername());
-//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
-            System.out.println("----NEW MEME CREATED, USER GOT FROM DAO----");
-//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user));
             String text = message.getText();
-            System.out.println(text);
             submittedMeme.setCaption(text);
-            System.out.println("caption set");
             submittedMeme.setMemeURL(message.getMemeURL());
-            System.out.println("URL set");
-            System.out.println("----set caption and url to new Meme----");
             memeSubmissionDao.save(submittedMeme);
-//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme));
-//            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(submittedMeme.getUser()));
-//            submittedMeme.setUser(user);
-            System.out.println("---set user to meme----");
-//            memeSubmissionDao.save(submittedMeme);
-//            System.out.println("----save new meme to database---");
-
-//            Hibernate.initialize(user);
-//            int sizeCheck = user.getMemeSubmissions().size();
-//            System.out.println(sizeCheck);
             System.out.println("creating empty list");
-//            List<MemeSubmission> submissions = new ArrayList<>();
             List<MemeSubmission> submissions = memeSubmissionDao.findAllByUser(user);
-//            System.out.println(submissions);
-//            System.out.println("checking if user list is null");
-//            if(submissions == null){
-//                System.out.println("user list is null");
-//                submissions = new ArrayList<>();
-//            }
-//            List<MemeSubmission> submissions = userDao.findByUsername(message.getUser()).getMemeSubmissions();
-            System.out.println("----got user current submission list----");
             submissions.add(submittedMeme);
-//            System.out.println(submissions);
-            System.out.println("----add to current submissions----");
-            user.setMemeSubmissions(submissions);
-            System.out.println("----save new meme to user MemeSubmission List----");
             userDao.save(user);
             submittedMeme.setUser(user);
-
             memeSubmissionDao.save(submittedMeme);
-            System.out.println("---save the meme in the memeSubmission table---");
-//            userDao.save(user);
-            System.out.println("----save the user----");
-
-            //sending meme back to front end
-            System.out.println("----Attempting to send meme back to frontend----");
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
-            System.out.println("----Attempting to send message back to front end----");
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
-            System.out.println("COMPLETE MEME MESSAGE");
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("ERROR IN MEME MESSAGE MAPPING");
         }
@@ -232,8 +183,10 @@ public class TournamentController {
 
     @GetMapping("/lobby/{id}")
     public String joinTournament(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable Long id) {
+        User user = userDao.findByUsername(userDetails.getUsername());
+        //Remove user from old tournaments first
+        cleanTournaments(user);
         if (tournamentDao.existsById(id)) {
-            User user = userDao.findByUsername(userDetails.getUsername());
             Tournament tournament = tournamentDao.findById(id).get();
             Set<User> updatedUserSet = tournament.getUserSet();
             if (updatedUserSet.size() != tournament.getPlayerCount()) {
@@ -253,35 +206,13 @@ public class TournamentController {
             return "redirect:/home";
         }
     }
-//NO LONGER NEEDED, IF A USER LEAVES THE TOURNAMENT FOR ANY REASON, WEBSOCKET WILL HANDLE IT
-//    @GetMapping("/lobby/leave")
-//    public String leaveTournamentWaitingRoom(@AuthenticationPrincipal UserDetails userDetails) {
-//        User user = userDao.findByUsername(userDetails.getUsername());
-//        Tournament tournament = tournamentDao.findById(user.getTournament().getId()).get();
-//        Set<User> updateUserSet = tournament.getUserSet();
-//        updateUserSet.remove(user);
-//        user.setTournament(null);
-//        userDao.save(user);
-//        tournamentDao.save(tournament);
-//        System.out.println("LEFT TOURNY" + tournamentDao.findById(tournament.getId()).get().getUserSet());
-//        //Logic to change host or delete tournament if users set is empty
-//        if (updateUserSet.isEmpty()) {
-//            System.out.println("----------Tournament empty, deleting");
-//            tournamentDao.delete(tournament);
-//        } else {
-//            System.out.println("changing host to next user");
-//            User newHost = updateUserSet.iterator().next();
-//            tournament.setHost(newHost);
-//            tournamentDao.save(tournament);
-//        }
-//        return "redirect:/home";
-//    }
 
     //Creating new tournaments
     @GetMapping("/create-tournament")
     public String createTournament(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("player-count") String playerCount) {
-        int count = Integer.parseInt(playerCount);
         User user = userDao.findByUsername(userDetails.getUsername());
+        cleanTournaments(user);
+        int count = Integer.parseInt(playerCount);
         System.out.println("Creating tournament host: " + user.getUsername());
         Tournament newTournament = new Tournament();
         newTournament.setHost(user);
@@ -319,5 +250,44 @@ public class TournamentController {
         return tournament.getPlayerCount();
     }
 
-
+    public void cleanTournaments(User user) {
+        //Needs more work, but cleans up ok
+        System.out.println("----CLEANING TOURNAMENTS");
+        user.setTournament(null);
+        userDao.save(user);
+        List<Tournament> tournamentList = tournamentDao.findAll();
+        for (int i = 0; i < tournamentList.size(); i++) {
+            Tournament tournament = tournamentList.get(i);
+            Long id = tournament.getId();
+            Set<User> tournamentMembers = tournament.getUserSet();
+            if (tournamentMembers.contains(user)) {
+                System.out.println("----------REMOVING USER FROM:-----------");
+                System.out.println(tournament.getId());
+                tournament.getUserSet().remove(user);
+                tournamentDao.save(tournament);
+                //Deletes tournaments that do not have a winner, so the home feed doesn't end up with a bunch of broken tournaments
+                Tournament updatedTournament = tournamentDao.findById(id).get();
+                User currentHost = updatedTournament.getHost();
+                if (updatedTournament.getUserSet().size() > 0 && currentHost.getId() == user.getId()) {
+                    //set new host of there are other users in the tournament(s)
+                    System.out.println("----SETTING NEW HOST----");
+                    User newHost = updatedTournament.getUserSet().iterator().next();
+                    updatedTournament.setHost(newHost);
+                    tournamentDao.save(updatedTournament);
+                    //send a message to update the tournament for the remaining users
+//                    Message message = new Message();
+//                    message.setMessageType(Message.MessageType.JOIN);
+//                    message.setText(user.getUsername() + " Has left the game");
+//                    messagingTemplate.convertAndSend(format("/tournament/lobby/%s/userjoin", id), message);
+                }
+                if (updatedTournament.getUserSet().isEmpty() && updatedTournament.getWinner() == null) {
+                    System.out.println("---DELETING TOURNAMENT-----");
+                    System.out.println(updatedTournament.getId());
+                    updatedTournament.setHost(null);
+                    tournamentDao.save(updatedTournament);
+                    tournamentDao.delete(updatedTournament);
+                }
+            }
+        }
+    }
 }
