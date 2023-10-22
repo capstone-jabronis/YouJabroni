@@ -160,7 +160,16 @@ public class TournamentController {
             userDao.save(user);
             submittedMeme.setUser(user);
             memeSubmissionDao.save(submittedMeme);
-            messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
+            System.out.println("---save the meme in the memeSubmission table---");
+//            userDao.save(user);
+            System.out.println("----save the user----");
+
+            //sending meme info back to front end
+
+
+            System.out.println("----Attempting to send meme back to frontend----");
+//            messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), submittedMeme);
+            System.out.println("----Attempting to send message back to front end----");
             messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", tournamentId), message);
         } catch (Exception e) {
             System.out.println(e.getMessage());
