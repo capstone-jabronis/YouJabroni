@@ -286,13 +286,13 @@ public class TournamentController {
                         tournamentDao.save(updatedTournament);
                     }
                     //send a message to update the tournament for the remaining users need to figure out how to do this, it don't send anything
-                    Message message = new Message();
-                    message.setMessageType(Message.MessageType.JOIN);
-                    message.setText("User has left the game");
-                    message.setUser(user.getUsername());
-                    System.out.println("SENDING MESSAGE");
-                    System.out.println(message.getText());
-                    messagingTemplate.convertAndSend(format("/tournament/lobby/%s/userjoin", id), message);
+//                    Message message = new Message();
+//                    message.setMessageType(Message.MessageType.JOIN);
+//                    message.setText("User has left the game");
+//                    message.setUser(user.getUsername());
+//                    System.out.println("SENDING MESSAGE");
+//                    System.out.println(message.getText());
+//                    messagingTemplate.convertAndSend(format("/tournament/lobby/%s/userjoin", id), message);
                 }
                 if (updatedTournament.getUserSet().isEmpty() && updatedTournament.getWinner() == null) {
                     System.out.println("---DELETING TOURNAMENT-----");
