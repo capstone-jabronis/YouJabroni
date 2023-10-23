@@ -277,17 +277,22 @@ public class TournamentController {
                 //Deletes tournaments that do not have a winner, so the home feed doesn't end up with a bunch of broken tournaments
                 Tournament updatedTournament = tournamentDao.findById(id).get();
                 User currentHost = updatedTournament.getHost();
-                if (updatedTournament.getUserSet().size() > 0 && currentHost.getId() == user.getId()) {
+                if (updatedTournament.getUserSet().size() > 0) {
                     //set new host of there are other users in the tournament(s)
-                    System.out.println("----SETTING NEW HOST----");
-                    User newHost = updatedTournament.getUserSet().iterator().next();
-                    updatedTournament.setHost(newHost);
-                    tournamentDao.save(updatedTournament);
-                    //send a message to update the tournament for the remaining users
-//                    Message message = new Message();
-//                    message.setMessageType(Message.MessageType.JOIN);
-//                    message.setText(user.getUsername() + " Has left the game");
-//                    messagingTemplate.convertAndSend(format("/tournament/lobby/%s/userjoin", id), message);
+                    if (currentHost.getId() == user.getId()) {
+                        System.out.println("----SETTING NEW HOST----");
+                        User newHost = updatedTournament.getUserSet().iterator().next();
+                        updatedTournament.setHost(newHost);
+                        tournamentDao.save(updatedTournament);
+                    }
+                    //send a message to update the tournament for the remaining users need to figure out how to do this, it don't send anything
+                    Message message = new Message();
+                    message.setMessageType(Message.MessageType.JOIN);
+                    message.setText("User has left the game");
+                    message.setUser(user.getUsername());
+                    System.out.println("SENDING MESSAGE");
+                    System.out.println(message.getText());
+                    messagingTemplate.convertAndSend(format("/tournament/lobby/%s/userjoin", id), message);
                 }
                 if (updatedTournament.getUserSet().isEmpty() && updatedTournament.getWinner() == null) {
                     System.out.println("---DELETING TOURNAMENT-----");
