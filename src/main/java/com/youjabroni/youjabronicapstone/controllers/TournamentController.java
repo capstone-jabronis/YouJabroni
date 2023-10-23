@@ -194,7 +194,7 @@ public class TournamentController {
     public String joinTournament(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable Long id) {
         User user = userDao.findByUsername(userDetails.getUsername());
         //Remove user from old tournaments first
-        cleanTournaments(user);
+//        cleanTournaments(user);
         if (tournamentDao.existsById(id)) {
             Tournament tournament = tournamentDao.findById(id).get();
             Set<User> updatedUserSet = tournament.getUserSet();
@@ -220,7 +220,7 @@ public class TournamentController {
     @GetMapping("/create-tournament")
     public String createTournament(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("player-count") String playerCount) {
         User user = userDao.findByUsername(userDetails.getUsername());
-        cleanTournaments(user);
+//        cleanTournaments(user);
         int count = Integer.parseInt(playerCount);
         System.out.println("Creating tournament host: " + user.getUsername());
         Tournament newTournament = new Tournament();
@@ -292,7 +292,7 @@ public class TournamentController {
                     message.setUser(user.getUsername());
                     System.out.println("SENDING MESSAGE");
                     System.out.println(message.getText());
-                    messagingTemplate.convertAndSend(format("/tournament/lobby/%s/userjoin", id), message);
+                    messagingTemplate.convertAndSend(format("/secured/tournament/lobby/%s", id), message);
                 }
                 if (updatedTournament.getUserSet().isEmpty() && updatedTournament.getWinner() == null) {
                     System.out.println("---DELETING TOURNAMENT-----");

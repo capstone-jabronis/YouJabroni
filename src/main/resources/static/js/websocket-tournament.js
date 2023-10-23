@@ -2,7 +2,7 @@
         //GLOBAL VARIABLES////////////////////////////////
         //area to display users entering and leaving the room
         const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-
+        const statusFooter = document.querySelector('#status-footer');
         const UserWaitingRoom = document.querySelector('#users-in-room');
         // const leaveBtn = document.querySelector('#leave-lobby-btn');
         const lobbyContainer = document.querySelector('.jdWaitContainer');
@@ -788,6 +788,9 @@
                         Socket.sendMessage(nextMessage);
                     })();
                 }
+            },
+            statusFooter(){
+
             }
         }
 
