@@ -285,7 +285,7 @@ public class TournamentController {
                         updatedTournament.setHost(newHost);
                         tournamentDao.save(updatedTournament);
                     }
-                    //send a message to update the tournament for the remaining users need to figure out how to do this, it don't send anything
+                    //send a message to update the tournament for the remaining users need to figure out how to do this, it don't send anything. Need to have a websocket connection first
 //                    Message message = new Message();
 //                    message.setMessageType(Message.MessageType.JOIN);
 //                    message.setText("User has left the game");
