@@ -17,20 +17,16 @@
 <!--<nav th:replace="partials/partials :: nav"></nav>-->
 <body>
 <div class="page-wrapper align-center">
-
-    <!--  Just in case: try to grab value for tournament ID -->
-    <!--                 <h1>TOURNAMENT ID: <span id="tournamentID" th:text="${tournament.id}"></span></h1>
-                    <input type="hidden" name="tournamentId" value="${sessionScope.tournamentId} /> -->
-<!--    <div class="jdWaitTitleContainer container">-->
-
-<!--    </div>-->
-
+    <div id="status-header" class="tournament-status">
+        <div id="player-div"></div>
+        <div id="loser-div"></div>
+    </div>
     <div class="jdWaitContainer">
-            <!--                <h1>TOURNAMENT ID: <span data-th-tournament="${tournament.id}"-->
-            <!--                                         th:text="${tournament.getId()}"></span></h1>-->
-            <h1 id="waiting-title">Waiting for other players...</h1>
+        <!--                <h1>TOURNAMENT ID: <span data-th-tournament="${tournament.id}"-->
+        <!--                                         th:text="${tournament.getId()}"></span></h1>-->
+        <h1 id="waiting-title">Waiting for other players...</h1>
 
-            <button id="start-btn" style="visibility: hidden;">start game!</button>
+        <button id="start-btn" style="visibility: hidden;">start game!</button>
         <div class="jdWaitRow row justify-space-between">
             <div class="jdWaitColUl column">
                 <h2>Players:</h2>
@@ -43,9 +39,12 @@
             </div>
         </div>
     </div>
-    <div id="status-footer" class="tournament-status">
-        <div id="player-div"></div>
-        <div id="loser-div"></div>
+    <div id="chat-div" class="chat-div">
+        <div id="chat-messages" class="chat-messages"></div>
+        <div id="chat-input-div" class="chat-input-div">
+            <input type="text" id="chat-input" class="chat-input">
+            <button id="chat-submit-btn" class="chat-submit-btn">send</button>
+        </div>
     </div>
 </div>
 <!--<footer th:replace="partials/partials :: footer"></footer>-->

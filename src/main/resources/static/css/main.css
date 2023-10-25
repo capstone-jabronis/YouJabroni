@@ -1639,3 +1639,10 @@ visibility: hidden;
 }
 /*===============     END OF REGISTER PAGE     ===============*/
 
+/*==============TOURNAMENT PLAYER STATUS HEADER=============*/
+
+.tournament-status{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
